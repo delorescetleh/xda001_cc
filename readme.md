@@ -29,3 +29,4 @@ What is old version function
 
 ### Version Log
 1. ver 0.0.1: first release@20220608 
+2. ver 0.0.1.a: H/W Pin assignment setting finish (I2C, UART0, UART1, GPIO, PGA) and keep in 0.2mA

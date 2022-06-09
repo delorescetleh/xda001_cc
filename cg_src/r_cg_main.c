@@ -32,6 +32,10 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "r_cg_cgc.h"
 #include "r_cg_port.h"
+#include "r_cg_pga_dsad.h"
+#include "r_cg_adc.h"
+#include "r_cg_sau.h"
+#include "r_cg_iica.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -48,6 +52,7 @@ Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
 volatile uint8_t adc_buf[8];
+uint16_t c = 1;
 /* End user code. Do not edit comment generated here */
 
 static void R_MAIN_UserInit(void);
@@ -61,12 +66,20 @@ void main(void)
 {
     R_MAIN_UserInit();
     /* Start user code. Do not edit comment generated here */
-    //P_STATUS = 0;
     LORA_POW_CNT = POWER_ON;
     BLE_POW_CNT = POWER_OFF;
     EPROM_POW_CNT = POWER_OFF;
 
-    BLE_RESET_MODE = PIN_MODE_AS_INPUT;
+    set_TXD0_as_Input_Mode();
+    set_TXD1_as_Input_Mode();
+    R_IICA0_Stop();
+    // R_RTC_Create();
+    // R_ADC_Start();
+    // R_ADC_Set_OperationOn();
+    R_ADC_Stop();
+    R_ADC_Set_OperationOff();
+    L_PGA_STOP();
+    // R_RTC_Start();
 
     while (1U)
     {

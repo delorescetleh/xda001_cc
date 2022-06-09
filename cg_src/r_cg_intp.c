@@ -18,11 +18,11 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : r_cg_systeminit.c
+* File Name    : r_cg_intp.c
 * Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
-* Description  : This file implements system initializing function.
+* Description  : This file implements device driver for INTP module.
 * Creation Date: 2022/6/9
 ***********************************************************************************************************************/
 
@@ -30,12 +30,7 @@
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "r_cg_cgc.h"
-#include "r_cg_port.h"
-#include "r_cg_pga_dsad.h"
-#include "r_cg_adc.h"
-#include "r_cg_sau.h"
-#include "r_cg_iica.h"
+#include "r_cg_intp.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -53,36 +48,57 @@ Global variables and functions
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Systeminit
-* Description  : This function initializes every macro.
+* Function Name: R_INTC_Create
+* Description  : This function initializes INTP module.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Systeminit(void)
+void R_INTC_Create(void)
 {
-    PIOR0 = 0x00U;
-    PIOR1 = 0x00U;
-    PIOR3 = 0x00U;
-    R_CGC_Get_ResetSource();
-    R_PORT_Create();
-    R_CGC_Create();
-    R_PGA_DSAD_Create();
-    R_IICA0_Create();
-    R_ADC_Create();
-    R_SAU0_Create();
-    IAWCTL = 0x00U;
+    PMK0 = 1U;      /* disable INTP0 interrupt */
+    PIF0 = 0U;      /* clear INTP0 interrupt flag */
+    PMK1 = 1U;      /* disable INTP1 interrupt */
+    PIF1 = 0U;      /* clear INTP1 interrupt flag */
+    PMK2 = 1U;      /* disable INTP2 interrupt */
+    PIF2 = 0U;      /* clear INTP2 interrupt flag */
+    PMK3 = 1U;      /* disable INTP3 interrupt */
+    PIF3 = 0U;      /* clear INTP3 interrupt flag */
+    PMK4 = 1U;      /* disable INTP4 interrupt */
+    PIF4 = 0U;      /* clear INTP4 interrupt flag */
+    PMK5 = 1U;      /* disable INTP5 interrupt */
+    PIF5 = 0U;      /* clear INTP5 interrupt flag */
+    PMK6 = 1U;      /* disable INTP6 interrupt */
+    PIF6 = 0U;      /* clear INTP6 interrupt flag */
+    /* Set INTP1 high priority */
+    PPR11 = 0U;
+    PPR01 = 0U;
+    EGN0 = _02_INTP1_EDGE_FALLING_BOTH;
+    EGP0 = _02_INTP1_EDGE_RISING_BOTH;
+    /* Set INTP1 pin */
+
 }
 
 /***********************************************************************************************************************
-* Function Name: hdwinit
-* Description  : This function initializes hardware setting.
+* Function Name: R_INTC1_Start
+* Description  : This function clears INTP1 interrupt flag and enables interrupt.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void hdwinit(void)
+void R_INTC1_Start(void)
 {
-    DI();
-    R_Systeminit();
+    PIF1 = 0U;      /* clear INTP1 interrupt flag */
+    PMK1 = 0U;      /* enable INTP1 interrupt */
+}
+/***********************************************************************************************************************
+* Function Name: R_INTC1_Stop
+* Description  : This function disables INTP1 interrupt and clears interrupt flag.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_INTC1_Stop(void)
+{
+    PMK1 = 1U;      /* disable INTP1 interrupt */
+    PIF1 = 0U;      /* clear INTP1 interrupt flag */
 }
 
 /* Start user code for adding. Do not edit comment generated here */

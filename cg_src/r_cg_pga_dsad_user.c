@@ -18,11 +18,11 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : r_cg_systeminit.c
+* File Name    : r_cg_pga_dsad_user.c
 * Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
-* Description  : This file implements system initializing function.
+* Description  : This file implements device driver for PGIA module.
 * Creation Date: 2022/6/9
 ***********************************************************************************************************************/
 
@@ -30,12 +30,7 @@
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "r_cg_cgc.h"
-#include "r_cg_port.h"
 #include "r_cg_pga_dsad.h"
-#include "r_cg_adc.h"
-#include "r_cg_sau.h"
-#include "r_cg_iica.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -43,6 +38,9 @@ Includes
 /***********************************************************************************************************************
 Pragma directive
 ***********************************************************************************************************************/
+
+#pragma interrupt r_pga_dsad_conversion_interrupt(vect=INTDSAD)
+#pragma interrupt r_pga_dsad_scan_interrupt(vect=INTDSADS)
 /* Start user code for pragma. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -53,37 +51,35 @@ Global variables and functions
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Systeminit
-* Description  : This function initializes every macro.
+* Function Name: r_pga_dsad_conversion_interrupt
+* Description  : None
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_Systeminit(void)
+static void __near r_pga_dsad_conversion_interrupt(void)
 {
-    PIOR0 = 0x00U;
-    PIOR1 = 0x00U;
-    PIOR3 = 0x00U;
-    R_CGC_Get_ResetSource();
-    R_PORT_Create();
-    R_CGC_Create();
-    R_PGA_DSAD_Create();
-    R_IICA0_Create();
-    R_ADC_Create();
-    R_SAU0_Create();
-    IAWCTL = 0x00U;
+    /* Start user code. Do not edit comment generated here */
+    /* End user code. Do not edit comment generated here */
 }
-
 /***********************************************************************************************************************
-* Function Name: hdwinit
-* Description  : This function initializes hardware setting.
+* Function Name: r_pga_dsad_scan_interrupt
+* Description  : None
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void hdwinit(void)
+static void __near r_pga_dsad_scan_interrupt(void)
 {
-    DI();
-    R_Systeminit();
+    /* Start user code. Do not edit comment generated here */
+    /* End user code. Do not edit comment generated here */
 }
 
 /* Start user code for adding. Do not edit comment generated here */
+void L_PGA_STOP(void){
+    //stop PGA , DSADC for powersaving
+    PGAPON = 0U; /* power off PGA and DS A/D */
+    PGAEN = 0U;  /* disable input clock supply */
+    AFEPWS = 0U; /* power off AFE */
+    AFEEN = 0U;  /* disable input clock supply */
+    R_PGA_DSAD_Stop();
+}
 /* End user code. Do not edit comment generated here */
