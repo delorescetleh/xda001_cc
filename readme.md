@@ -1,14 +1,4 @@
 # XDA001_V3 Project - Branch DTC 
-For test DTC function only
-
-Test Function as below
-
----
-1. USE RTC interrupt trigger ADC (Set in 1 sec interval)
-2. ADC Trigger DTC and move ADC result to ADC_BUFFER= 0xFF900U (each RTC trigger will store 8 times ADC result )
-3. System can go to stop mode and power consumption is around 0.55mA. But ADC not stop.
----
-
 
  This is a project to migrate the XDA001_V3 old version from CS+ CA IDE to CS+ CC
 
@@ -41,3 +31,4 @@ What is old version function
 ### Version Log
 1. ver 0.0.1: first release@20220608 
 2. ver 0.0.1.a: H/W Pin assignment setting finish (I2C, UART0, UART1, GPIO, PGA) and keep in 0.2mA
+3. ver 0.0.1.b: merge DTC branch success (Add ADC to fetch mcu temperature and RTC to trigger ADC , ADC trigger DTC, Data Store in 0xFF900 16 bytes (8 times * 2 bytes) per second, power consumption in 0.55mA)
