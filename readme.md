@@ -1,5 +1,6 @@
-# XDA001_V3 Project 
-This is a project to migrate the XDA001_V3 old version from CS+ CA IDE to CS+ CC
+# XDA001_V3 Project - Branch DTC 
+For test DTC function only
+ This is a project to migrate the XDA001_V3 old version from CS+ CA IDE to CS+ CC
 
 ## Some Mission should be done  
 
