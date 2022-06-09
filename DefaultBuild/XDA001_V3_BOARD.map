@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (W3.03.00 )             09-Jun-2022 11:12:38
+Renesas Optimizing Linker (W3.03.00 )             09-Jun-2022 13:07:28
 
 *** Options ***
 
@@ -19,6 +19,10 @@ Renesas Optimizing Linker (W3.03.00 )             09-Jun-2022 11:12:38
 -Input=DefaultBuild\r_cg_pga_dsad_user.obj
 -Input=DefaultBuild\r_cg_adc.obj
 -Input=DefaultBuild\r_cg_adc_user.obj
+-Input=DefaultBuild\r_cg_rtc.obj
+-Input=DefaultBuild\r_cg_rtc_user.obj
+-Input=DefaultBuild\r_cg_dtc.obj
+-Input=DefaultBuild\r_cg_dtc_user.obj
 -SECURITY_ID=00000000000000000000
 -DEVICE=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11NGG.DVF
 -DEBug
@@ -64,9 +68,9 @@ SECTION                            START      END         SIZE   ALIGN
 .monitor1
                                   000000ce  000000d7         a   1
 .text
-                                  000000d8  00000278       1a1   1
+                                  000000d8  000002a7       1d0   1
 .textf
-                                  00000279  000007fc       584   1
+                                  000002a8  00000a77       7d0   1
 .const
                                   00002000  00002000         0   2
 .monitor2
@@ -76,7 +80,11 @@ SECTION                            START      END         SIZE   ALIGN
 .dataR
                                   000fe920  000fe921         2   2
 .bss_ATFF900
-                                  000ff900  000ff907         8   1
+                                  000ff900  000ff90f        10   1
+.bss_ATFFD00
+                                  000ffd00  000ffd27        28   1
+.bss_ATFFD40
+                                  000ffd40  000ffd47         8   1
 .sbss
                                   000ffe20  000ffe20         0   2
 .sdataR

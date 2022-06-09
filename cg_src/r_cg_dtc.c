@@ -18,11 +18,11 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : r_cg_systeminit.c
+* File Name    : r_cg_dtc.c
 * Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
-* Description  : This file implements system initializing function.
+* Description  : This file implements device driver for DTC module.
 * Creation Date: 2022/6/9
 ***********************************************************************************************************************/
 
@@ -30,13 +30,6 @@
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "r_cg_cgc.h"
-#include "r_cg_port.h"
-#include "r_cg_rtc.h"
-#include "r_cg_pga_dsad.h"
-#include "r_cg_adc.h"
-#include "r_cg_sau.h"
-#include "r_cg_iica.h"
 #include "r_cg_dtc.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
@@ -54,39 +47,57 @@ Global variables and functions
 /* Start user code for global. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
-/***********************************************************************************************************************
-* Function Name: R_Systeminit
-* Description  : This function initializes every macro.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_Systeminit(void)
-{
-    PIOR0 = 0x00U;
-    PIOR1 = 0x00U;
-    PIOR3 = 0x00U;
-    R_CGC_Get_ResetSource();
-    R_PORT_Create();
-    R_CGC_Create();
-    R_RTC_Create();
-    R_PGA_DSAD_Create();
-    R_IICA0_Create();
-    R_ADC_Create();
-    R_SAU0_Create();
-    R_DTC_Create();
-    IAWCTL = 0x00U;
-}
+#pragma address dtc_vectortable = 0x0FFD00U
+uint8_t __near dtc_vectortable[40U];
 
+#pragma address dtc_controldata_0 = 0x0FFD40U
+st_dtc_data_t __near dtc_controldata_0;
 /***********************************************************************************************************************
-* Function Name: hdwinit
-* Description  : This function initializes hardware setting.
+* Function Name: R_DTC_Create
+* Description  : This function initializes the DTC module.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void hdwinit(void)
+void R_DTC_Create(void)
 {
-    DI();
-    R_Systeminit();
+    /* Enable input clock supply */
+    DTCEN = 1U;     /* enables input clock supply */
+    /* Disable all DTC channels operation */
+    DTCEN0 = 0x00U;
+    DTCEN1 = 0x00U;
+    DTCEN2 = 0x00U;
+    DTCEN3 = 0x00U;
+    /* Set base address */
+    DTCBAR = 0xFDU;
+    /* Set DTCD0 */
+    dtc_vectortable[10U] = 0x40U;
+    dtc_controldata_0.dtccr = _40_DTC_DATA_SIZE_16BITS | _00_DTC_REPEAT_INT_DISABLE | _00_DTC_CHAIN_TRANSFER_DISABLE | 
+                              _00_DTC_SOURCE_ADDR_FIXED | _00_DTC_REPEAT_AREA_DEST | _01_DTC_TRANSFER_MODE_REPEAT;
+    dtc_controldata_0.dtbls = _01_DTCD0_TRANSFER_BLOCKSIZE;
+    dtc_controldata_0.dtcct = _08_DTCD0_TRANSFER_BYTE;
+    dtc_controldata_0.dtrld = _08_DTCD0_TRANSFER_BYTE;
+    dtc_controldata_0.dtsar = _FF1E_DTCD0_SRC_ADDRESS;
+    dtc_controldata_0.dtdar = _F900_DTCD0_DEST_ADDRESS;
+}
+/***********************************************************************************************************************
+* Function Name: R_DTCD0_Start
+* Description  : This function enables DTCD0 module operation.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_DTCD0_Start(void)
+{
+     DTCEN1 |= _20_DTC_AD_ACTIVATION_ENABLE;
+}
+/***********************************************************************************************************************
+* Function Name: R_DTCD0_Stop
+* Description  : This function disables DTCD0 module operation.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_DTCD0_Stop(void)
+{
+    DTCEN1 &= (uint8_t)~_20_DTC_AD_ACTIVATION_ENABLE;
 }
 
 /* Start user code for adding. Do not edit comment generated here */

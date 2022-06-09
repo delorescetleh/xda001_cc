@@ -32,10 +32,12 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "r_cg_cgc.h"
 #include "r_cg_port.h"
+#include "r_cg_rtc.h"
 #include "r_cg_pga_dsad.h"
 #include "r_cg_adc.h"
 #include "r_cg_sau.h"
 #include "r_cg_iica.h"
+#include "r_cg_dtc.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -51,7 +53,7 @@ Pragma directive
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
-volatile uint8_t adc_buf[8];
+volatile uint8_t adc_buf[16];
 uint16_t c = 1;
 /* End user code. Do not edit comment generated here */
 
@@ -72,14 +74,15 @@ void main(void)
 
     set_TXD0_as_Input_Mode();
     set_TXD1_as_Input_Mode();
+    R_DTCD0_Start();
     R_IICA0_Stop();
-    // R_RTC_Create();
-    // R_ADC_Start();
-    // R_ADC_Set_OperationOn();
-    R_ADC_Stop();
-    R_ADC_Set_OperationOff();
+    R_RTC_Create();
+    R_ADC_Start();
+    R_ADC_Set_OperationOn();
+    // R_ADC_Stop();
+    // R_ADC_Set_OperationOff();
     L_PGA_STOP();
-    // R_RTC_Start();
+    R_RTC_Start();
 
     while (1U)
     {

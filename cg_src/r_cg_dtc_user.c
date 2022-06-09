@@ -18,11 +18,11 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : r_cg_systeminit.c
+* File Name    : r_cg_dtc_user.c
 * Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
-* Description  : This file implements system initializing function.
+* Description  : This file implements device driver for DTC module.
 * Creation Date: 2022/6/9
 ***********************************************************************************************************************/
 
@@ -30,13 +30,6 @@
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "r_cg_cgc.h"
-#include "r_cg_port.h"
-#include "r_cg_rtc.h"
-#include "r_cg_pga_dsad.h"
-#include "r_cg_adc.h"
-#include "r_cg_sau.h"
-#include "r_cg_iica.h"
 #include "r_cg_dtc.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
@@ -54,40 +47,6 @@ Global variables and functions
 /* Start user code for global. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
-/***********************************************************************************************************************
-* Function Name: R_Systeminit
-* Description  : This function initializes every macro.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_Systeminit(void)
-{
-    PIOR0 = 0x00U;
-    PIOR1 = 0x00U;
-    PIOR3 = 0x00U;
-    R_CGC_Get_ResetSource();
-    R_PORT_Create();
-    R_CGC_Create();
-    R_RTC_Create();
-    R_PGA_DSAD_Create();
-    R_IICA0_Create();
-    R_ADC_Create();
-    R_SAU0_Create();
-    R_DTC_Create();
-    IAWCTL = 0x00U;
-}
-
-/***********************************************************************************************************************
-* Function Name: hdwinit
-* Description  : This function initializes hardware setting.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void hdwinit(void)
-{
-    DI();
-    R_Systeminit();
-}
 
 /* Start user code for adding. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */

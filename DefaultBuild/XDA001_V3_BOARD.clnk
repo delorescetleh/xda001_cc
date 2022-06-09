@@ -14,6 +14,10 @@
 -Input=DefaultBuild\r_cg_pga_dsad_user.obj
 -Input=DefaultBuild\r_cg_adc.obj
 -Input=DefaultBuild\r_cg_adc_user.obj
+-Input=DefaultBuild\r_cg_rtc.obj
+-Input=DefaultBuild\r_cg_rtc_user.obj
+-Input=DefaultBuild\r_cg_dtc.obj
+-Input=DefaultBuild\r_cg_dtc_user.obj
 -SECURITY_ID=00000000000000000000
 -DEVICE=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11NGG.DVF
 -DEBug
