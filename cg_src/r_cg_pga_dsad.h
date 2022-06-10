@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for PGIA module.
-* Creation Date: 2022/6/9
+* Creation Date: 2022/6/10
 ***********************************************************************************************************************/
 #ifndef PGIA_H
 #define PGIA_H
@@ -194,7 +194,7 @@ Macro definitions (Register bit)
 Macro definitions
 ***********************************************************************************************************************/
 #define _08_PGA_MULTIPLEXER0_SAMPLE_COUNT                   (0x08U) /* sample count per autoscan cycle */
-#define _08_PGA_MULTIPLEXER3_SAMPLE_COUNT                   (0x08U) /* sample count per autoscan cycle */
+#define _01_PGA_MULTIPLEXER3_SAMPLE_COUNT                   (0x01U) /* sample count per autoscan cycle */
 
 /***********************************************************************************************************************
 Typedef definitions

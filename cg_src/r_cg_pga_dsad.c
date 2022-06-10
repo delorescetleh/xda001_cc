@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for PGIA module.
-* Creation Date: 2022/6/9
+* Creation Date: 2022/6/10
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -93,11 +93,11 @@ void R_PGA_DSAD_Create(void)
     PGA0CTL1 = _00_PGA_MULTIPLEXER0_DIFFERENTIAL | _10_PGA_MULTIPLEXERn_OFFSET_16;
     PGA3CTL1 = _40_PGA_MULTIPLEXER3_EXTERNAL_DIFFERENTIAL | _10_PGA_MULTIPLEXERn_OFFSET_16;
     PGA0CTL2 = _08_PGA_MULTIPLEXER0_SAMPLE_COUNT;
-    PGA3CTL2 = _08_PGA_MULTIPLEXER3_SAMPLE_COUNT;
+    PGA3CTL2 = _01_PGA_MULTIPLEXER3_SAMPLE_COUNT;
     PGA0CTL3 = _80_PGA_MULTIPLEXERn_MUMBER_MODE_255 | _0C_PGA_MULTIPLEXERn_AVG_MEAM_VALUE | 
                _02_PGA_MULTIPLEXERn_AVG_UNIT_32;
     PGA3CTL3 = _80_PGA_MULTIPLEXERn_MUMBER_MODE_255 | _0C_PGA_MULTIPLEXERn_AVG_MEAM_VALUE | 
-               _02_PGA_MULTIPLEXERn_AVG_UNIT_32;
+               _00_PGA_MULTIPLEXERn_AVG_UNIT_8;
     PGABOD = _00_DSAD_DISCONNECTION_DETECTION_UNUSED;
 }
 /***********************************************************************************************************************

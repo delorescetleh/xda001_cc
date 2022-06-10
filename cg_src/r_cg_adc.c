@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for ADC module.
-* Creation Date: 2022/6/9
+* Creation Date: 2022/6/10
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -66,12 +66,13 @@ void R_ADC_Create(void)
     PMC0 |= 0x08U;
     PM0 |= 0x08U;
     /* Set ADC registers */
-    ADM0 = _10_AD_CONVERSION_CLOCK_16 | _00_AD_TIME_MODE_NORMAL_1;
-    ADM1 = _C0_AD_TRIGGER_HARDWARE_WAIT | _00_AD_CONVMODE_CONSELECT | _02_AD_TRIGGER_INTRTC;
+    ADM0 = _08_AD_CONVERSION_CLOCK_32 | _00_AD_TIME_MODE_NORMAL_1;
+    ADM1 = _C0_AD_TRIGGER_HARDWARE_WAIT | _20_AD_CONVMODE_ONESELECT | _02_AD_TRIGGER_INTRTC;
     ADM2 = _00_AD_POSITIVE_VDD | _00_AD_AREA_MODE_1 | _00_AD_RESOLUTION_10BIT;
     ADUL = _FF_AD_ADUL_VALUE;
     ADLL = _00_AD_ADLL_VALUE;
     ADS = _80_AD_INPUT_TEMPERSENSOR;
+    ADCE = 1U;      /* enables A/D voltage comparator operation */
 }
 /***********************************************************************************************************************
 * Function Name: R_ADC_Start

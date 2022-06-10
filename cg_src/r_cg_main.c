@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2022/6/9
+* Creation Date: 2022/6/10
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -47,14 +47,16 @@ Pragma directive
 ***********************************************************************************************************************/
 /* Start user code for pragma. Do not edit comment generated here */
 #pragma address (adc_buf = 0xFF900U)
+#pragma address (ads_buf = 0xFFa00U)
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
-volatile uint8_t adc_buf[16];
-uint16_t c = 1;
+volatile uint16_t adc_buf[8];
+volatile uint8_t ads_buf[8];
+void init_pcb_temperature(void);
 /* End user code. Do not edit comment generated here */
 
 static void R_MAIN_UserInit(void);
@@ -71,7 +73,7 @@ void main(void)
     LORA_POW_CNT = POWER_ON;
     BLE_POW_CNT = POWER_OFF;
     EPROM_POW_CNT = POWER_OFF;
-
+    init_pcb_temperature();
     set_TXD0_as_Input_Mode();
     set_TXD1_as_Input_Mode();
     R_DTCD0_Start();
@@ -105,4 +107,10 @@ static void R_MAIN_UserInit(void)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
+void init_pcb_temperature(void){
+    int i;
+    for (i = 0; i < 8;i++){
+        ads_buf[i] = _80_AD_INPUT_TEMPERSENSOR | (i & 1);
+    }
+}
 /* End user code. Do not edit comment generated here */

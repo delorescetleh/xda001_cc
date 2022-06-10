@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for DTC module.
-* Creation Date: 2022/6/9
+* Creation Date: 2022/6/10
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -52,6 +52,8 @@ uint8_t __near dtc_vectortable[40U];
 
 #pragma address dtc_controldata_0 = 0x0FFD40U
 st_dtc_data_t __near dtc_controldata_0;
+#pragma address dtc_controldata_1 = 0x0FFD48U
+st_dtc_data_t __near dtc_controldata_1;
 /***********************************************************************************************************************
 * Function Name: R_DTC_Create
 * Description  : This function initializes the DTC module.
@@ -71,13 +73,21 @@ void R_DTC_Create(void)
     DTCBAR = 0xFDU;
     /* Set DTCD0 */
     dtc_vectortable[10U] = 0x40U;
-    dtc_controldata_0.dtccr = _40_DTC_DATA_SIZE_16BITS | _00_DTC_REPEAT_INT_DISABLE | _00_DTC_CHAIN_TRANSFER_DISABLE | 
+    dtc_controldata_0.dtccr = _40_DTC_DATA_SIZE_16BITS | _00_DTC_REPEAT_INT_DISABLE | _10_DTC_CHAIN_TRANSFER_ENABLE | 
                               _00_DTC_SOURCE_ADDR_FIXED | _00_DTC_REPEAT_AREA_DEST | _01_DTC_TRANSFER_MODE_REPEAT;
     dtc_controldata_0.dtbls = _01_DTCD0_TRANSFER_BLOCKSIZE;
     dtc_controldata_0.dtcct = _08_DTCD0_TRANSFER_BYTE;
     dtc_controldata_0.dtrld = _08_DTCD0_TRANSFER_BYTE;
     dtc_controldata_0.dtsar = _FF1E_DTCD0_SRC_ADDRESS;
     dtc_controldata_0.dtdar = _F900_DTCD0_DEST_ADDRESS;
+    /* Set DTCD1 */
+    dtc_controldata_1.dtccr = _00_DTC_DATA_SIZE_8BITS | _00_DTC_REPEAT_INT_DISABLE | _00_DTC_CHAIN_TRANSFER_DISABLE | 
+                              _00_DTC_DEST_ADDR_FIXED | _02_DTC_REPEAT_AREA_SOURCE | _01_DTC_TRANSFER_MODE_REPEAT;
+    dtc_controldata_1.dtbls = _01_DTCD1_TRANSFER_BLOCKSIZE;
+    dtc_controldata_1.dtcct = _08_DTCD1_TRANSFER_BYTE;
+    dtc_controldata_1.dtrld = _08_DTCD1_TRANSFER_BYTE;
+    dtc_controldata_1.dtsar = _FA00_DTCD1_SRC_ADDRESS;
+    dtc_controldata_1.dtdar = _FF31_DTCD1_DEST_ADDRESS;
 }
 /***********************************************************************************************************************
 * Function Name: R_DTCD0_Start

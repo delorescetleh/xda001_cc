@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements system initializing function.
-* Creation Date: 2022/6/9
+* Creation Date: 2022/6/10
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -62,6 +62,8 @@ Global variables and functions
 ***********************************************************************************************************************/
 void R_Systeminit(void)
 {
+    volatile uint32_t w_count;
+    
     PIOR0 = 0x00U;
     PIOR1 = 0x00U;
     PIOR3 = 0x00U;
@@ -75,6 +77,15 @@ void R_Systeminit(void)
     R_SAU0_Create();
     R_DTC_Create();
     IAWCTL = 0x00U;
+    /* Start data flash control */
+    DFLEN = 1U;
+
+    for (w_count = 0U; w_count < 6U; w_count++)
+    {
+        NOP();
+    }
+
+    /* End data flash control */
 }
 
 /***********************************************************************************************************************

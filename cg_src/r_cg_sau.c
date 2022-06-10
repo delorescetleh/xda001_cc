@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for SAU module.
-* Creation Date: 2022/6/9
+* Creation Date: 2022/6/10
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -70,7 +70,7 @@ void R_SAU0_Create(void)
     NOP();
     NOP();
     NOP();
-    SPS0 = _0000_SAU_CK01_FCLK_0 | _0003_SAU_CK00_FCLK_3;
+    SPS0 = _0030_SAU_CK01_FCLK_3 | _0003_SAU_CK00_FCLK_3;
     R_UART0_Create();
     R_UART1_Create();
 }
@@ -233,11 +233,11 @@ void R_UART1_Create(void)
     SDR02 = _CE00_SAU0_CH2_BAUDRATE_DIVISOR;
     NFEN0 |= _04_SAU_RXD1_FILTER_ON;
     SIR03 = _0004_SAU_SIRMN_FECTMN | _0002_SAU_SIRMN_PECTMN | _0001_SAU_SIRMN_OVCTMN;
-    SMR03 = _0020_SMR03_DEFAULT_VALUE | _8000_SAU_CLOCK_SELECT_CK01 | _0000_SAU_CLOCK_MODE_CKS | 
+    SMR03 = _0020_SMR03_DEFAULT_VALUE | _0000_SAU_CLOCK_SELECT_CK00 | _0000_SAU_CLOCK_MODE_CKS | 
             _0100_SAU_TRIGGER_RXD | _0000_SAU_EDGE_FALL | _0002_SAU_MODE_UART | _0000_SAU_TRANSFER_END;
     SCR03 = _0004_SCR03_DEFAULT_VALUE | _4000_SAU_RECEPTION | _0000_SAU_TIMING_1 | _0000_SAU_INTSRE_MASK | 
             _0000_SAU_PARITY_NONE | _0080_SAU_LSB | _0010_SAU_STOP_1 | _0003_SAU_LENGTH_8;
-    SDR03 = _8800_SAU0_CH3_BAUDRATE_DIVISOR;
+    SDR03 = _CE00_SAU0_CH3_BAUDRATE_DIVISOR;
     SO0 |= _0004_SAU_CH2_DATA_OUTPUT_1;
     SOL0 &= (uint16_t)~_0004_SAU_CHANNEL2_INVERTED;
     SOE0 |= _0004_SAU_CH2_OUTPUT_ENABLE;

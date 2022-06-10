@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (W3.03.00 )             09-Jun-2022 13:07:28
+Renesas Optimizing Linker (W3.03.00 )             10-Jun-2022 08:53:43
 
 *** Options ***
 
@@ -11,16 +11,16 @@ Renesas Optimizing Linker (W3.03.00 )             09-Jun-2022 13:07:28
 -Input=DefaultBuild\r_cg_cgc_user.obj
 -Input=DefaultBuild\r_cg_port.obj
 -Input=DefaultBuild\r_cg_port_user.obj
--Input=DefaultBuild\r_cg_sau.obj
--Input=DefaultBuild\r_cg_sau_user.obj
--Input=DefaultBuild\r_cg_iica.obj
--Input=DefaultBuild\r_cg_iica_user.obj
+-Input=DefaultBuild\r_cg_rtc.obj
+-Input=DefaultBuild\r_cg_rtc_user.obj
 -Input=DefaultBuild\r_cg_pga_dsad.obj
 -Input=DefaultBuild\r_cg_pga_dsad_user.obj
 -Input=DefaultBuild\r_cg_adc.obj
 -Input=DefaultBuild\r_cg_adc_user.obj
--Input=DefaultBuild\r_cg_rtc.obj
--Input=DefaultBuild\r_cg_rtc_user.obj
+-Input=DefaultBuild\r_cg_sau.obj
+-Input=DefaultBuild\r_cg_sau_user.obj
+-Input=DefaultBuild\r_cg_iica.obj
+-Input=DefaultBuild\r_cg_iica_user.obj
 -Input=DefaultBuild\r_cg_dtc.obj
 -Input=DefaultBuild\r_cg_dtc_user.obj
 -SECURITY_ID=00000000000000000000
@@ -34,7 +34,7 @@ Renesas Optimizing Linker (W3.03.00 )             09-Jun-2022 13:07:28
 -LIBrary=C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.10.00\lib\rl78em4r.lib
 -OCDBG=84
 -DEBUG_MONITOR=1FE00-1FFFF
--USER_OPT_BYTE=EFFFE9
+-USER_OPT_BYTE=EF5FE9
 -LISt=DefaultBuild\XDA001_V3_BOARD.map
 -AUTO_SECTION_LAYOUT
 -ROm=.data=.dataR
@@ -53,10 +53,10 @@ SECTION                            START      END         SIZE   ALIGN
                                   00000000  0000007f        80   0
 .constf
                                   00000080  00000080         0   2
+.data
+                                  00000080  00000080         0   2
 .sdata
                                   00000080  00000080         0   2
-.data
-                                  00000082  00000083         2   2
 .option_byte
                                   000000c0  000000c3         4   1
 .security_id
@@ -70,7 +70,7 @@ SECTION                            START      END         SIZE   ALIGN
 .text
                                   000000d8  000002a7       1d0   1
 .textf
-                                  000002a8  00000a77       7d0   1
+                                  000002a8  00000ad0       829   1
 .const
                                   00002000  00002000         0   2
 .monitor2
@@ -78,13 +78,17 @@ SECTION                            START      END         SIZE   ALIGN
 .bss
                                   000fe900  000fe91f        20   2
 .dataR
-                                  000fe920  000fe921         2   2
+                                  000fe920  000fe920         0   2
 .bss_ATFF900
                                   000ff900  000ff90f        10   1
+.bss_ATFFA00
+                                  000ffa00  000ffa07         8   1
 .bss_ATFFD00
                                   000ffd00  000ffd27        28   1
 .bss_ATFFD40
                                   000ffd40  000ffd47         8   1
+.bss_ATFFD48
+                                  000ffd48  000ffd4f         8   1
 .sbss
                                   000ffe20  000ffe20         0   2
 .sdataR

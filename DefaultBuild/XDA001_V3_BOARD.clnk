@@ -6,16 +6,16 @@
 -Input=DefaultBuild\r_cg_cgc_user.obj
 -Input=DefaultBuild\r_cg_port.obj
 -Input=DefaultBuild\r_cg_port_user.obj
--Input=DefaultBuild\r_cg_sau.obj
--Input=DefaultBuild\r_cg_sau_user.obj
--Input=DefaultBuild\r_cg_iica.obj
--Input=DefaultBuild\r_cg_iica_user.obj
+-Input=DefaultBuild\r_cg_rtc.obj
+-Input=DefaultBuild\r_cg_rtc_user.obj
 -Input=DefaultBuild\r_cg_pga_dsad.obj
 -Input=DefaultBuild\r_cg_pga_dsad_user.obj
 -Input=DefaultBuild\r_cg_adc.obj
 -Input=DefaultBuild\r_cg_adc_user.obj
--Input=DefaultBuild\r_cg_rtc.obj
--Input=DefaultBuild\r_cg_rtc_user.obj
+-Input=DefaultBuild\r_cg_sau.obj
+-Input=DefaultBuild\r_cg_sau_user.obj
+-Input=DefaultBuild\r_cg_iica.obj
+-Input=DefaultBuild\r_cg_iica_user.obj
 -Input=DefaultBuild\r_cg_dtc.obj
 -Input=DefaultBuild\r_cg_dtc_user.obj
 -SECURITY_ID=00000000000000000000
@@ -29,7 +29,7 @@
 -LIBrary=C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.10.00\lib\rl78em4r.lib
 -OCDBG=84
 -DEBUG_MONITOR=1FE00-1FFFF
--USER_OPT_BYTE=EFFFE9
+-USER_OPT_BYTE=EF5FE9
 -LISt=DefaultBuild\XDA001_V3_BOARD.map
 -AUTO_SECTION_LAYOUT
 -ROm=.data=.dataR
