@@ -76,30 +76,26 @@ void main(void)
     init_pcb_temperature();
     set_TXD0_as_Input_Mode();
     set_TXD1_as_Input_Mode();
-    R_DTCD0_Start();
     R_IICA0_Stop();
-    R_RTC_Create();
-    // R_ADC_Start();
-    // R_ADC_Set_OperationOn();
     R_ADC_Stop();
     R_ADC_Set_OperationOff();
     L_PGA_STOP();
     R_RTC_Start();
     // void R_IT_Create(void);
-    R_DTCD0_Stop();
     R_IT_Stop();
     EVENTS=0;
     while (1U)
     {
-        // if(EVENTS){
-        //     if (EVENTS&RTC_NOTIFICATION_EVENT){
-        //         EVENTS &= (~RTC_NOTIFICATION_EVENT);
-        //         R_IT_Start(); // start fetch pcb temperature
-        //         get_pcb_temperature(&pcbTemperature);
-        //     }
-        //     // if (EVENTS&RTC_NOTIFICATION_EVENT){
-        //     // }
-        // }
+        if(EVENTS){
+            if (EVENTS&RTC_NOTIFICATION_EVENT){
+                EVENTS &= (~RTC_NOTIFICATION_EVENT);
+                R_IT_Start(); // start fetch pcb temperature
+                R_DTCD0_Start();
+                get_pcb_temperature(&pcbTemperature);
+            }
+            // if (EVENTS&RTC_NOTIFICATION_EVENT){
+            // }
+        }
         STOP();
         ;
     }

@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (W3.03.00 )             10-Jun-2022 15:02:27
+Renesas Optimizing Linker (W3.03.00 )             10-Jun-2022 16:13:21
 
 *** Options ***
 
@@ -70,9 +70,9 @@ SECTION                            START      END         SIZE   ALIGN
 .text
                                   000000d8  000002e4       20d   1
 .textf
-                                  000002e5  00000bb6       8d2   1
+                                  000002e5  00000bcf       8eb   1
 .RLIB
-                                  00000bb7  00000bd8        22   1
+                                  00000bd0  00000bf1        22   1
 .const
                                   00002000  00002000         0   2
 .monitor2

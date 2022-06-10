@@ -92,5 +92,6 @@ void get_pcb_temperature(int16_t *pcbTemperature){
     }
     *pcbTemperature = temp / 4;
     R_ADC_Stop();
+    R_DTCD0_Stop();
 }
 /* End user code. Do not edit comment generated here */
