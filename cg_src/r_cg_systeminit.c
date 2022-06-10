@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements system initializing function.
-* Creation Date: 2022/6/10
+* Creation Date: 2022/6/11
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -35,6 +35,7 @@ Includes
 #include "r_cg_rtc.h"
 #include "r_cg_it.h"
 #include "r_cg_pga_dsad.h"
+#include "r_cg_amp.h"
 #include "r_cg_adc.h"
 #include "r_cg_sau.h"
 #include "r_cg_iica.h"
@@ -74,6 +75,7 @@ void R_Systeminit(void)
     R_RTC_Create();
     R_IT_Create();
     R_PGA_DSAD_Create();
+    R_AMP_Create();
     R_IICA0_Create();
     R_ADC_Create();
     R_SAU0_Create();

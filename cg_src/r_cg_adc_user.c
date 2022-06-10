@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for ADC module.
-* Creation Date: 2022/6/10
+* Creation Date: 2022/6/11
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -32,6 +32,7 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "r_cg_adc.h"
 /* Start user code for include. Do not edit comment generated here */
+#include "r_cg_dtc.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 

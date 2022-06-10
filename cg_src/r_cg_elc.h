@@ -18,76 +18,52 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : r_cg_it.c
+* File Name    : r_cg_elc.h
 * Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
-* Description  : This file implements device driver for IT module.
-* Creation Date: 2022/6/11
+* Description  : This file implements device driver for ELC module.
+* Creation Date: 2022/6/10
+***********************************************************************************************************************/
+#ifndef ELC_H
+#define ELC_H
+
+/***********************************************************************************************************************
+Macro definitions (Register bit)
+***********************************************************************************************************************/
+/*
+    Event output destination select register n (ELSELRn) 
+*/
+/* Event output destination select register n (ELSELn3 - ELSELn0) */
+#define _00_ELC_EVENT_LINK_OFF            (0x00U) /* event link disabled */
+#define _01_ELC_EVENT_LINK_AD             (0x01U) /* select operation of peripheral function 1 to link */
+#define _02_ELC_EVENT_LINK_TAU00          (0x02U) /* select operation of peripheral function 2 to link */
+#define _03_ELC_EVENT_LINK_TAU01          (0x03U) /* select operation of peripheral function 3 to link */
+#define _04_ELC_EVENT_LINK_AMP0           (0x04U) /* select operation of peripheral function 4 to link */
+#define _05_ELC_EVENT_LINK_AMP1           (0x05U) /* select operation of peripheral function 5 to link */
+#define _06_ELC_EVENT_LINK_AMP2           (0x06U) /* select operation of peripheral function 6 to link */
+#define _07_ELC_EVENT_LINK_DA0            (0x07U) /* select operation of peripheral function 7 to link */
+#define _08_ELC_EVENT_LINK_DA1            (0x08U) /* select operation of peripheral function 8 to link */
+#define _09_ELC_EVENT_LINK_DSAD           (0x09U) /* select operation of peripheral function 9 to link */
+#define _0A_ELC_EVENT_LINK_TMRJ0          (0x0AU) /* select operation of peripheral function 10 to link */
+#define _0B_ELC_EVENT_LINK_TMRJ1          (0x0BU) /* select operation of peripheral function 11 to link */
+#define _0C_ELC_EVENT_LINK_AMP3           (0x0CU) /* select operation of peripheral function 12 to link */
+
+
+/***********************************************************************************************************************
+Macro definitions
+***********************************************************************************************************************/
+#define ELC_DESTINATION_COUNT             (26U)
+
+/***********************************************************************************************************************
+Typedef definitions
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-Includes
+Global functions
 ***********************************************************************************************************************/
-#include "r_cg_macrodriver.h"
-#include "r_cg_it.h"
-/* Start user code for include. Do not edit comment generated here */
+void R_ELC_Create(void);
+void R_ELC_Stop(uint32_t event);
+/* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
-#include "r_cg_userdefine.h"
-
-/***********************************************************************************************************************
-Pragma directive
-***********************************************************************************************************************/
-/* Start user code for pragma. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
-
-/***********************************************************************************************************************
-Global variables and functions
-***********************************************************************************************************************/
-/* Start user code for global. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
-
-/***********************************************************************************************************************
-* Function Name: R_IT_Create
-* Description  : This function initializes the IT module.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_IT_Create(void)
-{
-    TMKAEN = 1U;    /* enables input clock supply */
-    ITMC = _0000_IT_OPERATION_DISABLE;
-    TMKAMK = 1U;    /* disable INTIT interrupt */
-    TMKAIF = 0U;    /* clear INTIT interrupt flag */
-    /* Set INTIT low priority */
-    TMKAPR1 = 1U;
-    TMKAPR0 = 1U;
-    ITMC = _0CCC_ITCMP_VALUE;
-}
-/***********************************************************************************************************************
-* Function Name: R_IT_Start
-* Description  : This function starts IT module operation.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_IT_Start(void)
-{
-    TMKAIF = 0U;    /* clear INTIT interrupt flag */
-    TMKAMK = 0U;    /* enable INTIT interrupt */
-    ITMC |= _8000_IT_OPERATION_ENABLE;
-}
-/***********************************************************************************************************************
-* Function Name: R_IT_Stop
-* Description  : This function stops IT module operation.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_IT_Stop(void)
-{
-    TMKAMK = 1U;    /* disable INTIT interrupt */
-    TMKAIF = 0U;    /* clear INTIT interrupt flag */
-    ITMC &= (uint16_t)~_8000_IT_OPERATION_ENABLE;
-}
-
-/* Start user code for adding. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
+#endif

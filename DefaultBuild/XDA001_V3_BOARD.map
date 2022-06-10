@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (W3.03.00 )             10-Jun-2022 16:13:21
+Renesas Optimizing Linker (W3.03.00 )             11-Jun-2022 07:11:03
 
 *** Options ***
 
@@ -25,6 +25,8 @@ Renesas Optimizing Linker (W3.03.00 )             10-Jun-2022 16:13:21
 -Input=DefaultBuild\r_cg_dtc_user.obj
 -Input=DefaultBuild\r_cg_it.obj
 -Input=DefaultBuild\r_cg_it_user.obj
+-Input=DefaultBuild\r_cg_amp.obj
+-Input=DefaultBuild\r_cg_amp_user.obj
 -SECURITY_ID=00000000000000000000
 -DEVICE=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11NGG.DVF
 -DEBug
@@ -58,7 +60,7 @@ SECTION                            START      END         SIZE   ALIGN
 .sdata
                                   00000080  00000080         0   2
 .data
-                                  00000082  0000008f         e   2
+                                  00000082  00000091        10   2
 .option_byte
                                   000000c0  000000c3         4   1
 .security_id
@@ -68,11 +70,11 @@ SECTION                            START      END         SIZE   ALIGN
 .monitor1
                                   000000ce  000000d7         a   1
 .text
-                                  000000d8  000002e4       20d   1
+                                  000000d8  00000345       26e   1
 .textf
-                                  000002e5  00000bcf       8eb   1
+                                  00000346  00000ec9       b84   1
 .RLIB
-                                  00000bd0  00000bf1        22   1
+                                  00000eca  000012bc       3f3   1
 .const
                                   00002000  00002000         0   2
 .monitor2
@@ -80,9 +82,9 @@ SECTION                            START      END         SIZE   ALIGN
 .bss_ATFE900
                                   000fe900  000fe900         1   1
 .bss
-                                  000fe902  000fe925        24   2
+                                  000fe902  000fecf5       3f4   2
 .dataR
-                                  000fe926  000fe933         e   2
+                                  000fecf6  000fed05        10   2
 .bss_ATFF900
                                   000ff900  000ff90f        10   1
 .bss_ATFFA00

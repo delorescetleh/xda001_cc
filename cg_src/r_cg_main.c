@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2022/6/10
+* Creation Date: 2022/6/11
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -35,6 +35,7 @@ Includes
 #include "r_cg_rtc.h"
 #include "r_cg_it.h"
 #include "r_cg_pga_dsad.h"
+#include "r_cg_amp.h"
 #include "r_cg_adc.h"
 #include "r_cg_sau.h"
 #include "r_cg_iica.h"
@@ -79,7 +80,9 @@ void main(void)
     R_IICA0_Stop();
     R_ADC_Stop();
     R_ADC_Set_OperationOff();
-    L_PGA_STOP();
+    //L_PGA_STOP();
+    R_PGA_DSAD_Create();
+    R_PGA_DSAD_Start();
     R_RTC_Start();
     // void R_IT_Create(void);
     R_IT_Stop();
@@ -96,7 +99,7 @@ void main(void)
             // if (EVENTS&RTC_NOTIFICATION_EVENT){
             // }
         }
-        STOP();
+        //HALT();
         ;
     }
     /* End user code. Do not edit comment generated here */

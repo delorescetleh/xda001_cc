@@ -18,19 +18,19 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : r_cg_it.c
+* File Name    : r_cg_elc.c
 * Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
-* Description  : This file implements device driver for IT module.
-* Creation Date: 2022/6/11
+* Description  : This file implements device driver for ELC module.
+* Creation Date: 2022/6/10
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "r_cg_it.h"
+#include "r_cg_elc.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -48,45 +48,38 @@ Global variables and functions
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_IT_Create
-* Description  : This function initializes the IT module.
+* Function Name: R_ELC_Create
+* Description  : This function initializes the ELC module.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_IT_Create(void)
+void R_ELC_Create(void)
 {
-    TMKAEN = 1U;    /* enables input clock supply */
-    ITMC = _0000_IT_OPERATION_DISABLE;
-    TMKAMK = 1U;    /* disable INTIT interrupt */
-    TMKAIF = 0U;    /* clear INTIT interrupt flag */
-    /* Set INTIT low priority */
-    TMKAPR1 = 1U;
-    TMKAPR0 = 1U;
-    ITMC = _0CCC_ITCMP_VALUE;
+    ELSELR08 = _09_ELC_EVENT_LINK_DSAD;
 }
 /***********************************************************************************************************************
-* Function Name: R_IT_Start
-* Description  : This function starts IT module operation.
-* Arguments    : None
+* Function Name: R_ELC_Stop
+* Description  : This function stops the ELC event resources.
+* Arguments    : event -
+*                    event resources to be stoped (bit n for ELSELRn)
 * Return Value : None
 ***********************************************************************************************************************/
-void R_IT_Start(void)
+void R_ELC_Stop(uint32_t event)
 {
-    TMKAIF = 0U;    /* clear INTIT interrupt flag */
-    TMKAMK = 0U;    /* enable INTIT interrupt */
-    ITMC |= _8000_IT_OPERATION_ENABLE;
-}
-/***********************************************************************************************************************
-* Function Name: R_IT_Stop
-* Description  : This function stops IT module operation.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_IT_Stop(void)
-{
-    TMKAMK = 1U;    /* disable INTIT interrupt */
-    TMKAIF = 0U;    /* clear INTIT interrupt flag */
-    ITMC &= (uint16_t)~_8000_IT_OPERATION_ENABLE;
+    volatile uint32_t   w_count;
+    volatile uint8_t  * sfr_addr;
+
+    sfr_addr = &ELSELR00;
+    
+    for (w_count = 0U; w_count < ELC_DESTINATION_COUNT; w_count++) 
+    {
+        if (0x1U == ((event >> w_count) & 0x1U))
+        {
+            *sfr_addr = _00_ELC_EVENT_LINK_OFF;
+        }
+
+        sfr_addr++;
+    }
 }
 
 /* Start user code for adding. Do not edit comment generated here */

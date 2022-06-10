@@ -1,6 +1,16 @@
-# XDA001_V3 Project - Branch Master  
+# XDA001_V3 Project - Branch DSADPGA
 
  This is a project to migrate the XDA001_V3 old version from CS+ CA IDE to CS+ CC
+
+Test DSADC PGA Gain 
+1. PGA0 = R0R1
+2. PGA1 = R0B1
+3. Single 1  : SBIAS
+4. Single 2  : 1 Ohm 
+
+Result : 
+1. PGA 0 , PGA1 success could get good R value in stable PCB temperature
+2. Single Failure for Line Current detect
 
 ## Some Mission should be done  
 

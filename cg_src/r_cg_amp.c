@@ -18,11 +18,11 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : r_cg_it.c
+* File Name    : r_cg_amp.c
 * Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
-* Description  : This file implements device driver for IT module.
+* Description  : This file implements device driver for AMP module.
 * Creation Date: 2022/6/11
 ***********************************************************************************************************************/
 
@@ -30,7 +30,7 @@
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "r_cg_it.h"
+#include "r_cg_amp.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -48,45 +48,79 @@ Global variables and functions
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_IT_Create
-* Description  : This function initializes the IT module.
+* Function Name: R_AMP_Create
+* Description  : This function initializes the comparator module..
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_IT_Create(void)
+void R_AMP_Create(void)
 {
-    TMKAEN = 1U;    /* enables input clock supply */
-    ITMC = _0000_IT_OPERATION_DISABLE;
-    TMKAMK = 1U;    /* disable INTIT interrupt */
-    TMKAIF = 0U;    /* clear INTIT interrupt flag */
-    /* Set INTIT low priority */
-    TMKAPR1 = 1U;
-    TMKAPR0 = 1U;
-    ITMC = _0CCC_ITCMP_VALUE;
+    AFEEN = 1U;     /* enables input clock supply */
+    AFEPON = 1U;    /* power on AFE */
+
+    while (0U == AFESTAT)
+    {
+        ;/* Wait until AFE stabilize */
+    }
+    
+    AMPEN = 1U;     /* enables input clock supply */
+    AMPC = 0U; /* stop all AMP units */
+    AMPPON = 0U;    /* power-off (default) */
+    AMPMC = _00_AMP_CH2_3_LOWPOWER;
+    AMPTRS = _00_AMP_ELC_TRIGGER_SOURCE_0;
+    AMPTRM = _00_AMP2_TRIGGER_SOFTWARE | _00_AMP1_TRIGGER_SOFTWARE;
+    AMP1S = _80_AMP1_AMP1_FED | _01_AMP1_AMP1P_INPUT5;
+    AMP2S = _80_AMP2_AMP2_FED | _01_AMP2_AMP2P_INPUT6;
 }
 /***********************************************************************************************************************
-* Function Name: R_IT_Start
-* Description  : This function starts IT module operation.
+* Function Name: R_AMP1_Start
+* Description  : This function starts the AMP1.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_IT_Start(void)
+void R_AMP1_Start(void)
 {
-    TMKAIF = 0U;    /* clear INTIT interrupt flag */
-    TMKAMK = 0U;    /* enable INTIT interrupt */
-    ITMC |= _8000_IT_OPERATION_ENABLE;
+    AMPE2 = 1U;     /* enables comparator operation */
 }
 /***********************************************************************************************************************
-* Function Name: R_IT_Stop
-* Description  : This function stops IT module operation.
+* Function Name: R_AMP1_Stop
+* Description  : This function stops the AMP1.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_IT_Stop(void)
+void R_AMP1_Stop(void)
 {
-    TMKAMK = 1U;    /* disable INTIT interrupt */
-    TMKAIF = 0U;    /* clear INTIT interrupt flag */
-    ITMC &= (uint16_t)~_8000_IT_OPERATION_ENABLE;
+    AMPE2 = 0U;     /* disable comparator operation */
+}
+/***********************************************************************************************************************
+* Function Name: R_AMP2_Start
+* Description  : This function starts the AMP2.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_AMP2_Start(void)
+{
+    AMPE3 = 1U;     /* enables comparator operation */
+}
+/***********************************************************************************************************************
+* Function Name: R_AMP2_Stop
+* Description  : This function stops the AMP2.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_AMP2_Stop(void)
+{
+    AMPE3 = 0U;     /* disable comparator operation */
+}
+/***********************************************************************************************************************
+* Function Name: R_AMP_Set_PowerOn
+* Description  : This function starts the clock supplied for AMP.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_AMP_Set_PowerOn(void)
+{
+    AMPPON = 1U;    /* power-on */
 }
 
 /* Start user code for adding. Do not edit comment generated here */

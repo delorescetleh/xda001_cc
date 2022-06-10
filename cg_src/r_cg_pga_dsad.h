@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for PGIA module.
-* Creation Date: 2022/6/10
+* Creation Date: 2022/6/11
 ***********************************************************************************************************************/
 #ifndef PGIA_H
 #define PGIA_H
@@ -193,7 +193,9 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define _08_PGA_MULTIPLEXER0_SAMPLE_COUNT                   (0x08U) /* sample count per autoscan cycle */
+#define _01_PGA_MULTIPLEXER0_SAMPLE_COUNT                   (0x01U) /* sample count per autoscan cycle */
+#define _01_PGA_MULTIPLEXER1_SAMPLE_COUNT                   (0x01U) /* sample count per autoscan cycle */
+#define _01_PGA_MULTIPLEXER2_SAMPLE_COUNT                   (0x01U) /* sample count per autoscan cycle */
 #define _01_PGA_MULTIPLEXER3_SAMPLE_COUNT                   (0x01U) /* sample count per autoscan cycle */
 
 /***********************************************************************************************************************
@@ -210,5 +212,6 @@ void R_PGA_DSAD_Get_Result(uint16_t * const bufferH, uint16_t * const bufferL);
 void R_PGA_DSAD_Get_AverageResult(uint16_t * const bufferH, uint16_t * const bufferL);
 /* Start user code for function. Do not edit comment generated here */
 void L_PGA_STOP(void);
+void get_dsadc_result(void);
 /* End user code. Do not edit comment generated here */
 #endif
