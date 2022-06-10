@@ -18,65 +18,42 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : r_cg_rtc_user.c
+* File Name    : r_cg_it.h
 * Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
-* Description  : This file implements device driver for RTC module.
+* Description  : This file implements device driver for IT module.
 * Creation Date: 2022/6/10
 ***********************************************************************************************************************/
+#ifndef IT_H
+#define IT_H
 
 /***********************************************************************************************************************
-Includes
+Macro definitions (Register bit)
 ***********************************************************************************************************************/
-#include "r_cg_macrodriver.h"
-#include "r_cg_rtc.h"
-/* Start user code for include. Do not edit comment generated here */
-#include "r_cg_adc.h"
+/*
+    12-bit Interval Timer Control Register (ITMC) 
+*/
+/* 12-bit Interval timer operation control (RINTE) */
+#define _0000_IT_OPERATION_DISABLE        (0x0000U) /* count operation stopped */
+#define _8000_IT_OPERATION_ENABLE         (0x8000U) /* count operation started */
+
+
+/***********************************************************************************************************************
+Macro definitions
+***********************************************************************************************************************/
+#define _0CCC_ITCMP_VALUE                 (0x0CCCU) /* specification of the 12-bit interval timer compare value */
+
+/***********************************************************************************************************************
+Typedef definitions
+***********************************************************************************************************************/
+
+/***********************************************************************************************************************
+Global functions
+***********************************************************************************************************************/
+void R_IT_Create(void);
+void R_IT_Start(void);
+void R_IT_Stop(void);
+/* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
-#include "r_cg_userdefine.h"
-
-/***********************************************************************************************************************
-Pragma directive
-***********************************************************************************************************************/
-#pragma interrupt r_rtc_interrupt(vect=INTRTC)
-/* Start user code for pragma. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
-
-/***********************************************************************************************************************
-Global variables and functions
-***********************************************************************************************************************/
-/* Start user code for global. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
-
-/***********************************************************************************************************************
-* Function Name: r_rtc_interrupt
-* Description  : None
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-static void __near r_rtc_interrupt(void)
-{
-    if (1U == RIFG)
-    {
-        RTCWEN = 1U;
-        RTCC1 &= (uint8_t)~_08_RTC_INTC_GENERATE_FLAG;    /* clear RIFG */
-        RTCWEN = 0U;
-        r_rtc_callback_constperiod();
-    }
-}
-/***********************************************************************************************************************
-* Function Name: r_rtc_callback_constperiod
-* Description  : This function is real-time clock constant-period interrupt service handler.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-static void r_rtc_callback_constperiod(void)
-{
-    /* Start user code. Do not edit comment generated here */
-    // events = events | RTC_NOTIFICATION_EVENT;
-    /* End user code. Do not edit comment generated here */
-}
-
-/* Start user code for adding. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
+#endif

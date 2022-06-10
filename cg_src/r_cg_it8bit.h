@@ -18,65 +18,73 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : r_cg_rtc_user.c
+* File Name    : r_cg_it8bit.h
 * Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
-* Description  : This file implements device driver for RTC module.
+* Description  : This file implements device driver for IT8Bit module.
 * Creation Date: 2022/6/10
 ***********************************************************************************************************************/
+#ifndef IT8BIT_H
+#define IT8BIT_H
 
 /***********************************************************************************************************************
-Includes
+Macro definitions (Register bit)
 ***********************************************************************************************************************/
-#include "r_cg_macrodriver.h"
-#include "r_cg_rtc.h"
-/* Start user code for include. Do not edit comment generated here */
-#include "r_cg_adc.h"
+/*
+    8-bit interval timer control register n (TRTCRn) 
+*/
+/* Mode select (TCSMDn) */
+#define _00_IT8BIT_8BIT_COUNT_MODE            (0x00U) /* operates as 8-bit counter */
+#define _80_IT8BIT_16BIT_COUNT_MODE           (0x80U) /* operates as 16-bit counter */
+/* 8-bit interval timer clock enable (TCLKENn) */
+#define _00_IT8BIT_CLOCK_STOP                 (0x00U) /* clock operation stopped */
+#define _10_IT8BIT_CLOCK_SUPPLY               (0x10U) /* clock operation supplied */
+/* 8-bit interval timer 1 count start (TSTARTn1) */
+#define _00_IT8BIT_COUNT1_STOP                (0x00U) /* counting stops */
+#define _04_IT8BIT_COUNT1_START               (0x04U) /* counting starts */
+/* 8-bit interval timer 0 count start (TSTARTn0) */
+#define _00_IT8BIT_COUNT0_STOP                (0x00U) /* counting stops */
+#define _01_IT8BIT_COUNT0_START               (0x01U) /* counting starts */
+
+/*
+    8-bit interval timer division register n (TRTMDn) 
+*/
+/* 8-bit interval timer 1 division select (TCKn1) */
+#define _00_IT8BIT_CLOCK1_1                   (0x00U) /* fSUB or fIL */
+#define _10_IT8BIT_CLOCK1_2                   (0x10U) /* fSUB/2 or fIL/2 */
+#define _20_IT8BIT_CLOCK1_4                   (0x20U) /* fSUB/4 or fIL/4 */
+#define _30_IT8BIT_CLOCK1_8                   (0x30U) /* fSUB/8 or fIL/8 */
+#define _40_IT8BIT_CLOCK1_16                  (0x40U) /* fSUB/16 or fIL/16 */
+#define _50_IT8BIT_CLOCK1_32                  (0x50U) /* fSUB/32 or fIL/32 */
+#define _60_IT8BIT_CLOCK1_64                  (0x60U) /* fSUB/64 or fIL/64 */
+#define _70_IT8BIT_CLOCK1_128                 (0x70U) /* fSUB/128 or fIL/128 */
+/* 8-bit interval timer 0 division select (TCKn0) */
+#define _00_IT8BIT_CLOCK0_1                   (0x00U) /* fSUB or fIL */
+#define _01_IT8BIT_CLOCK0_2                   (0x01U) /* fSUB/2 or fIL/2 */
+#define _02_IT8BIT_CLOCK0_4                   (0x02U) /* fSUB/4 or fIL/4 */
+#define _03_IT8BIT_CLOCK0_8                   (0x03U) /* fSUB/8 or fIL/8 */
+#define _04_IT8BIT_CLOCK0_16                  (0x04U) /* fSUB/16 or fIL/16 */
+#define _05_IT8BIT_CLOCK0_32                  (0x05U) /* fSUB/32 or fIL/32 */
+#define _06_IT8BIT_CLOCK0_64                  (0x06U) /* fSUB/64 or fIL/64 */
+#define _07_IT8BIT_CLOCK0_128                 (0x07U) /* fSUB/128 or fIL/128 */
+
+
+/***********************************************************************************************************************
+Macro definitions
+***********************************************************************************************************************/
+#define _FF_IT8BIT_CMP00_VALUE                (0xFFU) /* 8-bit interval timer compare register 00 */
+
+/***********************************************************************************************************************
+Typedef definitions
+***********************************************************************************************************************/
+
+/***********************************************************************************************************************
+Global functions
+***********************************************************************************************************************/
+void R_IT8Bit0_Channel0_Create(void);
+void R_IT8Bit0_Channel0_Start(void);
+void R_IT8Bit0_Channel0_Stop(void);
+/* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
-#include "r_cg_userdefine.h"
-
-/***********************************************************************************************************************
-Pragma directive
-***********************************************************************************************************************/
-#pragma interrupt r_rtc_interrupt(vect=INTRTC)
-/* Start user code for pragma. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
-
-/***********************************************************************************************************************
-Global variables and functions
-***********************************************************************************************************************/
-/* Start user code for global. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
-
-/***********************************************************************************************************************
-* Function Name: r_rtc_interrupt
-* Description  : None
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-static void __near r_rtc_interrupt(void)
-{
-    if (1U == RIFG)
-    {
-        RTCWEN = 1U;
-        RTCC1 &= (uint8_t)~_08_RTC_INTC_GENERATE_FLAG;    /* clear RIFG */
-        RTCWEN = 0U;
-        r_rtc_callback_constperiod();
-    }
-}
-/***********************************************************************************************************************
-* Function Name: r_rtc_callback_constperiod
-* Description  : This function is real-time clock constant-period interrupt service handler.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-static void r_rtc_callback_constperiod(void)
-{
-    /* Start user code. Do not edit comment generated here */
-    // events = events | RTC_NOTIFICATION_EVENT;
-    /* End user code. Do not edit comment generated here */
-}
-
-/* Start user code for adding. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
+#endif

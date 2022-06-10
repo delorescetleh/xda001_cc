@@ -63,7 +63,7 @@ void R_RTC_Create(void)
     RTCPR1 = 1U;
     RTCPR0 = 1U;
     /* Set register RTCC0 */
-    RTCC0 = _00_RTC_COUNTER_STOP | _00_RTC_RTC1HZ_DISABLE | _00_RTC_12HOUR_SYSTEM | _02_RTC_INTRTC_CLOCK_1;
+    RTCC0 = _00_RTC_COUNTER_STOP | _00_RTC_RTC1HZ_DISABLE | _00_RTC_12HOUR_SYSTEM | _03_RTC_INTRTC_CLOCK_2;
     /* Disenable input clock */
     RTCWEN = 0U;    /* stops input clock supply */
 }

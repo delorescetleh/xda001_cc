@@ -33,6 +33,7 @@ Includes
 #include "r_cg_cgc.h"
 #include "r_cg_port.h"
 #include "r_cg_rtc.h"
+#include "r_cg_it.h"
 #include "r_cg_pga_dsad.h"
 #include "r_cg_adc.h"
 #include "r_cg_sau.h"
@@ -46,17 +47,16 @@ Includes
 Pragma directive
 ***********************************************************************************************************************/
 /* Start user code for pragma. Do not edit comment generated here */
-#pragma address (adc_buf = 0xFF900U)
-#pragma address (ads_buf = 0xFFa00U)
+#pragma address (EVENTS=0xFE900U)
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
-volatile uint16_t adc_buf[8];
-volatile uint8_t ads_buf[8];
-void init_pcb_temperature(void);
+volatile unsigned char EVENTS;
+uint8_t rtc_counter = 0;
+int16_t pcbTemperature;
 /* End user code. Do not edit comment generated here */
 
 static void R_MAIN_UserInit(void);
@@ -79,16 +79,28 @@ void main(void)
     R_DTCD0_Start();
     R_IICA0_Stop();
     R_RTC_Create();
-    R_ADC_Start();
-    R_ADC_Set_OperationOn();
-    // R_ADC_Stop();
-    // R_ADC_Set_OperationOff();
+    // R_ADC_Start();
+    // R_ADC_Set_OperationOn();
+    R_ADC_Stop();
+    R_ADC_Set_OperationOff();
     L_PGA_STOP();
     R_RTC_Start();
-
+    // void R_IT_Create(void);
+    R_DTCD0_Stop();
+    R_IT_Stop();
+    EVENTS=0;
     while (1U)
     {
-	    STOP();
+        // if(EVENTS){
+        //     if (EVENTS&RTC_NOTIFICATION_EVENT){
+        //         EVENTS &= (~RTC_NOTIFICATION_EVENT);
+        //         R_IT_Start(); // start fetch pcb temperature
+        //         get_pcb_temperature(&pcbTemperature);
+        //     }
+        //     // if (EVENTS&RTC_NOTIFICATION_EVENT){
+        //     // }
+        // }
+        STOP();
         ;
     }
     /* End user code. Do not edit comment generated here */
@@ -107,10 +119,4 @@ static void R_MAIN_UserInit(void)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-void init_pcb_temperature(void){
-    int i;
-    for (i = 0; i < 8;i++){
-        ads_buf[i] = _80_AD_INPUT_TEMPERSENSOR | (i & 1);
-    }
-}
 /* End user code. Do not edit comment generated here */

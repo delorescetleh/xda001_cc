@@ -18,11 +18,11 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : r_cg_rtc_user.c
+* File Name    : r_cg_it8bit_user.c
 * Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
-* Description  : This file implements device driver for RTC module.
+* Description  : This file implements device driver for IT8Bit module.
 * Creation Date: 2022/6/10
 ***********************************************************************************************************************/
 
@@ -30,16 +30,15 @@
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "r_cg_rtc.h"
+#include "r_cg_it8bit.h"
 /* Start user code for include. Do not edit comment generated here */
-#include "r_cg_adc.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
 /***********************************************************************************************************************
 Pragma directive
 ***********************************************************************************************************************/
-#pragma interrupt r_rtc_interrupt(vect=INTRTC)
+#pragma interrupt r_it8bit0_channel0_interrupt(vect=INTIT00)
 /* Start user code for pragma. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -50,31 +49,14 @@ Global variables and functions
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: r_rtc_interrupt
+* Function Name: r_it8bit0_channel0_interrupt
 * Description  : None
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-static void __near r_rtc_interrupt(void)
-{
-    if (1U == RIFG)
-    {
-        RTCWEN = 1U;
-        RTCC1 &= (uint8_t)~_08_RTC_INTC_GENERATE_FLAG;    /* clear RIFG */
-        RTCWEN = 0U;
-        r_rtc_callback_constperiod();
-    }
-}
-/***********************************************************************************************************************
-* Function Name: r_rtc_callback_constperiod
-* Description  : This function is real-time clock constant-period interrupt service handler.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-static void r_rtc_callback_constperiod(void)
+static void __near r_it8bit0_channel0_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
-    // events = events | RTC_NOTIFICATION_EVENT;
     /* End user code. Do not edit comment generated here */
 }
 

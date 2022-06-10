@@ -40,12 +40,22 @@ Pragma directive
 ***********************************************************************************************************************/
 #pragma interrupt r_adc_interrupt(vect=INTAD)
 /* Start user code for pragma. Do not edit comment generated here */
+#pragma address (adc_buf = 0xFF900U)
+#pragma address (ads_buf = 0xFFa00U)
+#define SENSOR_REF_TEMP_SCALED (250)
+#define INT_REF_V_SCALED (145000L)
+#define INT_REF_TEMP_SCALED (105000L)
+#define TEMP_SENSOR_GAIN_SCALED (36)
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
+volatile uint16_t adc_buf[8];
+volatile uint8_t ads_buf[8];
+uint32_t ADCtemp=0,ADCvolt=0;
+int16_t g_tempv_int;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -61,4 +71,26 @@ static void __near r_adc_interrupt(void)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
+void init_pcb_temperature(void){
+    int i;
+    for (i = 0; i < 8;i++){
+        ads_buf[i] = _80_AD_INPUT_TEMPERSENSOR | (i & 1);
+    }
+}
+void get_pcb_temperature(int16_t *pcbTemperature){
+    int i;
+    int16_t temp = 0;
+    for (i = 0; i < 8;i=i+2){
+        ADCtemp = adc_buf[i+1];
+        ADCvolt = adc_buf[i];
+        g_tempv_int = (int16_t)(((INT_REF_V_SCALED)*ADCtemp /
+                                ADCvolt) -
+                                (INT_REF_TEMP_SCALED));
+
+        temp += (int16_t)(-(g_tempv_int / (TEMP_SENSOR_GAIN_SCALED)) +
+                                    SENSOR_REF_TEMP_SCALED);
+    }
+    *pcbTemperature = temp / 4;
+    R_ADC_Stop();
+}
 /* End user code. Do not edit comment generated here */

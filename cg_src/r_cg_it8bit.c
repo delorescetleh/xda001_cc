@@ -18,11 +18,11 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : r_cg_rtc_user.c
+* File Name    : r_cg_it8bit.c
 * Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
-* Description  : This file implements device driver for RTC module.
+* Description  : This file implements device driver for IT8Bit module.
 * Creation Date: 2022/6/10
 ***********************************************************************************************************************/
 
@@ -30,16 +30,14 @@
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "r_cg_rtc.h"
+#include "r_cg_it8bit.h"
 /* Start user code for include. Do not edit comment generated here */
-#include "r_cg_adc.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
 /***********************************************************************************************************************
 Pragma directive
 ***********************************************************************************************************************/
-#pragma interrupt r_rtc_interrupt(vect=INTRTC)
 /* Start user code for pragma. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -50,32 +48,47 @@ Global variables and functions
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: r_rtc_interrupt
-* Description  : None
+* Function Name: R_IT8Bit0_Channel0_Create
+* Description  : This function initializes the 8 bit interval timer unit0 channel0.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-static void __near r_rtc_interrupt(void)
+void R_IT8Bit0_Channel0_Create(void)
 {
-    if (1U == RIFG)
-    {
-        RTCWEN = 1U;
-        RTCC1 &= (uint8_t)~_08_RTC_INTC_GENERATE_FLAG;    /* clear RIFG */
-        RTCWEN = 0U;
-        r_rtc_callback_constperiod();
-    }
+    TRTCR0 |= _10_IT8BIT_CLOCK_SUPPLY;
+    TSTART00 = 0U;  /* counting stops */
+    ITMK00 = 1U;    /* disable INTIT00 interrupt */
+    ITIF00 = 0U;    /* clear INTIT00 interrupt flag */
+    /* Set INTIT00 low priority */
+    ITPR100 = 1U;
+    ITPR000 = 1U;
+    TRTCR0 |= _00_IT8BIT_8BIT_COUNT_MODE;
+    TRTMD0 |= _07_IT8BIT_CLOCK0_128;
+    TRTCMP00 = _FF_IT8BIT_CMP00_VALUE;
 }
 /***********************************************************************************************************************
-* Function Name: r_rtc_callback_constperiod
-* Description  : This function is real-time clock constant-period interrupt service handler.
+* Function Name: R_IT8Bit0_Channel0_Start
+* Description  : This function starts 8 bit interval timer unit0 channel0 operation.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-static void r_rtc_callback_constperiod(void)
+void R_IT8Bit0_Channel0_Start(void)
 {
-    /* Start user code. Do not edit comment generated here */
-    // events = events | RTC_NOTIFICATION_EVENT;
-    /* End user code. Do not edit comment generated here */
+    ITIF00 = 0U;    /* clear INTIT00 interrupt flag */
+    ITMK00 = 0U;    /* enable INTIT00 interrupt */
+    TSTART00 = 1U;  /* counting starts */
+}
+/***********************************************************************************************************************
+* Function Name: R_IT8Bit0_Channel0_Stop
+* Description  : This function stops 8 bit interval timer unit0 channel0 operation.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_IT8Bit0_Channel0_Stop(void)
+{
+    ITMK00 = 1U;    /* disable INTIT00 interrupt */
+    ITIF00 = 0U;    /* clear INTIT00 interrupt flag */
+    TSTART00 = 0U;  /* counting stops */
 }
 
 /* Start user code for adding. Do not edit comment generated here */

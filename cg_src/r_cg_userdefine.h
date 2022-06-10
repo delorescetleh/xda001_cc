@@ -33,17 +33,20 @@ User definitions
 ***********************************************************************************************************************/
 
 /* Start user code for function. Do not edit comment generated here */
+
 // SHOULD SET TIMER LET TIME_SPEED * BASE_TIME = 1 MIN
 #define TEST_FACTORY_MODE_NOW           0x00
 #define TIME_SPEED 60
 #define WORK_WITH_E1 1
 //########################################################################
+#define events (*(volatile __near unsigned char  *)0xE900)
 #define TIMER_PERIODIC_EVENT            0x01
 #define PT100_NOTIFICATION_EVENT        0x02
 #define BLE_NOTIFICATION_EVENT          0x04
 #define LoRA_NOTIFICATION_EVENT         0x08
 #define EEPROM_NOTIFICATION_EVENT       0x10
 #define ADC_NOTIFICATION_EVENT          0x20
+#define RTC_NOTIFICATION_EVENT          0x40
 
 #define TIMER_PERIODIC_CNT          0x0a // Unit : seconds
 #define DEFAULT_PT100_READ_INTV     0x01 // Unit : Minutes
@@ -214,12 +217,12 @@ typedef enum bleCmdIndex
 
 
 
+
 extern uint8_t uart0_status;
 extern uint8_t uart1_status;
 
 extern uint8_t iic_status;
-
-extern uint8_t events;
+// extern uint8_t events;
 extern uint8_t ble_status;
 /* End user code. Do not edit comment generated here */
 #endif

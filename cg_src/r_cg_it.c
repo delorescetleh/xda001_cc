@@ -18,11 +18,11 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : r_cg_rtc_user.c
+* File Name    : r_cg_it.c
 * Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
-* Description  : This file implements device driver for RTC module.
+* Description  : This file implements device driver for IT module.
 * Creation Date: 2022/6/10
 ***********************************************************************************************************************/
 
@@ -30,16 +30,14 @@
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "r_cg_rtc.h"
+#include "r_cg_it.h"
 /* Start user code for include. Do not edit comment generated here */
-#include "r_cg_adc.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
 /***********************************************************************************************************************
 Pragma directive
 ***********************************************************************************************************************/
-#pragma interrupt r_rtc_interrupt(vect=INTRTC)
 /* Start user code for pragma. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -50,32 +48,45 @@ Global variables and functions
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: r_rtc_interrupt
-* Description  : None
+* Function Name: R_IT_Create
+* Description  : This function initializes the IT module.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-static void __near r_rtc_interrupt(void)
+void R_IT_Create(void)
 {
-    if (1U == RIFG)
-    {
-        RTCWEN = 1U;
-        RTCC1 &= (uint8_t)~_08_RTC_INTC_GENERATE_FLAG;    /* clear RIFG */
-        RTCWEN = 0U;
-        r_rtc_callback_constperiod();
-    }
+    TMKAEN = 1U;    /* enables input clock supply */
+    ITMC = _0000_IT_OPERATION_DISABLE;
+    TMKAMK = 1U;    /* disable INTIT interrupt */
+    TMKAIF = 0U;    /* clear INTIT interrupt flag */
+    /* Set INTIT low priority */
+    TMKAPR1 = 1U;
+    TMKAPR0 = 1U;
+    ITMC = _0CCC_ITCMP_VALUE;
 }
 /***********************************************************************************************************************
-* Function Name: r_rtc_callback_constperiod
-* Description  : This function is real-time clock constant-period interrupt service handler.
+* Function Name: R_IT_Start
+* Description  : This function starts IT module operation.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-static void r_rtc_callback_constperiod(void)
+void R_IT_Start(void)
 {
-    /* Start user code. Do not edit comment generated here */
-    // events = events | RTC_NOTIFICATION_EVENT;
-    /* End user code. Do not edit comment generated here */
+    TMKAIF = 0U;    /* clear INTIT interrupt flag */
+    TMKAMK = 0U;    /* enable INTIT interrupt */
+    ITMC |= _8000_IT_OPERATION_ENABLE;
+}
+/***********************************************************************************************************************
+* Function Name: R_IT_Stop
+* Description  : This function stops IT module operation.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_IT_Stop(void)
+{
+    TMKAMK = 1U;    /* disable INTIT interrupt */
+    TMKAIF = 0U;    /* clear INTIT interrupt flag */
+    ITMC &= (uint16_t)~_8000_IT_OPERATION_ENABLE;
 }
 
 /* Start user code for adding. Do not edit comment generated here */

@@ -33,6 +33,7 @@ Includes
 #include "r_cg_cgc.h"
 #include "r_cg_port.h"
 #include "r_cg_rtc.h"
+#include "r_cg_it.h"
 #include "r_cg_pga_dsad.h"
 #include "r_cg_adc.h"
 #include "r_cg_sau.h"
@@ -71,6 +72,7 @@ void R_Systeminit(void)
     R_PORT_Create();
     R_CGC_Create();
     R_RTC_Create();
+    R_IT_Create();
     R_PGA_DSAD_Create();
     R_IICA0_Create();
     R_ADC_Create();
