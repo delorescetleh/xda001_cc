@@ -4,6 +4,10 @@
 
 Make PT100 Function to margin into master branch
 
+---
+1. ver 0.0.1 add void get_pt100_result(float *result) function return temperature value in degC
+---
+
 ## Some Mission should be done  
 
 1. Implement all function as old version (2022 0301 version)
