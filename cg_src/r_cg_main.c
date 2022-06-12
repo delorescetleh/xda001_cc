@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2022/6/11
+* Creation Date: 2022/6/12
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -58,6 +58,8 @@ Global variables and functions
 volatile unsigned char EVENTS;
 uint8_t rtc_counter = 0;
 int16_t pcbTemperature;
+int PT100result;
+uint8_t dsadc_ready = 0;
 /* End user code. Do not edit comment generated here */
 
 static void R_MAIN_UserInit(void);
@@ -82,7 +84,10 @@ void main(void)
     R_ADC_Set_OperationOff();
     //L_PGA_STOP();
     R_PGA_DSAD_Create();
+    
+    init_dsadc(&dsadc_ready);
     R_PGA_DSAD_Start();
+    dsadc_ready=0;
     R_RTC_Start();
     // void R_IT_Create(void);
     R_IT_Stop();
@@ -94,12 +99,22 @@ void main(void)
                 EVENTS &= (~RTC_NOTIFICATION_EVENT);
                 R_IT_Start(); // start fetch pcb temperature
                 R_DTCD0_Start();
+                R_PGA_DSAD_Start();
+		dsadc_ready=0;
                 get_pcb_temperature(&pcbTemperature);
+            }
+            if (EVENTS&PT100_NOTIFICATION_EVENT){
+                if (dsadc_ready){
+                    EVENTS &= (~PT100_NOTIFICATION_EVENT);
+                    get_pt100_result(&PT100result);
+                }
             }
             // if (EVENTS&RTC_NOTIFICATION_EVENT){
             // }
+        }else{
+		//    L_PGA_STOP();
+            //HALT();
         }
-        //HALT();
         ;
     }
     /* End user code. Do not edit comment generated here */

@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (W3.03.00 )             11-Jun-2022 07:54:33
+Renesas Optimizing Linker (W3.03.00 )             12-Jun-2022 15:45:41
 
 *** Options ***
 
@@ -60,7 +60,7 @@ SECTION                            START      END         SIZE   ALIGN
 .sdata
                                   00000080  00000080         0   2
 .data
-                                  00000082  00000091        10   2
+                                  00000082  00000097        16   2
 .option_byte
                                   000000c0  000000c3         4   1
 .security_id
@@ -70,11 +70,11 @@ SECTION                            START      END         SIZE   ALIGN
 .monitor1
                                   000000ce  000000d7         a   1
 .text
-                                  000000d8  00000348       271   1
+                                  000000d8  00000349       272   1
 .textf
-                                  00000349  0000109a       d52   1
+                                  0000034a  00000f56       c0d   1
 .RLIB
-                                  0000109b  0000148d       3f3   1
+                                  00000f57  000012b5       35f   1
 .const
                                   00002000  00002000         0   2
 .monitor2
@@ -82,9 +82,9 @@ SECTION                            START      END         SIZE   ALIGN
 .bss_ATFE900
                                   000fe900  000fe900         1   1
 .bss
-                                  000fe902  000fe9e9        e8   2
+                                  000fe902  000fe987        86   2
 .dataR
-                                  000fe9ea  000fe9f9        10   2
+                                  000fe988  000fe99d        16   2
 .bss_ATFF900
                                   000ff900  000ff90f        10   1
 .bss_ATFFA00
@@ -95,6 +95,10 @@ SECTION                            START      END         SIZE   ALIGN
                                   000ffd40  000ffd47         8   1
 .bss_ATFFD48
                                   000ffd48  000ffd4f         8   1
+.bss_ATFFD50
+                                  000ffd50  000ffd57         8   1
+.bss_ATFFD58
+                                  000ffd58  000ffd5f         8   1
 .sbss
                                   000ffe20  000ffe20         0   2
 .sdataR

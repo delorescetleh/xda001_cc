@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file includes user definition.
-* Creation Date: 2022/6/11
+* Creation Date: 2022/6/12
 ***********************************************************************************************************************/
 #ifndef _USER_DEF_H
 #define _USER_DEF_H
@@ -38,6 +38,7 @@ User definitions
 #define TEST_FACTORY_MODE_NOW           0x00
 #define TIME_SPEED 60
 #define WORK_WITH_E1 1
+
 //########################################################################
 #define events (*(volatile __near unsigned char  *)0xE900)
 #define TIMER_PERIODIC_EVENT            0x01

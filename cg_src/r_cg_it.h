@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for IT module.
-* Creation Date: 2022/6/11
+* Creation Date: 2022/6/12
 ***********************************************************************************************************************/
 #ifndef IT_H
 #define IT_H

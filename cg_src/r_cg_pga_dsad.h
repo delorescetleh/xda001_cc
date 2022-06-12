@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for PGIA module.
-* Creation Date: 2022/6/11
+* Creation Date: 2022/6/12
 ***********************************************************************************************************************/
 #ifndef PGIA_H
 #define PGIA_H
@@ -213,6 +213,7 @@ void R_PGA_DSAD_Get_AverageResult(uint16_t * const bufferH, uint16_t * const buf
 /* Start user code for function. Do not edit comment generated here */
 void L_PGA_STOP(void);
 void get_dsadc_result(void);
-void get_pt100_result(float *result);
+void get_pt100_result(int *result);
+void init_dsadc(uint8_t *ready);
 /* End user code. Do not edit comment generated here */
 #endif
