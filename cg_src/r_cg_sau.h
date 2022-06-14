@@ -315,7 +315,7 @@ void L_BLE_STOP(void);
 uint8_t L_BLE_FACTORY_MODE_SETTING(void);
 void L_BLE_START_FOR_WAITING_APP_COMMAND(void);
 void L_Clear_BLE_RECIEVED_BUFFER(uint8_t clearlegnth);
-uint8_t L_BLE_SEND_COMMAND(uint8_t *command, uint8_t comandLength, uint8_t *expectAck, uint8_t ackLength);
+uint8_t L_BLE_SEND_COMMAND(char *command, uint8_t comandLength, char *expectAck, uint8_t ackLength);
 
 uint8_t checkBleMessage(uint8_t *cmd_ptr, uint8_t *param_ptr, uint8_t *param_ptr1);
 void checkAppCommand(void);
@@ -325,7 +325,7 @@ static void doBleTask_SetLoraInterval(void);
 static void doBleTask_SetTemperatureOffset(void);
 
 static void sendBleMessage(uint8_t *message_ptr, uint8_t length);
-void bleReceiveAppCommand();
+// void bleReceiveAppCommand();
 
 uint8_t *getBleReceivedBufferAddress(void);
 uint8_t getBleReceivedEnd(void);

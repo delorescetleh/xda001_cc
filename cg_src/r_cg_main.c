@@ -75,12 +75,11 @@ void main(void)
     R_MAIN_UserInit();
     /* Start user code. Do not edit comment generated here */
     LORA_POW_CNT = POWER_ON;
-
+    BLE_POW_CNT = POWER_OFF;
     EPROM_POW_CNT = POWER_OFF;
 
-    R_UART1_Start();
-    delayInMs(2);
-    BLE_POW_CNT = POWER_ON;
+    data[9]=L_BLE_FACTORY_MODE_SETTING();
+    
     memclr(data, 10);
     // init_pcb_temperature();
     // set_TXD0_as_Input_Mode();

@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (W3.03.00 )             14-Jun-2022 16:43:58
+Renesas Optimizing Linker (W3.03.00 )             14-Jun-2022 17:56:39
 
 *** Options ***
 
@@ -60,8 +60,6 @@ SECTION                            START      END         SIZE   ALIGN
                                   00000080  00000080         0   2
 .sdata
                                   00000080  00000080         0   2
-.data
-                                  00000082  000000a1        20   2
 .option_byte
                                   000000c0  000000c3         4   1
 .security_id
@@ -70,14 +68,16 @@ SECTION                            START      END         SIZE   ALIGN
                                   000000c4  000000c4         0   1
 .monitor1
                                   000000ce  000000d7         a   1
+.data
+                                  000000d8  00000245       16e   2
 .text
-                                  000000d8  00000349       272   1
+                                  00000246  000004b7       272   1
 .textf
-                                  0000034a  00000fa4       c5b   1
+                                  000004b8  000011f1       d3a   1
 .RLIB
-                                  00000fa5  00001303       35f   1
+                                  000011f2  00001550       35f   1
 .const
-                                  00002000  00002000         0   2
+                                  00002000  00002055        56   2
 .monitor2
                                   0001fe00  0001ffff       200   1
 .bss_ATFE900
@@ -85,7 +85,7 @@ SECTION                            START      END         SIZE   ALIGN
 .bss
                                   000fe902  000fe987        86   2
 .dataR
-                                  000fe988  000fe9a7        20   2
+                                  000fe988  000feaf5       16e   2
 .bss_ATFF900
                                   000ff900  000ff90f        10   1
 .bss_ATFFA00
@@ -96,8 +96,6 @@ SECTION                            START      END         SIZE   ALIGN
                                   000ffd40  000ffd47         8   1
 .bss_ATFFD48
                                   000ffd48  000ffd4f         8   1
-.bss_ATFFD90
-                                  000ffd90  000ffd97         8   1
 .sbss
                                   000ffe20  000ffe20         0   2
 .sdataR

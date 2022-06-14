@@ -146,7 +146,7 @@ User definitions
 #define R_PFDL_SAM_WDT_RESET()  WDTE = 0xAC /* Watchdog timer reset                */
 
 #define MAX_SENSOR_FETCH_TIMES 10
-
+#define MAX_BLE_DATA_LENGTH 160
 /*factory setting value*/
 #define F_READY           0x01 
 #define F_BLE_READY       0x02 
