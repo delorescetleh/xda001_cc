@@ -282,24 +282,44 @@
 // extern void dataFlashEnd(void){
 //     r_pfdl_samFdlEnd();
 // }
-// extern uint8_t memcpy(uint8_t *target, uint8_t *source, uint8_t length)
-// {
-//   while (length)
-//   {
-//     *(target) = *(source);
-//     length--;
-//     target++;
-//     source++;
-//   }
-//   return 1;
-// }
+extern uint8_t memcpy(uint8_t *target, uint8_t *source, uint8_t length)
+{
+  while (length)
+  {
+    *(target) = *(source);
+    length--;
+    target++;
+    source++;
+  }
+  return 1;
+}
 
 extern void delayInMs(uint32_t ms){
     const uint16_t ONE_MS_BASE = 800;
     ms = ms * ONE_MS_BASE;
     while(ms--);
 }
-
+// Success :1 , Fail: 0
+uint8_t memcmp(uint8_t *target,uint8_t *source,uint8_t length,uint8_t maxLength){
+    uint8_t i=0;
+    while(i<maxLength){
+        if(*(target)==*(source)){
+            break;
+        }
+        if(i>(maxLength-length)){
+            return 0;
+        }
+        target++;
+	    i++;
+    }
+    for (i = 0; i < length; i++)
+    {
+        if(*(target+i)!=*(source+i)){
+            return 0;
+        }
+    }
+    return 1;
+}
 // void setTimeOut(uint32_t userSetTimeOutBase){
 //     timeOutBaseLine = userSetTimeOutBase;
 // }

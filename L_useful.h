@@ -27,9 +27,10 @@
 // extern void dataFlashEnd(void);
 
 // uint8_t getPCB_Temperature_when_in_Factory();
-// extern uint8_t memcpy(uint8_t *target, uint8_t *source, uint8_t length);
+extern uint8_t memcpy(uint8_t *target, uint8_t *source, uint8_t length);
 // uint8_t timeOut(uint32_t timeOutMSeconds);
 // void setTimeOut(uint32_t userSetTimeOutBase);
 
 // pfdl_status_t waitDataFlashProcess(void);
 extern void delayInMs(uint32_t ms);
+extern uint8_t memcmp(uint8_t *target, uint8_t *source, uint8_t length, uint8_t maxLength);
