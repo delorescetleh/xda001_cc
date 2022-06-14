@@ -33,7 +33,7 @@ User definitions
 ***********************************************************************************************************************/
 
 /* Start user code for function. Do not edit comment generated here */
-
+# include "L_useful.h"
 // SHOULD SET TIMER LET TIME_SPEED * BASE_TIME = 1 MIN
 #define TEST_FACTORY_MODE_NOW           0x00
 #define TIME_SPEED 60

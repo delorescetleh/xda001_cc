@@ -78,6 +78,7 @@ void main(void)
     EPROM_POW_CNT = POWER_OFF;
 
     R_UART1_Start();
+    delayInMs(2);
     BLE_POW_CNT = POWER_ON;
     // init_pcb_temperature();
     // set_TXD0_as_Input_Mode();

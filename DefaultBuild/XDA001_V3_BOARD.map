@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (W3.03.00 )             14-Jun-2022 15:47:11
+Renesas Optimizing Linker (W3.03.00 )             14-Jun-2022 16:27:31
 
 *** Options ***
 
@@ -27,6 +27,7 @@ Renesas Optimizing Linker (W3.03.00 )             14-Jun-2022 15:47:11
 -Input=DefaultBuild\r_cg_it_user.obj
 -Input=DefaultBuild\r_cg_amp.obj
 -Input=DefaultBuild\r_cg_amp_user.obj
+-Input=DefaultBuild\L_useful.obj
 -SECURITY_ID=00000000000000000000
 -DEVICE=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11NGG.DVF
 -DEBug
@@ -72,9 +73,9 @@ SECTION                            START      END         SIZE   ALIGN
 .text
                                   000000d8  00000349       272   1
 .textf
-                                  0000034a  00000ed1       b88   1
+                                  0000034a  00000f05       bbc   1
 .RLIB
-                                  00000ed2  00001230       35f   1
+                                  00000f06  00001264       35f   1
 .const
                                   00002000  00002000         0   2
 .monitor2
