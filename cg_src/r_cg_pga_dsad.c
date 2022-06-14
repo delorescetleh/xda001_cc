@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for PGIA module.
-* Creation Date: 2022/6/12
+* Creation Date: 2022/6/14
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -85,7 +85,7 @@ void R_PGA_DSAD_Create(void)
     DSADSPR1 = 1U;
     DSADSPR0 = 1U;
     DSADMR |= _00_PGA_DSAD_TRIGGER_SOFTWARE;
-    DSADCTL = _00_DSAD_CONVERSION_STOP | _00_DSAD_STABILIZATION_TIME_3T | _00_DSAD_SCAN_MODE_CONTINUOUS | 
+    DSADCTL = _00_DSAD_CONVERSION_STOP | _00_DSAD_STABILIZATION_TIME_3T | _20_DSAD_SCAN_MODE_SINGLE | 
               _00_DSAD_INPUT3_ENABLE | _00_DSAD_INPUT2_ENABLE | _00_DSAD_INPUT1_ENABLE | _00_DSAD_INPUT0_ENABLE;
     PGA0CTL0 = _A0_PGA_MULTIPLEXERn_SAMPLE_RATIO_2048 | _10_PGA_MULTIPLEXERn_GSET01_8 | _03_PGA_MULTIPLEXERn_GSET02_8;
     PGA1CTL0 = _00_PGA_MULTIPLEXERn_SAMPLE_RATIO_64 | _00_PGA_MULTIPLEXERn_GSET01_1 | _00_PGA_MULTIPLEXERn_GSET02_1;

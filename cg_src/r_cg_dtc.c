@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for DTC module.
-* Creation Date: 2022/6/12
+* Creation Date: 2022/6/14
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -54,10 +54,8 @@ uint8_t __near dtc_vectortable[40U];
 st_dtc_data_t __near dtc_controldata_0;
 #pragma address dtc_controldata_1 = 0x0FFD48U
 st_dtc_data_t __near dtc_controldata_1;
-#pragma address dtc_controldata_2 = 0x0FFD50U
-st_dtc_data_t __near dtc_controldata_2;
-#pragma address dtc_controldata_3 = 0x0FFD58U
-st_dtc_data_t __near dtc_controldata_3;
+#pragma address dtc_controldata_10 = 0x0FFD90U
+st_dtc_data_t __near dtc_controldata_10;
 /***********************************************************************************************************************
 * Function Name: R_DTC_Create
 * Description  : This function initializes the DTC module.
@@ -92,23 +90,15 @@ void R_DTC_Create(void)
     dtc_controldata_1.dtrld = _08_DTCD1_TRANSFER_BYTE;
     dtc_controldata_1.dtsar = _FA00_DTCD1_SRC_ADDRESS;
     dtc_controldata_1.dtdar = _FF31_DTCD1_DEST_ADDRESS;
-    /* Set DTCD2 */
-    dtc_vectortable[27U] = 0x50U;
-    dtc_controldata_2.dtccr = _00_DTC_DATA_SIZE_8BITS | _10_DTC_CHAIN_TRANSFER_ENABLE | _00_DTC_DEST_ADDR_FIXED | 
-                              _00_DTC_SOURCE_ADDR_FIXED | _00_DTC_TRANSFER_MODE_NORMAL;
-    dtc_controldata_2.dtbls = _02_DTCD2_TRANSFER_BLOCKSIZE;
-    dtc_controldata_2.dtcct = _01_DTCD2_TRANSFER_BYTE;
-    dtc_controldata_2.dtrld = _01_DTCD2_TRANSFER_BYTE;
-    dtc_controldata_2.dtsar = _0454_DTCD2_SRC_ADDRESS;
-    dtc_controldata_2.dtdar = _FB00_DTCD2_DEST_ADDRESS;
-    /* Set DTCD3 */
-    dtc_controldata_3.dtccr = _40_DTC_DATA_SIZE_16BITS | _00_DTC_CHAIN_TRANSFER_DISABLE | _00_DTC_DEST_ADDR_FIXED | 
-                              _00_DTC_SOURCE_ADDR_FIXED | _00_DTC_TRANSFER_MODE_NORMAL;
-    dtc_controldata_3.dtbls = _01_DTCD3_TRANSFER_BLOCKSIZE;
-    dtc_controldata_3.dtcct = _01_DTCD3_TRANSFER_BYTE;
-    dtc_controldata_3.dtrld = 0x00U;
-    dtc_controldata_3.dtsar = _0456_DTCD3_SRC_ADDRESS;
-    dtc_controldata_3.dtdar = _FC00_DTCD3_DEST_ADDRESS;
+    /* Set DTCD10 */
+    dtc_vectortable[13U] = 0x90U;
+    dtc_controldata_10.dtccr = _00_DTC_DATA_SIZE_8BITS | _00_DTC_REPEAT_INT_DISABLE | _00_DTC_CHAIN_TRANSFER_DISABLE | 
+                               _00_DTC_SOURCE_ADDR_FIXED | _00_DTC_REPEAT_AREA_DEST | _01_DTC_TRANSFER_MODE_REPEAT;
+    dtc_controldata_10.dtbls = _01_DTCD10_TRANSFER_BLOCKSIZE;
+    dtc_controldata_10.dtcct = _A0_DTCD10_TRANSFER_BYTE;
+    dtc_controldata_10.dtrld = _A0_DTCD10_TRANSFER_BYTE;
+    dtc_controldata_10.dtsar = _FF46_DTCD10_SRC_ADDRESS;
+    dtc_controldata_10.dtdar = _FC00_DTCD10_DEST_ADDRESS;
 }
 /***********************************************************************************************************************
 * Function Name: R_DTCD0_Start
@@ -131,24 +121,24 @@ void R_DTCD0_Stop(void)
     DTCEN1 &= (uint8_t)~_20_DTC_AD_ACTIVATION_ENABLE;
 }
 /***********************************************************************************************************************
-* Function Name: R_DTCD2_Start
-* Description  : This function enables DTCD2 module operation.
+* Function Name: R_DTCD10_Start
+* Description  : This function enables DTCD10 module operation.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_DTCD2_Start(void)
+void R_DTCD10_Start(void)
 {
-     DTCEN3 |= _10_DTC_12BIT_ACTIVATION_ENABLE;
+     DTCEN1 |= _04_DTC_UART1R_ACTIVATION_ENABLE;
 }
 /***********************************************************************************************************************
-* Function Name: R_DTCD2_Stop
-* Description  : This function disables DTCD2 module operation.
+* Function Name: R_DTCD10_Stop
+* Description  : This function disables DTCD10 module operation.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_DTCD2_Stop(void)
+void R_DTCD10_Stop(void)
 {
-    DTCEN3 &= (uint8_t)~_10_DTC_12BIT_ACTIVATION_ENABLE;
+    DTCEN1 &= (uint8_t)~_04_DTC_UART1R_ACTIVATION_ENABLE;
 }
 
 /* Start user code for adding. Do not edit comment generated here */

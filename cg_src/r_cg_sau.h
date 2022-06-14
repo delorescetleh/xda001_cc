@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for SAU module.
-* Creation Date: 2022/6/12
+* Creation Date: 2022/6/14
 ***********************************************************************************************************************/
 #ifndef SAU_H
 #define SAU_H
@@ -269,8 +269,8 @@ Macro definitions
 ***********************************************************************************************************************/
 #define _CE00_SAU0_CH0_BAUDRATE_DIVISOR         (0xCE00U) /* transfer clock set by dividing the operating clock */
 #define _CE00_SAU0_CH1_BAUDRATE_DIVISOR         (0xCE00U) /* transfer clock set by dividing the operating clock */
-#define _CE00_SAU0_CH2_BAUDRATE_DIVISOR         (0xCE00U) /* transfer clock set by dividing the operating clock */
-#define _CE00_SAU0_CH3_BAUDRATE_DIVISOR         (0xCE00U) /* transfer clock set by dividing the operating clock */
+#define _8800_SAU0_CH2_BAUDRATE_DIVISOR         (0x8800U) /* transfer clock set by dividing the operating clock */
+#define _8800_SAU0_CH3_BAUDRATE_DIVISOR         (0x8800U) /* transfer clock set by dividing the operating clock */
 #define _0020_SMR00_DEFAULT_VALUE               (0x0020U) /* SMR00 default value */
 #define _0020_SMR01_DEFAULT_VALUE               (0x0020U) /* SMR01 default value */
 #define _0020_SMR02_DEFAULT_VALUE               (0x0020U) /* SMR02 default value */

@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2022/6/12
+* Creation Date: 2022/6/14
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -74,47 +74,50 @@ void main(void)
     R_MAIN_UserInit();
     /* Start user code. Do not edit comment generated here */
     LORA_POW_CNT = POWER_ON;
-    BLE_POW_CNT = POWER_OFF;
+
     EPROM_POW_CNT = POWER_OFF;
-    init_pcb_temperature();
-    set_TXD0_as_Input_Mode();
-    set_TXD1_as_Input_Mode();
-    R_IICA0_Stop();
-    R_ADC_Stop();
-    R_ADC_Set_OperationOff();
-    //L_PGA_STOP();
-    R_PGA_DSAD_Create();
+
+    R_UART1_Start();
+    BLE_POW_CNT = POWER_ON;
+    // init_pcb_temperature();
+    // set_TXD0_as_Input_Mode();
+    // set_TXD1_as_Input_Mode();
+    // R_IICA0_Stop();
+    // R_ADC_Stop();
+    // R_ADC_Set_OperationOff();
+    // //L_PGA_STOP();
+    // R_PGA_DSAD_Create();
     
-    init_dsadc(&dsadc_ready);
-    R_PGA_DSAD_Start();
-    dsadc_ready=0;
-    R_RTC_Start();
-    // void R_IT_Create(void);
-    R_IT_Stop();
-    EVENTS=0;
+    // init_dsadc(&dsadc_ready);
+    // R_PGA_DSAD_Start();
+    // dsadc_ready=0;
+    // R_RTC_Start();
+    // // void R_IT_Create(void);
+    // R_IT_Stop();
+    // EVENTS=0;
     while (1U)
     {
-        if(EVENTS){
-            if (EVENTS&RTC_NOTIFICATION_EVENT){
-                EVENTS &= (~RTC_NOTIFICATION_EVENT);
-                R_IT_Start(); // start fetch pcb temperature
-                R_DTCD0_Start();
-                R_PGA_DSAD_Start();
-		dsadc_ready=0;
-                get_pcb_temperature(&pcbTemperature);
-            }
-            if (EVENTS&PT100_NOTIFICATION_EVENT){
-                if (dsadc_ready){
-                    EVENTS &= (~PT100_NOTIFICATION_EVENT);
-                    get_pt100_result(&PT100result);
-                }
-            }
-            // if (EVENTS&RTC_NOTIFICATION_EVENT){
-            // }
-        }else{
-		//    L_PGA_STOP();
-            //HALT();
-        }
+        // if(EVENTS){
+        //     if (EVENTS&RTC_NOTIFICATION_EVENT){
+        //         EVENTS &= (~RTC_NOTIFICATION_EVENT);
+        //         R_IT_Start(); // start fetch pcb temperature
+        //         R_DTCD0_Start();
+        //         R_PGA_DSAD_Start();
+		// dsadc_ready=0;
+        //         get_pcb_temperature(&pcbTemperature);
+        //     }
+        //     if (EVENTS&PT100_NOTIFICATION_EVENT){
+        //         if (dsadc_ready){
+        //             EVENTS &= (~PT100_NOTIFICATION_EVENT);
+        //             get_pt100_result(&PT100result);
+        //         }
+        //     }
+        //     // if (EVENTS&RTC_NOTIFICATION_EVENT){
+        //     // }
+        // }else{
+		// //    L_PGA_STOP();
+        //     //HALT();
+        // }
         ;
     }
     /* End user code. Do not edit comment generated here */

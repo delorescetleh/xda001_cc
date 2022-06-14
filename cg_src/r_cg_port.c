@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for Port module.
-* Creation Date: 2022/6/12
+* Creation Date: 2022/6/14
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -59,7 +59,7 @@ void R_PORT_Create(void)
     P0 = _00_Pn7_OUTPUT_0 | _00_Pn6_OUTPUT_0 | _20_Pn5_OUTPUT_1 | _10_Pn4_OUTPUT_1 | _00_Pn3_OUTPUT_0 | 
          _00_Pn2_OUTPUT_0 | _00_Pn1_OUTPUT_0;
     P3 = _00_Pn7_OUTPUT_0 | _00_Pn6_OUTPUT_0 | _20_Pn5_OUTPUT_1 | _00_Pn2_OUTPUT_0 | _00_Pn0_OUTPUT_0;
-    P5 = _00_Pn3_OUTPUT_0 | _00_Pn2_OUTPUT_0 | _00_Pn1_OUTPUT_0 | _00_Pn0_OUTPUT_0;
+    P5 = _08_Pn3_OUTPUT_1 | _00_Pn2_OUTPUT_0 | _00_Pn1_OUTPUT_0 | _00_Pn0_OUTPUT_0;
     P7 = _00_Pn7_OUTPUT_0 | _00_Pn6_OUTPUT_0 | _02_Pn1_OUTPUT_1 | _00_Pn0_OUTPUT_0;
     PU5 = _00_PUn3_PULLUP_OFF | _00_PUn2_PULLUP_OFF | _00_PUn1_PULLUP_OFF | _00_PUn0_PULLUP_OFF;
     PU7 = _00_PUn7_PULLUP_OFF | _00_PUn6_PULLUP_OFF | _00_PUn1_PULLUP_OFF | _01_PUn0_PULLUP_ON;
