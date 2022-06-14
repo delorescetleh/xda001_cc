@@ -308,6 +308,32 @@ static void r_uart1_callback_sendend(void);
 static void r_uart1_callback_error(uint8_t err_type);
 static void r_uart1_callback_softwareoverrun(uint16_t rx_data);
 /* Start user code for function. Do not edit comment generated here */
+uint8_t L_BLE_POWER_ON_AND_CHECK_GET_REBOOT(void);
+void L_BLE_POW_OFF(void);
+uint8_t L_BLE_INIT_NORMAL(uint8_t *dubWriteBuffer, uint8_t *dubReadBuffer);
+void L_BLE_STOP(void);
+uint8_t L_BLE_FACTORY_MODE_SETTING(void);
+void L_BLE_START_FOR_WAITING_APP_COMMAND(void);
+void L_Clear_BLE_RECIEVED_BUFFER(uint8_t clearlegnth);
+uint8_t L_BLE_SEND_COMMAND(uint8_t *command, uint8_t comandLength, uint8_t *expectAck, uint8_t ackLength);
+
+uint8_t checkBleMessage(uint8_t *cmd_ptr, uint8_t *param_ptr, uint8_t *param_ptr1);
+void checkAppCommand(void);
+static void doBleTask_ShutDownBle(void);
+static void doBleTask_ReadEEPROM(void);
+static void doBleTask_SetLoraInterval(void);
+static void doBleTask_SetTemperatureOffset(void);
+
+static void sendBleMessage(uint8_t *message_ptr, uint8_t length);
+void bleReceiveAppCommand();
+
+uint8_t *getBleReceivedBufferAddress(void);
+uint8_t getBleReceivedEnd(void);
+void resetBleReceivedEnd(void);
+// uint8_t getBleWorkingNow(void);
+// void resetBleWorkingNow(void);
+void BLE_FACTORY_MODE_RESET_TO_FACTORY_SETTING(void);
+
 void set_TXD0_as_Input_Mode(void);
 void set_TXD1_as_Input_Mode(void);
 /* End user code. Do not edit comment generated here */
