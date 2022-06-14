@@ -267,6 +267,94 @@ static void r_uart1_callback_error(uint8_t err_type)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
+uint8_t L_BLE_POWER_ON_AND_CHECK_GET_REBOOT(void){
+    uint8_t success = 1,counter=10;
+    uint32_t timerA=0;
+    // R_IT_Start();
+    delayInMs(1);
+    timerA=millis();
+    while (1){
+        if ((millis() - timerA)>10){
+            timerA=millis();
+            counter++;
+            if (receivedFromBle[0] == '%')
+            {
+                break;
+            }
+        }
+        if (!counter){
+            success = 0;
+            break;
+        }
+        if (BleReceivedEnd){
+            if (receivedFromBle[0] == '%')
+            {
+                break;
+            }
+        }
+    }
+    BleReceivedEnd = 0;
+    // R_IT_Stop();
+    return success;
+}
+
+uint8_t L_BLE_SEND_COMMAND(uint8_t *command,uint8_t comandLength,uint8_t *expectAck,uint8_t ackLength ){
+    uint32_t counter1 = 0;
+    uint8_t comandSuccess=1;
+    R_UART1_Receive(receivedFromBle,ackLength);
+    memcpy(sendToBle,command, comandLength);
+    R_UART1_Send(sendToBle, comandLength);
+    BleReceivedEnd = 0;
+    while(!BleReceivedEnd){
+        delayInMs(10);
+	    counter1++;
+        if (counter1>100){
+            comandSuccess = 0;
+            counter1 = 0;
+            break;
+        }
+        if(receivedFromBle[0]!=0){
+            break;
+        }
+        comandSuccess=1;
+    }
+    if (comandSuccess){
+        BleReceivedEnd = 0;
+    }
+    return comandSuccess;
+}
+
+uint8_t L_BLE_FACTORY_MODE_SETTING(void){
+    uint8_t success = 0;
+    uint16_t counter = 0;
+
+    BLE_RESET_MODE = PIN_MODE_AS_OUTPUT;
+    BLE_RESET = PIN_LEVEL_AS_LOW;
+    
+    BLE_POW_CNT = PIN_LEVEL_AS_LOW;
+
+    R_UART1_Create();
+    R_UART1_Start();
+    R_UART1_Receive(receivedFromBle, 8); // invoke "%REBOOT%"
+    BleReceivedEnd = 0;
+    
+    delayInMs(2);
+    BLE_RESET_MODE = PIN_MODE_AS_INPUT;
+	success=L_BLE_POWER_ON_AND_CHECK_GET_REBOOT();
+
+    if (L_BLE_SEND_COMMAND("$$$", 3, "CMD>", 4)){
+    if (L_BLE_SEND_COMMAND("SS,40\r", 6, "AOK", 3)){
+	    if (L_BLE_SEND_COMMAND(setBleDeviceNameCommand, 12, "AOK", 3)){
+             if (L_BLE_SEND_COMMAND("SW,0B,07\r", 9, "AOK", 3)){
+                 if (L_BLE_SEND_COMMAND( "SW,0A,04\r", 9, "AOK", 3)){
+                          if (L_BLE_SEND_COMMAND( "SO,1\r", 5, "AOK", 3)){
+                        if (L_BLE_SEND_COMMAND( "R,1\r", 4, "Rebooting", 18)){
+                           success = 1;
+                         }}}}}}
+    }
+    return success;
+}
+
 void set_TXD1_as_Input_Mode(void){
     UART1_TXD_MODE = PIN_MODE_AS_INPUT;
 }
