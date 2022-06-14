@@ -320,6 +320,12 @@ uint8_t memcmp(uint8_t *target,uint8_t *source,uint8_t length,uint8_t maxLength)
     }
     return 1;
 }
+
+extern void memclr(uint8_t *target,uint8_t clearLength){
+    while(clearLength--){
+        *(target+clearLength) = 0;
+    }
+}
 // void setTimeOut(uint32_t userSetTimeOutBase){
 //     timeOutBaseLine = userSetTimeOutBase;
 // }

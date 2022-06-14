@@ -60,6 +60,7 @@ uint8_t rtc_counter = 0;
 int16_t pcbTemperature;
 int PT100result;
 uint8_t dsadc_ready = 0;
+uint8_t data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 /* End user code. Do not edit comment generated here */
 
 static void R_MAIN_UserInit(void);
@@ -80,6 +81,7 @@ void main(void)
     R_UART1_Start();
     delayInMs(2);
     BLE_POW_CNT = POWER_ON;
+    memclr(data, 10);
     // init_pcb_temperature();
     // set_TXD0_as_Input_Mode();
     // set_TXD1_as_Input_Mode();

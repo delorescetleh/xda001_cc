@@ -34,3 +34,4 @@ extern uint8_t memcpy(uint8_t *target, uint8_t *source, uint8_t length);
 // pfdl_status_t waitDataFlashProcess(void);
 extern void delayInMs(uint32_t ms);
 extern uint8_t memcmp(uint8_t *target, uint8_t *source, uint8_t length, uint8_t maxLength);
+extern void memclr(uint8_t *target, uint8_t clearlegnth);
