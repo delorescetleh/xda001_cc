@@ -274,16 +274,11 @@ static void r_uart1_callback_error(uint8_t err_type)
 
 /* Start user code for adding. Do not edit comment generated here */
 void L_BLE_STOP(void){
-    if (BLE_NO_CONNECT){
-        BLE_UART_RXD_IND_MODE = PIN_MODE_AS_OUTPUT;
-        BLE_UART_RXD_IND = PIN_LEVEL_AS_HIGH;
-    } else {
-        BLE_UART_RXD_IND_MODE = PIN_MODE_AS_INPUT;
-        R_INTC1_Stop();
-    }
-    BLE_RESET_MODE = PIN_MODE_AS_INPUT;
     R_UART1_Stop();
     UART1_TXD_MODE = PIN_MODE_AS_INPUT;
+    BLE_UART_RXD_IND_MODE = PIN_MODE_AS_OUTPUT;
+    BLE_UART_RXD_IND = PIN_LEVEL_AS_HIGH;
+    BLE_RESET_MODE = PIN_MODE_AS_INPUT;
 }
 uint8_t L_BLE_INIT(void){
     BLE_RESET_MODE = PIN_MODE_AS_OUTPUT;
