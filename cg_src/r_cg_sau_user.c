@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for SAU module.
-* Creation Date: 2022/6/14
+* Creation Date: 2022/6/15
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -43,6 +43,7 @@ Pragma directive
 #pragma interrupt r_uart1_interrupt_send(vect=INTST1)
 #pragma interrupt r_uart1_interrupt_receive(vect=INTSR1)
 /* Start user code for pragma. Do not edit comment generated here */
+# pragma address (receivedFromBle=0xFFC00)
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -59,7 +60,7 @@ extern volatile uint8_t * gp_uart1_rx_address;         /* uart1 receive buffer a
 extern volatile uint16_t  g_uart1_rx_count;            /* uart1 receive data number */
 extern volatile uint16_t  g_uart1_rx_length;           /* uart1 receive data length */
 /* Start user code for global. Do not edit comment generated here */
-uint8_t receivedFromBle[160] = {0};
+uint8_t receivedFromBle[160];
 uint8_t sendToBle[160] = {0};
 uint8_t BleReceivedEnd = 0;
 uint8_t setBleDeviceNameCommand[] = {'S','N',',','B','L','E','-','1','2','3','4','\r'};
@@ -273,21 +274,15 @@ static void r_uart1_callback_error(uint8_t err_type)
 
 /* Start user code for adding. Do not edit comment generated here */
 uint8_t L_BLE_POWER_ON_AND_CHECK_GET_REBOOT(void){
-    if (BleReceivedEnd){
-        return memcmp(receivedFromBle, (uint8_t *)("%REBOOT%"),(uint8_t) 8, MAX_BLE_DATA_LENGTH);
-    }
-    return 0;
+    return memcmp(receivedFromBle, (uint8_t *)("%REBOOT%"),(uint8_t) 8, MAX_BLE_DATA_LENGTH);
 }
 
 uint8_t L_BLE_SEND_COMMAND(char *command,uint8_t comandLength,char *expectAck,uint8_t ackLength ){
-    memclr(receivedFromBle, ackLength);
+    memclr(receivedFromBle, reset_DTC10());
     R_UART1_Receive(receivedFromBle,ackLength);
     R_UART1_Send((uint8_t *)command, comandLength);
     delayInMs(500);
-    if (BleReceivedEnd){
-        return memcmp(receivedFromBle, (uint8_t *)expectAck, ackLength, MAX_BLE_DATA_LENGTH);
-    }
-    return 0;
+    return memcmp(receivedFromBle, (uint8_t *)expectAck, ackLength, MAX_BLE_DATA_LENGTH);
 }
 
 uint8_t L_BLE_FACTORY_MODE_SETTING(void){
@@ -300,6 +295,7 @@ uint8_t L_BLE_FACTORY_MODE_SETTING(void){
 
     R_UART1_Create();
     R_UART1_Start();
+    memclr(receivedFromBle, MAX_BLE_DATA_LENGTH);
     R_UART1_Receive(receivedFromBle, 8); // invoke "%REBOOT%"
     BleReceivedEnd = 0;
     

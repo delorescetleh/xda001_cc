@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (W3.03.00 )             14-Jun-2022 17:56:39
+Renesas Optimizing Linker (W3.03.00 )             15-Jun-2022 10:17:45
 
 *** Options ***
 
@@ -69,13 +69,13 @@ SECTION                            START      END         SIZE   ALIGN
 .monitor1
                                   000000ce  000000d7         a   1
 .data
-                                  000000d8  00000245       16e   2
+                                  000000d8  000001a5        ce   2
 .text
-                                  00000246  000004b7       272   1
+                                  000001a6  00000417       272   1
 .textf
-                                  000004b8  000011f1       d3a   1
+                                  00000418  00001193       d7c   1
 .RLIB
-                                  000011f2  00001550       35f   1
+                                  00001194  000014f2       35f   1
 .const
                                   00002000  00002055        56   2
 .monitor2
@@ -85,17 +85,21 @@ SECTION                            START      END         SIZE   ALIGN
 .bss
                                   000fe902  000fe987        86   2
 .dataR
-                                  000fe988  000feaf5       16e   2
+                                  000fe988  000fea55        ce   2
 .bss_ATFF900
                                   000ff900  000ff90f        10   1
 .bss_ATFFA00
                                   000ffa00  000ffa07         8   1
+.bss_ATFFC00
+                                  000ffc00  000ffc9f        a0   1
 .bss_ATFFD00
                                   000ffd00  000ffd27        28   1
 .bss_ATFFD40
                                   000ffd40  000ffd47         8   1
 .bss_ATFFD48
                                   000ffd48  000ffd4f         8   1
+.bss_ATFFD90
+                                  000ffd90  000ffd97         8   1
 .sbss
                                   000ffe20  000ffe20         0   2
 .sdataR

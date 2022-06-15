@@ -12,6 +12,7 @@
 // #include "FDL\CA78K0R_110\lib\pfdl_types.h"
 // #include "cg_src\r_cg_it.h"
 #include "r_cg_userdefine.h"
+#include "r_cg_dtc.h"
 
 // extern void getFactroySetting(uint8_t *hardWareSetting_ptr, uint8_t *factorySetting_ptr, uint8_t *dubReadBuffer_ptr);
 

@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2022/6/14
+* Creation Date: 2022/6/15
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -77,7 +77,7 @@ void main(void)
     LORA_POW_CNT = POWER_ON;
     BLE_POW_CNT = POWER_OFF;
     EPROM_POW_CNT = POWER_OFF;
-
+    R_DTCD10_Start();
     data[9]=L_BLE_FACTORY_MODE_SETTING();
     
     memclr(data, 10);
