@@ -32,6 +32,7 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "r_cg_cgc.h"
 #include "r_cg_port.h"
+#include "r_cg_tau.h"
 #include "r_cg_rtc.h"
 #include "r_cg_it.h"
 #include "r_cg_pga_dsad.h"
@@ -40,6 +41,7 @@ Includes
 #include "r_cg_sau.h"
 #include "r_cg_iica.h"
 #include "r_cg_dtc.h"
+#include "r_cg_elc.h"
 #include "r_cg_intp.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
@@ -84,7 +86,8 @@ void main(void)
     BLE_POW_CNT = POWER_OFF;
     EPROM_POW_CNT = POWER_OFF;
 
-    Mode = FACTORY_MODE;
+    // Mode = FACTORY_MODE;
+    Mode = NORMAL_MODE;
 
     process(Mode);
     /* End user code. Do not edit comment generated here */
@@ -105,8 +108,6 @@ static void R_MAIN_UserInit(void)
 /* Start user code for adding. Do not edit comment generated here */
 void process(mode_t Mode){
     init_dsadc(&dsadc_ready);
-    init_timer100ms(&timer_100ms_counter);
-
     if (Mode==FACTORY_MODE){
         factory_process();
     } else{
@@ -152,15 +153,7 @@ void normal_process(void){
             {
                 EVENTS &= ~TIMER_PERIODIC_EVENT;
 		        timer_100ms_counter++;
-                if (timer_100ms_counter > 100)
-                { // 10s time out to turn off analog parts
-                    if (BLE_NO_CONNECT)
-                    {
-                        events &= ~PCB_TEMPERATURE_NOTIFICATION_EVENT;
-                        events &= ~PT100_NOTIFICATION_EVENT;
-                        timer_100ms_counter = 0;
-                    }
-                }
+
                 if (timer_100ms_counter == 5)
                 { // 0.5s , finish pcb temperature fetch
                     get_pcb_temperature(&pcbTemperature);
@@ -172,23 +165,26 @@ void normal_process(void){
                 {
                     // timer_100ms_counter--;
                     checkAppCommand();
+                }else{
+                    if (timer_100ms_counter > 100)
+                    { // 10s time out to turn off analog parts
+                        events &= ~PCB_TEMPERATURE_NOTIFICATION_EVENT;
+                        events &= ~PT100_NOTIFICATION_EVENT;
+                        timer_100ms_counter = 0;
+                        R_IT_Stop();
+                    }
                 }
             }
-
-            HALT();
+            //HALT();
         }else{ // if no events go to sleep
             // set_TXD0_as_Input_Mode();
             // set_TXD1_as_Input_Mode();
             // L_BLE_STOP();
-
             // R_DTCD10_Stop();
-            // R_IT_Stop();
             // R_IICA0_Stop();
-            
             // R_DTCD0_Stop();
             // R_ADC_Stop();
             // R_ADC_Set_OperationOff();
-            
             // L_PGA_STOP();
             // if (P_TEST){
             //     HALT();

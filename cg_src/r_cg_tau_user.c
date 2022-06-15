@@ -18,42 +18,47 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : r_cg_it.h
+* File Name    : r_cg_tau_user.c
 * Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
-* Description  : This file implements device driver for IT module.
+* Description  : This file implements device driver for TAU module.
 * Creation Date: 2022/6/15
 ***********************************************************************************************************************/
-#ifndef IT_H
-#define IT_H
 
 /***********************************************************************************************************************
-Macro definitions (Register bit)
+Includes
 ***********************************************************************************************************************/
-/*
-    12-bit Interval Timer Control Register (ITMC) 
-*/
-/* 12-bit Interval timer operation control (RINTE) */
-#define _0000_IT_OPERATION_DISABLE        (0x0000U) /* count operation stopped */
-#define _8000_IT_OPERATION_ENABLE         (0x8000U) /* count operation started */
-
-
-/***********************************************************************************************************************
-Macro definitions
-***********************************************************************************************************************/
-#define _0CCC_ITCMP_VALUE                 (0x0CCCU) /* specification of the 12-bit interval timer compare value */
-
-/***********************************************************************************************************************
-Typedef definitions
-***********************************************************************************************************************/
-
-/***********************************************************************************************************************
-Global functions
-***********************************************************************************************************************/
-void R_IT_Create(void);
-void R_IT_Start(void);
-void R_IT_Stop(void);
-/* Start user code for function. Do not edit comment generated here */
+#include "r_cg_macrodriver.h"
+#include "r_cg_tau.h"
+/* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
-#endif
+#include "r_cg_userdefine.h"
+
+/***********************************************************************************************************************
+Pragma directive
+***********************************************************************************************************************/
+#pragma interrupt r_tau0_channel0_interrupt(vect=INTTM00)
+/* Start user code for pragma. Do not edit comment generated here */
+/* End user code. Do not edit comment generated here */
+
+/***********************************************************************************************************************
+Global variables and functions
+***********************************************************************************************************************/
+/* Start user code for global. Do not edit comment generated here */
+/* End user code. Do not edit comment generated here */
+
+/***********************************************************************************************************************
+* Function Name: r_tau0_channel0_interrupt
+* Description  : This function INTTM00 interrupt service routine.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+static void __near r_tau0_channel0_interrupt(void)
+{
+    /* Start user code. Do not edit comment generated here */
+    /* End user code. Do not edit comment generated here */
+}
+
+/* Start user code for adding. Do not edit comment generated here */
+/* End user code. Do not edit comment generated here */

@@ -278,11 +278,27 @@ static void r_uart1_callback_error(uint8_t err_type)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
+static void doBleTask_SetLoraInterval(void){
+    uint8_t bleAck[] = {0xa1, 0x01, 0x55};// ble ack to app
+    // setLoraProcessIntervalTime(appParam);
+    // Save into DataFlash
+    // dataFlashStart();
+    // dataFlashRead(bleReadBuffer_ptr,0);
+    // *(bleReadBuffer_ptr+F_LORA_INTV_BYTE)=appParam;
+    // memcpy(bleWriteBuffer_ptr, bleReadBuffer_ptr, DATA_FLASH_SIZE);
+    // dataFlashWrite(bleWriteBuffer_ptr,0);
+    // dataFlashEnd();
+    //set ble ack to app
+    R_UART1_Send(bleAck, 3);
+    delayInMs(500);
+    // reset relative parameter
+    // setloraCnt(0);
+}
 
 void checkAppCommand(void) {
     mmm = 0;
     if (memcmp(receivedFromBle,APP_SET_LORA_INTERVAL,2,160)){
-        mmm = 1;
+        doBleTask_SetLoraInterval();
         memclr(receivedFromBle, 160);
         reset_DTC10();
     } else if (memcmp(receivedFromBle,APP_READ_EEPROM,2,160))

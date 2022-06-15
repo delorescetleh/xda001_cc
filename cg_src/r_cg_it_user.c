@@ -64,7 +64,4 @@ static void __near r_it_interrupt(void)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-void init_timer100ms(uint16_t *counter){
-    // timer_100ms_counter_ptr=counter;
-}
 /* End user code. Do not edit comment generated here */

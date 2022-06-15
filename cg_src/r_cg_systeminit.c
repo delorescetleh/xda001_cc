@@ -32,6 +32,7 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "r_cg_cgc.h"
 #include "r_cg_port.h"
+#include "r_cg_tau.h"
 #include "r_cg_rtc.h"
 #include "r_cg_it.h"
 #include "r_cg_pga_dsad.h"
@@ -40,6 +41,7 @@ Includes
 #include "r_cg_sau.h"
 #include "r_cg_iica.h"
 #include "r_cg_dtc.h"
+#include "r_cg_elc.h"
 #include "r_cg_intp.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
@@ -73,6 +75,7 @@ void R_Systeminit(void)
     R_CGC_Get_ResetSource();
     R_PORT_Create();
     R_CGC_Create();
+    R_TAU0_Create();
     R_RTC_Create();
     R_IT_Create();
     R_PGA_DSAD_Create();
@@ -82,6 +85,7 @@ void R_Systeminit(void)
     R_ADC_Create();
     R_SAU0_Create();
     R_DTC_Create();
+    R_ELC_Create();
     IAWCTL = 0x00U;
     /* Start data flash control */
     DFLEN = 1U;

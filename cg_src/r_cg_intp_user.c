@@ -59,6 +59,7 @@ static void __near r_intc1_interrupt(void)
     /* Start user code. Do not edit comment generated here */
     R_UART1_Start();
     R_DTCD2_Start();
+    R_IT_Start();
     /* End user code. Do not edit comment generated here */
 }
 
