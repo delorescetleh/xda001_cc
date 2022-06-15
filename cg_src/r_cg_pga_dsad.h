@@ -194,8 +194,6 @@ Macro definitions (Register bit)
 Macro definitions
 ***********************************************************************************************************************/
 #define _01_PGA_MULTIPLEXER0_SAMPLE_COUNT                   (0x01U) /* sample count per autoscan cycle */
-#define _01_PGA_MULTIPLEXER1_SAMPLE_COUNT                   (0x01U) /* sample count per autoscan cycle */
-#define _01_PGA_MULTIPLEXER2_SAMPLE_COUNT                   (0x01U) /* sample count per autoscan cycle */
 #define _01_PGA_MULTIPLEXER3_SAMPLE_COUNT                   (0x01U) /* sample count per autoscan cycle */
 
 /***********************************************************************************************************************

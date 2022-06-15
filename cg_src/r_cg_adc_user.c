@@ -57,6 +57,7 @@ volatile uint16_t adc_buf[8];
 volatile uint8_t ads_buf[8];
 uint32_t ADCtemp=0,ADCvolt=0;
 int16_t g_tempv_int;
+// uint8_t adc_counter = 0;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -68,6 +69,11 @@ int16_t g_tempv_int;
 static void __near r_adc_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
+    // adc_counter++;
+    // if (adc_counter>8){
+    //     events |= PCB_TEMPERATURE_NOTIFICATION_EVENT;
+    //     adc_counter = 0;
+    // }
     /* End user code. Do not edit comment generated here */
 }
 
@@ -92,7 +98,7 @@ void get_pcb_temperature(int16_t *pcbTemperature){
                                     SENSOR_REF_TEMP_SCALED);
     }
     *pcbTemperature = temp / 4;
-    R_ADC_Stop();
-    R_DTCD0_Stop();
+    // R_ADC_Stop();
+    // R_DTCD0_Stop();
 }
 /* End user code. Do not edit comment generated here */

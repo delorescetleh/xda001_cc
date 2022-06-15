@@ -55,5 +55,6 @@ void R_IT_Create(void);
 void R_IT_Start(void);
 void R_IT_Stop(void);
 /* Start user code for function. Do not edit comment generated here */
+void resetIt_counter(void);
 /* End user code. Do not edit comment generated here */
 #endif

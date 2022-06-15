@@ -60,18 +60,18 @@ Global variables and functions
 uint16_t dsadc_buf[DSADC_BUF_SIZE];
 uint8_t dsadc_counter = 0;
 uint32_t ds_adc_result0[DSADC_RESULT_BUF_SIZE];
-// uint32_t ds_adc_result1[DSADC_RESULT_BUF_SIZE];
-// uint32_t ds_adc_result2[DSADC_RESULT_BUF_SIZE];
+uint32_t ds_adc_result1[DSADC_RESULT_BUF_SIZE];
+uint32_t ds_adc_result2[DSADC_RESULT_BUF_SIZE];
 uint32_t ds_adc_result3[DSADC_RESULT_BUF_SIZE];
 uint8_t *dsadc_ready_ptr = 0;
 float Ipt100=0.00154155;
-// uint32_t ds_adc_result4[DSADC_RESULT_BUF_SIZE];
+uint32_t ds_adc_result4[DSADC_RESULT_BUF_SIZE];
 
 
-// float r0_r1[DSADC_RESULT_BUF_SIZE];
-// float b0_r1[DSADC_RESULT_BUF_SIZE];
-// float i1[DSADC_RESULT_BUF_SIZE];
-// float r100[DSADC_RESULT_BUF_SIZE];
+float r0_r1[DSADC_RESULT_BUF_SIZE];
+float b0_r1[DSADC_RESULT_BUF_SIZE];
+float i1[DSADC_RESULT_BUF_SIZE];
+float r100[DSADC_RESULT_BUF_SIZE];
 
 void parseDifferential_DSADC_Result(uint32_t BufferH, uint32_t BufferL, uint32_t *result);
 /* End user code. Do not edit comment generated here */
@@ -88,16 +88,13 @@ static void __near r_pga_dsad_conversion_interrupt(void)
     uint8_t index = dsadc_counter * 2;
     dsadc_buf[index]= DSADMV1;
     dsadc_buf[index+1] = DSADMV0;
-    //  R_PGA_DSAD_Get_AverageResult((uint16_t *const)(&dsadc_buf[0] + dsadc_counter * 2), (uint16_t *const)(&dsadc_buf[0] + dsadc_counter * 2 + 1));
     dsadc_counter = dsadc_counter + 1;
     if (dsadc_counter > (DSADC_BUF_SIZE / 2))
     {
         dsadc_counter = 0;
-        *dsadc_ready_ptr = 1;
         R_PGA_DSAD_Stop();
-        // get_dsadc_result(); 
+        events = events | PT100_NOTIFICATION_EVENT;
     }
-    events = events | PT100_NOTIFICATION_EVENT;
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************
@@ -122,54 +119,54 @@ void L_PGA_STOP(void){
     R_PGA_DSAD_Stop();
 }
 
-// void get_dsadc_result(void){
-//     uint16_t _DSADCRC,BufferH,BufferL;
-//     uint32_t *result0 = &ds_adc_result0[0];
-//     uint32_t *result1 = &ds_adc_result1[0];
-//     uint32_t *result2 = &ds_adc_result2[0];
-//     uint32_t *result3 = &ds_adc_result3[0];
-//     uint16_t i = 0;
-//     for (i = 0; i <(DSADC_BUF_SIZE/2);i++){
+void get_dsadc_result(void){
+    uint16_t _DSADCRC,BufferH,BufferL;
+    uint32_t *result0 = &ds_adc_result0[0];
+    uint32_t *result1 = &ds_adc_result1[0];
+    uint32_t *result2 = &ds_adc_result2[0];
+    uint32_t *result3 = &ds_adc_result3[0];
+    uint16_t i = 0;
+    for (i = 0; i <(DSADC_BUF_SIZE/2);i++){
 
-//         BufferH=dsadc_buf[i * 2];
-//         BufferL=dsadc_buf[i * 2+1];
-//         _DSADCRC = (uint8_t)(BufferL & 0x00F8);
+        BufferH=dsadc_buf[i * 2];
+        BufferL=dsadc_buf[i * 2+1];
+        _DSADCRC = (uint8_t)(BufferL & 0x00F8);
 
-//         switch (_DSADCRC)
-//         {
-//         case 0x20:
-//             *result0 = (((uint32_t)BufferH << 8) | ((uint32_t)BufferL >> 8)) & 0x00ffffff;
-//             if (((*result0 & 0x00800000) >> 23) == 1)
-//             {
-//                 *result0 += 0xff000000;
-//             }
-//             result0++;
-//             break;
-//         case 0x40:
-//             // *result1 = (((uint32_t)avgBufferH << 8) | ((uint32_t)avgBufferL >> 8)) & 0x00ffffff;
-//             result1++;
-//             break;
-//         case 0x60:
-//             // *result2 = (((uint32_t)avgBufferH << 8) | ((uint32_t)avgBufferL >> 8)) & 0x00ffffff;
-//             result2++;
-//             break;
-//         case 0x80:
-//             *result3 = (((uint32_t)BufferH << 8) | ((uint32_t)BufferL >> 8)) & 0x00ffffff;
-//             if (((*result3 & 0x00800000) >> 23) == 1)
-//             {
-//                 *result3 += 0xff000000;
-//             }
-//             result3++;
-//             break;
-//         }
-//     }
-//     for (i = 0; i < DSADC_RESULT_BUF_SIZE;i++){
-//         r0_r1[i] = ds_adc_result0[i]*0.00149012; //uV
-//         b0_r1[i] = ds_adc_result3[i]*0.023842; //uV
-//         r100[i]=(b0_r1[i]-r0_r1[i]*2)/1000000/0.00154155;//ohm
-//     }
-//     R_PGA_DSAD_Start();
-// }
+        switch (_DSADCRC)
+        {
+        case 0x20:
+            *result0 = (((uint32_t)BufferH << 8) | ((uint32_t)BufferL >> 8)) & 0x00ffffff;
+            if (((*result0 & 0x00800000) >> 23) == 1)
+            {
+                *result0 += 0xff000000;
+            }
+            result0++;
+            break;
+        case 0x40:
+            // *result1 = (((uint32_t)avgBufferH << 8) | ((uint32_t)avgBufferL >> 8)) & 0x00ffffff;
+            result1++;
+            break;
+        case 0x60:
+            // *result2 = (((uint32_t)avgBufferH << 8) | ((uint32_t)avgBufferL >> 8)) & 0x00ffffff;
+            result2++;
+            break;
+        case 0x80:
+            *result3 = (((uint32_t)BufferH << 8) | ((uint32_t)BufferL >> 8)) & 0x00ffffff;
+            if (((*result3 & 0x00800000) >> 23) == 1)
+            {
+                *result3 += 0xff000000;
+            }
+            result3++;
+            break;
+        }
+    }
+    for (i = 0; i < DSADC_RESULT_BUF_SIZE;i++){
+        r0_r1[i] = ds_adc_result0[i]*0.00149012; //uV
+        b0_r1[i] = ds_adc_result3[i]*0.023842; //uV
+        r100[i]=(b0_r1[i]-r0_r1[i]*2)/1000000/0.00154155;//ohm
+    }
+    R_PGA_DSAD_Start();
+}
 
 void get_pt100_result(int *result){
     uint16_t _DSADCRC,BufferH,BufferL;

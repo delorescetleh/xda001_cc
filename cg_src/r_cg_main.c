@@ -57,7 +57,7 @@ Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
 volatile unsigned char EVENTS;
-uint8_t factoryMode = 1;
+uint8_t factoryMode = 0;
 uint8_t rtc_counter = 0;
 int16_t pcbTemperature;
 int PT100result;
@@ -93,28 +93,39 @@ void main(void)
     while (!factoryMode)
     {
         if(EVENTS){
-            if (EVENTS&RTC_NOTIFICATION_EVENT){
+            if (EVENTS&RTC_NOTIFICATION_EVENT)
+            {
                 EVENTS &= (~RTC_NOTIFICATION_EVENT);
+                resetIt_counter();
                 R_IT_Start(); // start fetch pcb temperature
                 R_DTCD0_Start();
                 R_PGA_DSAD_Start();
 		        dsadc_ready=0;
+            }
+            if (EVENTS&PT100_NOTIFICATION_EVENT)
+            {
+                // if (dsadc_ready){
+                EVENTS &= (~PT100_NOTIFICATION_EVENT);
+                get_pt100_result(&PT100result);
+                // }
+            }
+            if (EVENTS&OVER_TIME_EVENT)
+            {
+                EVENTS = 0;
+            }
+            if (EVENTS&PCB_TEMPERATURE_NOTIFICATION_EVENT)
+            {
+                EVENTS &= ~PCB_TEMPERATURE_NOTIFICATION_EVENT;
                 get_pcb_temperature(&pcbTemperature);
             }
-            if (EVENTS&PT100_NOTIFICATION_EVENT){
-                if (dsadc_ready){
-                    EVENTS &= (~PT100_NOTIFICATION_EVENT);
-                    get_pt100_result(&PT100result);
-                }
-            }
         }else{ // if no events go to sleep
-            set_TXD0_as_Input_Mode();
-            set_TXD1_as_Input_Mode();
-            R_IICA0_Stop();
-            R_ADC_Stop();
-            R_ADC_Set_OperationOff();
-            L_PGA_STOP();
-            HALT();
+            // set_TXD0_as_Input_Mode();
+            // set_TXD1_as_Input_Mode();
+            // R_IICA0_Stop();
+            // R_ADC_Stop();
+            // R_ADC_Set_OperationOff();
+            // L_PGA_STOP();
+            // HALT();
         }
         ;
     }

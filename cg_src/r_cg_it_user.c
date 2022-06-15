@@ -59,12 +59,19 @@ static void __near r_it_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
     it_counter++;
-    if (it_counter==10){
-        R_IT_Stop();
+    if (it_counter>2000){ // 2 s over time 
+        events |= TIMER_PERIODIC_EVENT;
+        // R_IT_Stop();
         it_counter = 0;
+    }
+    if (it_counter == 5){// 0.5s 
+        events |= PCB_TEMPERATURE_NOTIFICATION_EVENT;
     }
     /* End user code. Do not edit comment generated here */
 }
 
 /* Start user code for adding. Do not edit comment generated here */
+void resetIt_counter(void){
+    it_counter = 0;
+}
 /* End user code. Do not edit comment generated here */

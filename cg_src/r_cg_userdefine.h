@@ -43,13 +43,16 @@ User definitions
 
 //########################################################################
 #define events (*(volatile __near unsigned char  *)0xE900)
-#define TIMER_PERIODIC_EVENT            0x01
-#define PT100_NOTIFICATION_EVENT        0x02
-#define BLE_NOTIFICATION_EVENT          0x04
-#define LoRA_NOTIFICATION_EVENT         0x08
-#define EEPROM_NOTIFICATION_EVENT       0x10
-#define ADC_NOTIFICATION_EVENT          0x20
-#define RTC_NOTIFICATION_EVENT          0x40
+#define TIMER_PERIODIC_EVENT                        0x01 // should not use in V4 version , change to OVER_TIME_EVENT 
+#define OVER_TIME_EVENT                             0x01 // 12bit Timer counter over time, close all event and turn to sleep
+#define PT100_NOTIFICATION_EVENT                    0x02
+#define BLE_NOTIFICATION_EVENT                      0x04
+#define LoRA_NOTIFICATION_EVENT                     0x08
+#define EEPROM_NOTIFICATION_EVENT                   0x10
+#define ADC_NOTIFICATION_EVENT                      0x20
+#define RTC_NOTIFICATION_EVENT                      0x40
+#define PCB_TEMPERATURE_NOTIFICATION_EVENT          0x80
+
 
 #define TIMER_PERIODIC_CNT          0x0a // Unit : seconds
 #define DEFAULT_PT100_READ_INTV     0x01 // Unit : Minutes
