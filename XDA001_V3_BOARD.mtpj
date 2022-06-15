@@ -1903,6 +1903,7 @@
       <DebuggerProperty-HookProperty-HookTransaction-Broke-Length>0</DebuggerProperty-HookProperty-HookTransaction-Broke-Length>
       <DebuggerProperty-HookProperty-HookTransaction-Connected-Length>0</DebuggerProperty-HookProperty-HookTransaction-Connected-Length>
       <DebuggerProperty-HookProperty-HookTransaction-Disconnecting-Length>0</DebuggerProperty-HookProperty-HookTransaction-Disconnecting-Length>
+      <DebuggerProperty-EssentialProperty-EmulatorConnect-SerialNumber />
     </Instance>
   </Class>
   <Class Guid="ae6bc4a9-3063-4942-8876-1ad4be827a16">
@@ -4332,7 +4333,7 @@
       &lt;SerializableData name="AMP"&gt;
         &lt;DataElement key="visible" value="True"&gt;
         &lt;/DataElement&gt;
-        &lt;DataElement key="error" value="NeedUpdate"&gt;
+        &lt;DataElement key="error" value="NoError"&gt;
         &lt;/DataElement&gt;
         &lt;DataElement key="inuse" value="Used"&gt;
         &lt;/DataElement&gt;
@@ -4355,7 +4356,7 @@
         &lt;SerializableData name="CAMPC1"&gt;
           &lt;DataElement key="visible" value="True"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="error" value="NeedUpdate"&gt;
+          &lt;DataElement key="error" value="NoError"&gt;
           &lt;/DataElement&gt;
           &lt;DataElement key="inuse" value="Used"&gt;
           &lt;/DataElement&gt;
@@ -4363,7 +4364,7 @@
         &lt;SerializableData name="CAMPC2"&gt;
           &lt;DataElement key="visible" value="True"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="error" value="NeedUpdate"&gt;
+          &lt;DataElement key="error" value="NoError"&gt;
           &lt;/DataElement&gt;
           &lt;DataElement key="inuse" value="Used"&gt;
           &lt;/DataElement&gt;
@@ -70839,7 +70840,7 @@
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="VBIAS_USED"&gt;
-          &lt;DataElement key="DataValue" value="true"&gt;
+          &lt;DataElement key="DataValue" value="false"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="DA1_USED"&gt;
@@ -70865,7 +70866,7 @@
       &lt;/SerializableData&gt;
       &lt;SerializableData name="AMP22"&gt;
         &lt;SerializableData name="VBIAS_USED"&gt;
-          &lt;DataElement key="DataValue" value="true"&gt;
+          &lt;DataElement key="DataValue" value="false"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="DA1_USED"&gt;
@@ -70879,7 +70880,7 @@
       &lt;/SerializableData&gt;
       &lt;SerializableData name="AMP33"&gt;
         &lt;SerializableData name="VBIAS_USED"&gt;
-          &lt;DataElement key="DataValue" value="true"&gt;
+          &lt;DataElement key="DataValue" value="false"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="DA1_USED"&gt;

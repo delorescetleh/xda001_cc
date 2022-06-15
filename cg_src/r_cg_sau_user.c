@@ -273,6 +273,18 @@ static void r_uart1_callback_error(uint8_t err_type)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
+void L_BLE_STOP(void){
+    if (BLE_NO_CONNECT){
+        BLE_UART_RXD_IND_MODE = PIN_MODE_AS_OUTPUT;
+        BLE_UART_RXD_IND = PIN_LEVEL_AS_HIGH;
+    } else {
+        BLE_UART_RXD_IND_MODE = PIN_MODE_AS_INPUT;
+        R_INTC1_Stop();
+    }
+    BLE_RESET_MODE = PIN_MODE_AS_INPUT;
+    R_UART1_Stop();
+    UART1_TXD_MODE = PIN_MODE_AS_INPUT;
+}
 uint8_t L_BLE_INIT(void){
     BLE_RESET_MODE = PIN_MODE_AS_OUTPUT;
     BLE_RESET = PIN_LEVEL_AS_LOW;
@@ -289,31 +301,6 @@ uint8_t L_BLE_INIT(void){
     delayInMs(500);
     return memcmp(receivedFromBle, (uint8_t *)("%REBOOT%"),(uint8_t) 8, MAX_BLE_DATA_LENGTH);
 }
-
-
-// uint8_t L_BLE_INIT_NORMAL(void){
-//     BLE_RESET_MODE = PIN_MODE_AS_OUTPUT;
-//     BLE_RESET = PIN_LEVEL_AS_LOW;
-//     BLE_UART_RXD_IND_MODE = PIN_MODE_AS_OUTPUT;
-//     BLE_UART_RXD_IND = PIN_LEVEL_AS_LOW;
-//     BLE_POW_CNT = PIN_LEVEL_AS_LOW;
-//     R_DTCD10_Start();
-//     R_UART1_Create();
-//     R_UART1_Start();
-//     memclr(receivedFromBle, MAX_BLE_DATA_LENGTH);
-//     R_UART1_Receive(receivedFromBle, 8); // invoke "%REBOOT%"
-//     BleReceivedEnd = 0;
-    
-//     delayInMs(2);
-//     BLE_RESET_MODE = PIN_MODE_AS_INPUT;
-//     delayInMs(500);
-//     return memcmp(receivedFromBle, (uint8_t *)("%REBOOT%"),(uint8_t) 8, MAX_BLE_DATA_LENGTH);
-// }
-
-
-// uint8_t L_BLE_POWER_ON_AND_CHECK_GET_REBOOT(void){
-    
-// }
 
 uint8_t L_BLE_SEND_COMMAND(char *command,uint8_t comandLength,char *expectAck,uint8_t ackLength ){
     memclr(receivedFromBle, reset_DTC10());

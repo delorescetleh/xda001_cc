@@ -113,15 +113,15 @@ void factory_process(void){
     if (L_BLE_INIT())
     {
         data[9] = L_BLE_FACTORY_MODE_SETTING();
-        memclr(data, 10);
    }
 }
 void normal_process(void){
     init_pcb_temperature(); // set parameter for dtc0,dtc1 , this parameter could automatically fetch pcb temperature without MCU controller
+    delayInMs(1000);
+    L_BLE_INIT();
     R_RTC_Start();
     EVENTS = 0;
     EVENTS |= (RTC_NOTIFICATION_EVENT); // start when power on
-
     while (1)
     {
         if(EVENTS){
@@ -132,7 +132,6 @@ void normal_process(void){
                 R_IT_Start(); // start fetch pcb temperature
                 R_DTCD0_Start();
                 R_PGA_DSAD_Start();
-                L_BLE_INIT();
             }
             if (EVENTS&PT100_NOTIFICATION_EVENT)
             {
@@ -141,7 +140,8 @@ void normal_process(void){
             }
             if (EVENTS&OVER_TIME_EVENT)
             {
-                EVENTS = 0;
+                EVENTS &= ~PCB_TEMPERATURE_NOTIFICATION_EVENT;
+                EVENTS &= (~PT100_NOTIFICATION_EVENT);
             }
             if (EVENTS&PCB_TEMPERATURE_NOTIFICATION_EVENT)
             {
@@ -149,13 +149,17 @@ void normal_process(void){
                 get_pcb_temperature(&pcbTemperature);
             }
         }else{ // if no events go to sleep
-            // set_TXD0_as_Input_Mode();
-            // set_TXD1_as_Input_Mode();
-            // R_IICA0_Stop();
-            // R_ADC_Stop();
-            // R_ADC_Set_OperationOff();
-            // L_PGA_STOP();
-            // HALT();
+            set_TXD0_as_Input_Mode();
+            set_TXD1_as_Input_Mode();
+            L_BLE_STOP();
+            R_DTCD0_Stop();
+            R_DTCD10_Stop();
+            R_IT_Stop();
+            R_IICA0_Stop();
+            R_ADC_Stop();
+            R_ADC_Set_OperationOff();
+            L_PGA_STOP();
+            STOP();
         }
     }
 }
