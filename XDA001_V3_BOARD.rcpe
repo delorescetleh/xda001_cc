@@ -48,9 +48,6 @@
         <Path>cg_src\r_cg_intp.c</Path>
         <Path>cg_src\r_cg_intp_user.c</Path>
         <Path>cg_src\r_cg_intp.h</Path>
-        <Path>cg_src\r_cg_it8bit.c</Path>
-        <Path>cg_src\r_cg_it8bit_user.c</Path>
-        <Path>cg_src\r_cg_it8bit.h</Path>
       </Category>
       <Path>L_useful.c</Path>
       <Path>L_useful.h</Path>
@@ -92,8 +89,6 @@
           <Path>DefaultBuild\L_useful.obj</Path>
           <Path>DefaultBuild\r_cg_intp.obj</Path>
           <Path>DefaultBuild\r_cg_intp_user.obj</Path>
-          <Path>DefaultBuild\r_cg_it8bit.obj</Path>
-          <Path>DefaultBuild\r_cg_it8bit_user.obj</Path>
         </LinkOrder>
         <CommonOptions>
           <IncludePathForC>cg_src</IncludePathForC>
@@ -398,7 +393,7 @@
         &lt;/DataElement&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="Interrput_34"&gt;
-        &lt;DataElement key="InusedAs" value="INTIT00"&gt;
+        &lt;DataElement key="InusedAs" value=""&gt;
         &lt;/DataElement&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="Interrput_35"&gt;
@@ -2466,14 +2461,14 @@
         &lt;/DataElement&gt;
         &lt;DataElement key="error" value="NoError"&gt;
         &lt;/DataElement&gt;
-        &lt;DataElement key="inuse" value="Used"&gt;
+        &lt;DataElement key="inuse" value="Unused"&gt;
         &lt;/DataElement&gt;
         &lt;SerializableData name="IT8bit0"&gt;
           &lt;DataElement key="visible" value="True"&gt;
           &lt;/DataElement&gt;
           &lt;DataElement key="error" value="NoError"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="inuse" value="Used"&gt;
+          &lt;DataElement key="inuse" value="Unused"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
       &lt;/SerializableData&gt;
@@ -3482,31 +3477,31 @@
       &lt;SerializableData name="IT8Bit"&gt;
         &lt;DataElement key="visible" value="True"&gt;
         &lt;/DataElement&gt;
-        &lt;DataElement key="inuse" value="Locked"&gt;
+        &lt;DataElement key="inuse" value="Unused"&gt;
         &lt;/DataElement&gt;
         &lt;SerializableData name="r_cg_it8bit_c"&gt;
           &lt;DataElement key="visible" value="True"&gt;
           &lt;/DataElement&gt;
           &lt;DataElement key="text" value="r_cg_it8bit.c"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="inuse" value="Locked"&gt;
+          &lt;DataElement key="inuse" value="Unused"&gt;
           &lt;/DataElement&gt;
           &lt;SerializableData name="IT8bit0"&gt;
             &lt;DataElement key="visible" value="True"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="inuse" value="Locked"&gt;
+            &lt;DataElement key="inuse" value="Unused"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="Channel0"&gt;
               &lt;DataElement key="visible" value="True"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="inuse" value="Locked"&gt;
+              &lt;DataElement key="inuse" value="Unused"&gt;
               &lt;/DataElement&gt;
               &lt;SerializableData name="R_IT8Bit0_Channel0_Create"&gt;
                 &lt;DataElement key="visible" value="True"&gt;
                 &lt;/DataElement&gt;
                 &lt;DataElement key="text" value="R_IT8Bit0_Channel0_Create"&gt;
                 &lt;/DataElement&gt;
-                &lt;DataElement key="inuse" value="Locked"&gt;
+                &lt;DataElement key="inuse" value="Unused"&gt;
                 &lt;/DataElement&gt;
               &lt;/SerializableData&gt;
               &lt;SerializableData name="R_IT8Bit0_Channel0_Start"&gt;
@@ -3514,7 +3509,7 @@
                 &lt;/DataElement&gt;
                 &lt;DataElement key="text" value="R_IT8Bit0_Channel0_Start"&gt;
                 &lt;/DataElement&gt;
-                &lt;DataElement key="inuse" value="Locked"&gt;
+                &lt;DataElement key="inuse" value="Unused"&gt;
                 &lt;/DataElement&gt;
               &lt;/SerializableData&gt;
               &lt;SerializableData name="R_IT8Bit0_Channel0_Stop"&gt;
@@ -3522,7 +3517,7 @@
                 &lt;/DataElement&gt;
                 &lt;DataElement key="text" value="R_IT8Bit0_Channel0_Stop"&gt;
                 &lt;/DataElement&gt;
-                &lt;DataElement key="inuse" value="Locked"&gt;
+                &lt;DataElement key="inuse" value="Unused"&gt;
                 &lt;/DataElement&gt;
               &lt;/SerializableData&gt;
             &lt;/SerializableData&gt;
@@ -3571,17 +3566,17 @@
           &lt;/DataElement&gt;
           &lt;DataElement key="text" value="r_cg_it8bit_user.c"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="inuse" value="Locked"&gt;
+          &lt;DataElement key="inuse" value="Unused"&gt;
           &lt;/DataElement&gt;
           &lt;SerializableData name="IT8bit0"&gt;
             &lt;DataElement key="visible" value="True"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="inuse" value="Locked"&gt;
+            &lt;DataElement key="inuse" value="Unused"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="Channel0"&gt;
               &lt;DataElement key="visible" value="True"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="inuse" value="Locked"&gt;
+              &lt;DataElement key="inuse" value="Unused"&gt;
               &lt;/DataElement&gt;
               &lt;SerializableData name="R_IT8Bit0_Channel0_Create_UserInit"&gt;
                 &lt;DataElement key="visible" value="True"&gt;
@@ -3596,7 +3591,7 @@
                 &lt;/DataElement&gt;
                 &lt;DataElement key="text" value="r_it8bit0_channel0_interrupt"&gt;
                 &lt;/DataElement&gt;
-                &lt;DataElement key="inuse" value="Locked"&gt;
+                &lt;DataElement key="inuse" value="Unused"&gt;
                 &lt;/DataElement&gt;
               &lt;/SerializableData&gt;
             &lt;/SerializableData&gt;
@@ -3629,7 +3624,7 @@
           &lt;/DataElement&gt;
           &lt;DataElement key="text" value="r_cg_it8bit.h"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="inuse" value="Locked"&gt;
+          &lt;DataElement key="inuse" value="Unused"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
       &lt;/SerializableData&gt;
@@ -35002,7 +34997,7 @@
           &lt;SerializableData name="cmbChnlFun"&gt;
             &lt;DataElement key="ContentItemCount" value="3"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="SelectedContentItem" value="bit8"&gt;
+            &lt;DataElement key="SelectedContentItem" value="Unused"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="ContentItem1"&gt;
               &lt;DataElement key="Pin" value=""&gt;
@@ -39831,7 +39826,7 @@
         &lt;SerializableData name="TRIGGER_SOURCE"&gt;
           &lt;DataElement key="ContentItemCount" value="4"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="SelectedContentItem" value="INTRTC"&gt;
+          &lt;DataElement key="SelectedContentItem" value="INTIT"&gt;
           &lt;/DataElement&gt;
           &lt;SerializableData name="ContentItem1"&gt;
             &lt;DataElement key="Pin" value=""&gt;
@@ -69053,7 +69048,7 @@
       &lt;/DataElement&gt;
     &lt;/SerializableData&gt;
     &lt;SerializableData name="DataKey_INTIT00_USED"&gt;
-      &lt;DataElement key="DataValue" value="true"&gt;
+      &lt;DataElement key="DataValue" value="false"&gt;
       &lt;/DataElement&gt;
     &lt;/SerializableData&gt;
     &lt;SerializableData name="DataKey_IntRTC"&gt;

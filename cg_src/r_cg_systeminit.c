@@ -32,7 +32,6 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "r_cg_cgc.h"
 #include "r_cg_port.h"
-#include "r_cg_it8bit.h"
 #include "r_cg_rtc.h"
 #include "r_cg_it.h"
 #include "r_cg_pga_dsad.h"
@@ -80,7 +79,6 @@ void R_Systeminit(void)
     R_AMP_Create();
     R_IICA0_Create();
     R_INTC_Create();
-    R_IT8Bit0_Channel0_Create();
     R_ADC_Create();
     R_SAU0_Create();
     R_DTC_Create();

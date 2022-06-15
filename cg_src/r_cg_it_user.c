@@ -46,7 +46,7 @@ Pragma directive
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
-uint32_t it_counter = 0;
+// uint16_t *timer_100ms_counter_ptr = 0;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -58,19 +58,13 @@ uint32_t it_counter = 0;
 static void __near r_it_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
-    it_counter++;
-    if (it_counter > 100){ // 10s over time 
-        events |= OVER_TIME_EVENT;
-        it_counter = 0;
-    }
-    if (it_counter == 5){// 0.5s 
-        events |= PCB_TEMPERATURE_NOTIFICATION_EVENT;
-    }
+    // *timer_100ms_counter_ptr++;
+    events |=TIMER_PERIODIC_EVENT;
     /* End user code. Do not edit comment generated here */
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-void resetIt_counter(void){
-    it_counter = 0;
+void init_timer100ms(uint16_t *counter){
+    // timer_100ms_counter_ptr=counter;
 }
 /* End user code. Do not edit comment generated here */

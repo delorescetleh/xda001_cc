@@ -64,6 +64,11 @@ uint8_t receivedFromBle[160];
 uint8_t sendToBle[160] = {0};
 uint8_t BleReceivedEnd = 0;
 uint8_t setBleDeviceNameCommand[] = {'S','N',',','B','L','E','-','1','2','3','4','\r'};
+uint8_t APP_SET_LORA_INTERVAL[] = {0xA1,0x02};
+uint8_t APP_READ_EEPROM[] = {0xA2,0x02};
+uint8_t APP_SHUT_DOWN_BLE[] = {0xA3,0x02};
+uint8_t APP_SET_TEMP_CALIBRARTION[] = {0xA4,0x02};
+uint8_t mmm = 0;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -273,6 +278,30 @@ static void r_uart1_callback_error(uint8_t err_type)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
+
+void checkAppCommand(void) {
+    mmm = 0;
+    if (memcmp(receivedFromBle,APP_SET_LORA_INTERVAL,2,160)){
+        mmm = 1;
+        memclr(receivedFromBle, 160);
+        reset_DTC10();
+    } else if (memcmp(receivedFromBle,APP_READ_EEPROM,2,160))
+    {
+        mmm = 2;
+        memclr(receivedFromBle, 160);
+        reset_DTC10();
+    } else if (memcmp(receivedFromBle,APP_SHUT_DOWN_BLE,2,160))
+    {
+        mmm = 3;
+        memclr(receivedFromBle, 160);
+        reset_DTC10();
+    } else if (memcmp(receivedFromBle,APP_SET_TEMP_CALIBRARTION,2,160))
+    {
+        mmm = 4;
+        memclr(receivedFromBle, 160);
+        reset_DTC10();
+    }
+}
 void L_BLE_STOP(void){
     R_UART1_Stop();
     UART1_TXD_MODE = PIN_MODE_AS_INPUT;

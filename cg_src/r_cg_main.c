@@ -32,7 +32,6 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "r_cg_cgc.h"
 #include "r_cg_port.h"
-#include "r_cg_it8bit.h"
 #include "r_cg_rtc.h"
 #include "r_cg_it.h"
 #include "r_cg_pga_dsad.h"
@@ -60,6 +59,7 @@ Global variables and functions
 volatile unsigned char EVENTS;
 mode_t Mode = NORMAL_MODE;
 uint8_t rtc_counter = 0;
+uint16_t timer_100ms_counter = 0;
 int16_t pcbTemperature;
 int PT100result;
 uint8_t dsadc_ready = 0;
@@ -84,7 +84,7 @@ void main(void)
     BLE_POW_CNT = POWER_OFF;
     EPROM_POW_CNT = POWER_OFF;
 
-    Mode = NORMAL_MODE;
+    Mode = FACTORY_MODE;
 
     process(Mode);
     /* End user code. Do not edit comment generated here */
@@ -105,6 +105,7 @@ static void R_MAIN_UserInit(void)
 /* Start user code for adding. Do not edit comment generated here */
 void process(mode_t Mode){
     init_dsadc(&dsadc_ready);
+    init_timer100ms(&timer_100ms_counter);
 
     if (Mode==FACTORY_MODE){
         factory_process();
@@ -133,7 +134,7 @@ void normal_process(void){
             {
                 EVENTS &= (~RTC_NOTIFICATION_EVENT);
 		        EVENTS |= (PT100_NOTIFICATION_EVENT);
-                resetIt_counter();
+                timer_100ms_counter = 0;
                 R_IT_Start();
                 dsadc_ready = 0;
                 R_DTCD0_Start();
@@ -147,28 +148,53 @@ void normal_process(void){
                     get_pt100_result(&PT100result);
                 }
             }
-            if (EVENTS&OVER_TIME_EVENT)
+            if (EVENTS & TIMER_PERIODIC_EVENT)
             {
-                EVENTS &= ~PCB_TEMPERATURE_NOTIFICATION_EVENT;
-                EVENTS &= (~PT100_NOTIFICATION_EVENT);
+                EVENTS &= ~TIMER_PERIODIC_EVENT;
+		        timer_100ms_counter++;
+                if (timer_100ms_counter > 100)
+                { // 10s time out to turn off analog parts
+                    if (BLE_NO_CONNECT)
+                    {
+                        events &= ~PCB_TEMPERATURE_NOTIFICATION_EVENT;
+                        events &= ~PT100_NOTIFICATION_EVENT;
+                        timer_100ms_counter = 0;
+                    }
+                }
+                if (timer_100ms_counter == 5)
+                { // 0.5s , finish pcb temperature fetch
+                    get_pcb_temperature(&pcbTemperature);
+                    R_DTCD0_Stop();
+                    R_ADC_Stop();
+                    R_ADC_Set_OperationOff();
+                }
+                if (!BLE_NO_CONNECT)
+                {
+                    // timer_100ms_counter--;
+                    checkAppCommand();
+                }
             }
-            if (EVENTS&PCB_TEMPERATURE_NOTIFICATION_EVENT)
-            {
-                EVENTS &= ~PCB_TEMPERATURE_NOTIFICATION_EVENT;
-                get_pcb_temperature(&pcbTemperature);
-            }
-        }else{ // if no events go to sleep
-            set_TXD0_as_Input_Mode();
-            set_TXD1_as_Input_Mode();
-            L_BLE_STOP();
-            R_DTCD0_Stop();
-            R_DTCD10_Stop();
-            R_IT_Stop();
-            R_IICA0_Stop();
-            R_ADC_Stop();
-            R_ADC_Set_OperationOff();
-            L_PGA_STOP();
+
             HALT();
+        }else{ // if no events go to sleep
+            // set_TXD0_as_Input_Mode();
+            // set_TXD1_as_Input_Mode();
+            // L_BLE_STOP();
+
+            // R_DTCD10_Stop();
+            // R_IT_Stop();
+            // R_IICA0_Stop();
+            
+            // R_DTCD0_Stop();
+            // R_ADC_Stop();
+            // R_ADC_Set_OperationOff();
+            
+            // L_PGA_STOP();
+            // if (P_TEST){
+            //     HALT();
+            // }else{
+            //     STOP();
+            // }
         }
     }
 }
