@@ -80,18 +80,18 @@
       <EventFunction-Trace1-StartSection-SaveLength>0</EventFunction-Trace1-StartSection-SaveLength>
       <EventFunction-Trace1-EndSection-SaveLength>0</EventFunction-Trace1-EndSection-SaveLength>
       <EventFunction-Trace1-Qualify-SaveLength>0</EventFunction-Trace1-Qualify-SaveLength>
-      <EventFunction-Break1-Name>QgByAGUAYQBrADAAMAAwADMA</EventFunction-Break1-Name>
+      <EventFunction-Break1-Name>QgByAGUAYQBrADAAMAAwADEA</EventFunction-Break1-Name>
       <EventFunction-Break1-Description />
-      <EventFunction-Break1-EventStatus>Invalid</EventFunction-Break1-EventStatus>
-      <EventFunction-Break1-EventStatusBeforeInvalid>Enable</EventFunction-Break1-EventStatusBeforeInvalid>
+      <EventFunction-Break1-EventStatus>Enable</EventFunction-Break1-EventStatus>
+      <EventFunction-Break1-EventStatusBeforeInvalid>Invalid</EventFunction-Break1-EventStatusBeforeInvalid>
       <EventFunction-Break1-IsBuiltIn>False</EventFunction-Break1-IsBuiltIn>
       <EventFunction-Break1-CombinationType>None</EventFunction-Break1-CombinationType>
       <EventFunction-Break1-HardwareBreakData-SaveLength>0</EventFunction-Break1-HardwareBreakData-SaveLength>
       <EventFunction-Break1-SoftwareBreakData-SoftwareBreakNumber1>0</EventFunction-Break1-SoftwareBreakData-SoftwareBreakNumber1>
       <EventFunction-Break1-SoftwareBreakData-SoftwareBreakProcessorElementNumber1>1</EventFunction-Break1-SoftwareBreakData-SoftwareBreakProcessorElementNumber1>
-      <EventFunction-Break1-SoftwareBreakData-EventConditionName1>RQB2AGUAbgB0ACAAQwBvAG4AZABpAHQAaQBvAG4AIAAzAA==</EventFunction-Break1-SoftwareBreakData-EventConditionName1>
+      <EventFunction-Break1-SoftwareBreakData-EventConditionName1>RQB2AGUAbgB0ACAAQwBvAG4AZABpAHQAaQBvAG4AIAAxAA==</EventFunction-Break1-SoftwareBreakData-EventConditionName1>
       <EventFunction-Break1-SoftwareBreakData-SaveLength>1</EventFunction-Break1-SoftwareBreakData-SaveLength>
-      <EventFunction-Break2-Name>QgByAGUAYQBrADAAMAAwADQA</EventFunction-Break2-Name>
+      <EventFunction-Break2-Name>QgByAGUAYQBrADAAMAAwADIA</EventFunction-Break2-Name>
       <EventFunction-Break2-Description />
       <EventFunction-Break2-EventStatus>Enable</EventFunction-Break2-EventStatus>
       <EventFunction-Break2-EventStatusBeforeInvalid>Invalid</EventFunction-Break2-EventStatusBeforeInvalid>
@@ -100,50 +100,72 @@
       <EventFunction-Break2-HardwareBreakData-SaveLength>0</EventFunction-Break2-HardwareBreakData-SaveLength>
       <EventFunction-Break2-SoftwareBreakData-SoftwareBreakNumber1>1</EventFunction-Break2-SoftwareBreakData-SoftwareBreakNumber1>
       <EventFunction-Break2-SoftwareBreakData-SoftwareBreakProcessorElementNumber1>1</EventFunction-Break2-SoftwareBreakData-SoftwareBreakProcessorElementNumber1>
-      <EventFunction-Break2-SoftwareBreakData-EventConditionName1>RQB2AGUAbgB0ACAAQwBvAG4AZABpAHQAaQBvAG4AIAA0AA==</EventFunction-Break2-SoftwareBreakData-EventConditionName1>
+      <EventFunction-Break2-SoftwareBreakData-EventConditionName1>RQB2AGUAbgB0ACAAQwBvAG4AZABpAHQAaQBvAG4AIAAyAA==</EventFunction-Break2-SoftwareBreakData-EventConditionName1>
       <EventFunction-Break2-SoftwareBreakData-SaveLength>1</EventFunction-Break2-SoftwareBreakData-SaveLength>
-      <EventFunction-Break3-Name>QgByAGUAYQBrADAAMAAwADUA</EventFunction-Break3-Name>
+      <EventFunction-Break3-Name>QgByAGUAYQBrADAAMAAwADMA</EventFunction-Break3-Name>
       <EventFunction-Break3-Description />
-      <EventFunction-Break3-EventStatus>Enable</EventFunction-Break3-EventStatus>
-      <EventFunction-Break3-EventStatusBeforeInvalid>Invalid</EventFunction-Break3-EventStatusBeforeInvalid>
+      <EventFunction-Break3-EventStatus>Invalid</EventFunction-Break3-EventStatus>
+      <EventFunction-Break3-EventStatusBeforeInvalid>Enable</EventFunction-Break3-EventStatusBeforeInvalid>
       <EventFunction-Break3-IsBuiltIn>False</EventFunction-Break3-IsBuiltIn>
       <EventFunction-Break3-CombinationType>None</EventFunction-Break3-CombinationType>
       <EventFunction-Break3-HardwareBreakData-SaveLength>0</EventFunction-Break3-HardwareBreakData-SaveLength>
       <EventFunction-Break3-SoftwareBreakData-SoftwareBreakNumber1>2</EventFunction-Break3-SoftwareBreakData-SoftwareBreakNumber1>
       <EventFunction-Break3-SoftwareBreakData-SoftwareBreakProcessorElementNumber1>1</EventFunction-Break3-SoftwareBreakData-SoftwareBreakProcessorElementNumber1>
-      <EventFunction-Break3-SoftwareBreakData-EventConditionName1>RQB2AGUAbgB0ACAAQwBvAG4AZABpAHQAaQBvAG4AIAA1AA==</EventFunction-Break3-SoftwareBreakData-EventConditionName1>
+      <EventFunction-Break3-SoftwareBreakData-EventConditionName1>RQB2AGUAbgB0ACAAQwBvAG4AZABpAHQAaQBvAG4AIAAzAA==</EventFunction-Break3-SoftwareBreakData-EventConditionName1>
       <EventFunction-Break3-SoftwareBreakData-SaveLength>1</EventFunction-Break3-SoftwareBreakData-SaveLength>
-      <EventFunction-EventCondition1-Software-Name>RQB2AGUAbgB0ACAAQwBvAG4AZABpAHQAaQBvAG4AIAAzAA==</EventFunction-EventCondition1-Software-Name>
+      <EventFunction-Break4-Name>QgByAGUAYQBrADAAMAAwADQA</EventFunction-Break4-Name>
+      <EventFunction-Break4-Description />
+      <EventFunction-Break4-EventStatus>Enable</EventFunction-Break4-EventStatus>
+      <EventFunction-Break4-EventStatusBeforeInvalid>Invalid</EventFunction-Break4-EventStatusBeforeInvalid>
+      <EventFunction-Break4-IsBuiltIn>False</EventFunction-Break4-IsBuiltIn>
+      <EventFunction-Break4-CombinationType>None</EventFunction-Break4-CombinationType>
+      <EventFunction-Break4-HardwareBreakData-SaveLength>0</EventFunction-Break4-HardwareBreakData-SaveLength>
+      <EventFunction-Break4-SoftwareBreakData-SoftwareBreakNumber1>3</EventFunction-Break4-SoftwareBreakData-SoftwareBreakNumber1>
+      <EventFunction-Break4-SoftwareBreakData-SoftwareBreakProcessorElementNumber1>1</EventFunction-Break4-SoftwareBreakData-SoftwareBreakProcessorElementNumber1>
+      <EventFunction-Break4-SoftwareBreakData-EventConditionName1>RQB2AGUAbgB0ACAAQwBvAG4AZABpAHQAaQBvAG4AIAA0AA==</EventFunction-Break4-SoftwareBreakData-EventConditionName1>
+      <EventFunction-Break4-SoftwareBreakData-SaveLength>1</EventFunction-Break4-SoftwareBreakData-SaveLength>
+      <EventFunction-Break5-Name>QgByAGUAYQBrADAAMAAwADUA</EventFunction-Break5-Name>
+      <EventFunction-Break5-Description />
+      <EventFunction-Break5-EventStatus>Enable</EventFunction-Break5-EventStatus>
+      <EventFunction-Break5-EventStatusBeforeInvalid>Invalid</EventFunction-Break5-EventStatusBeforeInvalid>
+      <EventFunction-Break5-IsBuiltIn>False</EventFunction-Break5-IsBuiltIn>
+      <EventFunction-Break5-CombinationType>None</EventFunction-Break5-CombinationType>
+      <EventFunction-Break5-HardwareBreakData-SaveLength>0</EventFunction-Break5-HardwareBreakData-SaveLength>
+      <EventFunction-Break5-SoftwareBreakData-SoftwareBreakNumber1>4</EventFunction-Break5-SoftwareBreakData-SoftwareBreakNumber1>
+      <EventFunction-Break5-SoftwareBreakData-SoftwareBreakProcessorElementNumber1>1</EventFunction-Break5-SoftwareBreakData-SoftwareBreakProcessorElementNumber1>
+      <EventFunction-Break5-SoftwareBreakData-EventConditionName1>RQB2AGUAbgB0ACAAQwBvAG4AZABpAHQAaQBvAG4AIAA1AA==</EventFunction-Break5-SoftwareBreakData-EventConditionName1>
+      <EventFunction-Break5-SoftwareBreakData-SaveLength>1</EventFunction-Break5-SoftwareBreakData-SaveLength>
+      <EventFunction-EventCondition1-Software-Name>RQB2AGUAbgB0ACAAQwBvAG4AZABpAHQAaQBvAG4AIAAxAA==</EventFunction-EventCondition1-Software-Name>
       <EventFunction-EventCondition1-Software-Description />
       <EventFunction-EventCondition1-Software-IsBuiltIn>False</EventFunction-EventCondition1-Software-IsBuiltIn>
       <EventFunction-EventCondition1-Software-EventConditionType>Software</EventFunction-EventCondition1-Software-EventConditionType>
       <EventFunction-EventCondition1-Software-EventNumber>0</EventFunction-EventCondition1-Software-EventNumber>
       <EventFunction-EventCondition1-Software-BreakAddress-LocationType>SymbolOffset</EventFunction-EventCondition1-Software-BreakAddress-LocationType>
       <EventFunction-EventCondition1-Software-BreakAddress-LoadModule>C:\Users\living\OneDrive\document\code\renesas\CC\XDA001_V3_Board\DefaultBuild\XDA001_V3_BOARD.abs</EventFunction-EventCondition1-Software-BreakAddress-LoadModule>
-      <EventFunction-EventCondition1-Software-BreakAddress-File>r_cg_sau_user.c</EventFunction-EventCondition1-Software-BreakAddress-File>
+      <EventFunction-EventCondition1-Software-BreakAddress-File>r_cg_main.c</EventFunction-EventCondition1-Software-BreakAddress-File>
       <EventFunction-EventCondition1-Software-BreakAddress-Directory>C:\Users\living\OneDrive\document\code\renesas\CC\XDA001_V3_Board\cg_src\</EventFunction-EventCondition1-Software-BreakAddress-Directory>
-      <EventFunction-EventCondition1-Software-BreakAddress-Symbol>_L_BLE_LOOP</EventFunction-EventCondition1-Software-BreakAddress-Symbol>
+      <EventFunction-EventCondition1-Software-BreakAddress-Symbol>_normal_process</EventFunction-EventCondition1-Software-BreakAddress-Symbol>
       <EventFunction-EventCondition1-Software-BreakAddress-Offset>35</EventFunction-EventCondition1-Software-BreakAddress-Offset>
       <EventFunction-EventCondition1-Software-EffectiveBreakAddress-LocationType>Address</EventFunction-EventCondition1-Software-EffectiveBreakAddress-LocationType>
-      <EventFunction-EventCondition1-Software-EffectiveBreakAddress-Address>3404</EventFunction-EventCondition1-Software-EffectiveBreakAddress-Address>
+      <EventFunction-EventCondition1-Software-EffectiveBreakAddress-Address>1247</EventFunction-EventCondition1-Software-EffectiveBreakAddress-Address>
       <EventFunction-EventCondition1-Software-ProcessorElementNumber>1</EventFunction-EventCondition1-Software-ProcessorElementNumber>
       <EventFunction-EventCondition1-Software-IsUseEventInformation>False</EventFunction-EventCondition1-Software-IsUseEventInformation>
-      <EventFunction-EventCondition2-Software-Name>RQB2AGUAbgB0ACAAQwBvAG4AZABpAHQAaQBvAG4AIAA0AA==</EventFunction-EventCondition2-Software-Name>
+      <EventFunction-EventCondition2-Software-Name>RQB2AGUAbgB0ACAAQwBvAG4AZABpAHQAaQBvAG4AIAAyAA==</EventFunction-EventCondition2-Software-Name>
       <EventFunction-EventCondition2-Software-Description />
       <EventFunction-EventCondition2-Software-IsBuiltIn>False</EventFunction-EventCondition2-Software-IsBuiltIn>
       <EventFunction-EventCondition2-Software-EventConditionType>Software</EventFunction-EventCondition2-Software-EventConditionType>
       <EventFunction-EventCondition2-Software-EventNumber>1</EventFunction-EventCondition2-Software-EventNumber>
       <EventFunction-EventCondition2-Software-BreakAddress-LocationType>SymbolOffset</EventFunction-EventCondition2-Software-BreakAddress-LocationType>
       <EventFunction-EventCondition2-Software-BreakAddress-LoadModule>C:\Users\living\OneDrive\document\code\renesas\CC\XDA001_V3_Board\DefaultBuild\XDA001_V3_BOARD.abs</EventFunction-EventCondition2-Software-BreakAddress-LoadModule>
-      <EventFunction-EventCondition2-Software-BreakAddress-File>r_cg_systeminit.c</EventFunction-EventCondition2-Software-BreakAddress-File>
+      <EventFunction-EventCondition2-Software-BreakAddress-File>r_cg_main.c</EventFunction-EventCondition2-Software-BreakAddress-File>
       <EventFunction-EventCondition2-Software-BreakAddress-Directory>C:\Users\living\OneDrive\document\code\renesas\CC\XDA001_V3_Board\cg_src\</EventFunction-EventCondition2-Software-BreakAddress-Directory>
-      <EventFunction-EventCondition2-Software-BreakAddress-Symbol>_R_Systeminit</EventFunction-EventCondition2-Software-BreakAddress-Symbol>
-      <EventFunction-EventCondition2-Software-BreakAddress-Offset>0</EventFunction-EventCondition2-Software-BreakAddress-Offset>
+      <EventFunction-EventCondition2-Software-BreakAddress-Symbol>_normal_process</EventFunction-EventCondition2-Software-BreakAddress-Symbol>
+      <EventFunction-EventCondition2-Software-BreakAddress-Offset>136</EventFunction-EventCondition2-Software-BreakAddress-Offset>
       <EventFunction-EventCondition2-Software-EffectiveBreakAddress-LocationType>Address</EventFunction-EventCondition2-Software-EffectiveBreakAddress-LocationType>
-      <EventFunction-EventCondition2-Software-EffectiveBreakAddress-Address>1365</EventFunction-EventCondition2-Software-EffectiveBreakAddress-Address>
+      <EventFunction-EventCondition2-Software-EffectiveBreakAddress-Address>1348</EventFunction-EventCondition2-Software-EffectiveBreakAddress-Address>
       <EventFunction-EventCondition2-Software-ProcessorElementNumber>1</EventFunction-EventCondition2-Software-ProcessorElementNumber>
       <EventFunction-EventCondition2-Software-IsUseEventInformation>False</EventFunction-EventCondition2-Software-IsUseEventInformation>
-      <EventFunction-EventCondition3-Software-Name>RQB2AGUAbgB0ACAAQwBvAG4AZABpAHQAaQBvAG4AIAA1AA==</EventFunction-EventCondition3-Software-Name>
+      <EventFunction-EventCondition3-Software-Name>RQB2AGUAbgB0ACAAQwBvAG4AZABpAHQAaQBvAG4AIAAzAA==</EventFunction-EventCondition3-Software-Name>
       <EventFunction-EventCondition3-Software-Description />
       <EventFunction-EventCondition3-Software-IsBuiltIn>False</EventFunction-EventCondition3-Software-IsBuiltIn>
       <EventFunction-EventCondition3-Software-EventConditionType>Software</EventFunction-EventCondition3-Software-EventConditionType>
@@ -152,16 +174,46 @@
       <EventFunction-EventCondition3-Software-BreakAddress-LoadModule>C:\Users\living\OneDrive\document\code\renesas\CC\XDA001_V3_Board\DefaultBuild\XDA001_V3_BOARD.abs</EventFunction-EventCondition3-Software-BreakAddress-LoadModule>
       <EventFunction-EventCondition3-Software-BreakAddress-File>r_cg_sau_user.c</EventFunction-EventCondition3-Software-BreakAddress-File>
       <EventFunction-EventCondition3-Software-BreakAddress-Directory>C:\Users\living\OneDrive\document\code\renesas\CC\XDA001_V3_Board\cg_src\</EventFunction-EventCondition3-Software-BreakAddress-Directory>
-      <EventFunction-EventCondition3-Software-BreakAddress-Symbol>_L_BLE_FACTORY_MODE_SETTING</EventFunction-EventCondition3-Software-BreakAddress-Symbol>
-      <EventFunction-EventCondition3-Software-BreakAddress-Offset>60</EventFunction-EventCondition3-Software-BreakAddress-Offset>
+      <EventFunction-EventCondition3-Software-BreakAddress-Symbol>_L_BLE_LOOP</EventFunction-EventCondition3-Software-BreakAddress-Symbol>
+      <EventFunction-EventCondition3-Software-BreakAddress-Offset>35</EventFunction-EventCondition3-Software-BreakAddress-Offset>
       <EventFunction-EventCondition3-Software-EffectiveBreakAddress-LocationType>Address</EventFunction-EventCondition3-Software-EffectiveBreakAddress-LocationType>
-      <EventFunction-EventCondition3-Software-EffectiveBreakAddress-Address>4131</EventFunction-EventCondition3-Software-EffectiveBreakAddress-Address>
+      <EventFunction-EventCondition3-Software-EffectiveBreakAddress-Address>3404</EventFunction-EventCondition3-Software-EffectiveBreakAddress-Address>
       <EventFunction-EventCondition3-Software-ProcessorElementNumber>1</EventFunction-EventCondition3-Software-ProcessorElementNumber>
       <EventFunction-EventCondition3-Software-IsUseEventInformation>False</EventFunction-EventCondition3-Software-IsUseEventInformation>
+      <EventFunction-EventCondition4-Software-Name>RQB2AGUAbgB0ACAAQwBvAG4AZABpAHQAaQBvAG4AIAA0AA==</EventFunction-EventCondition4-Software-Name>
+      <EventFunction-EventCondition4-Software-Description />
+      <EventFunction-EventCondition4-Software-IsBuiltIn>False</EventFunction-EventCondition4-Software-IsBuiltIn>
+      <EventFunction-EventCondition4-Software-EventConditionType>Software</EventFunction-EventCondition4-Software-EventConditionType>
+      <EventFunction-EventCondition4-Software-EventNumber>3</EventFunction-EventCondition4-Software-EventNumber>
+      <EventFunction-EventCondition4-Software-BreakAddress-LocationType>SymbolOffset</EventFunction-EventCondition4-Software-BreakAddress-LocationType>
+      <EventFunction-EventCondition4-Software-BreakAddress-LoadModule>C:\Users\living\OneDrive\document\code\renesas\CC\XDA001_V3_Board\DefaultBuild\XDA001_V3_BOARD.abs</EventFunction-EventCondition4-Software-BreakAddress-LoadModule>
+      <EventFunction-EventCondition4-Software-BreakAddress-File>r_cg_systeminit.c</EventFunction-EventCondition4-Software-BreakAddress-File>
+      <EventFunction-EventCondition4-Software-BreakAddress-Directory>C:\Users\living\OneDrive\document\code\renesas\CC\XDA001_V3_Board\cg_src\</EventFunction-EventCondition4-Software-BreakAddress-Directory>
+      <EventFunction-EventCondition4-Software-BreakAddress-Symbol>_R_Systeminit</EventFunction-EventCondition4-Software-BreakAddress-Symbol>
+      <EventFunction-EventCondition4-Software-BreakAddress-Offset>0</EventFunction-EventCondition4-Software-BreakAddress-Offset>
+      <EventFunction-EventCondition4-Software-EffectiveBreakAddress-LocationType>Address</EventFunction-EventCondition4-Software-EffectiveBreakAddress-LocationType>
+      <EventFunction-EventCondition4-Software-EffectiveBreakAddress-Address>1394</EventFunction-EventCondition4-Software-EffectiveBreakAddress-Address>
+      <EventFunction-EventCondition4-Software-ProcessorElementNumber>1</EventFunction-EventCondition4-Software-ProcessorElementNumber>
+      <EventFunction-EventCondition4-Software-IsUseEventInformation>False</EventFunction-EventCondition4-Software-IsUseEventInformation>
+      <EventFunction-EventCondition5-Software-Name>RQB2AGUAbgB0ACAAQwBvAG4AZABpAHQAaQBvAG4AIAA1AA==</EventFunction-EventCondition5-Software-Name>
+      <EventFunction-EventCondition5-Software-Description />
+      <EventFunction-EventCondition5-Software-IsBuiltIn>False</EventFunction-EventCondition5-Software-IsBuiltIn>
+      <EventFunction-EventCondition5-Software-EventConditionType>Software</EventFunction-EventCondition5-Software-EventConditionType>
+      <EventFunction-EventCondition5-Software-EventNumber>4</EventFunction-EventCondition5-Software-EventNumber>
+      <EventFunction-EventCondition5-Software-BreakAddress-LocationType>SymbolOffset</EventFunction-EventCondition5-Software-BreakAddress-LocationType>
+      <EventFunction-EventCondition5-Software-BreakAddress-LoadModule>C:\Users\living\OneDrive\document\code\renesas\CC\XDA001_V3_Board\DefaultBuild\XDA001_V3_BOARD.abs</EventFunction-EventCondition5-Software-BreakAddress-LoadModule>
+      <EventFunction-EventCondition5-Software-BreakAddress-File>r_cg_sau_user.c</EventFunction-EventCondition5-Software-BreakAddress-File>
+      <EventFunction-EventCondition5-Software-BreakAddress-Directory>C:\Users\living\OneDrive\document\code\renesas\CC\XDA001_V3_Board\cg_src\</EventFunction-EventCondition5-Software-BreakAddress-Directory>
+      <EventFunction-EventCondition5-Software-BreakAddress-Symbol>_L_BLE_FACTORY_MODE_SETTING</EventFunction-EventCondition5-Software-BreakAddress-Symbol>
+      <EventFunction-EventCondition5-Software-BreakAddress-Offset>60</EventFunction-EventCondition5-Software-BreakAddress-Offset>
+      <EventFunction-EventCondition5-Software-EffectiveBreakAddress-LocationType>Address</EventFunction-EventCondition5-Software-EffectiveBreakAddress-LocationType>
+      <EventFunction-EventCondition5-Software-EffectiveBreakAddress-Address>4164</EventFunction-EventCondition5-Software-EffectiveBreakAddress-Address>
+      <EventFunction-EventCondition5-Software-ProcessorElementNumber>1</EventFunction-EventCondition5-Software-ProcessorElementNumber>
+      <EventFunction-EventCondition5-Software-IsUseEventInformation>False</EventFunction-EventCondition5-Software-IsUseEventInformation>
       <EventFunction-SaveEventConditionItemHardwareNumber>0</EventFunction-SaveEventConditionItemHardwareNumber>
-      <EventFunction-SaveEventConditionItemSoftwareNumber>3</EventFunction-SaveEventConditionItemSoftwareNumber>
+      <EventFunction-SaveEventConditionItemSoftwareNumber>5</EventFunction-SaveEventConditionItemSoftwareNumber>
       <EventFunction-SaveActionEventNumber>0</EventFunction-SaveActionEventNumber>
-      <EventFunction-SaveBreakNumber>3</EventFunction-SaveBreakNumber>
+      <EventFunction-SaveBreakNumber>5</EventFunction-SaveBreakNumber>
       <EventFunction-SaveTimerNumber>1</EventFunction-SaveTimerNumber>
       <EventFunction-SavePerformanceNumber>0</EventFunction-SavePerformanceNumber>
       <EventFunction-SaveTraceNumber>1</EventFunction-SaveTraceNumber>
@@ -1356,8 +1408,8 @@ FirstVisiblePosition:Right,311,0
       <StatusText3>VerticalSplitPercentage:0.00
 HorizontalSplitPercentage:0.00
 ActiveViewPlacement:Right
-CaretPosition:98,0
-FirstVisiblePosition:Right,87,0
+CaretPosition:160,0
+FirstVisiblePosition:Right,141,0
 </StatusText3>
     </Instance>
   </Class>

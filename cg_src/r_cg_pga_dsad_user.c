@@ -91,9 +91,9 @@ static void __near r_pga_dsad_conversion_interrupt(void)
     dsadc_counter = dsadc_counter + 1;
     if (dsadc_counter > (DSADC_BUF_SIZE / 2))
     {
+        *dsadc_ready_ptr = 1;
         dsadc_counter = 0;
         R_PGA_DSAD_Stop();
-        events = events | PT100_NOTIFICATION_EVENT;
     }
     /* End user code. Do not edit comment generated here */
 }

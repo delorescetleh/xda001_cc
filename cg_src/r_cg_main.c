@@ -85,6 +85,7 @@ void main(void)
     EPROM_POW_CNT = POWER_OFF;
 
     Mode = NORMAL_MODE;
+
     process(Mode);
     /* End user code. Do not edit comment generated here */
 }
@@ -103,6 +104,8 @@ static void R_MAIN_UserInit(void)
 
 /* Start user code for adding. Do not edit comment generated here */
 void process(mode_t Mode){
+    init_dsadc(&dsadc_ready);
+
     if (Mode==FACTORY_MODE){
         factory_process();
     } else{
@@ -129,15 +132,20 @@ void normal_process(void){
             if (EVENTS&RTC_NOTIFICATION_EVENT)
             {
                 EVENTS &= (~RTC_NOTIFICATION_EVENT);
+		        EVENTS |= (PT100_NOTIFICATION_EVENT);
                 resetIt_counter();
-                R_IT_Start(); // start fetch pcb temperature
+                R_IT_Start();
+                dsadc_ready = 0;
                 R_DTCD0_Start();
                 R_PGA_DSAD_Start();
             }
             if (EVENTS&PT100_NOTIFICATION_EVENT)
             {
-                EVENTS &= (~PT100_NOTIFICATION_EVENT);
-                get_pt100_result(&PT100result);
+                if (dsadc_ready){
+                    EVENTS &= (~PT100_NOTIFICATION_EVENT);
+                    dsadc_ready = 0;
+                    get_pt100_result(&PT100result);
+                }
             }
             if (EVENTS&OVER_TIME_EVENT)
             {
@@ -160,7 +168,7 @@ void normal_process(void){
             R_ADC_Stop();
             R_ADC_Set_OperationOff();
             L_PGA_STOP();
-            STOP();
+            HALT();
         }
     }
 }
