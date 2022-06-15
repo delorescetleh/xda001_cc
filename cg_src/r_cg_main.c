@@ -57,21 +57,24 @@ Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
 volatile unsigned char EVENTS;
-uint8_t factoryMode = 0;
+mode_t Mode = NORMAL_MODE;
 uint8_t rtc_counter = 0;
 int16_t pcbTemperature;
 int PT100result;
 uint8_t dsadc_ready = 0;
 uint8_t data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+void process(mode_t Mode);
+void normal_process(void);
+void factory_process(void);
 /* End user code. Do not edit comment generated here */
 
 static void R_MAIN_UserInit(void);
 /***********************************************************************************************************************
-* Function Name: main
-* Description  : This function implements main function.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
+ * Function Name: main
+ * Description  : This function implements main function.
+ * Arguments    : None
+ * Return Value : None
+ ***********************************************************************************************************************/
 void main(void)
 {
     R_MAIN_UserInit();
@@ -79,18 +82,47 @@ void main(void)
     LORA_POW_CNT = POWER_ON;
     BLE_POW_CNT = POWER_OFF;
     EPROM_POW_CNT = POWER_OFF;
-    if (factoryMode){
-            data[9]=L_BLE_FACTORY_MODE_SETTING();
-            memclr(data, 10);
-    } else{
-        init_pcb_temperature(); // set parameter for dtc0,dtc1 , this parameter could automatically fetch pcb temperature without MCU controller 
-        init_dsadc(&dsadc_ready);
-        R_RTC_Start();
-        EVENTS=0;
-        EVENTS |= (RTC_NOTIFICATION_EVENT);
-    }
 
-    while (!factoryMode)
+    Mode = NORMAL_MODE;
+    process(Mode);
+    /* End user code. Do not edit comment generated here */
+}
+/***********************************************************************************************************************
+* Function Name: R_MAIN_UserInit
+* Description  : This function adds user code before implementing main function.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+static void R_MAIN_UserInit(void)
+{
+    /* Start user code. Do not edit comment generated here */
+    EI();
+    /* End user code. Do not edit comment generated here */
+}
+
+/* Start user code for adding. Do not edit comment generated here */
+void process(mode_t Mode){
+    if (Mode==FACTORY_MODE){
+        factory_process();
+    } else{
+        normal_process();
+    }
+}
+
+void factory_process(void){
+    if (L_BLE_INIT())
+    {
+        data[9] = L_BLE_FACTORY_MODE_SETTING();
+        memclr(data, 10);
+   }
+}
+void normal_process(void){
+    init_pcb_temperature(); // set parameter for dtc0,dtc1 , this parameter could automatically fetch pcb temperature without MCU controller
+    R_RTC_Start();
+    EVENTS = 0;
+    EVENTS |= (RTC_NOTIFICATION_EVENT); // start when power on
+
+    while (1)
     {
         if(EVENTS){
             if (EVENTS&RTC_NOTIFICATION_EVENT)
@@ -100,14 +132,12 @@ void main(void)
                 R_IT_Start(); // start fetch pcb temperature
                 R_DTCD0_Start();
                 R_PGA_DSAD_Start();
-		        dsadc_ready=0;
+                L_BLE_INIT();
             }
             if (EVENTS&PT100_NOTIFICATION_EVENT)
             {
-                // if (dsadc_ready){
                 EVENTS &= (~PT100_NOTIFICATION_EVENT);
                 get_pt100_result(&PT100result);
-                // }
             }
             if (EVENTS&OVER_TIME_EVENT)
             {
@@ -127,22 +157,6 @@ void main(void)
             // L_PGA_STOP();
             // HALT();
         }
-        ;
     }
-    /* End user code. Do not edit comment generated here */
 }
-/***********************************************************************************************************************
-* Function Name: R_MAIN_UserInit
-* Description  : This function adds user code before implementing main function.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-static void R_MAIN_UserInit(void)
-{
-    /* Start user code. Do not edit comment generated here */
-    EI();
-    /* End user code. Do not edit comment generated here */
-}
-
-/* Start user code for adding. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */

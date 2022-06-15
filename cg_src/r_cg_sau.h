@@ -310,7 +310,7 @@ static void r_uart1_callback_softwareoverrun(uint16_t rx_data);
 /* Start user code for function. Do not edit comment generated here */
 uint8_t L_BLE_POWER_ON_AND_CHECK_GET_REBOOT(void);
 void L_BLE_POW_OFF(void);
-uint8_t L_BLE_INIT_NORMAL(uint8_t *dubWriteBuffer, uint8_t *dubReadBuffer);
+uint8_t L_BLE_INIT(void);
 void L_BLE_STOP(void);
 uint8_t L_BLE_FACTORY_MODE_SETTING(void);
 void L_BLE_START_FOR_WAITING_APP_COMMAND(void);

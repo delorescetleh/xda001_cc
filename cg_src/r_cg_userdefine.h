@@ -200,25 +200,11 @@ User definitions
 #define eepromIndexStorageAddressinEEPROM 90000
 
 /* BLE Struct */
-typedef enum bleCmdIndex
+typedef enum mode
 {
-  BLE_EN_CMD = 8,
-  BLE_UART = 7,
-  BLE_SET_NAME = 6, 
-  BLE_STA = 5,
-  BLE_IND = 4,
-  BLE_REBOOT = 3,
-  BLE_LOW_POW =2,
-  BLE_CMD_REBOOT = 1,
-
-  APP_SET_LORA_INTERVAL = 51,
-  APP_READ_EEPROM = 52,
-  APP_SHUT_DOWN_BLE = 53,
-  APP_SET_TEMP_CALIBRARTION = 54,
-  BLE_EX_CMD = 55,
-  BLE_FAC_REBOOT = 55,
-  BLE_READY = 99,
-} ble_command_t; 
+  FACTORY_MODE = 0,
+  NORMAL_MODE = 1
+} mode_t; 
 
 
 

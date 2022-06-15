@@ -273,20 +273,7 @@ static void r_uart1_callback_error(uint8_t err_type)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-uint8_t L_BLE_POWER_ON_AND_CHECK_GET_REBOOT(void){
-    return memcmp(receivedFromBle, (uint8_t *)("%REBOOT%"),(uint8_t) 8, MAX_BLE_DATA_LENGTH);
-}
-
-uint8_t L_BLE_SEND_COMMAND(char *command,uint8_t comandLength,char *expectAck,uint8_t ackLength ){
-    memclr(receivedFromBle, reset_DTC10());
-    R_UART1_Receive(receivedFromBle,ackLength);
-    R_UART1_Send((uint8_t *)command, comandLength);
-    delayInMs(500);
-    return memcmp(receivedFromBle, (uint8_t *)expectAck, ackLength, MAX_BLE_DATA_LENGTH);
-}
-
-uint8_t L_BLE_FACTORY_MODE_SETTING(void){
-    uint8_t success = 0;
+uint8_t L_BLE_INIT(void){
     BLE_RESET_MODE = PIN_MODE_AS_OUTPUT;
     BLE_RESET = PIN_LEVEL_AS_LOW;
     BLE_UART_RXD_IND_MODE = PIN_MODE_AS_OUTPUT;
@@ -297,29 +284,61 @@ uint8_t L_BLE_FACTORY_MODE_SETTING(void){
     R_UART1_Start();
     memclr(receivedFromBle, MAX_BLE_DATA_LENGTH);
     R_UART1_Receive(receivedFromBle, 8); // invoke "%REBOOT%"
-    BleReceivedEnd = 0;
-    
     delayInMs(2);
     BLE_RESET_MODE = PIN_MODE_AS_INPUT;
     delayInMs(500);
-	if(L_BLE_POWER_ON_AND_CHECK_GET_REBOOT())
+    return memcmp(receivedFromBle, (uint8_t *)("%REBOOT%"),(uint8_t) 8, MAX_BLE_DATA_LENGTH);
+}
+
+
+// uint8_t L_BLE_INIT_NORMAL(void){
+//     BLE_RESET_MODE = PIN_MODE_AS_OUTPUT;
+//     BLE_RESET = PIN_LEVEL_AS_LOW;
+//     BLE_UART_RXD_IND_MODE = PIN_MODE_AS_OUTPUT;
+//     BLE_UART_RXD_IND = PIN_LEVEL_AS_LOW;
+//     BLE_POW_CNT = PIN_LEVEL_AS_LOW;
+//     R_DTCD10_Start();
+//     R_UART1_Create();
+//     R_UART1_Start();
+//     memclr(receivedFromBle, MAX_BLE_DATA_LENGTH);
+//     R_UART1_Receive(receivedFromBle, 8); // invoke "%REBOOT%"
+//     BleReceivedEnd = 0;
+    
+//     delayInMs(2);
+//     BLE_RESET_MODE = PIN_MODE_AS_INPUT;
+//     delayInMs(500);
+//     return memcmp(receivedFromBle, (uint8_t *)("%REBOOT%"),(uint8_t) 8, MAX_BLE_DATA_LENGTH);
+// }
+
+
+// uint8_t L_BLE_POWER_ON_AND_CHECK_GET_REBOOT(void){
+    
+// }
+
+uint8_t L_BLE_SEND_COMMAND(char *command,uint8_t comandLength,char *expectAck,uint8_t ackLength ){
+    memclr(receivedFromBle, reset_DTC10());
+    R_UART1_Receive(receivedFromBle,ackLength);
+    R_UART1_Send((uint8_t *)command, comandLength);
+    delayInMs(500);
+    return memcmp(receivedFromBle, (uint8_t *)expectAck, ackLength, MAX_BLE_DATA_LENGTH);
+}
+
+uint8_t L_BLE_FACTORY_MODE_SETTING(void){
+    if (L_BLE_SEND_COMMAND("$$$", 3, "CMD>", 4))
     {
-        if (L_BLE_SEND_COMMAND("$$$", 3, "CMD>", 4))
+        if (L_BLE_SEND_COMMAND("SS,40\r", 6, "AOK", 3))
         {
-            if (L_BLE_SEND_COMMAND("SS,40\r", 6, "AOK", 3))
+            if (L_BLE_SEND_COMMAND((char *)setBleDeviceNameCommand, 12, "AOK", 3))
             {
-                if (L_BLE_SEND_COMMAND((char *)setBleDeviceNameCommand, 12, "AOK", 3))
+                if (L_BLE_SEND_COMMAND("SW,0B,07\r", 9, "AOK", 3))
                 {
-                    if (L_BLE_SEND_COMMAND("SW,0B,07\r", 9, "AOK", 3))
+                    if (L_BLE_SEND_COMMAND("SW,0A,04\r", 9, "AOK", 3))
                     {
-                        if (L_BLE_SEND_COMMAND("SW,0A,04\r", 9, "AOK", 3))
+                        if (L_BLE_SEND_COMMAND("SO,1\r", 5, "AOK", 3))
                         {
-                            if (L_BLE_SEND_COMMAND("SO,1\r", 5, "AOK", 3))
+                            if (L_BLE_SEND_COMMAND("R,1\r", 4, "Rebooting", 9))
                             {
-                                if (L_BLE_SEND_COMMAND("R,1\r", 4, "Rebooting", 9))
-                                {
-                                    success = 1;
-                                }
+                                return 1;
                             }
                         }
                     }
@@ -327,7 +346,7 @@ uint8_t L_BLE_FACTORY_MODE_SETTING(void){
             }
         }
     }
-    return success;
+    return 0;
 }
 
 void set_TXD1_as_Input_Mode(void){
