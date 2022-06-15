@@ -34,6 +34,8 @@ User definitions
 
 /* Start user code for function. Do not edit comment generated here */
 # include "L_useful.h"
+# include "r_cg_sau.h"
+# include "r_cg_dtc.h"
 // SHOULD SET TIMER LET TIME_SPEED * BASE_TIME = 1 MIN
 #define TEST_FACTORY_MODE_NOW           0x00
 #define TIME_SPEED 60

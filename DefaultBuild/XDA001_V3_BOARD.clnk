@@ -23,6 +23,8 @@
 -Input=DefaultBuild\r_cg_amp.obj
 -Input=DefaultBuild\r_cg_amp_user.obj
 -Input=DefaultBuild\L_useful.obj
+-Input=DefaultBuild\r_cg_intp.obj
+-Input=DefaultBuild\r_cg_intp_user.obj
 -SECURITY_ID=00000000000000000000
 -DEVICE=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11NGG.DVF
 -DEBug

@@ -40,6 +40,7 @@ Includes
 #include "r_cg_sau.h"
 #include "r_cg_iica.h"
 #include "r_cg_dtc.h"
+#include "r_cg_intp.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -77,6 +78,7 @@ void R_Systeminit(void)
     R_PGA_DSAD_Create();
     R_AMP_Create();
     R_IICA0_Create();
+    R_INTC_Create();
     R_ADC_Create();
     R_SAU0_Create();
     R_DTC_Create();

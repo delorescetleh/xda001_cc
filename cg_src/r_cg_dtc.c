@@ -54,6 +54,8 @@ uint8_t __near dtc_vectortable[40U];
 st_dtc_data_t __near dtc_controldata_0;
 #pragma address dtc_controldata_1 = 0x0FFD48U
 st_dtc_data_t __near dtc_controldata_1;
+#pragma address dtc_controldata_2 = 0x0FFD50U
+st_dtc_data_t __near dtc_controldata_2;
 #pragma address dtc_controldata_10 = 0x0FFD90U
 st_dtc_data_t __near dtc_controldata_10;
 /***********************************************************************************************************************
@@ -90,6 +92,15 @@ void R_DTC_Create(void)
     dtc_controldata_1.dtrld = _08_DTCD1_TRANSFER_BYTE;
     dtc_controldata_1.dtsar = _FA00_DTCD1_SRC_ADDRESS;
     dtc_controldata_1.dtdar = _FF31_DTCD1_DEST_ADDRESS;
+    /* Set DTCD2 */
+    dtc_vectortable[2U] = 0x50U;
+    dtc_controldata_2.dtccr = _00_DTC_DATA_SIZE_8BITS | _00_DTC_REPEAT_INT_DISABLE | _00_DTC_CHAIN_TRANSFER_DISABLE | 
+                              _00_DTC_SOURCE_ADDR_FIXED | _00_DTC_REPEAT_AREA_DEST | _01_DTC_TRANSFER_MODE_REPEAT;
+    dtc_controldata_2.dtbls = _01_DTCD2_TRANSFER_BLOCKSIZE;
+    dtc_controldata_2.dtcct = _A0_DTCD2_TRANSFER_BYTE;
+    dtc_controldata_2.dtrld = _A0_DTCD2_TRANSFER_BYTE;
+    dtc_controldata_2.dtsar = _FF46_DTCD2_SRC_ADDRESS;
+    dtc_controldata_2.dtdar = _FC00_DTCD2_DEST_ADDRESS;
     /* Set DTCD10 */
     dtc_vectortable[13U] = 0x90U;
     dtc_controldata_10.dtccr = _00_DTC_DATA_SIZE_8BITS | _00_DTC_REPEAT_INT_DISABLE | _00_DTC_CHAIN_TRANSFER_DISABLE | 
@@ -119,6 +130,26 @@ void R_DTCD0_Start(void)
 void R_DTCD0_Stop(void)
 {
     DTCEN1 &= (uint8_t)~_20_DTC_AD_ACTIVATION_ENABLE;
+}
+/***********************************************************************************************************************
+* Function Name: R_DTCD2_Start
+* Description  : This function enables DTCD2 module operation.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_DTCD2_Start(void)
+{
+     DTCEN0 |= _20_DTC_INTP1_ACTIVATION_ENABLE;
+}
+/***********************************************************************************************************************
+* Function Name: R_DTCD2_Stop
+* Description  : This function disables DTCD2 module operation.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_DTCD2_Stop(void)
+{
+    DTCEN0 &= (uint8_t)~_20_DTC_INTP1_ACTIVATION_ENABLE;
 }
 /***********************************************************************************************************************
 * Function Name: R_DTCD10_Start

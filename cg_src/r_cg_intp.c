@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for INTP module.
-* Creation Date: 2022/6/9
+* Creation Date: 2022/6/15
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -69,10 +69,10 @@ void R_INTC_Create(void)
     PIF5 = 0U;      /* clear INTP5 interrupt flag */
     PMK6 = 1U;      /* disable INTP6 interrupt */
     PIF6 = 0U;      /* clear INTP6 interrupt flag */
-    /* Set INTP1 high priority */
-    PPR11 = 0U;
-    PPR01 = 0U;
-    EGN0 = _02_INTP1_EDGE_FALLING_BOTH;
+    /* Set INTP1 low priority */
+    PPR11 = 1U;
+    PPR01 = 1U;
+    EGN0 = _00_INTP1_EDGE_RISING_DISABLE;
     EGP0 = _02_INTP1_EDGE_RISING_BOTH;
     /* Set INTP1 pin */
 

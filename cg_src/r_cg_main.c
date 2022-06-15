@@ -40,6 +40,7 @@ Includes
 #include "r_cg_sau.h"
 #include "r_cg_iica.h"
 #include "r_cg_dtc.h"
+#include "r_cg_intp.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -56,6 +57,7 @@ Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
 volatile unsigned char EVENTS;
+uint8_t factoryMode = 1;
 uint8_t rtc_counter = 0;
 int16_t pcbTemperature;
 int PT100result;
@@ -77,49 +79,43 @@ void main(void)
     LORA_POW_CNT = POWER_ON;
     BLE_POW_CNT = POWER_OFF;
     EPROM_POW_CNT = POWER_OFF;
-    R_DTCD10_Start();
-    data[9]=L_BLE_FACTORY_MODE_SETTING();
-    
-    memclr(data, 10);
-    // init_pcb_temperature();
-    // set_TXD0_as_Input_Mode();
-    // set_TXD1_as_Input_Mode();
-    // R_IICA0_Stop();
-    // R_ADC_Stop();
-    // R_ADC_Set_OperationOff();
-    // //L_PGA_STOP();
-    // R_PGA_DSAD_Create();
-    
-    // init_dsadc(&dsadc_ready);
-    // R_PGA_DSAD_Start();
-    // dsadc_ready=0;
-    // R_RTC_Start();
-    // // void R_IT_Create(void);
-    // R_IT_Stop();
-    // EVENTS=0;
-    while (1U)
+    if (factoryMode){
+            data[9]=L_BLE_FACTORY_MODE_SETTING();
+            memclr(data, 10);
+    } else{
+        init_pcb_temperature(); // set parameter for dtc0,dtc1 , this parameter could automatically fetch pcb temperature without MCU controller 
+        init_dsadc(&dsadc_ready);
+        R_RTC_Start();
+        EVENTS=0;
+        EVENTS |= (RTC_NOTIFICATION_EVENT);
+    }
+
+    while (!factoryMode)
     {
-        // if(EVENTS){
-        //     if (EVENTS&RTC_NOTIFICATION_EVENT){
-        //         EVENTS &= (~RTC_NOTIFICATION_EVENT);
-        //         R_IT_Start(); // start fetch pcb temperature
-        //         R_DTCD0_Start();
-        //         R_PGA_DSAD_Start();
-		// dsadc_ready=0;
-        //         get_pcb_temperature(&pcbTemperature);
-        //     }
-        //     if (EVENTS&PT100_NOTIFICATION_EVENT){
-        //         if (dsadc_ready){
-        //             EVENTS &= (~PT100_NOTIFICATION_EVENT);
-        //             get_pt100_result(&PT100result);
-        //         }
-        //     }
-        //     // if (EVENTS&RTC_NOTIFICATION_EVENT){
-        //     // }
-        // }else{
-		// //    L_PGA_STOP();
-        //     //HALT();
-        // }
+        if(EVENTS){
+            if (EVENTS&RTC_NOTIFICATION_EVENT){
+                EVENTS &= (~RTC_NOTIFICATION_EVENT);
+                R_IT_Start(); // start fetch pcb temperature
+                R_DTCD0_Start();
+                R_PGA_DSAD_Start();
+		        dsadc_ready=0;
+                get_pcb_temperature(&pcbTemperature);
+            }
+            if (EVENTS&PT100_NOTIFICATION_EVENT){
+                if (dsadc_ready){
+                    EVENTS &= (~PT100_NOTIFICATION_EVENT);
+                    get_pt100_result(&PT100result);
+                }
+            }
+        }else{ // if no events go to sleep
+            set_TXD0_as_Input_Mode();
+            set_TXD1_as_Input_Mode();
+            R_IICA0_Stop();
+            R_ADC_Stop();
+            R_ADC_Set_OperationOff();
+            L_PGA_STOP();
+            HALT();
+        }
         ;
     }
     /* End user code. Do not edit comment generated here */

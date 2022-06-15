@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for INTP module.
-* Creation Date: 2022/6/9
+* Creation Date: 2022/6/15
 ***********************************************************************************************************************/
 #ifndef INTP_H
 #define INTP_H

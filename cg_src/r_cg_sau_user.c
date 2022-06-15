@@ -292,7 +292,7 @@ uint8_t L_BLE_FACTORY_MODE_SETTING(void){
     BLE_UART_RXD_IND_MODE = PIN_MODE_AS_OUTPUT;
     BLE_UART_RXD_IND = PIN_LEVEL_AS_LOW;
     BLE_POW_CNT = PIN_LEVEL_AS_LOW;
-
+    R_DTCD10_Start();
     R_UART1_Create();
     R_UART1_Start();
     memclr(receivedFromBle, MAX_BLE_DATA_LENGTH);
