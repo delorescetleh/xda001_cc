@@ -59,7 +59,7 @@ static void __near r_it_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
     it_counter++;
-    if (it_counter>2000){ // 2 s over time 
+    if (it_counter > 60){ // 60 s over time 
         events |= OVER_TIME_EVENT;
         it_counter = 0;
     }

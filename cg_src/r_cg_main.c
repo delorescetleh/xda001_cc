@@ -32,6 +32,7 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "r_cg_cgc.h"
 #include "r_cg_port.h"
+#include "r_cg_it8bit.h"
 #include "r_cg_rtc.h"
 #include "r_cg_it.h"
 #include "r_cg_pga_dsad.h"
@@ -70,11 +71,11 @@ void factory_process(void);
 
 static void R_MAIN_UserInit(void);
 /***********************************************************************************************************************
- * Function Name: main
- * Description  : This function implements main function.
- * Arguments    : None
- * Return Value : None
- ***********************************************************************************************************************/
+* Function Name: main
+* Description  : This function implements main function.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
 void main(void)
 {
     R_MAIN_UserInit();
