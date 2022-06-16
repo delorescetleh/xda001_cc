@@ -125,13 +125,16 @@ void normal_process(void){
     delayInMs(1000);
     L_BLE_INIT();
     L_BLE_STOP();
-    //R_INTC1_Start();
+    R_INTC1_Start();
+    // R_DTCD10_Start();
     EVENTS = 0; 
     EVENTS = RTC_NOTIFICATION_EVENT; // start when power on
     R_RTC_Start();
+
     delayInMs(1000);
     while (1)
     {
+
         if(EVENTS){
             if (EVENTS&RTC_NOTIFICATION_EVENT)
             {
@@ -171,7 +174,6 @@ void normal_process(void){
                     set_TXD0_as_Input_Mode();
                     set_TXD1_as_Input_Mode();
                     L_BLE_STOP();
-                    R_DTCD10_Stop();
                     R_IICA0_Stop();
                     R_DTCD0_Stop();
                     R_ADC_Stop();

@@ -72,8 +72,8 @@ void R_INTC_Create(void)
     /* Set INTP1 low priority */
     PPR11 = 1U;
     PPR01 = 1U;
-    EGN0 = _00_INTP1_EDGE_RISING_DISABLE;
-    EGP0 = _02_INTP1_EDGE_RISING_BOTH;
+    EGN0 = _02_INTP1_EDGE_FALLING_BOTH;
+    EGP0 = _00_INTP1_EDGE_FALLING_DISABLE;
     /* Set INTP1 pin */
 
 }

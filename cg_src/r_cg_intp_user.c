@@ -57,9 +57,7 @@ Global variables and functions
 static void __near r_intc1_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
-    R_UART1_Start();
-    // R_DTCD2_Start();
-    // R_IT_Start();
+    L_BLE_RESTART_FROM_STOP_MODE();
     R_IT8Bit0_Channel0_Start();
     /* End user code. Do not edit comment generated here */
 }
