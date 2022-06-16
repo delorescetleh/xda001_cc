@@ -18,8 +18,6 @@
 -Input=DefaultBuild\r_cg_iica_user.obj
 -Input=DefaultBuild\r_cg_dtc.obj
 -Input=DefaultBuild\r_cg_dtc_user.obj
--Input=DefaultBuild\r_cg_it.obj
--Input=DefaultBuild\r_cg_it_user.obj
 -Input=DefaultBuild\r_cg_amp.obj
 -Input=DefaultBuild\r_cg_amp_user.obj
 -Input=DefaultBuild\L_useful.obj
@@ -29,6 +27,8 @@
 -Input=DefaultBuild\r_cg_tau_user.obj
 -Input=DefaultBuild\r_cg_elc.obj
 -Input=DefaultBuild\r_cg_elc_user.obj
+-Input=DefaultBuild\r_cg_it8bit.obj
+-Input=DefaultBuild\r_cg_it8bit_user.obj
 -SECURITY_ID=00000000000000000000
 -DEVICE=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11NGG.DVF
 -DEBug

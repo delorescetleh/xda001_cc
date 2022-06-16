@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for IT module.
-* Creation Date: 2022/6/15
+* Creation Date: 2022/6/16
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -59,7 +59,7 @@ static void __near r_it_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
     // *timer_100ms_counter_ptr++;
-    events |=TIMER_PERIODIC_EVENT;
+    // events |=TIMER_PERIODIC_EVENT;
     /* End user code. Do not edit comment generated here */
 }
 

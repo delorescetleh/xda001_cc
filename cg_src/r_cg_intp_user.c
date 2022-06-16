@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for INTP module.
-* Creation Date: 2022/6/15
+* Creation Date: 2022/6/16
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -58,8 +58,9 @@ static void __near r_intc1_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
     R_UART1_Start();
-    R_DTCD2_Start();
-    R_IT_Start();
+    // R_DTCD2_Start();
+    // R_IT_Start();
+    R_IT8Bit0_Channel0_Start();
     /* End user code. Do not edit comment generated here */
 }
 

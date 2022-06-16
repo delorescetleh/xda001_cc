@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for SAU module.
-* Creation Date: 2022/6/15
+* Creation Date: 2022/6/16
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -320,6 +320,7 @@ void checkAppCommand(void) {
 }
 void L_BLE_STOP(void){
     R_UART1_Stop();
+    R_DTCD10_Stop();
     UART1_TXD_MODE = PIN_MODE_AS_INPUT;
     BLE_UART_RXD_IND_MODE = PIN_MODE_AS_OUTPUT;
     BLE_UART_RXD_IND = PIN_LEVEL_AS_HIGH;

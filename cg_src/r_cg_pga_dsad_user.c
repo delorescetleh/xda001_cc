@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for PGIA module.
-* Creation Date: 2022/6/15
+* Creation Date: 2022/6/16
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -42,6 +42,7 @@ Pragma directive
 #pragma interrupt r_pga_dsad_conversion_interrupt(vect=INTDSAD)
 #pragma interrupt r_pga_dsad_scan_interrupt(vect=INTDSADS)
 /* Start user code for pragma. Do not edit comment generated here */
+#pragma address (dsadc_buf=0xFF800U)
 # define DSADC_SKIP_LENGTH 0
 # define DSADC_BUF_SIZE 32
 # define DSADC_RESULT_BUF_SIZE 4 
@@ -221,5 +222,6 @@ void parseDifferential_DSADC_Result(uint32_t BufferH,uint32_t BufferL,uint32_t *
 
 void init_dsadc(uint8_t *ready){
     dsadc_ready_ptr=ready;
+    memclr((uint8_t *)&dsadc_buf[0], DSADC_BUF_SIZE*2);
 }
 /* End user code. Do not edit comment generated here */

@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2022/6/15
+* Creation Date: 2022/6/16
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -33,8 +33,8 @@ Includes
 #include "r_cg_cgc.h"
 #include "r_cg_port.h"
 #include "r_cg_tau.h"
+#include "r_cg_it8bit.h"
 #include "r_cg_rtc.h"
-#include "r_cg_it.h"
 #include "r_cg_pga_dsad.h"
 #include "r_cg_amp.h"
 #include "r_cg_adc.h"
@@ -62,9 +62,10 @@ volatile unsigned char EVENTS;
 mode_t Mode = NORMAL_MODE;
 uint8_t rtc_counter = 0;
 uint16_t timer_100ms_counter = 0;
-int16_t pcbTemperature;
+int16_t pcbTemperature=250;
 int PT100result;
 uint8_t dsadc_ready = 0;
+uint8_t analogProcess = 0;
 uint8_t data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 void process(mode_t Mode);
 void normal_process(void);
@@ -107,7 +108,6 @@ static void R_MAIN_UserInit(void)
 
 /* Start user code for adding. Do not edit comment generated here */
 void process(mode_t Mode){
-    init_dsadc(&dsadc_ready);
     if (Mode==FACTORY_MODE){
         factory_process();
     } else{
@@ -122,75 +122,70 @@ void factory_process(void){
    }
 }
 void normal_process(void){
-    init_pcb_temperature(); // set parameter for dtc0,dtc1 , this parameter could automatically fetch pcb temperature without MCU controller
     delayInMs(1000);
     L_BLE_INIT();
+    L_BLE_STOP();
+    //R_INTC1_Start();
+    EVENTS = 0; 
+    EVENTS = RTC_NOTIFICATION_EVENT; // start when power on
     R_RTC_Start();
-    EVENTS = 0;
-    EVENTS |= (RTC_NOTIFICATION_EVENT); // start when power on
+    delayInMs(1000);
     while (1)
     {
         if(EVENTS){
             if (EVENTS&RTC_NOTIFICATION_EVENT)
             {
                 EVENTS &= (~RTC_NOTIFICATION_EVENT);
-		        EVENTS |= (PT100_NOTIFICATION_EVENT);
-                timer_100ms_counter = 0;
-                R_IT_Start();
+                init_pcb_temperature(); // set parameter for dtc0,dtc1 , this parameter could automatically fetch pcb temperature without MCU controller
+                init_dsadc(&dsadc_ready);
+                R_IT8Bit0_Channel0_Start();
+                R_IT8Bit0_Channel1_Start();
                 dsadc_ready = 0;
+                analogProcess = 1;
                 R_DTCD0_Start();
+                R_PGA_DSAD_Create();
                 R_PGA_DSAD_Start();
-            }
-            if (EVENTS&PT100_NOTIFICATION_EVENT)
-            {
-                if (dsadc_ready){
-                    EVENTS &= (~PT100_NOTIFICATION_EVENT);
-                    dsadc_ready = 0;
-                    get_pt100_result(&PT100result);
-                }
             }
             if (EVENTS & TIMER_PERIODIC_EVENT)
             {
                 EVENTS &= ~TIMER_PERIODIC_EVENT;
-		        timer_100ms_counter++;
-
-                if (timer_100ms_counter == 5)
-                { // 0.5s , finish pcb temperature fetch
+                if (analogProcess)
+                {
+                    if (dsadc_ready)
+                    {
+                        analogProcess = 0;
+                        get_pt100_result(&PT100result);
+                        R_DTCD0_Stop();
+                        R_ADC_Stop();
+                        R_PGA_DSAD_Stop();
+                        R_IT8Bit0_Channel1_Stop();
+                    }
                     get_pcb_temperature(&pcbTemperature);
-                    R_DTCD0_Stop();
-                    R_ADC_Stop();
-                    R_ADC_Set_OperationOff();
                 }
                 if (!BLE_NO_CONNECT)
                 {
-                    // timer_100ms_counter--;
                     checkAppCommand();
-                }else{
-                    if (timer_100ms_counter > 100)
-                    { // 10s time out to turn off analog parts
-                        events &= ~PCB_TEMPERATURE_NOTIFICATION_EVENT;
-                        events &= ~PT100_NOTIFICATION_EVENT;
-                        timer_100ms_counter = 0;
-                        R_IT_Stop();
+                }
+                if ((!analogProcess)&BLE_NO_CONNECT){
+                    R_IT8Bit0_Channel0_Stop();
+                    set_TXD0_as_Input_Mode();
+                    set_TXD1_as_Input_Mode();
+                    L_BLE_STOP();
+                    R_DTCD10_Stop();
+                    R_IICA0_Stop();
+                    R_DTCD0_Stop();
+                    R_ADC_Stop();
+                    L_PGA_STOP();
+                    if (P_TEST)
+                    {
+                        HALT();
+                    }
+                    else
+                    {
+                        STOP();
                     }
                 }
             }
-            //HALT();
-        }else{ // if no events go to sleep
-            // set_TXD0_as_Input_Mode();
-            // set_TXD1_as_Input_Mode();
-            // L_BLE_STOP();
-            // R_DTCD10_Stop();
-            // R_IICA0_Stop();
-            // R_DTCD0_Stop();
-            // R_ADC_Stop();
-            // R_ADC_Set_OperationOff();
-            // L_PGA_STOP();
-            // if (P_TEST){
-            //     HALT();
-            // }else{
-            //     STOP();
-            // }
         }
     }
 }

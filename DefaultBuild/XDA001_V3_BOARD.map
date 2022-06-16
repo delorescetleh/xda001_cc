@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (W3.03.00 )             15-Jun-2022 20:27:21
+Renesas Optimizing Linker (W3.03.00 )             16-Jun-2022 18:51:34
 
 *** Options ***
 
@@ -23,8 +23,6 @@ Renesas Optimizing Linker (W3.03.00 )             15-Jun-2022 20:27:21
 -Input=DefaultBuild\r_cg_iica_user.obj
 -Input=DefaultBuild\r_cg_dtc.obj
 -Input=DefaultBuild\r_cg_dtc_user.obj
--Input=DefaultBuild\r_cg_it.obj
--Input=DefaultBuild\r_cg_it_user.obj
 -Input=DefaultBuild\r_cg_amp.obj
 -Input=DefaultBuild\r_cg_amp_user.obj
 -Input=DefaultBuild\L_useful.obj
@@ -34,6 +32,8 @@ Renesas Optimizing Linker (W3.03.00 )             15-Jun-2022 20:27:21
 -Input=DefaultBuild\r_cg_tau_user.obj
 -Input=DefaultBuild\r_cg_elc.obj
 -Input=DefaultBuild\r_cg_elc_user.obj
+-Input=DefaultBuild\r_cg_it8bit.obj
+-Input=DefaultBuild\r_cg_it8bit_user.obj
 -SECURITY_ID=00000000000000000000
 -DEVICE=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11NGG.DVF
 -DEBug
@@ -75,13 +75,13 @@ SECTION                            START      END         SIZE   ALIGN
 .monitor1
                                   000000ce  000000d7         a   1
 .data
-                                  000000d8  000001ad        d6   2
+                                  000000d8  000001af        d8   2
 .text
-                                  000001ae  0000040c       25f   1
+                                  000001b0  0000040c       25d   1
 .textf
-                                  0000040d  00001552      1146   1
+                                  0000040d  000015ea      11de   1
 .RLIB
-                                  00001553  000019ec       49a   1
+                                  000015eb  00001a84       49a   1
 .const
                                   00002000  00002058        59   2
 .monitor2
@@ -89,9 +89,11 @@ SECTION                            START      END         SIZE   ALIGN
 .bss_ATFE900
                                   000fe900  000fe900         1   1
 .bss
-                                  000fe902  000fe9f7        f6   2
+                                  000fe902  000fe9b5        b4   2
 .dataR
-                                  000fe9f8  000feacd        d6   2
+                                  000fe9b6  000fea8d        d8   2
+.bss_ATFF800
+                                  000ff800  000ff83f        40   1
 .bss_ATFF900
                                   000ff900  000ff90f        10   1
 .bss_ATFFA00

@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for RTC module.
-* Creation Date: 2022/6/15
+* Creation Date: 2022/6/16
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -82,7 +82,7 @@ static void __near r_rtc_interrupt(void)
 static void r_rtc_callback_constperiod(void)
 {
     /* Start user code. Do not edit comment generated here */
-    // events = events | RTC_NOTIFICATION_EVENT;
+    events |= (RTC_NOTIFICATION_EVENT); 
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************
