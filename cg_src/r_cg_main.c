@@ -123,7 +123,7 @@ void factory_process(void){
 }
 void normal_process(void){
     delayInMs(1000);
-    L_BLE_INIT();
+    data[3]=L_BLE_INIT();
     L_BLE_STOP();
     R_INTC1_Start();
     // R_DTCD10_Start();

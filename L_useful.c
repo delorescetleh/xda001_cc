@@ -195,7 +195,7 @@
 //                         dtyFdlResult = PFDL_Handler();
 //                     }
 //                 }
-// #if R_PFDL_SAM_DIRECT_READ
+
 // /* Confirms data by direct reading (this is possible only at byte access with accesses */
 // /* to data flash memory enabled)                                                       */
 // /* Note that data cannot be read correctly when data flash memory is being written to. */
@@ -219,40 +219,7 @@
 //                         }
 //                     }
 //                 }
-// #else
-// /* Uses the reading function for data flash libraries */
-//                 /* Data confirmation process */
-//                 if( dtyFdlResult == PFDL_OK )
-//                 {
-//                     /* Variable definitions for reading */
-//                     pfdl_u16    duh_i;      /* Loop variable definition */
-//                     pfdl_u08    dubReadBuffer [ DATA_FLASH_SIZE ];
-//                                             /* Read data input buffer */
-                    
-//                     /* Sets the read command */
-//                     dtyRequester.command_enu = PFDL_CMD_READ_BYTES;
-                    
-//                     /* Sets the read start address */
-//                     dtyRequester.index_u16   = duhWriteAddress;
-                    
-//                     /* Sets the address for the read data input buffer */
-//                     dtyRequester.data_pu08   = dubReadBuffer;
-                    
-//                     /* Command execution process */
-//                     dtyFdlResult = PFDL_Execute( &dtyRequester );
-                    
-//                     /* Compares read data and write data */
-//                     for( duh_i = 0 ; duh_i < DATA_FLASH_SIZE ; duh_i++ )
-//                     {
-//                         if( dubWriteBuffer_ptr[ duh_i ] != dubReadBuffer[ duh_i ] )
-//                         {
-//                             /* Error is generated when read data and write data do not match. */
-//                             dtyFdlResult = PFDL_ERR_PARAMETER;
-//                             break;
-//                         }
-//                     }
-//                 }
-// #endif
+
 //                 break;
 //             }
 //             /* Processing is aborted when an unsolvable error has occurred. */
@@ -282,7 +249,8 @@
 // extern void dataFlashEnd(void){
 //     r_pfdl_samFdlEnd();
 // }
-extern uint8_t memcpy(uint8_t *target, uint8_t *source, uint8_t length)
+
+extern void memcpy(uint8_t *target, uint8_t *source, uint8_t length)
 {
   while (length)
   {
@@ -291,7 +259,6 @@ extern uint8_t memcpy(uint8_t *target, uint8_t *source, uint8_t length)
     target++;
     source++;
   }
-  return 1;
 }
 
 extern void delayInMs(uint32_t ms){
@@ -299,8 +266,8 @@ extern void delayInMs(uint32_t ms){
     ms = ms * ONE_MS_BASE;
     while(ms--);
 }
-// Success :1 , Fail: 0
-uint8_t memcmp(uint8_t *target,uint8_t *source,uint8_t length,uint8_t maxLength){
+// Success : final compare offset , Fail: 0
+extern uint8_t memcmp(uint8_t *target,uint8_t *source,uint8_t length,uint8_t maxLength){
     uint8_t i=0;
     uint8_t j=0;
     uint8_t result = 0;
@@ -311,7 +278,7 @@ uint8_t memcmp(uint8_t *target,uint8_t *source,uint8_t length,uint8_t maxLength)
                     result = 0;
                     break;
                 }else{
-                    result = 1;
+                    result = i+j;
                 }
             }
             if (result){

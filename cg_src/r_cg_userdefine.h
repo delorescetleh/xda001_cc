@@ -46,6 +46,7 @@ User definitions
 
 //########################################################################
 #define events (*(volatile __near unsigned char  *)0xE900)
+#define loraProcessIntervalTime (*(volatile __near unsigned char  *)0xE910)
 #define TIMER_PERIODIC_EVENT                        0x01 // should not use in V4 version , change to OVER_TIME_EVENT 
 #define OVER_TIME_EVENT                             0x01 // 12bit Timer counter over time, close all event and turn to sleep
 #define PT100_NOTIFICATION_EVENT                    0x02
