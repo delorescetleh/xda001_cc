@@ -36,3 +36,4 @@ What is old version function
 5. ver 0.0.1.d: add get_pt100_result function to have PT100 value
 6. ver 0.0.1.e: implement BLE factory mode setting function, UART1 work success(no use DTC)
 7. ver 0.0.1.f: BLE normal mode success to connect app and add "echo function"(A5 02 xx xx , will return A502xxxx) 
+8. ver 0.0.1.g: add FDL module for dataflash access

@@ -1541,8 +1541,8 @@
       <StatusText0>VerticalSplitPercentage:0.00
 HorizontalSplitPercentage:0.00
 ActiveViewPlacement:Right
-CaretPosition:145,0
-FirstVisiblePosition:Right,134,0
+CaretPosition:0,0
+FirstVisiblePosition:Right,0,0
 </StatusText0>
     </Instance>
   </Class>
