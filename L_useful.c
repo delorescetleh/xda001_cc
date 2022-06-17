@@ -4,14 +4,13 @@
 
 uint8_t PCB_Temperature_when_in_Factory = 0;
 
-uint8_t getPCB_Temperature_when_in_Factory(){
+uint8_t getPCB_Temperature_when_in_Factory(void){
     return PCB_Temperature_when_in_Factory;
 }
 
 void getFactroySetting(uint8_t *hardWareSetting_ptr, uint8_t *factorySetting_ptr, uint8_t *dubReadBuffer_ptr){
-    pfdl_status_t dtyFdlResult;
     dataFlashStart();
-    dtyFdlResult=dataFlashRead(dubReadBuffer_ptr,0);
+    dataFlashRead(dubReadBuffer_ptr,0);
     *hardWareSetting_ptr = *(dubReadBuffer_ptr + F_HAREWARE_SETTING_BYTE);
     *factorySetting_ptr = *(dubReadBuffer_ptr + F_FACTORY_SETTING_BYTE);
     if( *hardWareSetting_ptr==0xff){
@@ -42,8 +41,7 @@ pfdl_status_t r_pfdl_samFdlStart( void )
     
     return dtyFdlResult;
 }
-pfdl_status_t waitDataFlashProcess( void ){
-    pfdl_status_t dtyFdlResult;
+pfdl_status_t waitDataFlashProcess(pfdl_status_t dtyFdlResult ){
     /* Waiting for command to end */
     while (dtyFdlResult == PFDL_BUSY)
     {
@@ -241,10 +239,9 @@ extern pfdl_status_t dataFlashRead( pfdl_u08 *dubReadBuffer_ptr,pfdl_u16 duhRead
     dtyRequester.index_u16   = duhReadAddress;
     return PFDL_Execute( &dtyRequester );
 }
-extern void dataFlashStart(void){
-    pfdl_status_t dtyFdlResult;
+extern pfdl_status_t dataFlashStart(void){
     /* FDL initialization processing */
-    dtyFdlResult=r_pfdl_samFdlStart();
+    return r_pfdl_samFdlStart();
 }
 extern void dataFlashEnd(void){
     r_pfdl_samFdlEnd();

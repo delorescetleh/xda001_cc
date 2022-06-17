@@ -69,10 +69,10 @@ int PT100result;
 uint8_t dsadc_ready = 0;
 uint8_t analogProcess = 0;
 uint8_t data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-uint8_t hardWareSetting[10]={0};
-uint8_t factorySetting[10]={0};
+uint8_t *hardWareSetting=0;
+uint8_t *factorySetting=0;
 uint8_t dubReadBuffer[10]={0};
-uint8_t dubWriteBuffer[10]= {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+uint8_t dubWriteBuffer[10]= {0x37, 0x10, 0x01, 0x02, 0x03, 0x04, 0x01, 0x20, 0x11, 0xFF};
 void process(mode_t Mode);
 void normal_process(void);
 void factory_process(void);
@@ -94,12 +94,11 @@ void main(void)
     EPROM_POW_CNT = POWER_OFF;
 
     // Mode = FACTORY_MODE;
-    // Mode = NORMAL_MODE;
-    dataFlashWrite(dubWriteBuffer, 0);
+    Mode = NORMAL_MODE;
     getFactroySetting(hardWareSetting, factorySetting, dubReadBuffer);
     delayInMs(100);
     delayInMs(10);
-    // process(Mode);
+    process(Mode);
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************

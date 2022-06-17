@@ -21,11 +21,11 @@ void    r_pfdl_samTargetInit( void );    /* Target board initialization processi
 void    r_pfdl_samTargetEnd ( void );    /* Target board end processing            */
 pfdl_status_t r_pfdl_samFdlStart ( void  );  /* pfdl initialization processing */
 void          r_pfdl_samFdlEnd   ( void );  /* pfdl end processing            */
-extern void dataFlashStart(void);
+extern pfdl_status_t dataFlashStart(void);
 extern pfdl_status_t dataFlashRead(pfdl_u08 *dubReadBuffer_ptr, pfdl_u16 duhReadAddress);
 extern pfdl_status_t dataFlashWrite(pfdl_u08 *dubWriteBuffer_ptr, pfdl_u16 duhWriteAddress);
 extern void dataFlashEnd(void);
-pfdl_status_t waitDataFlashProcess(void);
+pfdl_status_t waitDataFlashProcess(pfdl_status_t dtyFdlResult);
 
 
 
