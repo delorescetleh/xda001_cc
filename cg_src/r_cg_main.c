@@ -93,11 +93,11 @@ void main(void)
 {
     R_MAIN_UserInit();
     /* Start user code. Do not edit comment generated here */
-    LORA_POW_CNT = POWER_ON;
+    LORA_POW_CNT = POWER_OFF;
     BLE_POW_CNT = POWER_OFF;
     EPROM_POW_CNT = POWER_OFF;
     
-    // Mode = FACTORY_MODE;
+    Mode = FACTORY_MODE;
     Mode = NORMAL_MODE;
     getFactroySetting(hardWareSetting, factorySetting, dubReadBuffer);
     process(Mode);
