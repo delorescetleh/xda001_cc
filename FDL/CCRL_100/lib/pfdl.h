@@ -2,9 +2,9 @@
 * Library       : Flash Data Library T04 (PicoFDL)
 *
 * File Name     : $Source: pfdl.h $
-* Lib. Version  : $RL78_FDL_LIB_VERSION_T04_REN: V1.05 $
-* Mod. Revision : $Revision: 1.8 $
-* Mod. Date     : $Date: 2013/06/10 22:04:41JST $
+* Lib. Version  : $RL78_FDL_LIB_VERSION_T04_CCRL: V1.05 $
+* Mod. Revision : $Revision: 1.3 $
+* Mod. Date     : $Date: 2014/12/12 00:50:07JST $
 * Device(s)     : RL78
 * Description   : C language API definition of the Flash Data Library
 *******************************************************************************
@@ -28,12 +28,13 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2011-2013 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2014 Renesas Electronics Corporation. All rights reserved.
 *******************************************************************************/
 
 
 #ifndef __PFDL_H_INCLUDED
 #define __PFDL_H_INCLUDED
+
 
 /*================================================================================================*/
 /* include files list                                                                             */
@@ -61,8 +62,6 @@
 extern  pfdl_status_t  __far PFDL_Open(__near pfdl_descriptor_t* descriptor_pstr);
 
 
-
-
 /* ---------------------------------------------------------------------------------------------------------------*/
 /*  Block type:   standard function                                                                               */
 /* ---------------------------------------------------------------------------------------------------------------*/
@@ -74,7 +73,6 @@ extern  pfdl_status_t  __far PFDL_Open(__near pfdl_descriptor_t* descriptor_pstr
 /*  Return:       -                                                                                               */
 /* ---------------------------------------------------------------------------------------------------------------*/
 extern  void  __far PFDL_Close(void);
-
 
 
 /* ---------------------------------------------------------------------------------------------------------------*/
@@ -98,7 +96,6 @@ extern  void  __far PFDL_Close(void);
 extern  pfdl_status_t  __far PFDL_Execute(__near pfdl_request_t* request_pstr);
 
 
-
 /* ---------------------------------------------------------------------------------------------------------------*/
 /*  Block type:   standard function                                                                               */
 /* ---------------------------------------------------------------------------------------------------------------*/
@@ -114,7 +111,6 @@ extern  pfdl_status_t  __far PFDL_Execute(__near pfdl_request_t* request_pstr);
 extern  pfdl_status_t  __far PFDL_Handler(void);
 
 
-
 /* ---------------------------------------------------------------------------------------------------------------*/
 /*  Block type:   standard function                                                                               */
 /* ---------------------------------------------------------------------------------------------------------------*/
@@ -125,7 +121,6 @@ extern  pfdl_status_t  __far PFDL_Handler(void);
 /*  Return:       starting address of the zero-terminated version string                                          */
 /* ---------------------------------------------------------------------------------------------------------------*/
 extern  __far pfdl_u08* __far PFDL_GetVersionString(void);
-
 
 
 #endif

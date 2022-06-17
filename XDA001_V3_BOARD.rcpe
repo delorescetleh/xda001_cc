@@ -57,6 +57,10 @@
       </Category>
       <Path>L_useful.c</Path>
       <Path>L_useful.h</Path>
+      <Path>FDL\CCRL_100\lib\pfdl.h</Path>
+      <Path>FDL\CCRL_100\lib\pfdl.inc</Path>
+      <Path>FDL\CCRL_100\lib\pfdl.lib</Path>
+      <Path>FDL\CCRL_100\lib\pfdl_types.h</Path>
     </Files>
     <DebugOptions>
       <ConnectSettings>
@@ -99,10 +103,13 @@
           <Path>DefaultBuild\r_cg_elc_user.obj</Path>
           <Path>DefaultBuild\r_cg_it8bit.obj</Path>
           <Path>DefaultBuild\r_cg_it8bit_user.obj</Path>
+          <Path>FDL\CCRL_100\lib\pfdl.lib</Path>
         </LinkOrder>
         <CommonOptions>
+          <IncludePathForC>FDL\CCRL_100\lib</IncludePathForC>
           <IncludePathForC>cg_src</IncludePathForC>
           <IncludePathForC>.</IncludePathForC>
+          <IncludePathForAsm>FDL\CCRL_100\lib</IncludePathForAsm>
         </CommonOptions>
         <GeneralOptions>
           <SimultaneouslyBuild>False</SimultaneouslyBuild>
@@ -113,6 +120,7 @@
           <Option>-dev=%MicomToolPath%\Device\RL78\Devicefile\DR5F11NGG.DVF</Option>
           <Option>-g</Option>
           <Option>-g_line</Option>
+          <Option>-I FDL\CCRL_100\lib</Option>
           <Option>-I cg_src</Option>
           <Option>-I .</Option>
           <Option>-c</Option>
@@ -122,6 +130,7 @@
           <Option>-obj_path=%BuildModeName%</Option>
           <Option>-dev=%MicomToolPath%\Device\RL78\Devicefile\DR5F11NGG.DVF</Option>
           <Option>-g</Option>
+          <Option>-I FDL\CCRL_100\lib</Option>
           <Option>-c</Option>
         </AssembleOptions>
         <LinkOptions>

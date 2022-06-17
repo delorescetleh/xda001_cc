@@ -2,9 +2,9 @@
 * Library       : Flash Data Library T04 (PicoFDL)
 *
 * File Name     : $Source: pfdl_types.h $
-* Lib. Version  : $RL78_FDL_LIB_VERSION_T04_REN: V1.05 $
-* Mod. Revision : $Revision: 1.8 $
-* Mod. Date     : $Date: 2013/06/10 22:28:01JST $
+* Lib. Version  : $RL78_FDL_LIB_VERSION_T04_CCRL: V1.05 $
+* Mod. Revision : $Revision: 1.3 $
+* Mod. Date     : $Date: 2014/12/12 00:50:07JST $
 * Device(s)     : RL78
 * Description   : Type definitions used by the library
 *******************************************************************************
@@ -28,7 +28,7 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2011-2013 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2014 Renesas Electronics Corporation. All rights reserved.
 *******************************************************************************/
 
 
@@ -47,7 +47,6 @@ typedef unsigned long int                   pfdl_u32;
 /*==============================================================================================*/
 /* global constant definitions                                                                  */
 /*==============================================================================================*/
-
 
 
 /*==============================================================================================*/
@@ -93,6 +92,7 @@ typedef struct
                                                   /* 7 bytes in total                               */
                                                   /*------------------------------------------------*/
 
+                                                  
 /* PFDL descriptor type */
 typedef struct
 {                                                 /* ---------------------------------------------- */

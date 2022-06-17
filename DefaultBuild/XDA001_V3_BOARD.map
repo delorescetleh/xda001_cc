@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (W3.03.00 )             17-Jun-2022 09:07:13
+Renesas Optimizing Linker (W3.03.00 )             17-Jun-2022 14:24:11
 
 *** Options ***
 
@@ -34,6 +34,7 @@ Renesas Optimizing Linker (W3.03.00 )             17-Jun-2022 09:07:13
 -Input=DefaultBuild\r_cg_elc_user.obj
 -Input=DefaultBuild\r_cg_it8bit.obj
 -Input=DefaultBuild\r_cg_it8bit_user.obj
+-LIBrary=FDL\CCRL_100\lib\pfdl.lib
 -SECURITY_ID=00000000000000000000
 -DEVICE=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11NGG.DVF
 -DEBug
@@ -75,23 +76,27 @@ SECTION                            START      END         SIZE   ALIGN
 .monitor1
                                   000000ce  000000d7         a   1
 .data
-                                  000000d8  000001b0        d9   2
+                                  000000d8  000001da       103   2
 .text
-                                  000001b1  0000040d       25d   1
+                                  000001db  00000437       25d   1
+PFDL_COD
+                                  00000438  000004c5        8e   2
 .textf
-                                  0000040e  00001632      1225   1
+                                  000004c6  0000188e      13c9   1
 .RLIB
-                                  00001633  00001acc       49a   1
+                                  0000188f  00001d28       49a   1
 .const
                                   00002000  0000205c        5d   2
 .monitor2
                                   0001fe00  0001ffff       200   1
+.bss_ATF1F00
+                                  000f1f00  000f1f00         1   1
 .bss_ATFE900
                                   000fe900  000fe900         1   1
 .bss
                                   000fe902  000fe9b7        b6   2
 .dataR
-                                  000fe9b8  000fea90        d9   2
+                                  000fe9b8  000feaba       103   2
 .bss_ATFF800
                                   000ff800  000ff83f        40   1
 .bss_ATFF900

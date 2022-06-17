@@ -52,6 +52,7 @@ Pragma directive
 ***********************************************************************************************************************/
 /* Start user code for pragma. Do not edit comment generated here */
 #pragma address (EVENTS=0xFE900U)
+#pragma address (dataFlash =0xF1F00U)
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -59,6 +60,7 @@ Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
 volatile unsigned char EVENTS;
+volatile unsigned char dataFlash;
 mode_t Mode = NORMAL_MODE;
 uint8_t rtc_counter = 0;
 uint16_t timer_100ms_counter = 0;
@@ -67,6 +69,10 @@ int PT100result;
 uint8_t dsadc_ready = 0;
 uint8_t analogProcess = 0;
 uint8_t data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+uint8_t hardWareSetting[10]={0};
+uint8_t factorySetting[10]={0};
+uint8_t dubReadBuffer[10]={0};
+uint8_t dubWriteBuffer[10]= {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 void process(mode_t Mode);
 void normal_process(void);
 void factory_process(void);
@@ -88,9 +94,12 @@ void main(void)
     EPROM_POW_CNT = POWER_OFF;
 
     // Mode = FACTORY_MODE;
-    Mode = NORMAL_MODE;
-
-    process(Mode);
+    // Mode = NORMAL_MODE;
+    dataFlashWrite(dubWriteBuffer, 0);
+    getFactroySetting(hardWareSetting, factorySetting, dubReadBuffer);
+    delayInMs(100);
+    delayInMs(10);
+    // process(Mode);
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************
