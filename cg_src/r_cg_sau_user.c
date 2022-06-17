@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for SAU module.
-* Creation Date: 2022/6/16
+* Creation Date: 2022/6/17
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -43,7 +43,8 @@ Pragma directive
 #pragma interrupt r_uart1_interrupt_send(vect=INTST1)
 #pragma interrupt r_uart1_interrupt_receive(vect=INTSR1)
 /* Start user code for pragma. Do not edit comment generated here */
-# pragma address (receivedFromBle=0xFFC00)
+# pragma address (receivedFromBle=0xFFC00U)
+# pragma address (receivedFromLora=0xFF7FFU)
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -61,9 +62,12 @@ extern volatile uint16_t  g_uart1_rx_count;            /* uart1 receive data num
 extern volatile uint16_t  g_uart1_rx_length;           /* uart1 receive data length */
 /* Start user code for global. Do not edit comment generated here */
 uint8_t sendToLora[20];
-uint8_t receivedFromLora[20];
+uint8_t receivedFromLora;
+uint8_t *receivedFromLora_ptr=&receivedFromLora;
 uint8_t LoraReceivedEnd;
+uint8_t maxLoraReceiveLength=18;
 
+uint8_t LORA_ID[4];
 uint8_t receivedFromBle[160];
 uint8_t sendToBle[160] = {0};
 uint8_t BleReceivedEnd = 0;
@@ -319,9 +323,10 @@ void L_LORA_STOP(void){
 uint8_t LORA_INIT(void){
     // uint32_t timerA = 0;
     uint8_t initSuccess = 1;
-    R_UART0_Create();
+    memclr(receivedFromLora_ptr, maxLoraReceiveLength);
+    R_DTCD8_Start();
     R_UART0_Start();
-    R_UART0_Receive(receivedFromLora, 6);
+    // R_UART0_Receive(receivedFromLora, 6);
     delayInMs(2);
     LORA_READY_MODE = PIN_MODE_AS_OUTPUT;
     LORA_READY = PIN_LEVEL_AS_HIGH;
@@ -329,20 +334,9 @@ uint8_t LORA_INIT(void){
     LORA_RESET = PIN_LEVEL_AS_LOW;
     
     LORA_POW_CNT = PIN_LEVEL_AS_LOW;
-    delayInMs(10);
+    delayInMs(100);
     LORA_RESET_MODE = PIN_MODE_AS_INPUT;
 
-// // POWER ON RESET , WAIT LORA STAND BY   
-    // setTimeOut(millis());
-    // while (!LoraReceivedEnd)
-    // {
-    //     if (timeOut(1000))
-    //     {
-    //         initSuccess = 0;
-    //         break;
-    //     }
-    // }
-    // delayInMs(1000);
     // LORA_READY_MODE = PIN_MODE_AS_OUTPUT;
     // LORA_READY = PIN_LEVEL_AS_LOW;
     // // GOT CHIP ID , SET CHIP ID AS BLE SSID 
@@ -350,6 +344,15 @@ uint8_t LORA_INIT(void){
     //     memcpy((setBleDeviceNameCommand+7),(receivedFromLora+1), 4);
     //     R_UART0_Receive(receivedFromLora, 6);
     // }
+    delayInMs(100);
+    
+    while(maxLoraReceiveLength--) {
+        if (*receivedFromLora_ptr++ == '}')
+        {
+            memcpy(&LORA_ID[0],receivedFromLora_ptr-=4, 4);
+            initSuccess = 1;
+        }
+    }
     return initSuccess;
 }
 
@@ -439,7 +442,7 @@ uint8_t L_BLE_INIT(void){
     R_UART1_Create();
     R_UART1_Start();
     memclr(receivedFromBle, MAX_BLE_DATA_LENGTH);
-    R_UART1_Receive(receivedFromBle, 8); // invoke "%REBOOT%"
+    // R_UART1_Receive(receivedFromBle, 8); // invoke "%REBOOT%"
     delayInMs(2);
     BLE_RESET_MODE = PIN_MODE_AS_INPUT;
     delayInMs(500);

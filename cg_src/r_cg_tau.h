@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for TAU module.
-* Creation Date: 2022/6/16
+* Creation Date: 2022/6/17
 ***********************************************************************************************************************/
 #ifndef TAU_H
 #define TAU_H

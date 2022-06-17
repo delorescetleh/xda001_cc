@@ -57,7 +57,7 @@
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">TTL buffer</td><td bgColor="#CCFFFF">Unused</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">P53</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Mode</td><td bgColor="#CCFFFF">Out</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">output value</td><td bgColor="#CCFFFF">0</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">output value</td><td bgColor="#CCFFFF">1</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Port7</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">P70</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Mode</td><td bgColor="#CCFFFF">In</td></tr>
@@ -65,8 +65,28 @@
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">P71</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Mode</td><td bgColor="#CCFFFF">Out</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">output value</td><td bgColor="#CCFFFF">1</td></tr>
-<tr><td bgColor="#CCFFFF">Timer Array Unit</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Unused</td></tr>
-<tr><td bgColor="#CCFFFF">8-Bit Interval Timer</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Unused</td></tr>
+<tr><td bgColor="#CCFFFF">Timer Array Unit</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">TAU0</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Channel0</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Function</td><td bgColor="#CCFFFF">Interval timer</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Interval value (16 bits)</td><td bgColor="#CCFFFF">100£gs, (Actual value: 100)</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Generates INTTM00 when counting is started</td><td bgColor="#CCFFFF">Unused</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">End of timer channel 0 count, generate an interrupt (INTTM00)</td><td bgColor="#CCFFFF">Used</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Priority (INTTM00)</td><td bgColor="#CCFFFF">Low</td></tr>
+<tr><td bgColor="#CCFFFF">8-Bit Interval Timer</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">IT8bit0</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Channel0</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Channel 0</td><td bgColor="#CCFFFF">8 bit</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Interval timer operation clock setting</td><td bgColor="#CCFFFF">Auto</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Interval value</td><td bgColor="#CCFFFF">1000ms, (Actual value: 1000)</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Detection of compare match (INTIT00)</td><td bgColor="#CCFFFF">Used</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Priority</td><td bgColor="#CCFFFF">Low</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Channel1</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Channel 1</td><td bgColor="#CCFFFF">8 bit</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Interval timer operation clock setting</td><td bgColor="#CCFFFF">Auto</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Interval value</td><td bgColor="#CCFFFF">100ms, (Actual value: 100.097656)</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Detection of compare match (INTIT01)</td><td bgColor="#CCFFFF">Used</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Priority</td><td bgColor="#CCFFFF">Low</td></tr>
 <tr><td bgColor="#CCFFFF">Real-time Clock</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">RTC</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Real-time clock operation setting</td><td bgColor="#CCFFFF">Used</td></tr>
@@ -76,22 +96,17 @@
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Use alarm detection function</td><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Set alarm initial value</td><td bgColor="#CCFFFF">Unused</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used as alarm interrupt function (INTRTC)</td><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used as constant-period interrupt function (INTRTC)</td><td bgColor="#CCFFFF">Used,Once per 1 s (same time as second count up)</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used as constant-period interrupt function (INTRTC)</td><td bgColor="#CCFFFF">Used,Once per 1 m (second 00 of every minute)</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Priority(INTRTC)</td><td bgColor="#CCFFFF">Low</td></tr>
-<tr><td bgColor="#CCFFFF">12-Bit Interval Timer</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">IT</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Interval timer operation setting</td><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Interval value</td><td bgColor="#CCFFFF">100ms, (Actual value: 100.006104)</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Detection of interval signal (INTIT)</td><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Priority</td><td bgColor="#CCFFFF">Low</td></tr>
+<tr><td bgColor="#CCFFFF">12-Bit Interval Timer</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Unused</td></tr>
 <tr><td bgColor="#CCFFFF">Clock Output/Buzzer Output</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Unused</td></tr>
 <tr><td bgColor="#CCFFFF">Watchdog Timer</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Unused</td></tr>
 <tr><td bgColor="#CCFFFF">PGA + £G£UA/D Convertor</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">PGIA</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Operation setting</td><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Multiplexer 0</td><td bgColor="#CCFFFF">Used, Differential</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Multiplexer 1</td><td bgColor="#CCFFFF">Used, Signle end</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Multiplexer 2</td><td bgColor="#CCFFFF">Used, Signle end</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Multiplexer 1</td><td bgColor="#CCFFFF">Unused</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Multiplexer 2</td><td bgColor="#CCFFFF">Unused</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Multiplexer 3 (external)</td><td bgColor="#CCFFFF">Used, Differential</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">SBIAS Output voltage</td><td bgColor="#CCFFFF">1.7(V)</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Operation clock</td><td bgColor="#CCFFFF">4(fCLK/4)(MHz)</td></tr>
@@ -113,24 +128,6 @@
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Convertion count</td><td bgColor="#CCFFFF">Specify 1 to 255 times lineally by using 8 bits, 1, 1(count)</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Averaging</td><td bgColor="#CCFFFF">Enable (generates INTDSAD each time the mean)</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Averaging data count</td><td bgColor="#CCFFFF">64</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">PGIAC1</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">GSET01</td><td bgColor="#CCFFFF">1(db)</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">GSET02</td><td bgColor="#CCFFFF">1(db)</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Offset  adjustment setting</td><td bgColor="#CCFFFF">1, -164.063(mV)</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Oversampling ratio</td><td bgColor="#CCFFFF">64</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Data rate</td><td bgColor="#CCFFFF">15625.000(sps)</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Convertion count</td><td bgColor="#CCFFFF">Specify 1 to 255 times lineally by using 8 bits, 1, 1(count)</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Averaging</td><td bgColor="#CCFFFF">Enable (generates INTDSAD each time the mean)</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Averaging data count</td><td bgColor="#CCFFFF">8</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">PGIAC2</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">GSET01</td><td bgColor="#CCFFFF">1(db)</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">GSET02</td><td bgColor="#CCFFFF">1(db)</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Offset  adjustment setting</td><td bgColor="#CCFFFF">1, -164.063(mV)</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Oversampling ratio</td><td bgColor="#CCFFFF">64</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Data rate</td><td bgColor="#CCFFFF">15625.000(sps)</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Convertion count</td><td bgColor="#CCFFFF">Specify 1 to 255 times lineally by using 8 bits, 1, 1(count)</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Averaging</td><td bgColor="#CCFFFF">Enable (generates INTDSAD each time the mean)</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Averaging data count</td><td bgColor="#CCFFFF">8</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">PGIAC4</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">GSET01</td><td bgColor="#CCFFFF">2(db)</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">GSET02</td><td bgColor="#CCFFFF">2(db)</td></tr>
@@ -169,7 +166,7 @@ Amplifier unit 3 : Amplifier ELC trigger 3</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">VREF(+) setting</td><td bgColor="#CCFFFF">VDD</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">VREF(-) setting</td><td bgColor="#CCFFFF">VSS</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Trigger mode setting</td><td bgColor="#CCFFFF">Hardware trigger wait mode</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Hardware trigger wait mode</td><td bgColor="#CCFFFF">INTIT</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Hardware trigger wait mode</td><td bgColor="#CCFFFF">ELC</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Operation mode setting</td><td bgColor="#CCFFFF">Continuous mode</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Analog input selection</td><td bgColor="#CCFFFF">ANI8, </td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">A/D channel selection</td><td bgColor="#CCFFFF">Temperature sensor output voltage</td></tr>
@@ -210,7 +207,7 @@ Amplifier unit 3 : Amplifier ELC trigger 3</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Parity setting (Receive function)</td><td bgColor="#CCFFFF">None</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Stop bit length setting (Receive function)</td><td bgColor="#CCFFFF">1 bit fixed</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Receive data level setting</td><td bgColor="#CCFFFF">Normal</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Transfer rate setting (Receive function)</td><td bgColor="#CCFFFF">9600(bps)(Current error: +0.16% the minimum is -5.17% the maximum is +5.16%)</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Transfer rate setting (Receive function)</td><td bgColor="#CCFFFF">115200(bps)(Current error: +0.64% the minimum is -5.12% the maximum is +5.10%)</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Reception end interrupt priority (INTSR1)</td><td bgColor="#CCFFFF">Low</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Reception error interrupt priority (INTSRE1)</td><td bgColor="#CCFFFF">Unused</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Reception end (Callback function setting)</td><td bgColor="#CCFFFF">Used</td></tr>
@@ -221,7 +218,7 @@ Amplifier unit 3 : Amplifier ELC trigger 3</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Parity setting (Transmit function)</td><td bgColor="#CCFFFF">None</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Stop bit length setting (Transmit function)</td><td bgColor="#CCFFFF">1 bit</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Transfer data level setting</td><td bgColor="#CCFFFF">Normal</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Transfer rate setting (Transmit function)</td><td bgColor="#CCFFFF">9600(bps)(Current error: +0.16%)</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Transfer rate setting (Transmit function)</td><td bgColor="#CCFFFF">115200(bps)(Current error: +0.64%)</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Transmit end interrupt priority (INTST1)</td><td bgColor="#CCFFFF">Low</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Transmission end (Callback function setting)</td><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF">Serial Interface IICA</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
@@ -249,14 +246,14 @@ Amplifier unit 3 : Amplifier ELC trigger 3</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Control data1 (DTCD1)</td><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Chain transfer</td><td bgColor="#CCFFFF">Unused</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Activation sources</td><td bgColor="#CCFFFF">10-bit A/D conversion end</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">DTCDSource2</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Control data2 (DTCD2)</td><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Chain transfer</td><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Activation sources</td><td bgColor="#CCFFFF">Compare match of 12-bit interval timer</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">DTCDSource3</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Control data3 (DTCD3)</td><td bgColor="#CCFFFF">Used</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">DTCDSource8</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Control data8 (DTCD8)</td><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Chain transfer</td><td bgColor="#CCFFFF">Unused</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Activation sources</td><td bgColor="#CCFFFF">Compare match of 12-bit interval timer</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Activation sources</td><td bgColor="#CCFFFF">UART0 reception transfer end</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">DTCDSource10</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Control data10 (DTCD10)</td><td bgColor="#CCFFFF">Used</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Chain transfer</td><td bgColor="#CCFFFF">Unused</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Activation sources</td><td bgColor="#CCFFFF">UART1 reception transfer end</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">DTCD0</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Transfer mode setting</td><td bgColor="#CCFFFF">Repeat mode</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Transfer data size setting</td><td bgColor="#CCFFFF">16 bits</td></tr>
@@ -275,22 +272,34 @@ Amplifier unit 3 : Amplifier ELC trigger 3</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Destination address</td><td bgColor="#CCFFFF">0xFF31,Address fixed</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Count</td><td bgColor="#CCFFFF">8</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Block size</td><td bgColor="#CCFFFF">1</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">DTCD2</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Transfer mode setting</td><td bgColor="#CCFFFF">Normal mode</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">DTCD8</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Transfer mode setting</td><td bgColor="#CCFFFF">Repeat mode</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Transfer data size setting</td><td bgColor="#CCFFFF">8 bits</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Source address</td><td bgColor="#CCFFFF">0x0454,Address fixed</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Destination address</td><td bgColor="#CCFFFF">0xFB00,Address fixed</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Count</td><td bgColor="#CCFFFF">1</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Repeat mode interrupt setting</td><td bgColor="#CCFFFF">Disable</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Repeat area setting</td><td bgColor="#CCFFFF">Transfer destination</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Source address</td><td bgColor="#CCFFFF">0xFF12,Address fixed</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Destination address</td><td bgColor="#CCFFFF">0xF800,(The lower 8 bits of the initial value for the repeat area address must be 00h)</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Count</td><td bgColor="#CCFFFF">16</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Block size</td><td bgColor="#CCFFFF">1</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">DTCD3</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Transfer mode setting</td><td bgColor="#CCFFFF">Normal mode</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">DTCD10</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Transfer mode setting</td><td bgColor="#CCFFFF">Repeat mode</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Transfer data size setting</td><td bgColor="#CCFFFF">8 bits</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Source address</td><td bgColor="#CCFFFF">0x0456,Address fixed</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Destination address</td><td bgColor="#CCFFFF">0xFC00,Address fixed</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Count</td><td bgColor="#CCFFFF">1</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Repeat mode interrupt setting</td><td bgColor="#CCFFFF">Disable</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Repeat area setting</td><td bgColor="#CCFFFF">Transfer destination</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Source address</td><td bgColor="#CCFFFF">0xFF46,Address fixed</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Destination address</td><td bgColor="#CCFFFF">0xFC00,(The lower 8 bits of the initial value for the repeat area address must be 00h)</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Count</td><td bgColor="#CCFFFF">160</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Block size</td><td bgColor="#CCFFFF">1</td></tr>
-<tr><td bgColor="#CCFFFF">Event Link Controller</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Unused</td></tr>
-<tr><td bgColor="#CCFFFF">Interrupt Function</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Unused</td></tr>
+<tr><td bgColor="#CCFFFF">Event Link Controller</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">ELC</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">ELSELR0</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">A/D converter</td><td bgColor="#CCFFFF">Used</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Event generation sourc</td><td bgColor="#CCFFFF">Compare match of 8-bit interval timer channel 01</td></tr>
+<tr><td bgColor="#CCFFFF">Interrupt Function</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">INTP</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">INTP1</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Valid edge</td><td bgColor="#CCFFFF">Falling</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Priority</td><td bgColor="#CCFFFF">Low</td></tr>
 <tr><td bgColor="#CCFFFF">Voltage Detection</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">LVD</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Low voltage detector operation setting</td><td bgColor="#CCFFFF">Used</td></tr>

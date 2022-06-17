@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (W3.03.00 )             17-Jun-2022 18:54:11
+Renesas Optimizing Linker (W3.03.00 )             17-Jun-2022 20:39:23
 
 *** Options ***
 
@@ -76,13 +76,13 @@ SECTION                            START      END         SIZE   ALIGN
 .monitor1
                                   000000ce  000000d7         a   1
 .data
-                                  000000d8  000002dc       205   2
+                                  000000d8  000002de       207   2
 .text
-                                  000002dd  00000539       25d   1
+                                  000002df  0000053b       25d   1
 PFDL_COD
-                                  0000053a  000005c7        8e   2
+                                  0000053c  000005c9        8e   2
 .textf
-                                  000005c8  00001d08      1741   1
+                                  000005ca  00001d5b      1792   1
 .const
                                   00002000  0000205c        5d   2
 .RLIB
@@ -94,9 +94,11 @@ PFDL_COD
 .bss_ATFE900
                                   000fe900  000fe900         1   1
 .bss
-                                  000fe902  000fe9e1        e0   2
+                                  000fe902  000fe9d1        d0   2
 .dataR
-                                  000fe9e2  000febe6       205   2
+                                  000fe9d2  000febd8       207   2
+.bss_ATFF7FF
+                                  000ff7ff  000ff7ff         1   1
 .bss_ATFF800
                                   000ff800  000ff83f        40   1
 .bss_ATFF900
@@ -111,6 +113,8 @@ PFDL_COD
                                   000ffd40  000ffd47         8   1
 .bss_ATFFD48
                                   000ffd48  000ffd4f         8   1
+.bss_ATFFD80
+                                  000ffd80  000ffd87         8   1
 .bss_ATFFD90
                                   000ffd90  000ffd97         8   1
 .sbss

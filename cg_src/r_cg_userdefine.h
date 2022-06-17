@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file includes user definition.
-* Creation Date: 2022/6/16
+* Creation Date: 2022/6/17
 ***********************************************************************************************************************/
 #ifndef _USER_DEF_H
 #define _USER_DEF_H
@@ -48,6 +48,7 @@ User definitions
 //########################################################################
 #define events (*(volatile __near unsigned char  *)0xE900)
 #define loraProcessIntervalTime (*(volatile __near unsigned char  *)0xE910)
+// #define loraRecieveData (*(volatile __near unsigned char  *)0xF800)
 
 #define TIMER_PERIODIC_EVENT                        0x01 // should not use in V4 version , change to OVER_TIME_EVENT 
 #define OVER_TIME_EVENT                             0x01 // 12bit Timer counter over time, close all event and turn to sleep

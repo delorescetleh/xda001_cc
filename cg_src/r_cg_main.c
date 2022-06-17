@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2022/6/16
+* Creation Date: 2022/6/17
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -155,6 +155,7 @@ void normal_process(void){
                 dsadc_ready = 0;
                 analogProcess = 1;
                 R_DTCD0_Start();
+
                 R_PGA_DSAD_Create();
                 R_PGA_DSAD_Start();
                 L_EEPROM_INIT();
@@ -162,7 +163,7 @@ void normal_process(void){
                 if (countToEnableLoraProcess==loraProcessIntervalByMinutes){
                     countToEnableLoraProcess = 0;
                     loraProcess = 2;
-                    // LORA_INIT();
+                    LORA_INIT();
                 }
             }
 

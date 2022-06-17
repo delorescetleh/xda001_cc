@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for DTC module.
-* Creation Date: 2022/6/16
+* Creation Date: 2022/6/17
 ***********************************************************************************************************************/
 #ifndef DTC_H
 #define DTC_H
@@ -168,15 +168,19 @@ Macro definitions
 ***********************************************************************************************************************/
 #define _01_DTCD0_TRANSFER_BLOCKSIZE                 (0x01U) /* transfer block size */
 #define _01_DTCD1_TRANSFER_BLOCKSIZE                 (0x01U) /* transfer block size */
+#define _01_DTCD8_TRANSFER_BLOCKSIZE                 (0x01U) /* transfer block size */
 #define _01_DTCD10_TRANSFER_BLOCKSIZE                (0x01U) /* transfer block size */
 #define _08_DTCD0_TRANSFER_BYTE                      (0x08U) /* number of transfers */
 #define _08_DTCD1_TRANSFER_BYTE                      (0x08U) /* number of transfers */
+#define _10_DTCD8_TRANSFER_BYTE                      (0x10U) /* number of transfers */
 #define _A0_DTCD10_TRANSFER_BYTE                     (0xA0U) /* number of transfers */
 #define _FF1E_DTCD0_SRC_ADDRESS                      (0xFF1EU) 
 #define _FA00_DTCD1_SRC_ADDRESS                      (0xFA00U) 
+#define _FF12_DTCD8_SRC_ADDRESS                      (0xFF12U) 
 #define _FF46_DTCD10_SRC_ADDRESS                     (0xFF46U) 
 #define _F900_DTCD0_DEST_ADDRESS                     (0xF900U) 
 #define _FF31_DTCD1_DEST_ADDRESS                     (0xFF31U) 
+#define _F800_DTCD8_DEST_ADDRESS                     (0xF800U) 
 #define _FC00_DTCD10_DEST_ADDRESS                    (0xFC00U) 
 
 /***********************************************************************************************************************
@@ -198,6 +202,8 @@ Global functions
 void R_DTC_Create(void);
 void R_DTCD0_Start(void);
 void R_DTCD0_Stop(void);
+void R_DTCD8_Start(void);
+void R_DTCD8_Stop(void);
 void R_DTCD10_Start(void);
 void R_DTCD10_Stop(void);
 /* Start user code for function. Do not edit comment generated here */
