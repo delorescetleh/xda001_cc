@@ -35,3 +35,4 @@ What is old version function
 4. ver 0.0.1.c: improve pcb temperature raw data fetch. DTC could switch ADC mode between internal volt and internal temperature each one sec. Keep STOP mode in 0.5mA 
 5. ver 0.0.1.d: add get_pt100_result function to have PT100 value
 6. ver 0.0.1.e: implement BLE factory mode setting function, UART1 work success(no use DTC)
+7. ver 0.0.1.f: BLE normal mode success to connect app and add "echo function"(A5 02 xx xx , will return A502xxxx) 

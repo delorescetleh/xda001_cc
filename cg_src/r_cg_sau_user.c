@@ -68,7 +68,8 @@ uint8_t APP_SET_LORA_INTERVAL[] = {0xA1,0x02};
 uint8_t APP_READ_EEPROM[] = {0xA2,0x02};
 uint8_t APP_SHUT_DOWN_BLE[] = {0xA3,0x02};
 uint8_t APP_SET_TEMP_CALIBRARTION[] = {0xA4,0x02};
-uint8_t appParam[2]={0};
+uint8_t APP_GET_ECHO[] = {0xA5,0x02};
+uint8_t *appParam;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -278,6 +279,14 @@ static void r_uart1_callback_error(uint8_t err_type)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
+static void doBleTask_AppGetEcho(void){
+    uint8_t bleAck[4] = {0xa5, 0x02, 0x00, 0x00};// ble ack to app
+    bleAck[2] = *appParam;
+    bleAck[3] = *(appParam+1);
+    memcpy(sendToBle, bleAck, 4);
+    R_UART1_Send(sendToBle, 4);
+}
+
 static void doBleTask_SetLoraInterval(void){
     uint8_t bleAck[] = {0xa1, 0x01, 0x55};// ble ack to app
     loraProcessIntervalTime = *appParam;
@@ -290,8 +299,8 @@ static void doBleTask_SetLoraInterval(void){
     // dataFlashWrite(bleWriteBuffer_ptr,0);
     // dataFlashEnd();
     //set ble ack to app
-    R_UART1_Send(bleAck, 3);
-    delayInMs(500);
+     memcpy(sendToBle, bleAck, 3);
+    R_UART1_Send(sendToBle, 3);
     // reset relative parameter
     // setloraCnt(0);
 }
@@ -300,7 +309,7 @@ void checkAppCommand(void) {
     uint8_t offset;
     if (offset=memcmp(receivedFromBle,APP_SET_LORA_INTERVAL,2,160)){
         if (offset<158){
-            appParam[0] = *(receivedFromBle + offset + 1);
+            appParam = receivedFromBle + offset + 1;
             doBleTask_SetLoraInterval();
         }
         memclr(receivedFromBle, 160);
@@ -308,21 +317,29 @@ void checkAppCommand(void) {
     } else if (offset=memcmp(receivedFromBle,APP_READ_EEPROM,2,160))
     {
         if (offset<158){
-            appParam[0] = *(receivedFromBle + offset + 1);
+            appParam = receivedFromBle + offset + 1;
         }
         memclr(receivedFromBle, 160);
         reset_DTC10();
     } else if (offset=memcmp(receivedFromBle,APP_SHUT_DOWN_BLE,2,160))
     {
         if (offset<158){
-            appParam[0] = *(receivedFromBle + offset + 1);
+            appParam = receivedFromBle + offset + 1;
         }
         memclr(receivedFromBle, 160);
         reset_DTC10();
     } else if (offset=memcmp(receivedFromBle,APP_SET_TEMP_CALIBRARTION,2,160))
     {
         if (offset<158){
-            appParam[0] = *(receivedFromBle + offset + 1);
+            appParam = receivedFromBle + offset + 1;
+        }
+        memclr(receivedFromBle, 160);
+        reset_DTC10();
+    }else if (offset=memcmp(receivedFromBle,APP_GET_ECHO,2,160))
+    {
+        if (offset<158){
+            appParam = receivedFromBle + offset + 1;
+            doBleTask_AppGetEcho();
         }
         memclr(receivedFromBle, 160);
         reset_DTC10();
