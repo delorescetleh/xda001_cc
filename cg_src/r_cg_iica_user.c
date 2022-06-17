@@ -53,6 +53,20 @@ extern volatile uint16_t  g_iica0_rx_len;              /* iica0 receive data cou
 extern volatile uint8_t * gp_iica0_tx_address;         /* iica0 send buffer address */
 extern volatile uint16_t  g_iica0_tx_cnt;              /* iica0 send data count */
 /* Start user code for global. Do not edit comment generated here */
+uint8_t iic_err_cnt = 0;
+uint8_t iic_tx_end_cnt = 0;
+uint8_t iic_rx_end_cnt = 0;
+uint16_t iic_int_cnt = 0;
+
+
+uint8_t iic_status = 0;
+uint8_t iic_bytes[256] = {0};
+uint8_t iic_device_sel = 0;
+
+// uint32_t eepromReadingCounter = 0;
+uint16_t storeIndex = TOTAL_RECORD_QTY;
+uint16_t storeCounter = 0;
+uint8_t eepromRandomReadSuccess = 0;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -205,4 +219,166 @@ static void r_iica0_callback_master_sendend(void)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
+
+uint8_t eepromRandomRead(uint8_t adr, uint8_t * const buf, uint16_t num, uint8_t wait){
+    uint16_t c = 0;
+    R_IICA0_Master_Send(adr,buf, 2, wait);
+    while (TRC0){
+        c++;
+        if (c>65500){
+            return 0;
+        }
+    }
+    STT0 = 1U; 
+    R_IICA0_Master_Receive(adr , buf, num, wait);
+    return 1;
+}
+void L_EEPROM_INIT(void){
+    EPROM_POW_CNT = 0;
+    R_IICA0_Create();
+    delayInMs(1);
+}
+void L_EEPROM_STOP(void){
+    R_IICA0_Stop();
+    EPROM_POW_CNT = 1;
+}
+extern void doEepromReadRecords(void){
+    uint32_t index = storeIndex;
+    uint8_t maxReadQty = EEPROM_READ_BLOCK_SIZE/EEPROM_DATA_SIZE;
+    // uint32_t readIndex = storeIndex;
+    uint8_t dataByteLength = 0;
+    uint32_t i2cAccessIndex;
+    uint32_t restQty = storeCounter;
+    uint8_t sendDataToBle[160]={0};
+    L_EEPROM_INIT();
+
+    sendDataToBle[0] = (uint8_t)(storeCounter >> 8);
+    sendDataToBle[1] = (uint8_t)storeCounter;
+    R_UART1_Send(sendDataToBle, 2);
+    delayInMs(10);
+    while (restQty)
+    {
+        if (BLE_NO_CONNECT){
+            break;
+        }
+        if ((index+maxReadQty)>TOTAL_RECORD_QTY){
+            if (storeCounter==TOTAL_RECORD_QTY){
+                restQty = storeCounter - (TOTAL_RECORD_QTY - index);
+                index = 0;
+            } else {
+                restQty = 0;
+            }
+            i2cAccessIndex = index * EEPROM_DATA_SIZE;
+            dataByteLength =(uint8_t)(TOTAL_RECORD_QTY-index)*EEPROM_DATA_SIZE;
+        }
+        else
+        {
+            i2cAccessIndex = index * EEPROM_DATA_SIZE;
+            dataByteLength = (maxReadQty)*EEPROM_DATA_SIZE;
+            index = index + maxReadQty;
+            restQty = restQty - maxReadQty;
+        }
+        
+        setEepromAccessAddress(i2cAccessIndex);
+        eepromRandomReadSuccess=eepromRandomRead(iic_device_sel, &iic_bytes[0], (uint16_t)dataByteLength+2, 0x7f);
+        delayInMs(10);
+        memcpy(sendDataToBle,&iic_bytes[2],dataByteLength);
+        R_UART1_Send(sendDataToBle,dataByteLength);
+	delayInMs(10);
+        if (!eepromRandomReadSuccess){
+            break;
+        }
+    }
+    L_EEPROM_STOP();
+    delayInMs(10);
+}
+
+void doEepromWriteRecords(void){
+    uint16_t data = 0; // getTemperatureDataForEeprom();
+    uint32_t i2cAccessIndex = ((uint32_t)(storeIndex))*EEPROM_DATA_SIZE;
+    setEepromAccessAddress(i2cAccessIndex);
+    L_EEPROM_INIT();
+    delayInMs(2);
+    iic_bytes[2] = (uint8_t) (data>>8);
+    iic_bytes[3] = (uint8_t) (data>>0);
+    R_IICA0_Master_Send(iic_device_sel, iic_bytes, EEPROM_DATA_SIZE+2, 0x7f);
+    // R_IICA0_Stop();
+    // R_IICA0_Create();
+    setEepromAccessAddress(i2cAccessIndex);
+    delayInMs(10);
+    eepromRandomReadSuccess=eepromRandomRead(iic_device_sel, &iic_bytes[0], 2, 0x7f);
+    storeIndex--;
+    if (storeIndex>TOTAL_RECORD_QTY){
+        storeIndex = TOTAL_RECORD_QTY;
+    }
+// save to eeprom
+    setEepromAccessAddress(eepromIndexStorageAddressinEEPROM);
+    iic_bytes[2] = (uint8_t) (storeIndex>>8);
+    iic_bytes[3] = (uint8_t) (storeIndex>>0);
+    R_IICA0_Master_Send(iic_device_sel, iic_bytes, EEPROM_DATA_SIZE+2, 0x7f);
+    L_EEPROM_STOP();
+    
+    storeCounter++;
+    if (storeCounter > TOTAL_RECORD_QTY)
+    {
+        storeCounter = TOTAL_RECORD_QTY;
+    }
+}
+void setEepromAccessAddress(uint32_t i2cAccessIndex){
+
+    if (i2cAccessIndex < 0x10000)
+    {
+        iic_device_sel = EEPROM_SLAVE_ADDR_B0;
+        iic_bytes[0] = (uint8_t)(i2cAccessIndex >> 8); // Data Addr HI
+        iic_bytes[1] = (uint8_t)(i2cAccessIndex >> 0); // Data Addr LO
+    }
+    else
+    {
+        iic_device_sel = EEPROM_SLAVE_ADDR_B1;
+        iic_bytes[0] = (uint8_t)((i2cAccessIndex&0x0000FFFF)>>8); // Data Addr HI
+        iic_bytes[1] = (uint8_t)((i2cAccessIndex&0x0000FFFF)>>0); // Data Addr LO
+    }
+
+}
+
+uint16_t getStoreIndexFromEEPROM(void){
+    uint16_t result;
+    setEepromAccessAddress(eepromIndexStorageAddressinEEPROM);
+    eepromRandomRead(iic_device_sel, &iic_bytes[0], 2, 0x7f);
+    result = (iic_bytes[0] << 8) || (iic_bytes[1] << 0);
+    return result;
+}
+
+
+void clearEeprom(void){
+    uint32_t i2cAccessIndex = ((uint32_t)(storeIndex))*EEPROM_DATA_SIZE;
+    const uint8_t PAGE_SIZE=200;
+    uint16_t index=0,i=0;
+    
+    L_EEPROM_INIT();
+    delayInMs(1);
+
+    i2cAccessIndex = 0;
+    setEepromAccessAddress(i2cAccessIndex);
+    eepromRandomReadSuccess=eepromRandomRead(iic_device_sel, &iic_bytes[0], 200, 0x7f);
+
+    for (i = 0; i <= 200;i++){
+        iic_bytes[i] = 0xFF;
+    }
+
+    for (index = 0; index < 500; index++)
+    {
+        i2cAccessIndex = index * PAGE_SIZE;
+        setEepromAccessAddress(i2cAccessIndex);
+        R_IICA0_Master_Send(iic_device_sel, iic_bytes, PAGE_SIZE + 2, 0x7f);
+        delayInMs(10);
+    }
+
+    i2cAccessIndex = 0;
+    setEepromAccessAddress(i2cAccessIndex);
+    eepromRandomReadSuccess=eepromRandomRead(iic_device_sel, &iic_bytes[0], 200, 0x7f);
+    
+    L_EEPROM_STOP();
+}
+
 /* End user code. Do not edit comment generated here */

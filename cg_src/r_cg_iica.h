@@ -153,5 +153,18 @@ static void r_iica0_callback_master_sendend(void);
 static void r_iica0_callback_master_receiveend(void);
 static void r_iica0_callback_master_error(MD_STATUS flag);
 /* Start user code for function. Do not edit comment generated here */
+uint8_t eepromRandomRead(uint8_t adr, uint8_t *const tx_buf, uint16_t tx_num, uint8_t wait);
+void doEepromReadRecords(void); 
+void L_EEPROM_INIT(void);
+void L_EEPROM_STOP(void);
+
+// static void doEepromAction(void);
+
+void doEepromWriteRecords(void);
+// void doEepromProcessing(void);
+void setEepromAccessAddress(uint32_t i2cAccessIndex);
+
+uint16_t getStoreIndexFromEEPROM(void);
+void clearEeprom(void);
 /* End user code. Do not edit comment generated here */
 #endif

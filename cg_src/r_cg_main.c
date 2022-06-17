@@ -156,6 +156,7 @@ void normal_process(void){
                 R_DTCD0_Start();
                 R_PGA_DSAD_Create();
                 R_PGA_DSAD_Start();
+                L_EEPROM_INIT();
             }
             if (EVENTS & TIMER_PERIODIC_EVENT)
             {
@@ -170,6 +171,7 @@ void normal_process(void){
                         R_ADC_Stop();
                         R_PGA_DSAD_Stop();
                         R_IT8Bit0_Channel1_Stop();
+                        L_EEPROM_STOP();
                     }
                     get_pcb_temperature(&pcbTemperature);
                 }
