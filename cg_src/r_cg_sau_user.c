@@ -318,6 +318,7 @@ void checkAppCommand(void) {
     {
         if (offset<158){
             appParam = receivedFromBle + offset + 1;
+            doEepromReadRecords();
         }
         memclr(receivedFromBle, 160);
         reset_DTC10();

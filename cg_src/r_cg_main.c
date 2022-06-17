@@ -63,11 +63,11 @@ volatile unsigned char EVENTS;
 volatile unsigned char dataFlash;
 mode_t Mode = NORMAL_MODE;
 uint8_t rtc_counter = 0;
-uint16_t timer_100ms_counter = 0;
 int16_t pcbTemperature=250;
 int PT100result;
 uint8_t dsadc_ready = 0;
 uint8_t analogProcess = 0;
+uint8_t analogProcessTimeOutCounter = 0;
 uint8_t data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 uint8_t *hardWareSetting=0;
 uint8_t *factorySetting=0;
@@ -92,12 +92,10 @@ void main(void)
     LORA_POW_CNT = POWER_ON;
     BLE_POW_CNT = POWER_OFF;
     EPROM_POW_CNT = POWER_OFF;
-
+    
     // Mode = FACTORY_MODE;
     Mode = NORMAL_MODE;
     getFactroySetting(hardWareSetting, factorySetting, dubReadBuffer);
-    delayInMs(100);
-    delayInMs(10);
     process(Mode);
     /* End user code. Do not edit comment generated here */
 }
@@ -130,16 +128,15 @@ void factory_process(void){
    }
 }
 void normal_process(void){
-    delayInMs(1000);
-    data[3]=L_BLE_INIT();
+    delayInMs(500);
+    L_BLE_INIT();
     L_BLE_STOP();
     R_INTC1_Start();
     // R_DTCD10_Start();
     EVENTS = 0; 
     EVENTS = RTC_NOTIFICATION_EVENT; // start when power on
     R_RTC_Start();
-
-    delayInMs(1000);
+    delayInMs(500);
     while (1)
     {
 
@@ -163,14 +160,25 @@ void normal_process(void){
                 EVENTS &= ~TIMER_PERIODIC_EVENT;
                 if (analogProcess)
                 {
+                        analogProcessTimeOutCounter++;
+                    if (analogProcessTimeOutCounter>10){
+                        dsadc_ready = 1;
+                        PT100result = -500; // means record value will become 0, send to Lora "000" mean ERR
+                    }
                     if (dsadc_ready)
                     {
                         analogProcess = 0;
+                        analogProcessTimeOutCounter = 0;
                         get_pt100_result(&PT100result);
                         R_DTCD0_Stop();
                         R_ADC_Stop();
                         R_PGA_DSAD_Stop();
                         R_IT8Bit0_Channel1_Stop();
+                        PT100result= PT100result/5 + 100; // Record Temperature as 0~999 (as -50degC to 450 degC)
+                        if (PT100result>=1000){
+                            PT100result = 0; // means record value will become 0, send to Lora "000" mean ERR
+                        }  
+                        doEepromWriteRecords((uint16_t)PT100result);
                         L_EEPROM_STOP();
                     }
                     get_pcb_temperature(&pcbTemperature);

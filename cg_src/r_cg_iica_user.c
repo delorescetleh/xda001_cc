@@ -258,7 +258,8 @@ extern void doEepromReadRecords(void){
     delayInMs(10);
     while (restQty)
     {
-        if (BLE_NO_CONNECT){
+        if(0)// (BLE_NO_CONNECT)
+	{
             break;
         }
         if ((index+maxReadQty)>TOTAL_RECORD_QTY){
@@ -293,8 +294,7 @@ extern void doEepromReadRecords(void){
     delayInMs(10);
 }
 
-void doEepromWriteRecords(void){
-    uint16_t data = 0; // getTemperatureDataForEeprom();
+void doEepromWriteRecords(uint16_t data){
     uint32_t i2cAccessIndex = ((uint32_t)(storeIndex))*EEPROM_DATA_SIZE;
     setEepromAccessAddress(i2cAccessIndex);
     L_EEPROM_INIT();

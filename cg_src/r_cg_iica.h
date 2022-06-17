@@ -160,7 +160,7 @@ void L_EEPROM_STOP(void);
 
 // static void doEepromAction(void);
 
-void doEepromWriteRecords(void);
+void doEepromWriteRecords(uint16_t data);
 // void doEepromProcessing(void);
 void setEepromAccessAddress(uint32_t i2cAccessIndex);
 
