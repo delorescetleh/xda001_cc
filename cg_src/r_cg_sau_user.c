@@ -60,6 +60,10 @@ extern volatile uint8_t * gp_uart1_rx_address;         /* uart1 receive buffer a
 extern volatile uint16_t  g_uart1_rx_count;            /* uart1 receive data number */
 extern volatile uint16_t  g_uart1_rx_length;           /* uart1 receive data length */
 /* Start user code for global. Do not edit comment generated here */
+uint8_t sendToLora[20];
+uint8_t receivedFromLora[20];
+uint8_t LoraReceivedEnd;
+
 uint8_t receivedFromBle[160];
 uint8_t sendToBle[160] = {0};
 uint8_t BleReceivedEnd = 0;
@@ -279,6 +283,77 @@ static void r_uart1_callback_error(uint8_t err_type)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
+uint8_t doSendLoraData(void){
+    uint8_t success=LORA_INIT();
+    // uint16_t temp = getTemperatureDataForLora();
+    // uint8_t sendToLora[] = {'{','0','0','0','}'};
+
+    // uint16_t pcbTemp = get_PCB_TemperautreForLora();
+    // sendToLora[1] = (uint8_t)((temp/100) + 0x30);
+    // sendToLora[2] = (uint8_t)(((temp%100)/10)+ 0x30);
+    // sendToLora[3] = (uint8_t)((temp%10)  + 0x30);
+    // // sendToLora[4] = (uint8_t)((pcbTemp/100) + 0x30);
+    // // sendToLora[5] = (uint8_t)(((pcbTemp%100)/10)+ 0x30);
+    // // sendToLora[6] = (uint8_t)((pcbTemp%10)  + 0x30);
+    // if (success)
+    // {
+    //     success = 0;
+    //     R_UART0_Send(sendToLora, 8);
+    //     while (!LORA_STA)
+    //     {
+    //         delayInMs(10);
+    //         success = 1;
+    //     }
+    //     delayInMs(10);
+    // }
+    // L_LORA_STOP();
+    return success;
+}
+void L_LORA_STOP(void){
+    R_UART0_Stop();
+    LORA_RESET_MODE = PIN_MODE_AS_INPUT;
+    LORA_READY_MODE = PIN_MODE_AS_INPUT;
+    UART0_TXD_MODE = PIN_MODE_AS_INPUT;
+    LORA_POW_CNT = PIN_LEVEL_AS_HIGH;
+}
+uint8_t LORA_INIT(void){
+    // uint32_t timerA = 0;
+    uint8_t initSuccess = 1;
+    R_UART0_Create();
+    R_UART0_Start();
+    R_UART0_Receive(receivedFromLora, 6);
+    delayInMs(2);
+    LORA_READY_MODE = PIN_MODE_AS_OUTPUT;
+    LORA_READY = PIN_LEVEL_AS_HIGH;
+    LORA_RESET_MODE = PIN_MODE_AS_OUTPUT;
+    LORA_RESET = PIN_LEVEL_AS_LOW;
+    
+    LORA_POW_CNT = PIN_LEVEL_AS_LOW;
+    delayInMs(10);
+    LORA_RESET_MODE = PIN_MODE_AS_INPUT;
+
+// // POWER ON RESET , WAIT LORA STAND BY   
+    // setTimeOut(millis());
+    // while (!LoraReceivedEnd)
+    // {
+    //     if (timeOut(1000))
+    //     {
+    //         initSuccess = 0;
+    //         break;
+    //     }
+    // }
+    // delayInMs(1000);
+    // LORA_READY_MODE = PIN_MODE_AS_OUTPUT;
+    // LORA_READY = PIN_LEVEL_AS_LOW;
+    // // GOT CHIP ID , SET CHIP ID AS BLE SSID 
+    // if (initSuccess) {
+    //     memcpy((setBleDeviceNameCommand+7),(receivedFromLora+1), 4);
+    //     R_UART0_Receive(receivedFromLora, 6);
+    // }
+    return initSuccess;
+}
+
+
 static void doBleTask_AppGetEcho(void){
     uint8_t bleAck[4] = {0xa5, 0x02, 0x00, 0x00};// ble ack to app
     bleAck[2] = *appParam;

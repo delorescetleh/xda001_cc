@@ -308,6 +308,11 @@ static void r_uart1_callback_sendend(void);
 static void r_uart1_callback_error(uint8_t err_type);
 static void r_uart1_callback_softwareoverrun(uint16_t rx_data);
 /* Start user code for function. Do not edit comment generated here */
+
+void L_LORA_STOP(void);
+uint8_t LORA_INIT(void);
+uint8_t doSendLoraData(void);
+
 void L_BLE_RESTART_FROM_STOP_MODE(void);
 uint8_t L_BLE_POWER_ON_AND_CHECK_GET_REBOOT(void);
 void L_BLE_POW_OFF(void);

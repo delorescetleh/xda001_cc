@@ -39,6 +39,7 @@ User definitions
 # include "r_cg_intp.h"
 # include "r_cg_it.h"
 #include "r_cg_it8bit.h"
+#include "r_cg_iica.h"
 // SHOULD SET TIMER LET TIME_SPEED * BASE_TIME = 1 MIN
 #define TEST_FACTORY_MODE_NOW           0x00
 #define TIME_SPEED 60
