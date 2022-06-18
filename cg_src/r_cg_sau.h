@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for SAU module.
-* Creation Date: 2022/6/17
+* Creation Date: 2022/6/18
 ***********************************************************************************************************************/
 #ifndef SAU_H
 #define SAU_H
@@ -308,7 +308,7 @@ static void r_uart1_callback_sendend(void);
 static void r_uart1_callback_error(uint8_t err_type);
 static void r_uart1_callback_softwareoverrun(uint16_t rx_data);
 /* Start user code for function. Do not edit comment generated here */
-
+uint8_t checkLoraMessage(void);
 void L_LORA_STOP(void);
 uint8_t LORA_INIT(void);
 uint8_t doSendLoraData(void);

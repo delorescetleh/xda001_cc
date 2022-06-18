@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for DTC module.
-* Creation Date: 2022/6/17
+* Creation Date: 2022/6/18
 ***********************************************************************************************************************/
 #ifndef DTC_H
 #define DTC_H
@@ -172,7 +172,7 @@ Macro definitions
 #define _01_DTCD10_TRANSFER_BLOCKSIZE                (0x01U) /* transfer block size */
 #define _08_DTCD0_TRANSFER_BYTE                      (0x08U) /* number of transfers */
 #define _08_DTCD1_TRANSFER_BYTE                      (0x08U) /* number of transfers */
-#define _10_DTCD8_TRANSFER_BYTE                      (0x10U) /* number of transfers */
+#define _12_DTCD8_TRANSFER_BYTE                      (0x12U) /* number of transfers */
 #define _A0_DTCD10_TRANSFER_BYTE                     (0xA0U) /* number of transfers */
 #define _FF1E_DTCD0_SRC_ADDRESS                      (0xFF1EU) 
 #define _FA00_DTCD1_SRC_ADDRESS                      (0xFA00U) 
@@ -180,7 +180,7 @@ Macro definitions
 #define _FF46_DTCD10_SRC_ADDRESS                     (0xFF46U) 
 #define _F900_DTCD0_DEST_ADDRESS                     (0xF900U) 
 #define _FF31_DTCD1_DEST_ADDRESS                     (0xFF31U) 
-#define _F800_DTCD8_DEST_ADDRESS                     (0xF800U) 
+#define _F700_DTCD8_DEST_ADDRESS                     (0xF700U) 
 #define _FC00_DTCD10_DEST_ADDRESS                    (0xFC00U) 
 
 /***********************************************************************************************************************

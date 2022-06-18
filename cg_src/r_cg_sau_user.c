@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for SAU module.
-* Creation Date: 2022/6/17
+* Creation Date: 2022/6/18
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -44,7 +44,7 @@ Pragma directive
 #pragma interrupt r_uart1_interrupt_receive(vect=INTSR1)
 /* Start user code for pragma. Do not edit comment generated here */
 # pragma address (receivedFromBle=0xFFC00U)
-# pragma address (receivedFromLora=0xFF7FFU)
+# pragma address (receivedFromLora=0xFF700U)
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -61,9 +61,9 @@ extern volatile uint8_t * gp_uart1_rx_address;         /* uart1 receive buffer a
 extern volatile uint16_t  g_uart1_rx_count;            /* uart1 receive data number */
 extern volatile uint16_t  g_uart1_rx_length;           /* uart1 receive data length */
 /* Start user code for global. Do not edit comment generated here */
+uint8_t portP3Status=0;
 uint8_t sendToLora[20];
-uint8_t receivedFromLora;
-uint8_t *receivedFromLora_ptr=&receivedFromLora;
+uint8_t receivedFromLora[20];
 uint8_t LoraReceivedEnd;
 uint8_t maxLoraReceiveLength=18;
 
@@ -145,6 +145,7 @@ static void __near r_uart0_interrupt_send(void)
 static void r_uart0_callback_receiveend(void)
 {
     /* Start user code. Do not edit comment generated here */
+    BleReceivedEnd = 1;
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************
@@ -247,7 +248,6 @@ static void __near r_uart1_interrupt_send(void)
 static void r_uart1_callback_receiveend(void)
 {
     /* Start user code. Do not edit comment generated here */
-    BleReceivedEnd = 1;
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************
@@ -287,22 +287,43 @@ static void r_uart1_callback_error(uint8_t err_type)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
+uint8_t checkLoraMessage(void){
+    int i=5 ,j=4;
+    R_DTCD8_Stop();
+    while (1)
+    	{
+        	if(receivedFromLora[i] == '}'){
+                while (j)
+                {
+                    i--;
+                    setBleDeviceNameCommand[j+6]=(receivedFromLora[i]);
+                    j--;
+                }
+                return 1;
+        }
+        i++;
+        if(i>20){
+            break;
+        }
+    }
+    R_DTCD8_Start();
+    return 0;
+}
 uint8_t doSendLoraData(void){
-    uint8_t success=LORA_INIT();
     // uint16_t temp = getTemperatureDataForLora();
-    // uint8_t sendToLora[] = {'{','0','0','0','}'};
+    uint8_t sendToLora[] = {'{','0','0','0','}'};
 
     // uint16_t pcbTemp = get_PCB_TemperautreForLora();
     // sendToLora[1] = (uint8_t)((temp/100) + 0x30);
     // sendToLora[2] = (uint8_t)(((temp%100)/10)+ 0x30);
     // sendToLora[3] = (uint8_t)((temp%10)  + 0x30);
-    // // sendToLora[4] = (uint8_t)((pcbTemp/100) + 0x30);
-    // // sendToLora[5] = (uint8_t)(((pcbTemp%100)/10)+ 0x30);
-    // // sendToLora[6] = (uint8_t)((pcbTemp%10)  + 0x30);
+    // sendToLora[4] = (uint8_t)((pcbTemp/100) + 0x30);
+    // sendToLora[5] = (uint8_t)(((pcbTemp%100)/10)+ 0x30);
+    // sendToLora[6] = (uint8_t)((pcbTemp%10)  + 0x30);
     // if (success)
     // {
     //     success = 0;
-    //     R_UART0_Send(sendToLora, 8);
+        R_UART0_Send(sendToLora, 8);
     //     while (!LORA_STA)
     //     {
     //         delayInMs(10);
@@ -311,7 +332,7 @@ uint8_t doSendLoraData(void){
     //     delayInMs(10);
     // }
     // L_LORA_STOP();
-    return success;
+    return 1;
 }
 void L_LORA_STOP(void){
     R_UART0_Stop();
@@ -321,9 +342,8 @@ void L_LORA_STOP(void){
     LORA_POW_CNT = PIN_LEVEL_AS_HIGH;
 }
 uint8_t LORA_INIT(void){
-    // uint32_t timerA = 0;
-    uint8_t initSuccess = 1;
-    memclr(receivedFromLora_ptr, maxLoraReceiveLength);
+    memclr(receivedFromLora, maxLoraReceiveLength);
+    
     R_DTCD8_Start();
     R_UART0_Start();
     // R_UART0_Receive(receivedFromLora, 6);
@@ -332,28 +352,22 @@ uint8_t LORA_INIT(void){
     LORA_READY = PIN_LEVEL_AS_HIGH;
     LORA_RESET_MODE = PIN_MODE_AS_OUTPUT;
     LORA_RESET = PIN_LEVEL_AS_LOW;
-    
     LORA_POW_CNT = PIN_LEVEL_AS_LOW;
     delayInMs(100);
     LORA_RESET_MODE = PIN_MODE_AS_INPUT;
-
-    // LORA_READY_MODE = PIN_MODE_AS_OUTPUT;
-    // LORA_READY = PIN_LEVEL_AS_LOW;
-    // // GOT CHIP ID , SET CHIP ID AS BLE SSID 
-    // if (initSuccess) {
-    //     memcpy((setBleDeviceNameCommand+7),(receivedFromLora+1), 4);
-    //     R_UART0_Receive(receivedFromLora, 6);
-    // }
     delayInMs(100);
-    
-    while(maxLoraReceiveLength--) {
-        if (*receivedFromLora_ptr++ == '}')
-        {
-            memcpy(&LORA_ID[0],receivedFromLora_ptr-=4, 4);
-            initSuccess = 1;
-        }
+    LORA_READY = PIN_LEVEL_AS_LOW;
+    delayInMs(100);
+    LORA_READY = PIN_LEVEL_AS_HIGH;
+    delayInMs(100);
+    LORA_READY = PIN_LEVEL_AS_LOW;
+    delayInMs(100);
+    LORA_READY = PIN_LEVEL_AS_HIGH;
+    if (LORA_STA){ // start lora failure 
+       // L_LORA_STOP();
+        return 0;
     }
-    return initSuccess;
+    return 1;
 }
 
 

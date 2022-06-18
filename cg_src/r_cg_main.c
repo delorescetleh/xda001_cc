@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2022/6/17
+* Creation Date: 2022/6/18
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -71,6 +71,7 @@ uint8_t lora_data_ready = 0;
 uint8_t analogProcess = 0;
 uint8_t loraProcess = 0;
 uint8_t analogProcessTimeOutCounter = 0;
+uint8_t loraProcessTimeOutCounter = 0;
 uint8_t countToEnableLoraProcess = 0;
 uint8_t data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 uint8_t *hardWareSetting=0;
@@ -93,7 +94,7 @@ void main(void)
 {
     R_MAIN_UserInit();
     /* Start user code. Do not edit comment generated here */
-    LORA_POW_CNT = POWER_OFF;
+    LORA_POW_CNT = POWER_ON;
     BLE_POW_CNT = POWER_OFF;
     EPROM_POW_CNT = POWER_OFF;
     
@@ -143,7 +144,11 @@ void normal_process(void){
     delayInMs(500);
     while (1)
     {
-
+                //         if (LORA_STA){
+                //     data[7] = 0x11;
+                // } else {
+                //     data[7] = 0xCC;
+                // }
         if(EVENTS){
             if (EVENTS&RTC_NOTIFICATION_EVENT)
             {
@@ -154,15 +159,15 @@ void normal_process(void){
                 R_IT8Bit0_Channel1_Start();
                 dsadc_ready = 0;
                 analogProcess = 1;
+                analogProcessTimeOutCounter = 0;
                 R_DTCD0_Start();
-
                 R_PGA_DSAD_Create();
                 R_PGA_DSAD_Start();
                 L_EEPROM_INIT();
-                countToEnableLoraProcess++;
+                countToEnableLoraProcess++; 
                 if (countToEnableLoraProcess==loraProcessIntervalByMinutes){
-                    countToEnableLoraProcess = 0;
-                    loraProcess = 2;
+                    loraProcess = 0;
+                    loraProcessTimeOutCounter = 0;
                     LORA_INIT();
                 }
             }
@@ -200,14 +205,43 @@ void normal_process(void){
                 {
                     checkAppCommand();
                 }
-                if (loraProcess)
-                {
-                    if (loraProcess == 1)
-                    {
-                        // L_LORA_STOP();
-                    }
-                    loraProcess--;
-                }
+                // if (loraProcess)
+                // {
+                //     loraProcessTimeOutCounter++;
+                //     if (loraProcessTimeOutCounter>10){
+                //         loraProcess = 0;
+                //         L_LORA_STOP();
+                //     }
+                //     switch (loraProcess)
+                //     {
+                //     case 4:
+                //         if (checkLoraMessage())
+                //         {
+                //             LORA_READY = PIN_LEVEL_AS_HIGH;//setLoraToRecieveMessage
+                //             loraProcess--;
+                //         }
+                //         break;
+                //     case 3:
+
+                //         loraProcess--;
+                //         break;
+                //     case 2:
+                //         doSendLoraData();
+                //         loraProcess--;
+                //         break;
+                //     case 1:
+                //         if (LORA_STA){
+                //             L_LORA_STOP();
+                //             loraProcess--;
+                //         }
+                //         break;
+                //     default:
+                //         break;
+                //     }
+
+                // }
+
+
                 if ((!analogProcess)&BLE_NO_CONNECT&(!loraProcess))
                 {
                     R_IT8Bit0_Channel0_Stop();
