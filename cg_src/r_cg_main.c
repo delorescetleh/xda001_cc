@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2022/6/18
+* Creation Date: 2022/6/19
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -97,7 +97,7 @@ void main(void)
     LORA_POW_CNT = POWER_ON;
     BLE_POW_CNT = POWER_OFF;
     EPROM_POW_CNT = POWER_OFF;
-    
+    delayInMs(2000);
     Mode = FACTORY_MODE;
     Mode = NORMAL_MODE;
     getFactroySetting(hardWareSetting, factorySetting, dubReadBuffer);
@@ -133,7 +133,7 @@ void factory_process(void){
    }
 }
 void normal_process(void){
-    delayInMs(500);
+
     L_BLE_INIT();
     L_BLE_STOP();
     R_INTC1_Start();
@@ -166,7 +166,7 @@ void normal_process(void){
                 L_EEPROM_INIT();
                 countToEnableLoraProcess++; 
                 if (countToEnableLoraProcess==loraProcessIntervalByMinutes){
-                    loraProcess = 0;
+                    loraProcess = 6;
                     loraProcessTimeOutCounter = 0;
                     LORA_INIT();
                 }
@@ -205,42 +205,56 @@ void normal_process(void){
                 {
                     checkAppCommand();
                 }
-                // if (loraProcess)
-                // {
-                //     loraProcessTimeOutCounter++;
-                //     if (loraProcessTimeOutCounter>10){
-                //         loraProcess = 0;
-                //         L_LORA_STOP();
-                //     }
-                //     switch (loraProcess)
-                //     {
-                //     case 4:
-                //         if (checkLoraMessage())
-                //         {
-                //             LORA_READY = PIN_LEVEL_AS_HIGH;//setLoraToRecieveMessage
-                //             loraProcess--;
-                //         }
-                //         break;
-                //     case 3:
-
-                //         loraProcess--;
-                //         break;
-                //     case 2:
-                //         doSendLoraData();
-                //         loraProcess--;
-                //         break;
-                //     case 1:
-                //         if (LORA_STA){
-                //             L_LORA_STOP();
-                //             loraProcess--;
-                //         }
-                //         break;
-                //     default:
-                //         break;
-                //     }
-
-                // }
-
+                if (loraProcess){
+                    // loraProcessTimeOutCounter++;
+                    // if (loraProcessTimeOutCounter>20){
+                    //     loraProcess = 0;
+                    //     loraProcessTimeOutCounter = 0;
+                    //     L_LORA_STOP();
+                    // }
+                    switch (loraProcess)
+                    {
+                    case 6:
+                        LORA_READY = PIN_LEVEL_AS_LOW;
+                        // LORA_STA should be high
+                        loraProcess--;
+                        break;
+                    case 5:
+                        LORA_READY = PIN_LEVEL_AS_HIGH;
+                        // LORA_STA should be high
+                        loraProcess--;
+                        break;
+                    case 4:
+                        LORA_READY = PIN_LEVEL_AS_LOW;
+                        // LORA_STA should be high
+                        loraProcess--;
+                        break;
+                    case 3:
+                        if (!LORA_STA)// wait till LORA_STA turn to low
+                        {
+                            LORA_READY = PIN_LEVEL_AS_LOW;
+                            loraProcess--;
+                        }
+                        break;
+                    case 2:
+                        if (!LORA_STA)// LORA_STA should be low
+                        {
+                            // do send lora message;
+                            loraProcess--;
+                        }
+                        break;
+                    case 1:;
+                        if (LORA_STA)// Wait till LORA_STA turn to high
+                        {
+                            // stop lora process
+                            L_LORA_STOP();
+                            loraProcess--;
+                        }
+                        break;
+                    default:
+                        break;
+                    }
+                }
 
                 if ((!analogProcess)&BLE_NO_CONNECT&(!loraProcess))
                 {

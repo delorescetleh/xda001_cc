@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file includes user definition.
-* Creation Date: 2022/6/18
+* Creation Date: 2022/6/19
 ***********************************************************************************************************************/
 #ifndef _USER_DEF_H
 #define _USER_DEF_H
@@ -104,6 +104,12 @@ User definitions
 #define LORA_READY_MODE   PM3_bit.no2
 #define LORA_RESET  P3_bit.no5//P3_bit.no5
 #define LORA_RESET_MODE   PM3_bit.no5
+#define LORA_STA    P7_bit.no0
+#define LORA_STA_MODE   PM7_bit.no0
+
+#define LORA_POW_CNT    P7_bit.no1
+
+
 
 #define PIN_MODE_AS_INPUT 1U
 #define PIN_MODE_AS_OUTPUT 0U
@@ -123,8 +129,7 @@ User definitions
 #define POWER_OFF  1
 #define POWER_ON  0
 
-#define LORA_STA    P7_bit.no0
-#define LORA_POW_CNT    P7_bit.no1
+
 //#define LORA_POW_CNT    P0_bit.no6 //v2
 #define BLE_POW_CNT_MODE  PM0_bit.no5
 #define BLE_POW_CNT     P0_bit.no5//P0_bit.no5
@@ -190,12 +195,8 @@ User definitions
 #define LORA_ERROR_BYTE 4
 #define FCNT_START 121
 #define MAX_LORA_SENDING_PROCESS_TIMES 3
-/* LORA MESSAGE*/
-#define LORA_START_MESSAGE "SSS"
 
 /* BLE MESSAGE*/
-#define BLE_START_MESSAGE "%REBOOT%"
-#define BLE_CONNECT_MESSAGE "CONNECT"
 
  #define BLE_TOTAL_FACTORY_SETTING_COMMAND_NUMBER 7
 #define BLE_FACTORY_SETTING_FINISH 0xFF

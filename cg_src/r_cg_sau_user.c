@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for SAU module.
-* Creation Date: 2022/6/18
+* Creation Date: 2022/6/19
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -336,10 +336,11 @@ uint8_t doSendLoraData(void){
 }
 void L_LORA_STOP(void){
     R_UART0_Stop();
+    LORA_STA_MODE = PIN_MODE_AS_INPUT;
     LORA_RESET_MODE = PIN_MODE_AS_INPUT;
     LORA_READY_MODE = PIN_MODE_AS_INPUT;
     UART0_TXD_MODE = PIN_MODE_AS_INPUT;
-    LORA_POW_CNT = PIN_LEVEL_AS_HIGH;
+    LORA_POW_CNT = POWER_OFF;
 }
 uint8_t LORA_INIT(void){
     memclr(receivedFromLora, maxLoraReceiveLength);
@@ -349,25 +350,13 @@ uint8_t LORA_INIT(void){
     // R_UART0_Receive(receivedFromLora, 6);
     delayInMs(2);
     LORA_READY_MODE = PIN_MODE_AS_OUTPUT;
-    LORA_READY = PIN_LEVEL_AS_HIGH;
+    LORA_READY = PIN_LEVEL_AS_LOW;
     LORA_RESET_MODE = PIN_MODE_AS_OUTPUT;
     LORA_RESET = PIN_LEVEL_AS_LOW;
     LORA_POW_CNT = PIN_LEVEL_AS_LOW;
     delayInMs(100);
     LORA_RESET_MODE = PIN_MODE_AS_INPUT;
-    delayInMs(100);
-    LORA_READY = PIN_LEVEL_AS_LOW;
-    delayInMs(100);
-    LORA_READY = PIN_LEVEL_AS_HIGH;
-    delayInMs(100);
-    LORA_READY = PIN_LEVEL_AS_LOW;
-    delayInMs(100);
-    LORA_READY = PIN_LEVEL_AS_HIGH;
-    if (LORA_STA){ // start lora failure 
-       // L_LORA_STOP();
-        return 0;
-    }
-    return 1;
+    return 0;
 }
 
 
