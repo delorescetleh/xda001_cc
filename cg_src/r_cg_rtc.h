@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for RTC module.
-* Creation Date: 2022/6/19
+* Creation Date: 2022/6/21
 ***********************************************************************************************************************/
 #ifndef RTC_H
 #define RTC_H

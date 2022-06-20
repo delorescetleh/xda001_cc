@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2022/6/19
+* Creation Date: 2022/6/21
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -81,6 +81,7 @@ uint8_t dubWriteBuffer[10]= {0x37, 0x10, 0x01, 0x02, 0x03, 0x04, 0x01, 0x20, 0x1
 void process(mode_t Mode);
 void normal_process(void);
 void factory_process(void);
+void goToSleep(void);
 /* End user code. Do not edit comment generated here */
 
 static void R_MAIN_UserInit(void);
@@ -94,13 +95,11 @@ void main(void)
 {
     R_MAIN_UserInit();
     /* Start user code. Do not edit comment generated here */
-    LORA_POW_CNT = POWER_ON;
+    LORA_POW_CNT = POWER_OFF;
     BLE_POW_CNT = POWER_OFF;
     EPROM_POW_CNT = POWER_OFF;
-    delayInMs(2000);
     Mode = FACTORY_MODE;
-    Mode = NORMAL_MODE;
-    getFactroySetting(hardWareSetting, factorySetting, dubReadBuffer);
+  //  Mode = NORMAL_MODE;
     process(Mode);
     /* End user code. Do not edit comment generated here */
 }
@@ -127,13 +126,18 @@ void process(mode_t Mode){
 }
 
 void factory_process(void){
-    if (L_BLE_INIT())
+    
+    if (0)//(L_BLE_INIT())
     {
         data[9] = L_BLE_FACTORY_MODE_SETTING();
-   }
+    }
+    goToSleep();
 }
-void normal_process(void){
 
+
+
+void normal_process(void){
+    getFactroySetting(hardWareSetting, factorySetting, dubReadBuffer);
     L_BLE_INIT();
     L_BLE_STOP();
     R_INTC1_Start();
@@ -258,25 +262,29 @@ void normal_process(void){
 
                 if ((!analogProcess)&BLE_NO_CONNECT&(!loraProcess))
                 {
-                    R_IT8Bit0_Channel0_Stop();
-                    set_TXD0_as_Input_Mode();
-                    set_TXD1_as_Input_Mode();
-                    L_BLE_STOP();
-                    R_IICA0_Stop();
-                    R_DTCD0_Stop();
-                    R_ADC_Stop();
-                    L_PGA_STOP();
-                    if (P_TEST)
-                    {
-                        HALT();
-                    }
-                    else
-                    {
-                        STOP();
-                    }
+                    goToSleep();
                 }
             }
         }
+    }
+}
+void goToSleep(void){
+    R_IT8Bit0_Channel0_Stop();
+    set_TXD0_as_Input_Mode();
+    set_TXD1_as_Input_Mode();
+    L_BLE_STOP();
+    R_IICA0_Stop();
+    R_DTCD0_Stop();
+    R_ADC_Stop();
+    L_PGA_STOP();
+    L_LORA_STOP();
+    if (P_TEST)
+    {
+        HALT();
+    }
+    else
+    {
+        STOP();
     }
 }
 /* End user code. Do not edit comment generated here */
