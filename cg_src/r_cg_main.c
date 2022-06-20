@@ -206,12 +206,12 @@ void normal_process(void){
                     checkAppCommand();
                 }
                 if (loraProcess){
-                    // loraProcessTimeOutCounter++;
-                    // if (loraProcessTimeOutCounter>20){
-                    //     loraProcess = 0;
-                    //     loraProcessTimeOutCounter = 0;
-                    //     L_LORA_STOP();
-                    // }
+                    loraProcessTimeOutCounter++;
+                    if (loraProcessTimeOutCounter>10){
+                        loraProcess = 0;
+                        loraProcessTimeOutCounter = 0;
+                        L_LORA_STOP();
+                    }
                     switch (loraProcess)
                     {
                     case 6:
