@@ -99,7 +99,7 @@ void main(void)
     BLE_POW_CNT = POWER_OFF;
     EPROM_POW_CNT = POWER_OFF;
     Mode = FACTORY_MODE;
-  //  Mode = NORMAL_MODE;
+    //Mode = NORMAL_MODE;
     process(Mode);
     /* End user code. Do not edit comment generated here */
 }
@@ -127,10 +127,11 @@ void process(mode_t Mode){
 
 void factory_process(void){
     
-    if (0)//(L_BLE_INIT())
+    if (L_BLE_INIT())
     {
         data[9] = L_BLE_FACTORY_MODE_SETTING();
     }
+    delayInMs(1000);
     goToSleep();
 }
 
