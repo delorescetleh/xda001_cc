@@ -140,7 +140,9 @@ void factory_process(void){
     L_PGA_STOP();
     L_BLE_STOP();
     L_LORA_STOP();
-    while (1)//(L_LORA_INIT())
+    delayInMs(2000);
+    L_LORA_INIT();
+    while (1)
     {
         if (P_TEST)
         {
