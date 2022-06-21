@@ -99,7 +99,7 @@ void main(void)
     BLE_POW_CNT = POWER_OFF;
     EPROM_POW_CNT = POWER_OFF;
     Mode = FACTORY_MODE;
-    Mode = NORMAL_MODE;
+     Mode = NORMAL_MODE;
     process(Mode);
     /* End user code. Do not edit comment generated here */
 }
@@ -143,7 +143,7 @@ void factory_process(void){
     delayInMs(2000);
     R_IT8Bit0_Channel0_Start();
     L_LORA_INIT();
-    while (1)
+    while (0)
     {
         if (EVENTS & TIMER_PERIODIC_EVENT) // R_IT8Bit0_Channel0 , 1s
         {
@@ -166,12 +166,8 @@ void factory_process(void){
         set_TXD1_as_Input_Mode();
         L_BLE_STOP();
     }
-
-    
     // goToSleep();
 }
-
-
 
 void normal_process(void){
     getFactroySetting(hardWareSetting, factorySetting, dubReadBuffer);
@@ -202,7 +198,7 @@ void normal_process(void){
                 L_EEPROM_INIT();
                 countToEnableLoraProcess++; 
                 if (countToEnableLoraProcess==loraProcessIntervalByMinutes){
-                    loraProcess = 6;
+                    loraProcess = 10;
                     loraProcessTimeOutCounter = 0;
                     L_LORA_INIT();
                 }
@@ -243,51 +239,63 @@ void normal_process(void){
                 }
                 if (loraProcess){
                     loraProcessTimeOutCounter++;
-                    if (loraProcessTimeOutCounter>10){
+                    //checkLoraMessage();
+                    if (loraProcessTimeOutCounter>15){
                         loraProcess = 0;
                         loraProcessTimeOutCounter = 0;
                         L_LORA_STOP();
                     }
                     switch (loraProcess)
                     {
-                    case 6:
-                        LORA_READY = PIN_LEVEL_AS_LOW;
-                        // LORA_STA should be high
+                    case 10:
+                        L_LORA_INIT();
                         loraProcess--;
                         break;
-                    case 5:
+                    case 9:
+                        LORA_READY = PIN_LEVEL_AS_LOW;
+                        delayInMs(10);
                         LORA_READY = PIN_LEVEL_AS_HIGH;
-                        // LORA_STA should be high
-                        loraProcess--;
                         break;
-                    case 4:
+                    case 8:
                         LORA_READY = PIN_LEVEL_AS_LOW;
-                        // LORA_STA should be high
+                        delayInMs(10);
+                        LORA_READY = PIN_LEVEL_AS_HIGH;
+                        delayInMs(10);
+                        LORA_READY = PIN_LEVEL_AS_LOW;
+                        delayInMs(10);
+                        LORA_READY = PIN_LEVEL_AS_HIGH;
                         loraProcess--;
                         break;
-                    case 3:
+                    case 7:
+                        LORA_STA_MODE_PULL_UP = PIN_LEVEL_AS_HIGH;
                         if (!LORA_STA)// wait till LORA_STA turn to low
                         {
                             LORA_READY = PIN_LEVEL_AS_LOW;
                             loraProcess--;
                         }
                         break;
-                    case 2:
+                    case 6:
                         if (!LORA_STA)// LORA_STA should be low
                         {
-                            // do send lora message;
-                            loraProcess--;
+                            doSendLoraData((uint16_t)PT100result,(uint16_t) (pcbTemperature+500)/5);
+                            delayInMs(100);
+                        }else{
+                             loraProcess--;
                         }
                         break;
-                    case 1:;
-                        if (LORA_STA)// Wait till LORA_STA turn to high
-                        {
+                    case 5:
+                            // stop lora process
+                            LORA_STA_MODE_PULL_UP = PIN_LEVEL_AS_LOW;
+                            // L_LORA_STOP();
+                            loraProcess--;
+                        break;
+                    case 1:
                             // stop lora process
                             L_LORA_STOP();
                             loraProcess--;
-                        }
                         break;
                     default:
+                        loraProcess--;
                         break;
                     }
                 }

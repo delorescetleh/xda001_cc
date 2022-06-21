@@ -106,6 +106,7 @@ User definitions
 #define LORA_RESET_MODE   PM3_bit.no5
 #define LORA_STA    P7_bit.no0
 #define LORA_STA_MODE   PM7_bit.no0
+#define LORA_STA_MODE_PULL_UP PU7_bit.no0
 
 #define LORA_POW_CNT    P7_bit.no1
 

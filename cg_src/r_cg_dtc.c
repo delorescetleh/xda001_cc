@@ -97,9 +97,9 @@ void R_DTC_Create(void)
     dtc_controldata_8.dtccr = _00_DTC_DATA_SIZE_8BITS | _00_DTC_REPEAT_INT_DISABLE | _00_DTC_CHAIN_TRANSFER_DISABLE | 
                               _00_DTC_SOURCE_ADDR_FIXED | _00_DTC_REPEAT_AREA_DEST | _01_DTC_TRANSFER_MODE_REPEAT;
     dtc_controldata_8.dtbls = _01_DTCD8_TRANSFER_BLOCKSIZE;
-    dtc_controldata_8.dtcct = _12_DTCD8_TRANSFER_BYTE;
-    dtc_controldata_8.dtrld = _12_DTCD8_TRANSFER_BYTE;
-    dtc_controldata_8.dtsar = _FF12_DTCD8_SRC_ADDRESS;
+    dtc_controldata_8.dtcct = _01_DTCD8_TRANSFER_BYTE;
+    dtc_controldata_8.dtrld = _01_DTCD8_TRANSFER_BYTE;
+    dtc_controldata_8.dtsar = _FF1E_DTCD8_SRC_ADDRESS;
     dtc_controldata_8.dtdar = _F700_DTCD8_DEST_ADDRESS;
     /* Set DTCD10 */
     dtc_vectortable[13U] = 0x90U;

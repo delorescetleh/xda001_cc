@@ -169,7 +169,6 @@ static void r_uart0_callback_softwareoverrun(uint16_t rx_data)
 static void r_uart0_callback_sendend(void)
 {
     /* Start user code. Do not edit comment generated here */
-    delayInMs(10);
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************
@@ -310,29 +309,17 @@ uint8_t checkLoraMessage(void){
     R_DTCD8_Start();
     return 0;
 }
-uint8_t doSendLoraData(void){
-    // uint16_t temp = getTemperatureDataForLora();
-    uint8_t sendToLora[] = {'{','0','0','0','}'};
-
-    // uint16_t pcbTemp = get_PCB_TemperautreForLora();
-    // sendToLora[1] = (uint8_t)((temp/100) + 0x30);
-    // sendToLora[2] = (uint8_t)(((temp%100)/10)+ 0x30);
-    // sendToLora[3] = (uint8_t)((temp%10)  + 0x30);
-    // sendToLora[4] = (uint8_t)((pcbTemp/100) + 0x30);
-    // sendToLora[5] = (uint8_t)(((pcbTemp%100)/10)+ 0x30);
-    // sendToLora[6] = (uint8_t)((pcbTemp%10)  + 0x30);
-    // if (success)
-    // {
-    //     success = 0;
-        R_UART0_Send(sendToLora, 8);
-    //     while (!LORA_STA)
-    //     {
-    //         delayInMs(10);
-    //         success = 1;
-    //     }
-    //     delayInMs(10);
-    // }
-    // L_LORA_STOP();
+uint8_t doSendLoraData(uint16_t temp, uint16_t pcbTemp)
+{
+    sendToLora[0] = '{';
+    sendToLora[1] = (uint8_t)((temp/100) + 0x30);
+    sendToLora[2] = (uint8_t)(((temp%100)/10)+ 0x30);
+    sendToLora[3] = (uint8_t)((temp%10)  + 0x30);
+    sendToLora[4] = (uint8_t)((pcbTemp/100) + 0x30);
+    sendToLora[5] = (uint8_t)(((pcbTemp%100)/10)+ 0x30);
+    sendToLora[6] = (uint8_t)((pcbTemp%10)  + 0x30);
+    sendToLora[7] = '}';
+    R_UART0_Send(sendToLora, 8);
     return 1;
 }
 void L_LORA_STOP(void){
@@ -345,12 +332,11 @@ void L_LORA_STOP(void){
 }
 uint8_t L_LORA_INIT(void){
     memclr(receivedFromLora, maxLoraReceiveLength);
+    
     R_DTCD8_Start();
-    delayInMs(20);
-    R_UART0_Create();
     R_UART0_Start();
-    R_UART0_Receive(receivedFromLora, 1);
-    delayInMs(20);
+    // R_UART0_Receive(receivedFromLora, 6);
+    delayInMs(2);
     LORA_READY_MODE = PIN_MODE_AS_OUTPUT;
     LORA_READY = PIN_LEVEL_AS_LOW;
     LORA_RESET_MODE = PIN_MODE_AS_OUTPUT;
@@ -358,7 +344,7 @@ uint8_t L_LORA_INIT(void){
     LORA_POW_CNT = PIN_LEVEL_AS_LOW;
     delayInMs(100);
     LORA_RESET_MODE = PIN_MODE_AS_INPUT;
-    return 1;
+    return 0;
 }
 
 
