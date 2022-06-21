@@ -99,7 +99,7 @@ void main(void)
     BLE_POW_CNT = POWER_OFF;
     EPROM_POW_CNT = POWER_OFF;
     Mode = FACTORY_MODE;
-    //Mode = NORMAL_MODE;
+    Mode = NORMAL_MODE;
     process(Mode);
     /* End user code. Do not edit comment generated here */
 }
@@ -141,21 +141,27 @@ void factory_process(void){
     L_BLE_STOP();
     L_LORA_STOP();
     delayInMs(2000);
+    R_IT8Bit0_Channel0_Start();
     L_LORA_INIT();
     while (1)
     {
-        if (P_TEST)
+        if (EVENTS & TIMER_PERIODIC_EVENT) // R_IT8Bit0_Channel0 , 1s
         {
-            HALT();
+            EVENTS &= ~TIMER_PERIODIC_EVENT;
+            delayInMs(1);
         }
-        else
-        {
-            STOP();
-        }
+        // if (P_TEST)
+        // {
+        //     HALT();
+        // }
+        // else
+        // {
+        //     STOP();
+        // }
     }
     if(L_BLE_INIT())
     {
-      //  L_BLE_FACTORY_MODE_SETTING();
+       L_BLE_FACTORY_MODE_SETTING();
         delayInMs(100);
         set_TXD1_as_Input_Mode();
         L_BLE_STOP();
@@ -202,7 +208,7 @@ void normal_process(void){
                 }
             }
 
-            if (EVENTS & TIMER_PERIODIC_EVENT)
+            if (EVENTS & TIMER_PERIODIC_EVENT)//R_IT8Bit0_Channel0 , 1s
             {
                 EVENTS &= ~TIMER_PERIODIC_EVENT;
                 if (analogProcess)

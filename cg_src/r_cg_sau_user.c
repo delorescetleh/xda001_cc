@@ -169,6 +169,7 @@ static void r_uart0_callback_softwareoverrun(uint16_t rx_data)
 static void r_uart0_callback_sendend(void)
 {
     /* Start user code. Do not edit comment generated here */
+    delayInMs(10);
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************
@@ -344,10 +345,12 @@ void L_LORA_STOP(void){
 }
 uint8_t L_LORA_INIT(void){
     memclr(receivedFromLora, maxLoraReceiveLength);
-    
     R_DTCD8_Start();
+    delayInMs(20);
+    R_UART0_Create();
     R_UART0_Start();
-    delayInMs(2);
+    R_UART0_Receive(receivedFromLora, 1);
+    delayInMs(20);
     LORA_READY_MODE = PIN_MODE_AS_OUTPUT;
     LORA_READY = PIN_LEVEL_AS_LOW;
     LORA_RESET_MODE = PIN_MODE_AS_OUTPUT;
