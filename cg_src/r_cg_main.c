@@ -126,13 +126,41 @@ void process(mode_t Mode){
 }
 
 void factory_process(void){
-    
-    if (L_BLE_INIT())
+    delayInMs(2000);
+    R_AMP1_Stop();
+    R_AMP2_Stop();
+    R_RTC_Stop();
+    R_IT8Bit0_Channel0_Stop();
+    R_IT8Bit0_Channel1_Stop();
+    R_INTC1_Stop();
+    R_DTCD0_Stop();
+    R_DTCD8_Stop();
+    R_DTCD10_Stop();
+    R_ADC_Stop();
+    L_PGA_STOP();
+    L_BLE_STOP();
+    L_LORA_STOP();
+    while (1)//(L_LORA_INIT())
     {
-        data[9] = L_BLE_FACTORY_MODE_SETTING();
+        if (P_TEST)
+        {
+            HALT();
+        }
+        else
+        {
+            STOP();
+        }
     }
-    delayInMs(1000);
-    goToSleep();
+    if(L_BLE_INIT())
+    {
+      //  L_BLE_FACTORY_MODE_SETTING();
+        delayInMs(100);
+        set_TXD1_as_Input_Mode();
+        L_BLE_STOP();
+    }
+
+    
+    // goToSleep();
 }
 
 
@@ -149,11 +177,6 @@ void normal_process(void){
     delayInMs(500);
     while (1)
     {
-                //         if (LORA_STA){
-                //     data[7] = 0x11;
-                // } else {
-                //     data[7] = 0xCC;
-                // }
         if(EVENTS){
             if (EVENTS&RTC_NOTIFICATION_EVENT)
             {
@@ -173,7 +196,7 @@ void normal_process(void){
                 if (countToEnableLoraProcess==loraProcessIntervalByMinutes){
                     loraProcess = 6;
                     loraProcessTimeOutCounter = 0;
-                    LORA_INIT();
+                    L_LORA_INIT();
                 }
             }
 
@@ -279,6 +302,7 @@ void goToSleep(void){
     R_ADC_Stop();
     L_PGA_STOP();
     L_LORA_STOP();
+    delayInMs(10000); // wait for the other device stable to sleep
     if (P_TEST)
     {
         HALT();

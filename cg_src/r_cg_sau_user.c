@@ -342,12 +342,11 @@ void L_LORA_STOP(void){
     UART0_TXD_MODE = PIN_MODE_AS_INPUT;
     LORA_POW_CNT = POWER_OFF;
 }
-uint8_t LORA_INIT(void){
+uint8_t L_LORA_INIT(void){
     memclr(receivedFromLora, maxLoraReceiveLength);
     
     R_DTCD8_Start();
     R_UART0_Start();
-    // R_UART0_Receive(receivedFromLora, 6);
     delayInMs(2);
     LORA_READY_MODE = PIN_MODE_AS_OUTPUT;
     LORA_READY = PIN_LEVEL_AS_LOW;
@@ -356,7 +355,7 @@ uint8_t LORA_INIT(void){
     LORA_POW_CNT = PIN_LEVEL_AS_LOW;
     delayInMs(100);
     LORA_RESET_MODE = PIN_MODE_AS_INPUT;
-    return 0;
+    return 1;
 }
 
 
