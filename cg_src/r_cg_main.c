@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2022/6/21
+* Creation Date: 2022/6/22
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -95,11 +95,11 @@ void main(void)
 {
     R_MAIN_UserInit();
     /* Start user code. Do not edit comment generated here */
-    LORA_POW_CNT = POWER_OFF;
+    LORA_POW_CNT = POWER_ON;
     BLE_POW_CNT = POWER_OFF;
     EPROM_POW_CNT = POWER_OFF;
     Mode = FACTORY_MODE;
-     Mode = NORMAL_MODE;
+    //Mode = NORMAL_MODE;
     process(Mode);
     /* End user code. Do not edit comment generated here */
 }
@@ -126,38 +126,37 @@ void process(mode_t Mode){
 }
 
 void factory_process(void){
-    delayInMs(2000);
-    R_AMP1_Stop();
-    R_AMP2_Stop();
-    R_RTC_Stop();
-    R_IT8Bit0_Channel0_Stop();
-    R_IT8Bit0_Channel1_Stop();
-    R_INTC1_Stop();
-    R_DTCD0_Stop();
-    R_DTCD8_Stop();
-    R_DTCD10_Stop();
-    R_ADC_Stop();
-    L_PGA_STOP();
-    L_BLE_STOP();
-    L_LORA_STOP();
-    delayInMs(2000);
+    //delayInMs(2000);
+    // R_AMP1_Stop();
+    // R_AMP2_Stop();
+    // R_RTC_Stop();
+    // R_IT8Bit0_Channel0_Stop();
+    // R_IT8Bit0_Channel1_Stop();
+    // R_INTC1_Stop();
+    // R_DTCD0_Stop();
+    // R_DTCD8_Stop();
+    // R_DTCD10_Stop();
+    // R_ADC_Stop();
+    // L_PGA_STOP();
+    // L_BLE_STOP();
+    // L_LORA_STOP();
+    // delayInMs(2000);
     R_IT8Bit0_Channel0_Start();
     L_LORA_INIT();
-    while (0)
+    while (1)
     {
-        if (EVENTS & TIMER_PERIODIC_EVENT) // R_IT8Bit0_Channel0 , 1s
+         if (EVENTS & TIMER_PERIODIC_EVENT) // R_IT8Bit0_Channel0 , 1s
         {
             EVENTS &= ~TIMER_PERIODIC_EVENT;
-            delayInMs(1);
+	    }
+        if (P_TEST)
+        {
+            HALT();
         }
-        // if (P_TEST)
-        // {
-        //     HALT();
-        // }
-        // else
-        // {
-        //     STOP();
-        // }
+        else
+        {
+            STOP();
+        }
     }
     if(L_BLE_INIT())
     {
