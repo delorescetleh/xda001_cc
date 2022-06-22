@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2022/6/22
+* Creation Date: 2022/6/23
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -32,7 +32,6 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "r_cg_cgc.h"
 #include "r_cg_port.h"
-#include "r_cg_tau.h"
 #include "r_cg_it8bit.h"
 #include "r_cg_rtc.h"
 #include "r_cg_pga_dsad.h"
@@ -99,7 +98,7 @@ void main(void)
     BLE_POW_CNT = POWER_OFF;
     EPROM_POW_CNT = POWER_OFF;
     Mode = FACTORY_MODE;
-    //Mode = NORMAL_MODE;
+    Mode = NORMAL_MODE;
     process(Mode);
     /* End user code. Do not edit comment generated here */
 }
@@ -143,20 +142,12 @@ void factory_process(void){
     // delayInMs(2000);
     R_IT8Bit0_Channel0_Start();
     L_LORA_INIT();
-    while (1)
+    while (0)
     {
          if (EVENTS & TIMER_PERIODIC_EVENT) // R_IT8Bit0_Channel0 , 1s
         {
             EVENTS &= ~TIMER_PERIODIC_EVENT;
 	    }
-        if (P_TEST)
-        {
-            HALT();
-        }
-        else
-        {
-            STOP();
-        }
     }
     if(L_BLE_INIT())
     {
@@ -174,8 +165,8 @@ void normal_process(void){
     L_BLE_STOP();
     R_INTC1_Start();
     // R_DTCD10_Start();
-    EVENTS = 0; 
     EVENTS = RTC_NOTIFICATION_EVENT; // start when power on
+    rtc_counter = 0;
     R_RTC_Start();
     delayInMs(500);
     while (1)
@@ -184,6 +175,24 @@ void normal_process(void){
             if (EVENTS&RTC_NOTIFICATION_EVENT)
             {
                 EVENTS &= (~RTC_NOTIFICATION_EVENT);
+
+                switch (rtc_counter)
+                {
+                case 1:
+                    rtc_counter++;
+                    break;
+                case 2:
+                    /* code */
+                    break;
+                case 3:
+                    /* code */
+                    break;
+                case 4:
+                    /* code */
+                    break;
+                default:
+                    break;
+                }
                 init_pcb_temperature(); // set parameter for dtc0,dtc1 , this parameter could automatically fetch pcb temperature without MCU controller
                 init_dsadc(&dsadc_ready);
                 R_IT8Bit0_Channel0_Start();
@@ -195,11 +204,15 @@ void normal_process(void){
                 R_PGA_DSAD_Create();
                 R_PGA_DSAD_Start();
                 L_EEPROM_INIT();
-                countToEnableLoraProcess++; 
-                if (countToEnableLoraProcess==loraProcessIntervalByMinutes){
+                if (countToEnableLoraProcess>=loraProcessIntervalByMinutes){
                     loraProcess = 10;
                     loraProcessTimeOutCounter = 0;
+                    countToEnableLoraProcess = 0;
                     L_LORA_INIT();
+                }else{
+                    countToEnableLoraProcess++; 
+                    loraProcess = 0;
+                    L_LORA_STOP();
                 }
             }
 
