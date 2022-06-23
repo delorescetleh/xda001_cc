@@ -80,6 +80,7 @@ void process(mode_t Mode);
 void normal_process(void);
 void factory_process(void);
 void goToSleep(void);
+void turnOffAll(void);
 /* End user code. Do not edit comment generated here */
 
 static void R_MAIN_UserInit(void);
@@ -98,6 +99,8 @@ void main(void)
     EPROM_POW_CNT = POWER_OFF;/* Take Max 30mA */ 
     Mode = FACTORY_MODE;
     Mode = NORMAL_MODE;
+    turnOffAll();
+
     process(Mode);
     /* End user code. Do not edit comment generated here */
 }
@@ -124,21 +127,6 @@ void process(mode_t Mode){
 }
 
 void factory_process(void){
-    //delayInMs(2000);
-    // R_AMP1_Stop();
-    // R_AMP2_Stop();
-    // R_RTC_Stop();
-    // R_IT8Bit0_Channel0_Stop();
-    // R_IT8Bit0_Channel1_Stop();
-    // R_INTC1_Stop();
-    // R_DTCD0_Stop();
-    // R_DTCD8_Stop();
-    // R_DTCD10_Stop();
-    // R_ADC_Stop();
-    // L_PGA_STOP();
-    // L_BLE_STOP();
-    // L_LORA_STOP();
-    // delayInMs(2000);
     R_IT8Bit0_Channel0_Start();
     L_LORA_INIT();
     while (0)
@@ -160,7 +148,6 @@ void factory_process(void){
 
 void normal_process(void){
     getFactroySetting(hardWareSetting, factorySetting, dubReadBuffer);
-
     L_BLE_INIT();
     L_BLE_STOP();
     R_INTC1_Start();
@@ -168,8 +155,10 @@ void normal_process(void){
     R_RTC_Start();
     while (1)
     {
-        if(EVENTS){
-            if (EVENTS&RTC_NOTIFICATION_EVENT)
+        if(EVENTS)
+        {
+            EVENTS = 0;
+            if(0)// (EVENTS&RTC_NOTIFICATION_EVENT)
             {
                 EVENTS &= (~RTC_NOTIFICATION_EVENT);
                 init_pcb_temperature(); // set parameter for dtc0,dtc1 , this parameter could automatically fetch pcb temperature without MCU controller
@@ -194,7 +183,7 @@ void normal_process(void){
                 }
             }
 
-            if (EVENTS & TIMER_PERIODIC_EVENT)//R_IT8Bit0_Channel0 , 1s
+            if(0)// (EVENTS & TIMER_PERIODIC_EVENT)//R_IT8Bit0_Channel0 , 1s
             {
                 EVENTS &= ~TIMER_PERIODIC_EVENT;
                 if (analogProcess)
@@ -285,10 +274,24 @@ void normal_process(void){
                     goToSleep();
                 }
             }
+        }else{
+            goToSleep();
         }
     }
 }
+void turnOffAll(void){
+    R_IT8Bit0_Channel0_Stop();
+    set_TXD0_as_Input_Mode();
+    set_TXD1_as_Input_Mode();
+    L_BLE_STOP();
+    R_IICA0_Stop();
+    R_DTCD0_Stop();
+    R_ADC_Stop();
+    L_PGA_STOP();
+    L_LORA_STOP();
+}
 void goToSleep(void){
+
     if (P_TEST)
     {
         HALT();
@@ -298,4 +301,7 @@ void goToSleep(void){
         STOP();
     }
 }
+
+
+
 /* End user code. Do not edit comment generated here */

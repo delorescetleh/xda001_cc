@@ -29,12 +29,4 @@ What is old version function
 5. System Power: 2.7 V  from Torex DCDC XCL206
 
 ### Version Log
-1. ver 0.0.1: first release@20220608 
-2. ver 0.0.1.a: H/W Pin assignment setting finish (I2C, UART0, UART1, GPIO, PGA) and keep in 0.2mA
-3. ver 0.0.1.b: merge DTC branch success (Add ADC to fetch mcu temperature and RTC to trigger ADC , ADC trigger DTC, Data Store in 0xFF900 16 bytes (8 times * 2 bytes) per second, power consumption in 0.55mA)
-4. ver 0.0.1.c: improve pcb temperature raw data fetch. DTC could switch ADC mode between internal volt and internal temperature each one sec. Keep STOP mode in 0.5mA 
-5. ver 0.0.1.d: add get_pt100_result function to have PT100 value
-6. ver 0.0.1.e: implement BLE factory mode setting function, UART1 work success(no use DTC)
-7. ver 0.0.1.f: BLE normal mode success to connect app and add "echo function"(A5 02 xx xx , will return A502xxxx) 
-8. ver 0.0.1.g: add FDL module for dataflash access
-9. ver 0.0.1.h: eeprom read write success, could test by ble app command A202xxxx will return all record data
+1. ver 0.0.1: 20220622 rebuild normal mode
