@@ -61,7 +61,6 @@ Global variables and functions
 volatile unsigned char EVENTS;
 volatile unsigned char dataFlash;
 mode_t Mode = NORMAL_MODE;
-uint8_t rtc_counter = 0;
 int16_t pcbTemperature=250;
 int PT100result;
 uint8_t loraProcessIntervalByMinutes = 1;
@@ -94,9 +93,9 @@ void main(void)
 {
     R_MAIN_UserInit();
     /* Start user code. Do not edit comment generated here */
-    LORA_POW_CNT = POWER_ON;
-    BLE_POW_CNT = POWER_OFF;
-    EPROM_POW_CNT = POWER_OFF;
+    LORA_POW_CNT = POWER_OFF; /* LORA_RESET Should be output mode and set to low make sure lora module no working when system start*/ 
+    BLE_POW_CNT = POWER_OFF; /* Take Max 300mA */ 
+    EPROM_POW_CNT = POWER_OFF;/* Take Max 30mA */ 
     Mode = FACTORY_MODE;
     Mode = NORMAL_MODE;
     process(Mode);
@@ -161,38 +160,18 @@ void factory_process(void){
 
 void normal_process(void){
     getFactroySetting(hardWareSetting, factorySetting, dubReadBuffer);
+
     L_BLE_INIT();
     L_BLE_STOP();
     R_INTC1_Start();
-    // R_DTCD10_Start();
     EVENTS = RTC_NOTIFICATION_EVENT; // start when power on
-    rtc_counter = 0;
     R_RTC_Start();
-    delayInMs(500);
     while (1)
     {
         if(EVENTS){
             if (EVENTS&RTC_NOTIFICATION_EVENT)
             {
                 EVENTS &= (~RTC_NOTIFICATION_EVENT);
-
-                switch (rtc_counter)
-                {
-                case 1:
-                    rtc_counter++;
-                    break;
-                case 2:
-                    /* code */
-                    break;
-                case 3:
-                    /* code */
-                    break;
-                case 4:
-                    /* code */
-                    break;
-                default:
-                    break;
-                }
                 init_pcb_temperature(); // set parameter for dtc0,dtc1 , this parameter could automatically fetch pcb temperature without MCU controller
                 init_dsadc(&dsadc_ready);
                 R_IT8Bit0_Channel0_Start();
@@ -205,14 +184,13 @@ void normal_process(void){
                 R_PGA_DSAD_Start();
                 L_EEPROM_INIT();
                 if (countToEnableLoraProcess>=loraProcessIntervalByMinutes){
-                    loraProcess = 10;
+                    loraProcess = 9;
                     loraProcessTimeOutCounter = 0;
-                    countToEnableLoraProcess = 0;
-                    L_LORA_INIT();
+                    countToEnableLoraProcess = 1;
                 }else{
-                    countToEnableLoraProcess++; 
-                    loraProcess = 0;
-                    L_LORA_STOP();
+                    countToEnableLoraProcess++;
+                    LORA_RESET_MODE = PIN_MODE_AS_OUTPUT;
+                    LORA_RESET = PIN_LEVEL_AS_LOW;
                 }
             }
 
@@ -225,6 +203,10 @@ void normal_process(void){
                     if (analogProcessTimeOutCounter>10){
                         dsadc_ready = 1;
                         PT100result = -500; // means record value will become 0, send to Lora "000" mean ERR
+                        R_DTCD0_Stop();
+                        R_ADC_Stop();
+                        R_PGA_DSAD_Stop();
+                        R_IT8Bit0_Channel1_Stop();
                     }
 
                     if (dsadc_ready)
@@ -259,55 +241,41 @@ void normal_process(void){
                     }
                     switch (loraProcess)
                     {
-                    case 10:
-                        L_LORA_INIT();
-                        loraProcess--;
-                        break;
                     case 9:
-                        LORA_READY = PIN_LEVEL_AS_LOW;
-                        delayInMs(10);
-                        LORA_READY = PIN_LEVEL_AS_HIGH;
-                        break;
-                    case 8:
-                        LORA_READY = PIN_LEVEL_AS_LOW;
-                        delayInMs(10);
-                        LORA_READY = PIN_LEVEL_AS_HIGH;
-                        delayInMs(10);
-                        LORA_READY = PIN_LEVEL_AS_LOW;
-                        delayInMs(10);
-                        LORA_READY = PIN_LEVEL_AS_HIGH;
+                        L_LORA_INIT();
+                        LORA_STA_MODE_PULL_UP = PIN_LEVEL_AS_HIGH;
+                        LORA_READY_MODE = PIN_MODE_AS_OUTPUT;
                         loraProcess--;
                         break;
+
                     case 7:
-                        LORA_STA_MODE_PULL_UP = PIN_LEVEL_AS_HIGH;
-                        if (!LORA_STA)// wait till LORA_STA turn to low
-                        {
+                        if (checkLoraMessage()){
                             LORA_READY = PIN_LEVEL_AS_LOW;
                             loraProcess--;
                         }
                         break;
                     case 6:
-                        if (!LORA_STA)// LORA_STA should be low
-                        {
-                            doSendLoraData((uint16_t)PT100result,(uint16_t) (pcbTemperature+500)/5);
-                            delayInMs(100);
-                        }else{
-                             loraProcess--;
-                        }
+                        doSendLoraData((uint16_t)PT100result, (uint16_t)(pcbTemperature + 500) / 5);
+                        loraProcess--;
                         break;
                     case 5:
-                            // stop lora process
-                            LORA_STA_MODE_PULL_UP = PIN_LEVEL_AS_LOW;
-                            // L_LORA_STOP();
+                        if (LORA_STA)// LORA_STA Turn High means Lora got 
+                        {
                             loraProcess--;
+                        }
+                        break;
+                    case 4:// stop lora process
+                        LORA_STA_MODE_PULL_UP = PIN_LEVEL_AS_LOW;
+                        loraProcess--;
                         break;
                     case 1:
-                            // stop lora process
-                            L_LORA_STOP();
-                            loraProcess--;
-                        break;
-                    default:
+                        L_LORA_STOP();
                         loraProcess--;
+                        break;  
+                    default:
+                        if (loraProcess){
+                            loraProcess --;
+                        }
                         break;
                     }
                 }
@@ -321,16 +289,6 @@ void normal_process(void){
     }
 }
 void goToSleep(void){
-    R_IT8Bit0_Channel0_Stop();
-    set_TXD0_as_Input_Mode();
-    set_TXD1_as_Input_Mode();
-    L_BLE_STOP();
-    R_IICA0_Stop();
-    R_DTCD0_Stop();
-    R_ADC_Stop();
-    L_PGA_STOP();
-    L_LORA_STOP();
-    delayInMs(10000); // wait for the other device stable to sleep
     if (P_TEST)
     {
         HALT();

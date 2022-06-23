@@ -323,30 +323,27 @@ uint8_t doSendLoraData(uint16_t temp, uint16_t pcbTemp)
     return 1;
 }
 void L_LORA_STOP(void){
+    LORA_POW_CNT = POWER_OFF;
     R_UART0_Stop();
-    LORA_STA_MODE = PIN_MODE_AS_INPUT;
     LORA_RESET_MODE = PIN_MODE_AS_INPUT;
     LORA_READY_MODE = PIN_MODE_AS_INPUT;
     UART0_TXD_MODE = PIN_MODE_AS_INPUT;
-    LORA_POW_CNT = POWER_OFF;
 }
 uint8_t L_LORA_INIT(void){
     memclr(receivedFromLora, maxLoraReceiveLength);
-    R_DTC_Create();
-    R_DTCD8_Start();
-    R_UART0_Create();
-    R_UART0_Start();
-    //R_UART0_Receive(receivedFromLora, 1);
-    delayInMs(2);
-    LORA_READY = PIN_LEVEL_AS_LOW;
     LORA_RESET_MODE = PIN_MODE_AS_OUTPUT;
+    LORA_READY_MODE = PIN_MODE_AS_OUTPUT;
+    R_DTC_Create();
+    R_UART0_Create();
+    R_DTCD8_Start();
+    R_UART0_Start();
+    LORA_RESET_MODE = PIN_MODE_AS_OUTPUT;
+    LORA_READY_MODE = PIN_MODE_AS_OUTPUT;
+    LORA_READY = PIN_LEVEL_AS_HIGH;
     LORA_RESET = PIN_LEVEL_AS_LOW;
     LORA_POW_CNT = PIN_LEVEL_AS_LOW;
-    delayInMs(100);
-    LORA_RESET_MODE = PIN_MODE_AS_INPUT;
     delayInMs(10);
-    LORA_READY = PIN_LEVEL_AS_HIGH;
-    delayInMs(10);
+    LORA_RESET = PIN_LEVEL_AS_HIGH;
     return 0;
 }
 

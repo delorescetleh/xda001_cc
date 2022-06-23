@@ -47,6 +47,7 @@ Pragma directive
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
+uint8_t rtc_counter = 0;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -82,7 +83,11 @@ static void __near r_rtc_interrupt(void)
 static void r_rtc_callback_constperiod(void)
 {
     /* Start user code. Do not edit comment generated here */
-    events |= (RTC_NOTIFICATION_EVENT); 
+    rtc_counter++;
+    if (rtc_counter>30){
+        rtc_counter = 0;
+        events |= (RTC_NOTIFICATION_EVENT);
+    }
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************
@@ -98,4 +103,9 @@ static void r_rtc_callback_alarm(void)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
+void rtcCounter(void){
+    // if (rtc_counter==60){
+    //     events |= (RTC_NOTIFICATION_EVENT);
+    // }
+}
 /* End user code. Do not edit comment generated here */
