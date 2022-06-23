@@ -63,14 +63,14 @@ volatile unsigned char dataFlash;
 mode_t Mode = NORMAL_MODE;
 int16_t pcbTemperature=250;
 int PT100result;
-uint8_t loraProcessIntervalByMinutes = 1;
+
 uint8_t dsadc_ready = 0;
 uint8_t lora_data_ready = 0;
 uint8_t analogProcess = 0;
 uint8_t loraProcess = 0;
 uint8_t analogProcessTimeOutCounter = 0;
 uint8_t loraProcessTimeOutCounter = 0;
-uint8_t countToEnableLoraProcess = 0;
+
 uint8_t data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 uint8_t *hardWareSetting=0;
 uint8_t *factorySetting=0;
@@ -169,15 +169,22 @@ void normal_process(void){
                 R_PGA_DSAD_Create();
                 R_PGA_DSAD_Start();
                 L_EEPROM_INIT();
-                if (countToEnableLoraProcess>=loraProcessIntervalByMinutes){
+
+            }
+
+            if (EVENTS & LoRA_NOTIFICATION_EVENT)
+            {
+                EVENTS &= ~LoRA_NOTIFICATION_EVENT;
+                R_IT8Bit0_Channel0_Start();
+                                // if (countToEnableLoraProcess>=loraProcessIntervalByMinutes){
                     loraProcess = 9;
                     loraProcessTimeOutCounter = 0;
-                    countToEnableLoraProcess = 1;
-                }else{
-                    countToEnableLoraProcess++;
-                    LORA_RESET_MODE = PIN_MODE_AS_OUTPUT;
-                    LORA_RESET = PIN_LEVEL_AS_LOW;
-                }
+                    // countToEnableLoraProcess = 1;
+                // }else{
+                //     countToEnableLoraProcess++;
+                //     LORA_RESET_MODE = PIN_MODE_AS_OUTPUT;
+                //     LORA_RESET = PIN_LEVEL_AS_LOW;
+                // }
             }
 
             if(EVENTS & TIMER_PERIODIC_EVENT)//R_IT8Bit0_Channel0 , 1s
@@ -193,8 +200,6 @@ void normal_process(void){
                         R_ADC_Stop();
                         R_PGA_DSAD_Stop();
                         R_IT8Bit0_Channel1_Stop();
-                        turnOffAll();
-                        goToSleep();
                     }
 
                     if (dsadc_ready)
@@ -206,8 +211,6 @@ void normal_process(void){
                         R_ADC_Stop();
                         R_PGA_DSAD_Stop();
                         R_IT8Bit0_Channel1_Stop();
-                        turnOffAll();
-                        goToSleep();
                         PT100result= PT100result/5 + 100; // Record Temperature as 0~999 (as -50degC to 450 degC)
                         if (PT100result>=1000){
                             PT100result = 0; // means record value will become 0, send to Lora "000" mean ERR
@@ -221,7 +224,7 @@ void normal_process(void){
                 {
                     checkAppCommand();
                 }
-                if (0)//(loraProcess)
+                if (loraProcess)
                 {
                     loraProcessTimeOutCounter++;
                     //checkLoraMessage();
@@ -270,16 +273,10 @@ void normal_process(void){
                         break;
                     }
                 }
-
-                if(!analogProcess)// ((!analogProcess)&BLE_NO_CONNECT&(!loraProcess))
-                {
-                    // turnOffAll();
-                    // goToSleep();
-                }
             }
         }
         
-        if (!analogProcess)
+        if ((!EVENTS)&(!analogProcess)&BLE_NO_CONNECT&(!loraProcess))
         {
             turnOffAll();
             goToSleep();
@@ -288,6 +285,7 @@ void normal_process(void){
 }
 void turnOffAll(void){
     R_IT8Bit0_Channel0_Stop();
+    R_IT8Bit0_Channel1_Stop();
     set_TXD0_as_Input_Mode();
     set_TXD1_as_Input_Mode();
     L_BLE_STOP();

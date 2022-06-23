@@ -48,6 +48,8 @@ Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
 uint8_t rtc_counter = 0;
+uint8_t countToEnableLoraProcess = 0;
+uint8_t loraProcessIntervalByMinutes = 1;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -84,9 +86,14 @@ static void r_rtc_callback_constperiod(void)
 {
     /* Start user code. Do not edit comment generated here */
     rtc_counter++;
-    if (rtc_counter>30){
+    if (rtc_counter>120){
         rtc_counter = 0;
+        countToEnableLoraProcess++;
         events |= (RTC_NOTIFICATION_EVENT);
+        if (countToEnableLoraProcess>=loraProcessIntervalByMinutes){
+            countToEnableLoraProcess = 0;
+            events |= LoRA_NOTIFICATION_EVENT;
+        }
     }
     /* End user code. Do not edit comment generated here */
 }

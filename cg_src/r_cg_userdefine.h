@@ -58,7 +58,7 @@ User definitions
 #define EEPROM_NOTIFICATION_EVENT                   0x10
 #define ADC_NOTIFICATION_EVENT                      0x20
 #define RTC_NOTIFICATION_EVENT                      0x40
-#define PCB_TEMPERATURE_NOTIFICATION_EVENT          0x80
+#define MINUTES_EVENT                               0x80
 
 
 #define TIMER_PERIODIC_CNT          0x0a // Unit : seconds
