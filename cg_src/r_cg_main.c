@@ -99,8 +99,6 @@ void main(void)
     EPROM_POW_CNT = POWER_OFF;/* Take Max 30mA */ 
     Mode = FACTORY_MODE;
     Mode = NORMAL_MODE;
-    turnOffAll();
-
     process(Mode);
     /* End user code. Do not edit comment generated here */
 }
@@ -157,8 +155,7 @@ void normal_process(void){
     {
         if(EVENTS)
         {
-            EVENTS = 0;
-            if(0)// (EVENTS&RTC_NOTIFICATION_EVENT)
+            if (EVENTS&RTC_NOTIFICATION_EVENT)
             {
                 EVENTS &= (~RTC_NOTIFICATION_EVENT);
                 init_pcb_temperature(); // set parameter for dtc0,dtc1 , this parameter could automatically fetch pcb temperature without MCU controller
@@ -183,7 +180,7 @@ void normal_process(void){
                 }
             }
 
-            if(0)// (EVENTS & TIMER_PERIODIC_EVENT)//R_IT8Bit0_Channel0 , 1s
+            if(EVENTS & TIMER_PERIODIC_EVENT)//R_IT8Bit0_Channel0 , 1s
             {
                 EVENTS &= ~TIMER_PERIODIC_EVENT;
                 if (analogProcess)
