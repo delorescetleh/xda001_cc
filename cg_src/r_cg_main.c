@@ -193,6 +193,8 @@ void normal_process(void){
                         R_ADC_Stop();
                         R_PGA_DSAD_Stop();
                         R_IT8Bit0_Channel1_Stop();
+                        turnOffAll();
+                        goToSleep();
                     }
 
                     if (dsadc_ready)
@@ -204,6 +206,8 @@ void normal_process(void){
                         R_ADC_Stop();
                         R_PGA_DSAD_Stop();
                         R_IT8Bit0_Channel1_Stop();
+                        turnOffAll();
+                        goToSleep();
                         PT100result= PT100result/5 + 100; // Record Temperature as 0~999 (as -50degC to 450 degC)
                         if (PT100result>=1000){
                             PT100result = 0; // means record value will become 0, send to Lora "000" mean ERR
@@ -217,7 +221,8 @@ void normal_process(void){
                 {
                     checkAppCommand();
                 }
-                if (loraProcess){
+                if (0)//(loraProcess)
+                {
                     loraProcessTimeOutCounter++;
                     //checkLoraMessage();
                     if (loraProcessTimeOutCounter>15){
@@ -266,12 +271,17 @@ void normal_process(void){
                     }
                 }
 
-                if ((!analogProcess)&BLE_NO_CONNECT&(!loraProcess))
+                if(!analogProcess)// ((!analogProcess)&BLE_NO_CONNECT&(!loraProcess))
                 {
-                    goToSleep();
+                    // turnOffAll();
+                    // goToSleep();
                 }
             }
-        }else{
+        }
+        
+        if (!analogProcess)
+        {
+            turnOffAll();
             goToSleep();
         }
     }
