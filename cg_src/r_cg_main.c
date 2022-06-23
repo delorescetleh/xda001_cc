@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2022/6/23
+* Creation Date: 2022/6/24
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -99,6 +99,8 @@ void main(void)
     EPROM_POW_CNT = POWER_OFF;/* Take Max 30mA */ 
     Mode = FACTORY_MODE;
     Mode = NORMAL_MODE;
+    turnOffAll();
+    delayInMs(100);
     process(Mode);
     /* End user code. Do not edit comment generated here */
 }
@@ -149,6 +151,7 @@ void normal_process(void){
     L_BLE_INIT();
     L_BLE_STOP();
     R_INTC1_Start();
+
     EVENTS = RTC_NOTIFICATION_EVENT; // start when power on
     R_RTC_Start();
     while (1)
@@ -175,16 +178,9 @@ void normal_process(void){
             if (EVENTS & LoRA_NOTIFICATION_EVENT)
             {
                 EVENTS &= ~LoRA_NOTIFICATION_EVENT;
-                R_IT8Bit0_Channel0_Start();
-                                // if (countToEnableLoraProcess>=loraProcessIntervalByMinutes){
-                    loraProcess = 9;
-                    loraProcessTimeOutCounter = 0;
-                    // countToEnableLoraProcess = 1;
-                // }else{
-                //     countToEnableLoraProcess++;
-                //     LORA_RESET_MODE = PIN_MODE_AS_OUTPUT;
-                //     LORA_RESET = PIN_LEVEL_AS_LOW;
-                // }
+                R_IT8Bit0_Channel0_Start(); // START TIMER PERIODIC
+                loraProcess = 9;
+                loraProcessTimeOutCounter = 0;
             }
 
             if(EVENTS & TIMER_PERIODIC_EVENT)//R_IT8Bit0_Channel0 , 1s

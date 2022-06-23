@@ -167,15 +167,11 @@
     <Extension_CodePart2>
       <CodeGeneratorData0>&lt;DataSign&gt;&lt;SerializableData&gt;
   &lt;SerializableData name="39a9d609-9774-41fe-9e4e-5c50dfa1451e"&gt;
-    &lt;DataElement key="pior35_macroname" value=""&gt;
-    &lt;/DataElement&gt;
     &lt;DataElement key="pior14_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior34_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior16_macroname" value=""&gt;
-    &lt;/DataElement&gt;
-    &lt;DataElement key="pior24_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior22_macroname" value=""&gt;
     &lt;/DataElement&gt;
@@ -191,13 +187,19 @@
     &lt;/DataElement&gt;
     &lt;DataElement key="pior10_macroname" value=""&gt;
     &lt;/DataElement&gt;
+    &lt;DataElement key="pior27_macroname" value=""&gt;
+    &lt;/DataElement&gt;
     &lt;DataElement key="pior27" value="0"&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior30_macroname" value=""&gt;
     &lt;/DataElement&gt;
+    &lt;DataElement key="pior33" value="0"&gt;
+    &lt;/DataElement&gt;
     &lt;DataElement key="pior01_macroname" value=""&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior35" value="0"&gt;
+    &lt;DataElement key="pior01" value="0"&gt;
+    &lt;/DataElement&gt;
+    &lt;DataElement key="pior11_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior04_macroname" value=""&gt;
     &lt;/DataElement&gt;
@@ -215,7 +217,7 @@
     &lt;/DataElement&gt;
     &lt;DataElement key="pior31" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior01" value="0"&gt;
+    &lt;DataElement key="pior24_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior11" value="0"&gt;
     &lt;/DataElement&gt;
@@ -233,8 +235,6 @@
     &lt;/DataElement&gt;
     &lt;DataElement key="pior14" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior02_macroname" value=""&gt;
-    &lt;/DataElement&gt;
     &lt;DataElement key="pior12_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior20_macroname" value=""&gt;
@@ -249,7 +249,7 @@
     &lt;/DataElement&gt;
     &lt;DataElement key="pior23" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior33" value="0"&gt;
+    &lt;DataElement key="pior35_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior03" value="0"&gt;
     &lt;/DataElement&gt;
@@ -263,7 +263,7 @@
     &lt;/DataElement&gt;
     &lt;DataElement key="pior25" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior11_macroname" value=""&gt;
+    &lt;DataElement key="pior35" value="0"&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior05" value="0"&gt;
     &lt;/DataElement&gt;
@@ -273,7 +273,7 @@
     &lt;/DataElement&gt;
     &lt;DataElement key="pior33_macroname" value=""&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior27_macroname" value=""&gt;
+    &lt;DataElement key="pior02_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior05_macroname" value=""&gt;
     &lt;/DataElement&gt;
@@ -1567,11 +1567,11 @@
         &lt;/DataElement&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="P52"&gt;
-        &lt;DataElement key="NChannelOpenDrain" value="False"&gt;
+        &lt;DataElement key="NChannelOpenDrain" value="True"&gt;
         &lt;/DataElement&gt;
         &lt;DataElement key="NoiseFilterFunction" value="False"&gt;
         &lt;/DataElement&gt;
-        &lt;DataElement key="PinInOut" value="I"&gt;
+        &lt;DataElement key="PinInOut" value="O"&gt;
         &lt;/DataElement&gt;
         &lt;DataElement key="PullUp" value="False"&gt;
         &lt;/DataElement&gt;
@@ -7363,7 +7363,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="InUse" value="True"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="FunctionIO" value="I"&gt;
+            &lt;DataElement key="FunctionIO" value="O"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="FunctionState" value="0"&gt;
             &lt;/DataElement&gt;
@@ -59739,11 +59739,11 @@
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="INPUT_MODE"&gt;
-            &lt;DataElement key="Checked" value="True"&gt;
+            &lt;DataElement key="Checked" value="False"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="OUTPUT_MODE"&gt;
-            &lt;DataElement key="Checked" value="False"&gt;
+            &lt;DataElement key="Checked" value="True"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="chkPU"&gt;
@@ -59755,7 +59755,7 @@
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="NCH_ON"&gt;
-            &lt;DataElement key="Checked" value="False"&gt;
+            &lt;DataElement key="Checked" value="True"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="OUTPUT_1"&gt;

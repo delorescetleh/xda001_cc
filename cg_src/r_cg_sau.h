@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for SAU module.
-* Creation Date: 2022/6/23
+* Creation Date: 2022/6/24
 ***********************************************************************************************************************/
 #ifndef SAU_H
 #define SAU_H
@@ -342,5 +342,7 @@ void BLE_FACTORY_MODE_RESET_TO_FACTORY_SETTING(void);
 
 void set_TXD0_as_Input_Mode(void);
 void set_TXD1_as_Input_Mode(void);
+void gotoSleepBLE(void);
+void wakeUpBLE(void);
 /* End user code. Do not edit comment generated here */
 #endif

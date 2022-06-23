@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for Port module.
-* Creation Date: 2022/6/23
+* Creation Date: 2022/6/24
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -61,17 +61,15 @@ void R_PORT_Create(void)
     P3 = _00_Pn7_OUTPUT_0 | _00_Pn6_OUTPUT_0 | _00_Pn5_OUTPUT_0 | _04_Pn2_OUTPUT_1 | _00_Pn0_OUTPUT_0;
     P5 = _08_Pn3_OUTPUT_1 | _00_Pn2_OUTPUT_0 | _00_Pn1_OUTPUT_0 | _00_Pn0_OUTPUT_0;
     P7 = _00_Pn7_OUTPUT_0 | _00_Pn6_OUTPUT_0 | _02_Pn1_OUTPUT_1 | _00_Pn0_OUTPUT_0;
-    PU5 = _00_PUn3_PULLUP_OFF | _00_PUn2_PULLUP_OFF | _00_PUn1_PULLUP_OFF | _00_PUn0_PULLUP_OFF;
     PU7 = _00_PUn7_PULLUP_OFF | _00_PUn6_PULLUP_OFF | _00_PUn1_PULLUP_OFF | _00_PUn0_PULLUP_OFF;
-    PIM5 = _00_PIMn2_TTL_OFF | _00_PIMn1_TTL_OFF;
     POM0 = _00_POMn7_NCH_OFF | _00_POMn6_NCH_OFF | _00_POMn4_NCH_OFF | _00_POMn3_NCH_OFF | _04_POMn2_NCH_ON;
     POM3 = _00_POMn7_NCH_OFF | _00_POMn6_NCH_OFF | _20_POMn5_NCH_ON;
-    POM5 = _00_POMn2_NCH_OFF | _00_POMn1_NCH_OFF | _00_POMn0_NCH_OFF;
+    POM5 = _04_POMn2_NCH_ON | _00_POMn1_NCH_OFF | _00_POMn0_NCH_OFF;
     PM0 = _01_PM0_DEFAULT_VALUE | _80_PMn7_MODE_INPUT | _40_PMn6_MODE_INPUT | _00_PMn5_MODE_OUTPUT | 
           _00_PMn4_MODE_OUTPUT | _08_PMn3_MODE_INPUT | _00_PMn2_MODE_OUTPUT | _02_PMn1_MODE_INPUT;
     PM3 = _1A_PM3_DEFAULT_VALUE | _80_PMn7_MODE_INPUT | _40_PMn6_MODE_INPUT | _00_PMn5_MODE_OUTPUT | 
           _00_PMn2_MODE_OUTPUT | _01_PMn0_MODE_INPUT;
-    PM5 = _F0_PM5_DEFAULT_VALUE | _00_PMn3_MODE_OUTPUT | _04_PMn2_MODE_INPUT | _02_PMn1_MODE_INPUT | 
+    PM5 = _F0_PM5_DEFAULT_VALUE | _00_PMn3_MODE_OUTPUT | _00_PMn2_MODE_OUTPUT | _02_PMn1_MODE_INPUT | 
           _01_PMn0_MODE_INPUT;
     PM7 = _3C_PM7_DEFAULT_VALUE | _80_PMn7_MODE_INPUT | _40_PMn6_MODE_INPUT | _00_PMn1_MODE_OUTPUT | 
           _01_PMn0_MODE_INPUT;

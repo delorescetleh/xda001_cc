@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for SAU module.
-* Creation Date: 2022/6/23
+* Creation Date: 2022/6/24
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -325,7 +325,6 @@ uint8_t doSendLoraData(uint16_t temp, uint16_t pcbTemp)
 void L_LORA_STOP(void){
     LORA_POW_CNT = POWER_OFF;
     R_UART0_Stop();
-    LORA_RESET_MODE = PIN_MODE_AS_INPUT;
     LORA_READY_MODE = PIN_MODE_AS_INPUT;
     UART0_TXD_MODE = PIN_MODE_AS_INPUT;
 }
@@ -340,10 +339,12 @@ uint8_t L_LORA_INIT(void){
     LORA_RESET_MODE = PIN_MODE_AS_OUTPUT;
     LORA_READY_MODE = PIN_MODE_AS_OUTPUT;
     LORA_READY = PIN_LEVEL_AS_HIGH;
+
     LORA_RESET = PIN_LEVEL_AS_LOW;
     LORA_POW_CNT = PIN_LEVEL_AS_LOW;
     delayInMs(10);
     LORA_RESET = PIN_LEVEL_AS_HIGH;
+    
     return 0;
 }
 
@@ -419,32 +420,38 @@ void L_BLE_STOP(void){
     R_UART1_Stop();
     // R_DTCD10_Stop();
     UART1_TXD_MODE = PIN_MODE_AS_INPUT;
-    BLE_UART_RXD_IND_MODE = PIN_MODE_AS_OUTPUT;
-    BLE_UART_RXD_IND = PIN_LEVEL_AS_HIGH;
-    BLE_RESET_MODE = PIN_MODE_AS_INPUT;
+    gotoSleepBLE();
 }
 uint8_t L_BLE_INIT(void){
-    BLE_RESET_MODE = PIN_MODE_AS_OUTPUT;
-    BLE_RESET = PIN_LEVEL_AS_LOW;
-    BLE_UART_RXD_IND_MODE = PIN_MODE_AS_OUTPUT;
-    BLE_UART_RXD_IND = PIN_LEVEL_AS_LOW;
-    BLE_POW_CNT = PIN_LEVEL_AS_LOW;
+    memclr(receivedFromBle, MAX_BLE_DATA_LENGTH);
+
     R_DTCD10_Start();
     R_UART1_Create();
     R_UART1_Start();
-    memclr(receivedFromBle, MAX_BLE_DATA_LENGTH);
-    // R_UART1_Receive(receivedFromBle, 8); // invoke "%REBOOT%"
+
+    BLE_RESET = PIN_LEVEL_AS_LOW;
+    BLE_POW_CNT = PIN_LEVEL_AS_LOW;
     delayInMs(2);
-    BLE_RESET_MODE = PIN_MODE_AS_INPUT;
+    BLE_RESET = PIN_LEVEL_AS_HIGH;
+    wakeUpBLE();
     delayInMs(500);
     return memcmp(receivedFromBle, (uint8_t *)("%REBOOT%"),(uint8_t) 8, MAX_BLE_DATA_LENGTH);
+}
+
+void wakeUpBLE(void){
+    BLE_UART_RXD_IND = PIN_LEVEL_AS_LOW;
+}
+
+void gotoSleepBLE(void){
+    BLE_UART_RXD_IND = PIN_LEVEL_AS_HIGH;
 }
 
 void L_BLE_RESTART_FROM_STOP_MODE(void){
     R_DTCD10_Start();
     R_UART1_Create();
     R_UART1_Start();
-    R_UART1_Receive(receivedFromBle, 1); 
+    R_UART1_Receive(receivedFromBle, 1);
+    wakeUpBLE();
 }
 
 uint8_t L_BLE_SEND_COMMAND(char *command,uint8_t comandLength,char *expectAck,uint8_t ackLength ){
