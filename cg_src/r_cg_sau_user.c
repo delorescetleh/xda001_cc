@@ -420,7 +420,7 @@ void L_BLE_STOP(void){
     R_UART1_Stop();
     // R_DTCD10_Stop();
     UART1_TXD_MODE = PIN_MODE_AS_INPUT;
-    gotoSleepBLE();
+    // BLE_UART_RXD_IND = PIN_LEVEL_AS_HIGH;
 }
 uint8_t L_BLE_INIT(void){
     memclr(receivedFromBle, MAX_BLE_DATA_LENGTH);
@@ -428,30 +428,25 @@ uint8_t L_BLE_INIT(void){
     R_DTCD10_Start();
     R_UART1_Create();
     R_UART1_Start();
-
+    // BLE_UART_RXD_IND = PIN_LEVEL_AS_LOW;
     BLE_RESET = PIN_LEVEL_AS_LOW;
     BLE_POW_CNT = PIN_LEVEL_AS_LOW;
     delayInMs(2);
     BLE_RESET = PIN_LEVEL_AS_HIGH;
-    wakeUpBLE();
+
     delayInMs(500);
     return memcmp(receivedFromBle, (uint8_t *)("%REBOOT%"),(uint8_t) 8, MAX_BLE_DATA_LENGTH);
 }
 
-void wakeUpBLE(void){
-    BLE_UART_RXD_IND = PIN_LEVEL_AS_LOW;
-}
 
-void gotoSleepBLE(void){
-    BLE_UART_RXD_IND = PIN_LEVEL_AS_HIGH;
-}
+
 
 void L_BLE_RESTART_FROM_STOP_MODE(void){
     R_DTCD10_Start();
     R_UART1_Create();
     R_UART1_Start();
     R_UART1_Receive(receivedFromBle, 1);
-    wakeUpBLE();
+    BLE_UART_RXD_IND = PIN_LEVEL_AS_LOW;
 }
 
 uint8_t L_BLE_SEND_COMMAND(char *command,uint8_t comandLength,char *expectAck,uint8_t ackLength ){
