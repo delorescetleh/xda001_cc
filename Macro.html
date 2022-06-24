@@ -55,9 +55,9 @@
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">output value</td><td bgColor="#CCFFFF">0</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Port5</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">P52</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Mode</td><td bgColor="#CCFFFF">In</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Pull-up</td><td bgColor="#CCFFFF">Unused</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">TTL buffer</td><td bgColor="#CCFFFF">Unused</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Mode</td><td bgColor="#CCFFFF">Out</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">N-ch</td><td bgColor="#CCFFFF">Used</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">output value</td><td bgColor="#CCFFFF">0</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">P53</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Mode</td><td bgColor="#CCFFFF">Out</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">output value</td><td bgColor="#CCFFFF">1</td></tr>
@@ -74,7 +74,7 @@
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Channel0</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Channel 0</td><td bgColor="#CCFFFF">8 bit</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Interval timer operation clock setting</td><td bgColor="#CCFFFF">Auto</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Interval value</td><td bgColor="#CCFFFF">500ms, (Actual value: 500)</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Interval value</td><td bgColor="#CCFFFF">400ms, (Actual value: 400.390625)</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Detection of compare match (INTIT00)</td><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Priority</td><td bgColor="#CCFFFF">Low</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Channel1</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
@@ -92,7 +92,7 @@
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Use alarm detection function</td><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Set alarm initial value</td><td bgColor="#CCFFFF">Unused</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used as alarm interrupt function (INTRTC)</td><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used as constant-period interrupt function (INTRTC)</td><td bgColor="#CCFFFF">Used,Once per 1 m (second 00 of every minute)</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used as constant-period interrupt function (INTRTC)</td><td bgColor="#CCFFFF">Used,Once per 0.5 s (synchronized with second count up)</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Priority(INTRTC)</td><td bgColor="#CCFFFF">Low</td></tr>
 <tr><td bgColor="#CCFFFF">12-Bit Interval Timer</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Unused</td></tr>
 <tr><td bgColor="#CCFFFF">Clock Output/Buzzer Output</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Unused</td></tr>
@@ -269,10 +269,12 @@ Amplifier unit 3 : Amplifier ELC trigger 3</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Count</td><td bgColor="#CCFFFF">8</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Block size</td><td bgColor="#CCFFFF">1</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">DTCD8</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Transfer mode setting</td><td bgColor="#CCFFFF">Normal mode</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Transfer mode setting</td><td bgColor="#CCFFFF">Repeat mode</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Transfer data size setting</td><td bgColor="#CCFFFF">8 bits</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Repeat mode interrupt setting</td><td bgColor="#CCFFFF">Disable</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Repeat area setting</td><td bgColor="#CCFFFF">Transfer destination</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Source address</td><td bgColor="#CCFFFF">0xFF12,Address fixed</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Destination address</td><td bgColor="#CCFFFF">0xF700,Address fixed</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Destination address</td><td bgColor="#CCFFFF">0xF700,(The lower 8 bits of the initial value for the repeat area address must be 00h)</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Count</td><td bgColor="#CCFFFF">18</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Block size</td><td bgColor="#CCFFFF">1</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">DTCD10</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>

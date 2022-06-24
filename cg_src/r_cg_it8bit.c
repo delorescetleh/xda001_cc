@@ -64,7 +64,7 @@ void R_IT8Bit0_Channel0_Create(void)
     ITPR000 = 1U;
     TRTCR0 |= _00_IT8BIT_8BIT_COUNT_MODE;
     TRTMD0 |= _06_IT8BIT_CLOCK0_64;
-    TRTCMP00 = _FF_IT8BIT_CMP00_VALUE;
+    TRTCMP00 = _CC_IT8BIT_CMP00_VALUE;
 }
 /***********************************************************************************************************************
 * Function Name: R_IT8Bit0_Channel0_Start
