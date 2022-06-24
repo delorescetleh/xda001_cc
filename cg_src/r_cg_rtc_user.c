@@ -86,7 +86,7 @@ static void r_rtc_callback_constperiod(void)
 {
     /* Start user code. Do not edit comment generated here */
     rtc_counter++;
-    if (rtc_counter>120){
+    if (rtc_counter>90){
         rtc_counter = 0;
         countToEnableLoraProcess++;
         events |= (RTC_NOTIFICATION_EVENT);

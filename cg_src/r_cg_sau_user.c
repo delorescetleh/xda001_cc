@@ -418,9 +418,9 @@ void checkAppCommand(void) {
 }
 void L_BLE_STOP(void){
     R_UART1_Stop();
-    // R_DTCD10_Stop();
+    R_DTCD10_Stop();
     UART1_TXD_MODE = PIN_MODE_AS_INPUT;
-    // BLE_UART_RXD_IND = PIN_LEVEL_AS_HIGH;
+    BLE_UART_RXD_IND = PIN_LEVEL_AS_HIGH;
 }
 uint8_t L_BLE_INIT(void){
     memclr(receivedFromBle, MAX_BLE_DATA_LENGTH);
@@ -428,7 +428,6 @@ uint8_t L_BLE_INIT(void){
     R_DTCD10_Start();
     R_UART1_Create();
     R_UART1_Start();
-    // BLE_UART_RXD_IND = PIN_LEVEL_AS_LOW;
     BLE_RESET = PIN_LEVEL_AS_LOW;
     BLE_POW_CNT = PIN_LEVEL_AS_LOW;
     delayInMs(2);
@@ -439,13 +438,10 @@ uint8_t L_BLE_INIT(void){
 }
 
 
-
-
 void L_BLE_RESTART_FROM_STOP_MODE(void){
     R_DTCD10_Start();
     R_UART1_Create();
     R_UART1_Start();
-    R_UART1_Receive(receivedFromBle, 1);
     BLE_UART_RXD_IND = PIN_LEVEL_AS_LOW;
 }
 
