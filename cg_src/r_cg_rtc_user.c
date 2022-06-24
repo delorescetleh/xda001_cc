@@ -47,7 +47,7 @@ Pragma directive
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
-uint16_t rtc_counter = 120;
+uint16_t rtc_counter = RTC_TIME_SPEED;
 uint8_t count30 = 0;
 uint8_t count30_counter = 0;
 uint8_t lora_rtc_counter = 0;
@@ -87,7 +87,7 @@ static void r_rtc_callback_constperiod(void)
 {
     /* Start user code. Do not edit comment generated here */
 
-    if (rtc_counter > 120)
+    if (rtc_counter > RTC_TIME_SPEED)
     {
         events |= RTC_NOTIFICATION_EVENT;
         rtc_counter = 0;
@@ -99,7 +99,7 @@ static void r_rtc_callback_constperiod(void)
     if (count30)
     {
         count30_counter++;
-        if(count30_counter>30){
+        if(count30_counter>RTC_TIME_GAP){
             events |= LoRA_NOTIFICATION_EVENT;
             count30 = 0;
             count30_counter = 0;
