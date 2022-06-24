@@ -47,9 +47,10 @@ Pragma directive
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
-uint8_t rtc_counter = 0;
-uint8_t countToEnableLoraProcess = 0;
-uint8_t loraProcessIntervalByMinutes = 1;
+uint16_t rtc_counter = 120;
+uint8_t count30 = 0;
+uint8_t count30_counter = 0;
+uint8_t lora_rtc_counter = 0;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -85,16 +86,27 @@ static void __near r_rtc_interrupt(void)
 static void r_rtc_callback_constperiod(void)
 {
     /* Start user code. Do not edit comment generated here */
-    rtc_counter++;
-    if (rtc_counter>90){
+
+    if (rtc_counter > 120)
+    {
+        events |= RTC_NOTIFICATION_EVENT;
         rtc_counter = 0;
-        countToEnableLoraProcess++;
-        events |= (RTC_NOTIFICATION_EVENT);
-        if (countToEnableLoraProcess>=loraProcessIntervalByMinutes){
-            countToEnableLoraProcess = 0;
-            events |= LoRA_NOTIFICATION_EVENT;
+        lora_rtc_counter++;
+        if (lora_rtc_counter==loraProcessIntervalTime){
+            count30 = 1;
         }
     }
+    if (count30)
+    {
+        count30_counter++;
+        if(count30_counter>30){
+            events |= LoRA_NOTIFICATION_EVENT;
+            count30 = 0;
+            count30_counter = 0;
+            lora_rtc_counter = 0;
+        }
+    }
+    rtc_counter++;
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************

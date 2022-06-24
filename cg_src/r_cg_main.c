@@ -50,7 +50,7 @@ Includes
 Pragma directive
 ***********************************************************************************************************************/
 /* Start user code for pragma. Do not edit comment generated here */
-#pragma address (EVENTS=0xFE900U)
+// #pragma address (EVENTS=0xFE900U)
 #pragma address (dataFlash =0xF1F00U)
 /* End user code. Do not edit comment generated here */
 
@@ -58,7 +58,7 @@ Pragma directive
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
-volatile unsigned char EVENTS;
+// volatile unsigned char EVENTS;
 volatile unsigned char dataFlash;
 mode_t Mode = NORMAL_MODE;
 int16_t pcbTemperature=250;
@@ -74,13 +74,18 @@ uint8_t loraProcessTimeOutCounter = 0;
 uint8_t data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 uint8_t *hardWareSetting=0;
 uint8_t *factorySetting=0;
-uint8_t dubReadBuffer[10]={0};
-uint8_t dubWriteBuffer[10]= {0x37, 0x10, 0x01, 0x02, 0x03, 0x04, 0x01, 0x20, 0x11, 0xFF};
+
 void process(mode_t Mode);
 void normal_process(void);
 void factory_process(void);
 void goToSleep(void);
 void turnOffAll(void);
+
+extern uint8_t events=0;
+extern uint8_t loraProcessIntervalTime=1;
+extern uint8_t countToEnableLoraProcess = 0;
+extern uint8_t dubReadBuffer[10]={0};
+extern uint8_t dubWriteBuffer[10]= {0x37, 0x10, 0x01, 0x02, 0x03, 0x04, 0x01, 0x20, 0x11, 0xFF};
 /* End user code. Do not edit comment generated here */
 
 static void R_MAIN_UserInit(void);
@@ -131,9 +136,9 @@ void factory_process(void){
     L_LORA_INIT();
     while (0)
     {
-         if (EVENTS & TIMER_PERIODIC_EVENT) // R_IT8Bit0_Channel0 , 1s
+         if (events & TIMER_PERIODIC_EVENT) // R_IT8Bit0_Channel0 , 1s
         {
-            EVENTS &= ~TIMER_PERIODIC_EVENT;
+            events &= ~TIMER_PERIODIC_EVENT;
 	    }
     }
     if(L_BLE_INIT())
@@ -152,15 +157,16 @@ void normal_process(void){
     L_BLE_STOP();
     R_INTC1_Start();
 
-    EVENTS = RTC_NOTIFICATION_EVENT; // start when power on
+    // EVENTS = RTC_NOTIFICATION_EVENT; // start when power on
     R_RTC_Start();
+    delayInMs(10);
     while (1)
     {
-        if(EVENTS)
+        if(events)
         {
-            if (EVENTS&RTC_NOTIFICATION_EVENT)
+            if (events&RTC_NOTIFICATION_EVENT)
             {
-                EVENTS &= (~RTC_NOTIFICATION_EVENT);
+                events &= (~RTC_NOTIFICATION_EVENT);
                 init_pcb_temperature(); // set parameter for dtc0,dtc1 , this parameter could automatically fetch pcb temperature without MCU controller
                 init_dsadc(&dsadc_ready);
                 R_IT8Bit0_Channel0_Start();
@@ -175,17 +181,17 @@ void normal_process(void){
 
             }
 
-            if (EVENTS & LoRA_NOTIFICATION_EVENT)
+            if (events & LoRA_NOTIFICATION_EVENT)
             {
-                EVENTS &= ~LoRA_NOTIFICATION_EVENT;
+                events &= ~LoRA_NOTIFICATION_EVENT;
                 R_IT8Bit0_Channel0_Start(); // START TIMER PERIODIC
                 loraProcess = 9;
                 loraProcessTimeOutCounter = 0;
             }
 
-            if(EVENTS & TIMER_PERIODIC_EVENT)//R_IT8Bit0_Channel0 , 1s
+            if(events & TIMER_PERIODIC_EVENT)//R_IT8Bit0_Channel0 , 1s
             {
-                EVENTS &= ~TIMER_PERIODIC_EVENT;
+                events &= ~TIMER_PERIODIC_EVENT;
                 if (analogProcess)
                 {
                     analogProcessTimeOutCounter++;
@@ -272,7 +278,7 @@ void normal_process(void){
             }
         }
         
-        if ((!EVENTS)&(!analogProcess)&BLE_NO_CONNECT&(!loraProcess))
+        if ((!events)&(!analogProcess)&BLE_NO_CONNECT&(!loraProcess))
         {
             turnOffAll();
             goToSleep();

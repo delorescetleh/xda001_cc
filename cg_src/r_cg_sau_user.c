@@ -358,21 +358,20 @@ static void doBleTask_AppGetEcho(void){
 }
 
 static void doBleTask_SetLoraInterval(void){
-    uint8_t bleAck[] = {0xa1, 0x01, 0x55};// ble ack to app
     loraProcessIntervalTime = *appParam;
-    // setLoraProcessIntervalTime(appParam);
     // Save into DataFlash
-    // dataFlashStart();
-    // dataFlashRead(bleReadBuffer_ptr,0);
-    // *(bleReadBuffer_ptr+F_LORA_INTV_BYTE)=appParam;
-    // memcpy(bleWriteBuffer_ptr, bleReadBuffer_ptr, DATA_FLASH_SIZE);
-    // dataFlashWrite(bleWriteBuffer_ptr,0);
-    // dataFlashEnd();
+    dataFlashStart();
+    dataFlashRead(dubReadBuffer,0);
+    *(dubReadBuffer+F_LORA_INTV_BYTE)=*appParam;
+    memcpy(dubWriteBuffer, dubReadBuffer, DATA_FLASH_SIZE);
+    dataFlashWrite(dubWriteBuffer,0);
+    dataFlashEnd();
     //set ble ack to app
-     memcpy(sendToBle, bleAck, 3);
-    R_UART1_Send(sendToBle, 3);
-    // reset relative parameter
-    // setloraCnt(0);
+    sendToBle[0] = 0xA1;
+    sendToBle[1] = 0x01;
+    sendToBle[2] = 0x55;
+    R_UART1_Send(sendToBle,(uint8_t) 3);
+    countToEnableLoraProcess = 0;// reset relative parameter
 }
 
 void checkAppCommand(void) {

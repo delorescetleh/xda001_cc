@@ -46,8 +46,8 @@ User definitions
 #define WORK_WITH_E1 1
 
 //########################################################################
-#define events (*(volatile __near unsigned char  *)0xE900)
-#define loraProcessIntervalTime (*(volatile __near unsigned char  *)0xE910)
+// #define events (*(volatile __near unsigned char  *)0xE900)
+// #define loraProcessIntervalTime (*(volatile __near unsigned char  *)0xE910)
 // #define loraRecieveData (*(volatile __near unsigned char  *)0xF800)
 
 #define TIMER_PERIODIC_EVENT                        0x01 // should not use in V4 version , change to OVER_TIME_EVENT 
@@ -213,17 +213,12 @@ typedef enum mode
 {
   FACTORY_MODE = 0,
   NORMAL_MODE = 1
-} mode_t; 
+} mode_t;
 
-
-
-
-
-extern uint8_t uart0_status;
-extern uint8_t uart1_status;
-
-extern uint8_t iic_status;
-// extern uint8_t events;
-extern uint8_t ble_status;
+extern uint8_t events;
+extern uint8_t loraProcessIntervalTime;
+extern uint8_t dubReadBuffer[10];
+extern uint8_t dubWriteBuffer[10];
+extern uint8_t countToEnableLoraProcess;
 /* End user code. Do not edit comment generated here */
 #endif
