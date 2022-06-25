@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for PGIA module.
-* Creation Date: 2022/6/24
+* Creation Date: 2022/6/25
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -64,7 +64,6 @@ uint32_t ds_adc_result0[DSADC_RESULT_BUF_SIZE];
 uint32_t ds_adc_result1[DSADC_RESULT_BUF_SIZE];
 uint32_t ds_adc_result2[DSADC_RESULT_BUF_SIZE];
 uint32_t ds_adc_result3[DSADC_RESULT_BUF_SIZE];
-uint8_t *dsadc_ready_ptr = 0;
 float Ipt100=0.00154155;
 uint32_t ds_adc_result4[DSADC_RESULT_BUF_SIZE];
 
@@ -92,10 +91,11 @@ static void __near r_pga_dsad_conversion_interrupt(void)
     dsadc_counter = dsadc_counter + 1;
     if (dsadc_counter > (DSADC_BUF_SIZE / 2))
     {
-        *dsadc_ready_ptr = 1;
+        dsadc_ready = 1;
         dsadc_counter = 0;
         R_PGA_DSAD_Stop();
     }
+    // events |= DSADC_NOTIFICATION_EVENT;
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************
@@ -220,8 +220,8 @@ void parseDifferential_DSADC_Result(uint32_t BufferH,uint32_t BufferL,uint32_t *
             }
 }
 
-void init_dsadc(uint8_t *ready){
-    dsadc_ready_ptr=ready;
+void clr_dsadc_buf(void){
     memclr((uint8_t *)&dsadc_buf[0], DSADC_BUF_SIZE*2);
 }
+
 /* End user code. Do not edit comment generated here */

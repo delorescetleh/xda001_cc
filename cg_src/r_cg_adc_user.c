@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for ADC module.
-* Creation Date: 2022/6/24
+* Creation Date: 2022/6/25
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -102,4 +102,5 @@ void get_pcb_temperature(int16_t *pcbTemperature){
     // R_ADC_Stop();
     // R_DTCD0_Stop();
 }
+
 /* End user code. Do not edit comment generated here */

@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2022/6/24
+* Creation Date: 2022/6/25
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -64,10 +64,8 @@ mode_t Mode = NORMAL_MODE;
 int16_t pcbTemperature=250;
 int PT100result;
 
-uint8_t dsadc_ready = 0;
+
 uint8_t lora_data_ready = 0;
-uint8_t analogProcess = 0;
-uint8_t loraProcess = 0;
 uint8_t analogProcessTimeOutCounter = 0;
 uint8_t loraProcessTimeOutCounter = 0;
 
@@ -81,7 +79,17 @@ void factory_process(void);
 void goToSleep(void);
 void turnOffAll(void);
 
+void PCB_TEMP_procedure(void);
+void PT100_procedure(void);
+void LoRa_procedure(void);
+void BLE_procedure(void);
+
+extern uint8_t bleProcess=0;
+extern uint8_t adcProcess=10;
+extern uint8_t dsadcProcess=10;
+extern uint8_t loraProcess = 0;
 extern uint8_t events=0;
+extern uint8_t dsadc_ready=0;
 extern uint8_t loraProcessIntervalTime=1;
 extern uint8_t countToEnableLoraProcess = 0;
 extern uint8_t dubReadBuffer[10]={0};
@@ -104,8 +112,7 @@ void main(void)
     EPROM_POW_CNT = POWER_OFF;/* Take Max 30mA */ 
     Mode = FACTORY_MODE;
     Mode = NORMAL_MODE;
-    turnOffAll();
-    delayInMs(100);
+
     process(Mode);
     /* End user code. Do not edit comment generated here */
 }
@@ -157,148 +164,48 @@ void normal_process(void){
     L_BLE_STOP();
     R_INTC1_Start();
 
-    // EVENTS = RTC_NOTIFICATION_EVENT; // start when power on
     R_RTC_Start();
+    R_IT8Bit0_Channel0_Start();//400mS
     delayInMs(10);
     while (1)
     {
         if(events)
         {
-            if (events&RTC_NOTIFICATION_EVENT)
-            {
-                events &= (~RTC_NOTIFICATION_EVENT);
-                init_pcb_temperature(); // set parameter for dtc0,dtc1 , this parameter could automatically fetch pcb temperature without MCU controller
-                init_dsadc(&dsadc_ready);
-                R_IT8Bit0_Channel0_Start();
-                R_IT8Bit0_Channel1_Start();
-                dsadc_ready = 0;
-                analogProcess = 1;
-                analogProcessTimeOutCounter = 0;
-                R_DTCD0_Start();
-                R_PGA_DSAD_Create();
-                R_PGA_DSAD_Start();
-                L_EEPROM_INIT();
-
-            }
-
-            if (events & LoRA_NOTIFICATION_EVENT)
-            {
-                events &= ~LoRA_NOTIFICATION_EVENT;
-                R_IT8Bit0_Channel0_Start(); // START TIMER PERIODIC
-                loraProcess = 9;
-                loraProcessTimeOutCounter = 0;
-            }
-
-            if(events & TIMER_PERIODIC_EVENT)//R_IT8Bit0_Channel0 , 1s
+            if(events & TIMER_PERIODIC_EVENT)//R_IT8Bit0_Channel0 , 400mS
             {
                 events &= ~TIMER_PERIODIC_EVENT;
-                if (analogProcess)
+                if (dsadcProcess)
                 {
-                    analogProcessTimeOutCounter++;
-                    if (analogProcessTimeOutCounter>10){
-                        dsadc_ready = 1;
-                        PT100result = -500; // means record value will become 0, send to Lora "000" mean ERR
-                        R_DTCD0_Stop();
-                        R_ADC_Stop();
-                        R_PGA_DSAD_Stop();
-                        R_IT8Bit0_Channel1_Stop();
-                    }
-
-                    if (dsadc_ready)
-                    {
-                        analogProcess = 0;
-                        analogProcessTimeOutCounter = 0;
-                        get_pt100_result(&PT100result);
-                        R_DTCD0_Stop();
-                        R_ADC_Stop();
-                        R_PGA_DSAD_Stop();
-                        R_IT8Bit0_Channel1_Stop();
-                        PT100result= PT100result/5 + 100; // Record Temperature as 0~999 (as -50degC to 450 degC)
-                        if (PT100result>=1000){
-                            PT100result = 0; // means record value will become 0, send to Lora "000" mean ERR
-                        }
-                        doEepromWriteRecords((uint16_t)PT100result);
-                        L_EEPROM_STOP();
-                    }
-                    get_pcb_temperature(&pcbTemperature);
+                    // dsadcProcess = 0;
+                    PT100_procedure();
                 }
-                if (!BLE_NO_CONNECT)
+                if (adcProcess)
                 {
-                    checkAppCommand();
+                    // adcProcess = 0;
+                    PCB_TEMP_procedure();
                 }
                 if (loraProcess)
                 {
-                    loraProcessTimeOutCounter++;
-                    //checkLoraMessage();
-                    if (loraProcessTimeOutCounter>15){
-                        loraProcess = 0;
-                        loraProcessTimeOutCounter = 0;
-                        L_LORA_STOP();
-                    }
-                    switch (loraProcess)
-                    {
-                    case 9:
-                        L_LORA_INIT();
-                        LORA_STA_MODE_PULL_UP = PIN_LEVEL_AS_HIGH;
-                        LORA_READY_MODE = PIN_MODE_AS_OUTPUT;
-                        loraProcess--;
-                        break;
-
-                    case 7:
-                        if (checkLoraMessage()){
-                            LORA_READY = PIN_LEVEL_AS_LOW;
-                            loraProcess--;
-                        }
-                        break;
-                    case 6:
-                        doSendLoraData((uint16_t)PT100result, (uint16_t)(pcbTemperature + 500) / 5);
-                        loraProcess--;
-                        break;
-                    case 5:
-                        if (LORA_STA)// LORA_STA Turn High means Lora got 
-                        {
-                            loraProcess--;
-                        }
-                        break;
-                    case 4:// stop lora process
-                        LORA_STA_MODE_PULL_UP = PIN_LEVEL_AS_LOW;
-                        loraProcess--;
-                        break;
-                    case 1:
-                        L_LORA_STOP();
-                        loraProcess--;
-                        break;  
-                    default:
-                        if (loraProcess){
-                            loraProcess --;
-                        }
-                        break;
-                    }
+                    // loraProcess = 0;
+                    LoRa_procedure();
+                }
+                if (bleProcess)
+                {
+                    BLE_procedure();
                 }
             }
         }
-        
-        if ((!events)&(!analogProcess)&BLE_NO_CONNECT&(!loraProcess))
+        if (BLE_NO_CONNECT)
         {
-            turnOffAll();
-            goToSleep();
+            if ((!dsadc_ready) & (!loraProcess) & (!adcProcess))
+            {
+                goToSleep();
+            }
         }
     }
 }
-void turnOffAll(void){
-    R_IT8Bit0_Channel0_Stop();
-    R_IT8Bit0_Channel1_Stop();
-    set_TXD0_as_Input_Mode();
-    set_TXD1_as_Input_Mode();
-    L_BLE_STOP();
-    R_IICA0_Stop();
-    R_DTCD0_Stop();
-    R_ADC_Stop();
-    L_PGA_STOP();
-    L_LORA_STOP();
-}
-void goToSleep(void){
 
+void goToSleep(void){
     if (P_TEST)
     {
         HALT();
@@ -309,6 +216,166 @@ void goToSleep(void){
     }
 }
 
+void PCB_TEMP_procedure(void)
+{
+    switch (adcProcess)
+    {
+    case 10:
+        init_pcb_temperature();
+        adcProcess--;
+        break;
+    case 9:
+        R_IT8Bit0_Channel1_Start();
+        R_DTCD0_Start();
+        adcProcess--;
+        break;
+    case 8:
+         get_pcb_temperature(&pcbTemperature);
+         adcProcess--;
+        break;
+    case 7:
+        get_pcb_temperature(&pcbTemperature);
+        adcProcess--;
+        break;
+    case 6:
+         get_pcb_temperature(&pcbTemperature);
+         adcProcess--;
+        break;
+    case 5:
+        get_pcb_temperature(&pcbTemperature);
+        adcProcess--;
+        break;
+    case 4:
+        get_pcb_temperature(&pcbTemperature);
+        R_IT8Bit0_Channel1_Stop();
+        R_DTCD0_Stop();
+        R_ADC_Stop();
+        adcProcess=0;
+        break;   
+    
+    default:
+        adcProcess--;
+        break;
+    }
+}
 
+void PT100_procedure(void){
+    switch (dsadcProcess)
+    {
+    case 10:
+        clr_dsadc_buf();
+        dsadcProcess--;
+        break;
+    case 9:
+        R_PGA_DSAD_Create();
+        R_PGA_DSAD_Start();
+        dsadcProcess--;
+        break;
+    case 8:
+        if (dsadc_ready)
+        {
+            dsadc_ready = 0;
+            get_pt100_result(&PT100result);
+            R_PGA_DSAD_Stop();
+            PT100result = PT100result / 5 + 100; // Record Temperature as 0~999 (as -50degC to 450 degC)
+            if (PT100result >= 1000)
+            {
+                PT100result = 0; // means record value will become 0, send to Lora "000" mean ERR
+            }
+            dsadcProcess--;
+        }
+        break;
+    case 7:
+        L_PGA_STOP();
+        L_EEPROM_INIT();
+        dsadcProcess--;
+        break;
+    case 6:
+        doEepromWriteRecords((uint16_t)PT100result);
+        L_EEPROM_STOP();
+        dsadcProcess=0;
+        break;
+    default:
+        dsadcProcess--;
+        break;
+    }
+}
 
+void LoRa_procedure(void){
+    loraProcessTimeOutCounter++;
+    if (loraProcessTimeOutCounter > 15)
+    {
+        loraProcess = 0;
+        loraProcessTimeOutCounter = 0;
+        L_LORA_STOP();
+    }
+    switch (loraProcess)
+    {
+    case 9:
+        L_LORA_INIT();
+        LORA_STA_MODE_PULL_UP = PIN_LEVEL_AS_HIGH;
+        LORA_READY_MODE = PIN_MODE_AS_OUTPUT;
+        loraProcess--;
+        break;
+
+    case 7:
+        if (checkLoraMessage())
+        {
+            LORA_READY = PIN_LEVEL_AS_LOW;
+            loraProcess--;
+        }
+        break;
+    case 6:
+        doSendLoraData((uint16_t)PT100result, (uint16_t)(pcbTemperature + 500) / 5);
+        loraProcess--;
+        break;
+    case 5:
+        if (LORA_STA) // LORA_STA Turn High means Lora got
+        {
+            loraProcess--;
+        }
+        break;
+    case 4: // stop lora process
+        LORA_STA_MODE_PULL_UP = PIN_LEVEL_AS_LOW;
+        loraProcess--;
+        break;
+    case 1:
+        L_LORA_STOP();
+        loraProcess--;
+        break;
+    default:
+        if (loraProcess)
+        {
+            loraProcess--;
+        }
+        break;
+    }
+}
+
+void BLE_procedure(void)
+{
+    switch (bleProcess)
+    {
+    case 10:
+        R_UART1_Create();
+        R_UART1_Start();
+        BLE_UART_RXD_IND = PIN_LEVEL_AS_LOW;
+        bleProcess--;
+        break;
+    case 9:
+        checkAppCommand();
+        if(BLE_NO_CONNECT){
+            bleProcess--;
+        }
+        break;
+    case 8:
+        L_BLE_STOP();
+        bleProcess--;
+        break;
+
+    default:
+        bleProcess--;
+        break;
+    }
+}
 /* End user code. Do not edit comment generated here */

@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for RTC module.
-* Creation Date: 2022/6/24
+* Creation Date: 2022/6/25
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -86,10 +86,15 @@ static void __near r_rtc_interrupt(void)
 static void r_rtc_callback_constperiod(void)
 {
     /* Start user code. Do not edit comment generated here */
+    if (rtc_counter%RTC_TIME_SPEED==0){
+        adcProcess=10;
+    }
+    if (rtc_counter%RTC_TIME_SPEED==0){
+        dsadcProcess=10;
+    }
 
     if (rtc_counter > RTC_TIME_SPEED)
     {
-        events |= RTC_NOTIFICATION_EVENT;
         rtc_counter = 0;
         lora_rtc_counter++;
         if (lora_rtc_counter==loraProcessIntervalTime){
@@ -100,7 +105,7 @@ static void r_rtc_callback_constperiod(void)
     {
         count30_counter++;
         if(count30_counter>RTC_TIME_GAP){
-            events |= LoRA_NOTIFICATION_EVENT;
+            loraProcess = 9;
             count30 = 0;
             count30_counter = 0;
             lora_rtc_counter = 0;

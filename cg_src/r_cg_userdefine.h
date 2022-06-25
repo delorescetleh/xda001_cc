@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file includes user definition.
-* Creation Date: 2022/6/24
+* Creation Date: 2022/6/25
 ***********************************************************************************************************************/
 #ifndef _USER_DEF_H
 #define _USER_DEF_H
@@ -42,7 +42,7 @@ User definitions
 #include "r_cg_iica.h"
 // SHOULD SET TIMER LET TIME_SPEED * BASE_TIME = 1 MIN
 #define TEST_FACTORY_MODE_NOW           0x00
-#define RTC_TIME_SPEED 60
+#define RTC_TIME_SPEED 120
 #define RTC_TIME_GAP 30
 #define WORK_WITH_E1 1
 
@@ -52,8 +52,7 @@ User definitions
 // #define loraRecieveData (*(volatile __near unsigned char  *)0xF800)
 
 #define TIMER_PERIODIC_EVENT                        0x01 // should not use in V4 version , change to OVER_TIME_EVENT 
-#define OVER_TIME_EVENT                             0x01 // 12bit Timer counter over time, close all event and turn to sleep
-#define PT100_NOTIFICATION_EVENT                    0x02
+#define DSADC_NOTIFICATION_EVENT                    0x02
 #define BLE_NOTIFICATION_EVENT                      0x04
 #define LoRA_NOTIFICATION_EVENT                     0x08
 #define EEPROM_NOTIFICATION_EVENT                   0x10
@@ -123,7 +122,6 @@ User definitions
 
 #define SWITCH_LORA  P0_bit.no6//P0_bit.no6
 
-#define P_TEST_MODE   PM0_bit.no1
 #define P_TEST       P0_bit.no1//P0_bit.no1
 
 
@@ -221,5 +219,10 @@ extern uint8_t loraProcessIntervalTime;
 extern uint8_t dubReadBuffer[10];
 extern uint8_t dubWriteBuffer[10];
 extern uint8_t countToEnableLoraProcess;
+extern uint8_t adcProcess;
+extern uint8_t dsadcProcess;
+extern uint8_t dsadc_ready;
+extern uint8_t loraProcess;
+extern uint8_t bleProcess;
 /* End user code. Do not edit comment generated here */
 #endif
