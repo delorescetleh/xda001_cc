@@ -38,3 +38,4 @@ What is old version function
 7. ver 0.0.1.f: BLE normal mode success to connect app and add "echo function"(A5 02 xx xx , will return A502xxxx) 
 8. ver 0.0.1.g: add FDL module for dataflash access
 9. ver 0.0.1.h: eeprom read write success, could test by ble app command A202xxxx will return all record data
+10. ver 0.0.1.i: ble function work fine in A102,A202, command, sleep mode , 0.2mA, some mistake in dsadc and pcb process.  
