@@ -87,7 +87,7 @@ static void r_rtc_callback_constperiod(void)
 {
     /* Start user code. Do not edit comment generated here */
     if (rtc_counter%RTC_TIME_SPEED==0){
-        adcProcess=5;
+        adcProcess=10;
     }
     if (rtc_counter%RTC_TIME_SPEED==0){
         dsadcProcess=20;

@@ -74,7 +74,7 @@ Macro definitions (Register bit)
 Macro definitions
 ***********************************************************************************************************************/
 #define _CC_IT8BIT_CMP00_VALUE                (0xCCU) /* 8-bit interval timer compare register 00 */
-#define _FF_IT8BIT_CMP01_VALUE                (0xFFU) /* 8-bit interval timer compare register 01 */
+#define _CC_IT8BIT_CMP01_VALUE                (0xCCU) /* 8-bit interval timer compare register 01 */
 
 /***********************************************************************************************************************
 Typedef definitions

@@ -34,12 +34,14 @@ Includes
 #include "r_cg_port.h"
 #include "r_cg_it8bit.h"
 #include "r_cg_rtc.h"
+#include "r_cg_it.h"
 #include "r_cg_pga_dsad.h"
 #include "r_cg_amp.h"
 #include "r_cg_adc.h"
 #include "r_cg_sau.h"
 #include "r_cg_iica.h"
 #include "r_cg_dtc.h"
+#include "r_cg_elc.h"
 #include "r_cg_intp.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
@@ -184,8 +186,6 @@ void normal_process(void){
                 }
                 if (adcProcess)
                 {
-                    init_pcb_temperature();
-                    R_DTCD0_Start();
                     PCB_TEMP_procedure();
                 }
                 if (loraProcess)
@@ -221,17 +221,45 @@ void goToSleep(void){
 
 void PCB_TEMP_procedure(void)
 {
-    if (adcProcess){
-        R_ADC_Start();
-        delayInMs(10);
+    switch (adcProcess)
+    {
+    case 10:
+        init_pcb_temperature();
+        adcProcess--;
+        break;
+    case 9:
+        R_IT_Start();
+        R_DTCD0_Start();
+        adcProcess--;
+        break;
+    case 8:
+         get_pcb_temperature(&pcbTemperature);
+         adcProcess--;
+        break;
+    case 7:
+        get_pcb_temperature(&pcbTemperature);
+        adcProcess--;
+        break;
+    case 6:
+         get_pcb_temperature(&pcbTemperature);
+         adcProcess--;
+        break;
+    case 5:
+        get_pcb_temperature(&pcbTemperature);
+        adcProcess--;
+        break;
+    case 4:
+        get_pcb_temperature(&pcbTemperature);
+        R_IT_Stop();
+        R_DTCD0_Stop();
         R_ADC_Stop();
-        delayInMs(10);
-        R_ADC_Start();
-        delayInMs(10);
-        R_ADC_Stop();
+        adcProcess=0;
+        break;   
+    
+    default:
+        adcProcess--;
+        break;
     }
-    get_pcb_temperature(&pcbTemperature);
-    adcProcess--;
 }
 
 void PT100_procedure(void){
