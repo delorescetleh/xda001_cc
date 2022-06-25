@@ -58,7 +58,10 @@ static void __near r_intc1_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
     bleProcess = 10;
-
+    R_DTCD10_Start();
+    R_UART1_Create();
+    R_UART1_Start();
+    BLE_UART_RXD_IND = PIN_LEVEL_AS_LOW;
     /* End user code. Do not edit comment generated here */
 }
 

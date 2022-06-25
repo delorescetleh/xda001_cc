@@ -106,9 +106,7 @@ static void r_rtc_callback_constperiod(void)
         count30_counter++;
         if(count30_counter>RTC_TIME_GAP){
             loraProcess = 9;
-            count30 = 0;
-            count30_counter = 0;
-            lora_rtc_counter = 0;
+            resetLoRaCounter();
         }
     }
     rtc_counter++;
@@ -127,9 +125,9 @@ static void r_rtc_callback_alarm(void)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-void rtcCounter(void){
-    // if (rtc_counter==60){
-    //     events |= (RTC_NOTIFICATION_EVENT);
-    // }
+void resetLoRaCounter(void){
+    count30 = 0;
+    count30_counter = 0;
+    lora_rtc_counter = 0;
 }
 /* End user code. Do not edit comment generated here */

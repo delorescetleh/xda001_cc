@@ -371,7 +371,7 @@ static void doBleTask_SetLoraInterval(void){
     sendToBle[1] = 0x01;
     sendToBle[2] = 0x55;
     R_UART1_Send(sendToBle,(uint8_t) 3);
-    countToEnableLoraProcess = 0;// reset relative parameter
+    resetLoRaCounter();// reset relative parameter
 }
 
 void checkAppCommand(void) {

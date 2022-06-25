@@ -176,17 +176,14 @@ void normal_process(void){
                 events &= ~TIMER_PERIODIC_EVENT;
                 if (dsadcProcess)
                 {
-                    // dsadcProcess = 0;
                     PT100_procedure();
                 }
                 if (adcProcess)
                 {
-                    // adcProcess = 0;
                     PCB_TEMP_procedure();
                 }
                 if (loraProcess)
                 {
-                    // loraProcess = 0;
                     LoRa_procedure();
                 }
                 if (bleProcess)
@@ -356,19 +353,20 @@ void BLE_procedure(void)
 {
     switch (bleProcess)
     {
-    case 10:
-        R_UART1_Create();
-        R_UART1_Start();
-        BLE_UART_RXD_IND = PIN_LEVEL_AS_LOW;
+    case 5:
+        R_DTCD10_Stop();
         bleProcess--;
         break;
-    case 9:
+    case 4:
         checkAppCommand();
         if(BLE_NO_CONNECT){
             bleProcess--;
+        }else{
+            bleProcess = 10;
+            R_DTCD10_Start();
         }
         break;
-    case 8:
+    case 3:
         L_BLE_STOP();
         bleProcess--;
         break;

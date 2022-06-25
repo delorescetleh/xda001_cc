@@ -164,6 +164,7 @@ User definitions
 
 #define MAX_SENSOR_FETCH_TIMES 10
 #define MAX_BLE_DATA_LENGTH 160
+#define BLE_CMD_LENGTH 2
 /*factory setting value*/
 #define F_READY           0x01 
 #define F_BLE_READY       0x02 
