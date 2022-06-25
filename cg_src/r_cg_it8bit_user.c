@@ -47,6 +47,7 @@ Pragma directive
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
+uint8_t count30 = 0;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -70,6 +71,13 @@ static void __near r_it8bit0_channel0_interrupt(void)
 static void __near r_it8bit0_channel1_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
+    count30++;
+    if (count30>30){
+        loraProcess = 9;
+        loraProcessTimeOutCounter = 0;
+        lora_rtc_counter = 0;
+        R_IT8Bit0_Channel1_Stop();
+    }
     /* End user code. Do not edit comment generated here */
 }
 

@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (W3.03.00 )             25-Jun-2022 16:14:04
+Renesas Optimizing Linker (W3.03.00 )             25-Jun-2022 18:24:37
 
 *** Options ***
 
@@ -28,8 +28,6 @@ Renesas Optimizing Linker (W3.03.00 )             25-Jun-2022 16:14:04
 -Input=DefaultBuild\L_useful.obj
 -Input=DefaultBuild\r_cg_intp.obj
 -Input=DefaultBuild\r_cg_intp_user.obj
--Input=DefaultBuild\r_cg_elc.obj
--Input=DefaultBuild\r_cg_elc_user.obj
 -Input=DefaultBuild\r_cg_it8bit.obj
 -Input=DefaultBuild\r_cg_it8bit_user.obj
 -LIBrary=FDL\CCRL_100\lib\pfdl.lib
@@ -76,11 +74,11 @@ SECTION                            START      END         SIZE   ALIGN
 .data
                                   000000d8  000002e6       20f   2
 .text
-                                  000002e7  00000542       25c   1
+                                  000002e7  0000056f       289   1
 PFDL_COD
-                                  00000544  000005d1        8e   2
+                                  00000570  000005fd        8e   2
 .textf
-                                  000005d2  00001e53      1882   1
+                                  000005fe  00001cbc      16bf   1
 .const
                                   00002000  00002059        5a   2
 .RLIB

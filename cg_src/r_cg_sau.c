@@ -220,9 +220,9 @@ void R_UART1_Create(void)
     SRIF1 = 0U;     /* clear INTSR1 interrupt flag */
     SREMK1 = 1U;    /* disable INTSRE1 interrupt */
     SREIF1 = 0U;    /* clear INTSRE1 interrupt flag */
-    /* Set INTSR1 level 2 priority */
+    /* Set INTSR1 low priority */
     SRPR11 = 1U;
-    SRPR01 = 0U;
+    SRPR01 = 1U;
     /* Set INTST1 low priority */
     STPR11 = 1U;
     STPR01 = 1U;

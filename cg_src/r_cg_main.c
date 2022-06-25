@@ -40,7 +40,6 @@ Includes
 #include "r_cg_sau.h"
 #include "r_cg_iica.h"
 #include "r_cg_dtc.h"
-#include "r_cg_elc.h"
 #include "r_cg_intp.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
@@ -66,8 +65,7 @@ int PT100result;
 
 
 uint8_t lora_data_ready = 0;
-uint8_t analogProcessTimeOutCounter = 0;
-uint8_t loraProcessTimeOutCounter = 0;
+
 
 uint8_t data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 uint8_t *hardWareSetting=0;
@@ -84,6 +82,12 @@ void PT100_procedure(void);
 void LoRa_procedure(void);
 void BLE_procedure(void);
 
+
+extern uint8_t dsadcProcessTimeOutCounter = 0;
+extern uint8_t adcProcessTimeOutCounter = 0;
+extern uint8_t loraProcessTimeOutCounter = 0;
+
+extern uint8_t lora_rtc_counter = 0;
 extern uint8_t bleProcess=0;
 extern uint8_t adcProcess=10;
 extern uint8_t dsadcProcess=10;
@@ -180,6 +184,8 @@ void normal_process(void){
                 }
                 if (adcProcess)
                 {
+                    init_pcb_temperature();
+                    R_DTCD0_Start();
                     PCB_TEMP_procedure();
                 }
                 if (loraProcess)
@@ -215,85 +221,64 @@ void goToSleep(void){
 
 void PCB_TEMP_procedure(void)
 {
-    switch (adcProcess)
-    {
-    case 10:
-        init_pcb_temperature();
-        adcProcess--;
-        break;
-    case 9:
-        R_IT8Bit0_Channel1_Start();
-        R_DTCD0_Start();
-        adcProcess--;
-        break;
-    case 8:
-         get_pcb_temperature(&pcbTemperature);
-         adcProcess--;
-        break;
-    case 7:
-        get_pcb_temperature(&pcbTemperature);
-        adcProcess--;
-        break;
-    case 6:
-         get_pcb_temperature(&pcbTemperature);
-         adcProcess--;
-        break;
-    case 5:
-        get_pcb_temperature(&pcbTemperature);
-        adcProcess--;
-        break;
-    case 4:
-        get_pcb_temperature(&pcbTemperature);
-        R_IT8Bit0_Channel1_Stop();
-        R_DTCD0_Stop();
+    if (adcProcess){
+        R_ADC_Start();
+        delayInMs(10);
         R_ADC_Stop();
-        adcProcess=0;
-        break;   
-    
-    default:
-        adcProcess--;
-        break;
+        delayInMs(10);
+        R_ADC_Start();
+        delayInMs(10);
+        R_ADC_Stop();
     }
+    get_pcb_temperature(&pcbTemperature);
+    adcProcess--;
 }
 
 void PT100_procedure(void){
+    dsadcProcessTimeOutCounter++;
+    if (dsadcProcessTimeOutCounter > 25)
+    {
+        dsadcProcess = 1;
+    }
     switch (dsadcProcess)
     {
-    case 10:
+    case 15:
         clr_dsadc_buf();
+        L_EEPROM_INIT();
+        R_PGA_DSAD_Create();
         dsadcProcess--;
         break;
-    case 9:
-        R_PGA_DSAD_Create();
+    case 14:
         R_PGA_DSAD_Start();
         dsadcProcess--;
         break;
-    case 8:
+    case 13:
         if (dsadc_ready)
         {
             dsadc_ready = 0;
             get_pt100_result(&PT100result);
-            R_PGA_DSAD_Stop();
+            L_PGA_STOP();
             PT100result = PT100result / 5 + 100; // Record Temperature as 0~999 (as -50degC to 450 degC)
             if (PT100result >= 1000)
             {
                 PT100result = 0; // means record value will become 0, send to Lora "000" mean ERR
             }
-            dsadcProcess--;
+            dsadcProcess=1;
         }
         break;
-    case 7:
+    case 1:
         L_PGA_STOP();
-        L_EEPROM_INIT();
-        dsadcProcess--;
-        break;
-    case 6:
         doEepromWriteRecords((uint16_t)PT100result);
         L_EEPROM_STOP();
         dsadcProcess=0;
+        dsadcProcessTimeOutCounter = 0;
         break;
+
     default:
+        if (dsadcProcess)
+        {
         dsadcProcess--;
+        }
         break;
     }
 }
@@ -302,9 +287,7 @@ void LoRa_procedure(void){
     loraProcessTimeOutCounter++;
     if (loraProcessTimeOutCounter > 15)
     {
-        loraProcess = 0;
-        loraProcessTimeOutCounter = 0;
-        L_LORA_STOP();
+        loraProcess = 1;
     }
     switch (loraProcess)
     {
@@ -338,6 +321,7 @@ void LoRa_procedure(void){
         break;
     case 1:
         L_LORA_STOP();
+        loraProcessTimeOutCounter = 0;
         loraProcess--;
         break;
     default:

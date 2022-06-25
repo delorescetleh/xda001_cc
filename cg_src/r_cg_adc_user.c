@@ -99,8 +99,6 @@ void get_pcb_temperature(int16_t *pcbTemperature){
                                     SENSOR_REF_TEMP_SCALED);
     }
     *pcbTemperature = (*pcbTemperature+temp / 4)/2;
-    // R_ADC_Stop();
-    // R_DTCD0_Stop();
 }
 
 /* End user code. Do not edit comment generated here */

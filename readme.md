@@ -39,3 +39,4 @@ What is old version function
 8. ver 0.0.1.g: add FDL module for dataflash access
 9. ver 0.0.1.h: eeprom read write success, could test by ble app command A202xxxx will return all record data
 10. ver 0.0.1.i: ble function work fine in A102,A202, command, sleep mode , 0.2mA, some mistake in dsadc and pcb process.  
+11. ver 0.0.1.j: ble function work fine in A102,A202, command, sleep mode , 0.2mA, fix dsadc and pcb temp bug 

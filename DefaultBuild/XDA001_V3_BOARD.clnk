@@ -23,8 +23,6 @@
 -Input=DefaultBuild\L_useful.obj
 -Input=DefaultBuild\r_cg_intp.obj
 -Input=DefaultBuild\r_cg_intp_user.obj
--Input=DefaultBuild\r_cg_elc.obj
--Input=DefaultBuild\r_cg_elc_user.obj
 -Input=DefaultBuild\r_cg_it8bit.obj
 -Input=DefaultBuild\r_cg_it8bit_user.obj
 -LIBrary=FDL\CCRL_100\lib\pfdl.lib

@@ -40,7 +40,6 @@ Includes
 #include "r_cg_sau.h"
 #include "r_cg_iica.h"
 #include "r_cg_dtc.h"
-#include "r_cg_elc.h"
 #include "r_cg_intp.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
@@ -84,7 +83,6 @@ void R_Systeminit(void)
     R_ADC_Create();
     R_SAU0_Create();
     R_DTC_Create();
-    R_ELC_Create();
     IAWCTL = 0x00U;
     /* Start data flash control */
     DFLEN = 1U;

@@ -40,9 +40,10 @@ User definitions
 # include "r_cg_it.h"
 #include "r_cg_it8bit.h"
 #include "r_cg_iica.h"
+#include "r_cg_rtc.h"
 // SHOULD SET TIMER LET TIME_SPEED * BASE_TIME = 1 MIN
 #define TEST_FACTORY_MODE_NOW           0x00
-#define RTC_TIME_SPEED 120
+#define RTC_TIME_SPEED 60
 #define RTC_TIME_GAP 30
 #define WORK_WITH_E1 1
 
@@ -225,5 +226,9 @@ extern uint8_t dsadcProcess;
 extern uint8_t dsadc_ready;
 extern uint8_t loraProcess;
 extern uint8_t bleProcess;
+extern uint8_t lora_rtc_counter;
+extern uint8_t dsadcProcessTimeOutCounter;
+extern uint8_t adcProcessTimeOutCounter;
+extern uint8_t loraProcessTimeOutCounter;
 /* End user code. Do not edit comment generated here */
 #endif
