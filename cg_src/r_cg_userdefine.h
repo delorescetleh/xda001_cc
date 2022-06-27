@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file includes user definition.
-* Creation Date: 2022/6/25
+* Creation Date: 2022/6/27
 ***********************************************************************************************************************/
 #ifndef _USER_DEF_H
 #define _USER_DEF_H
@@ -44,7 +44,7 @@ User definitions
 // SHOULD SET TIMER LET TIME_SPEED * BASE_TIME = 1 MIN
 #define TEST_FACTORY_MODE_NOW           0x00
 #define RTC_TIME_SPEED 60
-#define RTC_TIME_GAP 30
+#define LORA_START_TIME_DELAY_SEC 10
 #define WORK_WITH_E1 1
 
 //########################################################################
@@ -231,5 +231,6 @@ extern uint8_t dsadcProcessTimeOutCounter;
 extern uint8_t adcProcessTimeOutCounter;
 extern uint8_t loraProcessTimeOutCounter;
 extern uint8_t bleShutDownProcess;
+extern uint8_t lora_start_time_delay_count;
 /* End user code. Do not edit comment generated here */
 #endif

@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for PGIA module.
-* Creation Date: 2022/6/25
+* Creation Date: 2022/6/27
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -44,7 +44,7 @@ Pragma directive
 /* Start user code for pragma. Do not edit comment generated here */
 #pragma address (dsadc_buf=0xFF800U)
 # define DSADC_SKIP_LENGTH 0
-# define DSADC_BUF_SIZE 32
+# define DSADC_BUF_SIZE 16
 # define DSADC_RESULT_BUF_SIZE 4 
 # define DSADC_DIFF_PGA_GAIN_64 (float) 1.49012 //mV = (1.6 V /64)*(1/2^24)*1000
 # define SHIFT_20Bit_BASE_1M_ERROR (float) 0.9536743164 // 1,000,000 / 2^20  = 0.9536743164

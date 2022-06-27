@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for SAU module.
-* Creation Date: 2022/6/25
+* Creation Date: 2022/6/27
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -323,28 +323,31 @@ uint8_t doSendLoraData(uint16_t temp, uint16_t pcbTemp)
     return 1;
 }
 void L_LORA_STOP(void){
-    LORA_POW_CNT = POWER_OFF;
     R_UART0_Stop();
+    // LORA_STA_MODE_PULL_UP = PIN_LEVEL_AS_LOW;
     LORA_READY_MODE = PIN_MODE_AS_INPUT;
     UART0_TXD_MODE = PIN_MODE_AS_INPUT;
+    LORA_RESET = PIN_LEVEL_AS_LOW;
+    delayInMs(10);
+    LORA_POW_CNT = POWER_OFF;
+    delayInMs(10);
 }
 uint8_t L_LORA_INIT(void){
     memclr(receivedFromLora, maxLoraReceiveLength);
-    LORA_RESET_MODE = PIN_MODE_AS_OUTPUT;
-    LORA_READY_MODE = PIN_MODE_AS_OUTPUT;
+
     R_DTC_Create();
     R_UART0_Create();
     R_DTCD8_Start();
     R_UART0_Start();
-    LORA_RESET_MODE = PIN_MODE_AS_OUTPUT;
-    LORA_READY_MODE = PIN_MODE_AS_OUTPUT;
+
     LORA_READY = PIN_LEVEL_AS_HIGH;
 
     LORA_RESET = PIN_LEVEL_AS_LOW;
+    delayInMs(10);
     LORA_POW_CNT = PIN_LEVEL_AS_LOW;
     delayInMs(10);
     LORA_RESET = PIN_LEVEL_AS_HIGH;
-    
+    delayInMs(10);
     return 0;
 }
 
@@ -372,6 +375,7 @@ static void doBleTask_SetLoraInterval(void){
     sendToBle[2] = 0x55;
     R_UART1_Send(sendToBle,(uint8_t) 3);
     lora_rtc_counter = 0;
+    lora_start_time_delay_count = 0;
     // resetLoRaCounter();// reset relative parameter
 }
 

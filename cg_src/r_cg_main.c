@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2022/6/25
+* Creation Date: 2022/6/27
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -88,12 +88,12 @@ void BLE_ShutDown_procedure(void);
 extern uint8_t dsadcProcessTimeOutCounter = 0;
 extern uint8_t adcProcessTimeOutCounter = 0;
 extern uint8_t loraProcessTimeOutCounter = 0;
-
+extern uint8_t lora_start_time_delay_count = 0;
 extern uint8_t bleShutDownProcess = 0;
 extern uint8_t lora_rtc_counter = 0;
 extern uint8_t bleProcess=0;
 extern uint8_t adcProcess=10;
-extern uint8_t dsadcProcess=10;
+extern uint8_t dsadcProcess=15;
 extern uint8_t loraProcess = 0;
 extern uint8_t events=0;
 extern uint8_t dsadc_ready=0;
@@ -170,7 +170,7 @@ void normal_process(void){
     L_BLE_INIT();
     L_BLE_STOP();
     R_INTC1_Start();
-
+    L_LORA_STOP();
     R_RTC_Start();
     R_IT8Bit0_Channel0_Start();//400mS
     delayInMs(10);
@@ -183,19 +183,24 @@ void normal_process(void){
                 events &= ~TIMER_PERIODIC_EVENT;
                 if (dsadcProcess)
                 {
+                    // dsadcProcess = 1;
                     PT100_procedure();
                 }
                 if (adcProcess)
                 {
+                    // adcProcess = 1;
                     PCB_TEMP_procedure();
                 }
                 if (loraProcess)
                 {
-                    LoRa_procedure();
+                    loraProcess = 0;
+                    //LoRa_procedure();
                 }
                 if (bleProcess)
                 {
-                    BLE_procedure();
+                    bleProcess = 0;
+                   // bleShutDownProcess = 100;
+                   // BLE_procedure();
                 }
                 if (bleShutDownProcess)
                 {
@@ -251,14 +256,13 @@ void PCB_TEMP_procedure(void)
         break;
     case 5:
         get_pcb_temperature(&pcbTemperature);
-        adcProcess--;
+        adcProcess=1;
         break;
-    case 4:
-        get_pcb_temperature(&pcbTemperature);
+    case 1:
         R_IT_Stop();
         R_DTCD0_Stop();
         R_ADC_Stop();
-        adcProcess=0;
+        adcProcess--;
         break;   
     
     default:
@@ -303,8 +307,8 @@ void PT100_procedure(void){
         L_PGA_STOP();
         doEepromWriteRecords((uint16_t)PT100result);
         L_EEPROM_STOP();
-        dsadcProcess=0;
         dsadcProcessTimeOutCounter = 0;
+        dsadcProcess--;
         break;
 
     default:
@@ -326,7 +330,7 @@ void LoRa_procedure(void){
     {
     case 9:
         L_LORA_INIT();
-        LORA_STA_MODE_PULL_UP = PIN_LEVEL_AS_HIGH;
+        // LORA_STA_MODE_PULL_UP = PIN_LEVEL_AS_HIGH;
         LORA_READY_MODE = PIN_MODE_AS_OUTPUT;
         loraProcess--;
         break;
@@ -349,8 +353,7 @@ void LoRa_procedure(void){
         }
         break;
     case 4: // stop lora process
-        LORA_STA_MODE_PULL_UP = PIN_LEVEL_AS_LOW;
-        loraProcess--;
+        loraProcess=1;
         break;
     case 1:
         L_LORA_STOP();
@@ -385,7 +388,7 @@ void BLE_procedure(void)
             }
         }
         break;
-    case 3:
+    case 1:
         L_BLE_STOP();
         bleProcess--;
         break;
@@ -414,7 +417,6 @@ void BLE_ShutDown_procedure(void)
         // BLE_RESET_MODE = PIN_MODE_AS_INPUT;
         BLE_UART_RXD_IND_MODE = PIN_MODE_AS_INPUT;
         delayInMs(30);
-        delayInMs(2);
         bleShutDownProcess --;
         break;
     
