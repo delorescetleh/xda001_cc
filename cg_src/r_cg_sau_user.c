@@ -375,6 +375,12 @@ static void doBleTask_SetLoraInterval(void){
     // resetLoRaCounter();// reset relative parameter
 }
 
+static void doBleTask_ShutDownBle(void){
+    R_INTC1_Stop();
+    bleProcess = 1; // count down to shut down BLE
+    bleShutDownProcess = 100;
+}
+
 void checkAppCommand(void) {
     uint8_t offset;
     if (offset=memcmp(receivedFromBle,APP_SET_LORA_INTERVAL,2,160)){
@@ -395,7 +401,8 @@ void checkAppCommand(void) {
     } else if (offset=memcmp(receivedFromBle,APP_SHUT_DOWN_BLE,2,160))
     {
         if (offset<158){
-            appParam = receivedFromBle + offset + 1;
+	    appParam = receivedFromBle + offset + 1;
+            doBleTask_ShutDownBle();
         }
         memclr(receivedFromBle, 160);
         reset_DTC10();
@@ -427,7 +434,7 @@ uint8_t L_BLE_INIT(void){
     R_UART1_Create();
     R_UART1_Start();
     BLE_RESET = PIN_LEVEL_AS_LOW;
-    BLE_POW_CNT = PIN_LEVEL_AS_LOW;
+    BLE_POW_CNT = POWER_ON;
     delayInMs(2);
     BLE_RESET = PIN_LEVEL_AS_HIGH;
 

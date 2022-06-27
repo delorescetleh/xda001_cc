@@ -230,5 +230,6 @@ extern uint8_t lora_rtc_counter;
 extern uint8_t dsadcProcessTimeOutCounter;
 extern uint8_t adcProcessTimeOutCounter;
 extern uint8_t loraProcessTimeOutCounter;
+extern uint8_t bleShutDownProcess;
 /* End user code. Do not edit comment generated here */
 #endif

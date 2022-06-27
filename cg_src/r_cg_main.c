@@ -83,12 +83,13 @@ void PCB_TEMP_procedure(void);
 void PT100_procedure(void);
 void LoRa_procedure(void);
 void BLE_procedure(void);
-
+void BLE_ShutDown_procedure(void);
 
 extern uint8_t dsadcProcessTimeOutCounter = 0;
 extern uint8_t adcProcessTimeOutCounter = 0;
 extern uint8_t loraProcessTimeOutCounter = 0;
 
+extern uint8_t bleShutDownProcess = 0;
 extern uint8_t lora_rtc_counter = 0;
 extern uint8_t bleProcess=0;
 extern uint8_t adcProcess=10;
@@ -196,11 +197,15 @@ void normal_process(void){
                 {
                     BLE_procedure();
                 }
+                if (bleShutDownProcess)
+                {
+                    BLE_ShutDown_procedure();
+                }
             }
         }
         if (BLE_NO_CONNECT)
         {
-            if ((!dsadc_ready) & (!loraProcess) & (!adcProcess))
+            if ((!dsadc_ready) & (!loraProcess) & (!adcProcess)& (!bleShutDownProcess))
             {
                 goToSleep();
             }
@@ -371,20 +376,53 @@ void BLE_procedure(void)
         break;
     case 4:
         checkAppCommand();
-        if(BLE_NO_CONNECT){
-            bleProcess--;
-        }else{
-            bleProcess = 10;
-            R_DTCD10_Start();
+        if (!bleShutDownProcess){
+            if(BLE_NO_CONNECT){
+                bleProcess=1;
+            }else{
+                bleProcess = 10;
+                R_DTCD10_Start();
+            }
         }
         break;
     case 3:
         L_BLE_STOP();
         bleProcess--;
         break;
-
     default:
+    if(bleProcess)
         bleProcess--;
+        break;
+    }
+}
+
+void BLE_ShutDown_procedure(void)
+{
+
+    switch (bleShutDownProcess)
+    {
+    case 100:
+        R_INTC1_Stop();
+        L_BLE_STOP();
+        bleShutDownProcess--;
+        break;
+    case 40:
+        BLE_RESET_MODE = PIN_MODE_AS_OUTPUT;
+        BLE_RESET = PIN_LEVEL_AS_LOW;
+        BLE_POW_CNT = POWER_OFF;
+        delayInMs(2);
+        // BLE_RESET_MODE = PIN_MODE_AS_INPUT;
+        BLE_UART_RXD_IND_MODE = PIN_MODE_AS_INPUT;
+        delayInMs(30);
+        delayInMs(2);
+        bleShutDownProcess --;
+        break;
+    
+    default:
+        if(bleShutDownProcess){
+        bleShutDownProcess--;
+        }
+
         break;
     }
 }
