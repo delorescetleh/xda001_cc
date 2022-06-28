@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for IT8Bit module.
-* Creation Date: 2022/6/27
+* Creation Date: 2022/6/28
 ***********************************************************************************************************************/
 #ifndef IT8BIT_H
 #define IT8BIT_H
@@ -73,7 +73,7 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define _CC_IT8BIT_CMP00_VALUE                (0xCCU) /* 8-bit interval timer compare register 00 */
+#define _FF_IT8BIT_CMP00_VALUE                (0xFFU) /* 8-bit interval timer compare register 00 */
 #define _FF_IT8BIT_CMP01_VALUE                (0xFFU) /* 8-bit interval timer compare register 01 */
 
 /***********************************************************************************************************************

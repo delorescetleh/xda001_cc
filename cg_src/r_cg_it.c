@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for IT module.
-* Creation Date: 2022/6/27
+* Creation Date: 2022/6/28
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -62,7 +62,7 @@ void R_IT_Create(void)
     /* Set INTIT low priority */
     TMKAPR1 = 1U;
     TMKAPR0 = 1U;
-    ITMC = _0CCC_ITCMP_VALUE;
+    ITMC = _0F5B_ITCMP_VALUE;
 }
 /***********************************************************************************************************************
 * Function Name: R_IT_Start

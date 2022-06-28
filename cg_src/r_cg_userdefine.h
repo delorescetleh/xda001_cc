@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file includes user definition.
-* Creation Date: 2022/6/27
+* Creation Date: 2022/6/28
 ***********************************************************************************************************************/
 #ifndef _USER_DEF_H
 #define _USER_DEF_H
@@ -101,17 +101,20 @@ User definitions
 #define UART1_TXD_MODE         PM5_bit.no0
 #define UART0_TXD_MODE         PM3_bit.no7
 
+
+#define LORA_PROGRAMMING  P0_bit.no7// P3_bit.no2
 #define LORA_READY  P3_bit.no2// P3_bit.no2
 #define LORA_READY_MODE   PM3_bit.no2
 #define LORA_RESET  P3_bit.no5//P3_bit.no5
 #define LORA_RESET_MODE   PM3_bit.no5
 #define LORA_STA    P7_bit.no0
-#define LORA_STA_MODE   PM7_bit.no0
-#define LORA_STA_MODE_PULL_UP PU7_bit.no0
+// #define LORA_STA_MODE   PM7_bit.no0
+// #define LORA_STA_MODE_PULL_UP PU7_bit.no0
 
 #define LORA_POW_CNT    P7_bit.no1
 
-
+#define MAX_LORA_RECEIVE 6
+#define MAX_ADC_BUF 8
 
 #define PIN_MODE_AS_INPUT 1U
 #define PIN_MODE_AS_OUTPUT 0U

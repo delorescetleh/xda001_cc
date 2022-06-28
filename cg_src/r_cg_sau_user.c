@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for SAU module.
-* Creation Date: 2022/6/27
+* Creation Date: 2022/6/28
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -63,9 +63,9 @@ extern volatile uint16_t  g_uart1_rx_length;           /* uart1 receive data len
 /* Start user code for global. Do not edit comment generated here */
 uint8_t portP3Status=0;
 uint8_t sendToLora[20];
-uint8_t receivedFromLora[20];
+uint8_t receivedFromLora[MAX_LORA_RECEIVE];
 uint8_t LoraReceivedEnd;
-uint8_t maxLoraReceiveLength=18;
+// uint8_t maxLoraReceiveLength=6;
 
 uint8_t LORA_ID[4];
 uint8_t receivedFromBle[160];
@@ -288,25 +288,14 @@ static void r_uart1_callback_error(uint8_t err_type)
 
 /* Start user code for adding. Do not edit comment generated here */
 uint8_t checkLoraMessage(void){
-    int i=5 ,j=4;
-    R_DTCD8_Stop();
-    while (1)
-    	{
-        	if(receivedFromLora[i] == '}'){
-                while (j)
-                {
-                    i--;
-                    setBleDeviceNameCommand[j+6]=(receivedFromLora[i]);
-                    j--;
-                }
-                return 1;
-        }
-        i++;
-        if(i>20){
-            break;
-        }
+    if (receivedFromLora[MAX_LORA_RECEIVE-1]=='}')
+    {
+        setBleDeviceNameCommand[7] = receivedFromLora[1];
+        setBleDeviceNameCommand[8] = receivedFromLora[2];
+        setBleDeviceNameCommand[9] = receivedFromLora[3];
+        setBleDeviceNameCommand[10] = receivedFromLora[4];
+        return 1;
     }
-    R_DTCD8_Start();
     return 0;
 }
 uint8_t doSendLoraData(uint16_t temp, uint16_t pcbTemp)
@@ -327,21 +316,19 @@ void L_LORA_STOP(void){
     // LORA_STA_MODE_PULL_UP = PIN_LEVEL_AS_LOW;
     LORA_READY_MODE = PIN_MODE_AS_INPUT;
     UART0_TXD_MODE = PIN_MODE_AS_INPUT;
-    LORA_RESET = PIN_LEVEL_AS_LOW;
+    //LORA_RESET = PIN_LEVEL_AS_LOW;
     delayInMs(10);
-    LORA_POW_CNT = POWER_OFF;
+    //LORA_POW_CNT = POWER_OFF;
     delayInMs(10);
 }
 uint8_t L_LORA_INIT(void){
-    memclr(receivedFromLora, maxLoraReceiveLength);
+    memclr(receivedFromLora, MAX_LORA_RECEIVE);
 
-    R_DTC_Create();
     R_UART0_Create();
-    R_DTCD8_Start();
     R_UART0_Start();
-
+    R_UART0_Receive(receivedFromLora, (uint16_t)MAX_LORA_RECEIVE);
+    LORA_READY_MODE = PIN_MODE_AS_OUTPUT;
     LORA_READY = PIN_LEVEL_AS_HIGH;
-
     LORA_RESET = PIN_LEVEL_AS_LOW;
     delayInMs(10);
     LORA_POW_CNT = PIN_LEVEL_AS_LOW;
@@ -374,9 +361,8 @@ static void doBleTask_SetLoraInterval(void){
     sendToBle[1] = 0x01;
     sendToBle[2] = 0x55;
     R_UART1_Send(sendToBle,(uint8_t) 3);
-    lora_rtc_counter = 0;
-    lora_start_time_delay_count = 0;
-    // resetLoRaCounter();// reset relative parameter
+    // lora_rtc_counter = 0;
+    resetLoRaCounter();// reset relative parameter
 }
 
 static void doBleTask_ShutDownBle(void){

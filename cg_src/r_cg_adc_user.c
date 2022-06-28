@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for ADC module.
-* Creation Date: 2022/6/27
+* Creation Date: 2022/6/28
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -41,8 +41,8 @@ Pragma directive
 ***********************************************************************************************************************/
 #pragma interrupt r_adc_interrupt(vect=INTAD)
 /* Start user code for pragma. Do not edit comment generated here */
-#pragma address (adc_buf = 0xFF900U)
-#pragma address (ads_buf = 0xFFa00U)
+// #pragma address (adc_buf = 0xFF900U)
+// #pragma address (ads_buf = 0xFFa00U)
 #define SENSOR_REF_TEMP_SCALED (250)
 #define INT_REF_V_SCALED (145000L)
 #define INT_REF_TEMP_SCALED (105000L)
@@ -53,10 +53,11 @@ Pragma directive
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
-volatile uint16_t adc_buf[8];
-volatile uint8_t ads_buf[8];
+volatile uint16_t adc_buf[MAX_ADC_BUF];
+volatile uint8_t ads_buf[MAX_ADC_BUF];
 uint32_t ADCtemp=0,ADCvolt=0;
 int16_t g_tempv_int;
+int16_t adcIndex=MAX_ADC_BUF;
 // uint8_t adc_counter = 0;
 /* End user code. Do not edit comment generated here */
 
@@ -69,11 +70,20 @@ int16_t g_tempv_int;
 static void __near r_adc_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
-    // adc_counter++;
-    // if (adc_counter>8){
-    //     events |= PCB_TEMPERATURE_NOTIFICATION_EVENT;
-    //     adc_counter = 0;
-    // }
+    switch (ADS)
+    {
+    case _80_AD_INPUT_TEMPERSENSOR:
+        ADS = _81_AD_INPUT_INTERREFVOLT;
+        break;
+    case _81_AD_INPUT_INTERREFVOLT:
+        ADS = _80_AD_INPUT_TEMPERSENSOR;
+        break;
+    }
+    adcIndex--;
+    R_ADC_Get_Result(&adc_buf[adcIndex]);
+    if (adcIndex==0){
+        adcIndex = MAX_ADC_BUF;
+    }
     /* End user code. Do not edit comment generated here */
 }
 

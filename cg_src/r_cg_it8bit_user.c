@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for IT8Bit module.
-* Creation Date: 2022/6/27
+* Creation Date: 2022/6/28
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -71,13 +71,6 @@ static void __near r_it8bit0_channel0_interrupt(void)
 static void __near r_it8bit0_channel1_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
-            lora_start_time_delay_count--;
-    if (!lora_start_time_delay_count)
-    {
-        loraProcess = 9;
-        loraProcessTimeOutCounter = 0;
-        R_IT8Bit0_Channel1_Stop();
-    }
     /* End user code. Do not edit comment generated here */
 }
 

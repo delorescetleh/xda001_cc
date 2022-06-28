@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for RTC module.
-* Creation Date: 2022/6/27
+* Creation Date: 2022/6/28
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -47,7 +47,8 @@ Pragma directive
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
-uint16_t rtc_counter = RTC_TIME_SPEED;
+uint16_t rtc_counter = 0;
+uint8_t lora_rtc_counter = 0;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -83,25 +84,20 @@ static void __near r_rtc_interrupt(void)
 static void r_rtc_callback_constperiod(void)
 {
     /* Start user code. Do not edit comment generated here */
-    if (rtc_counter%RTC_TIME_SPEED==0){
+    if (!rtc_counter)
+    {
+        rtc_counter = RTC_TIME_SPEED;
         adcProcess=10;
-    }
-    if (rtc_counter%RTC_TIME_SPEED==0){
         dsadcProcess=15;
         dsadcProcessTimeOutCounter = 0;
-    }
-
-    if (rtc_counter > RTC_TIME_SPEED)
-    {
-        rtc_counter = 0;
-        if (lora_rtc_counter==loraProcessIntervalTime){
-            lora_start_time_delay_count = LORA_START_TIME_DELAY_SEC;
-            lora_rtc_counter = 0;
-            R_IT8Bit0_Channel1_Start();//30 sec counter
+        if (!(lora_rtc_counter)){
+            lora_rtc_counter = loraProcessIntervalTime;
+            loraProcess = 9;
+            loraProcessTimeOutCounter = 0;
         }
-        lora_rtc_counter++;
+        lora_rtc_counter--;
     }
-    rtc_counter++;
+    rtc_counter--;
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************
@@ -117,9 +113,7 @@ static void r_rtc_callback_alarm(void)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-// void resetLoRaCounter(void){
-//     count30 = 0;
-//     count30_counter = 0;
-//     lora_rtc_counter = 0;
-// }
+void resetLoRaCounter(void){
+    lora_rtc_counter = loraProcessIntervalTime;
+}
 /* End user code. Do not edit comment generated here */

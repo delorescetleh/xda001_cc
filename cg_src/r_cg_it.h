@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for IT module.
-* Creation Date: 2022/6/27
+* Creation Date: 2022/6/28
 ***********************************************************************************************************************/
 #ifndef IT_H
 #define IT_H
@@ -42,7 +42,7 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define _0CCC_ITCMP_VALUE                 (0x0CCCU) /* specification of the 12-bit interval timer compare value */
+#define _0F5B_ITCMP_VALUE                 (0x0F5BU) /* specification of the 12-bit interval timer compare value */
 
 /***********************************************************************************************************************
 Typedef definitions

@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for PGIA module.
-* Creation Date: 2022/6/27
+* Creation Date: 2022/6/28
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -207,7 +207,6 @@ void get_pt100_result(int *result){
 
     // pt100=pt100*DSADC_DIFF_PGA_GAIN_64/SHIFT_12Bit_BASE_1M_ERROR/Ipt100;//ohm
     *result = ((int)pt100 - PT100_BASE) / PT100_TEMPERATURE_RATE;
-    L_PGA_STOP();
 }
 
 
