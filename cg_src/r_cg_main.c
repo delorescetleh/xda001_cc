@@ -78,8 +78,10 @@ void PT100_procedure(void);
 void LoRa_procedure(void);
 void BLE_procedure(void);
 void BLE_ShutDown_procedure(void);
+void calibrationIpt100(void);
 
-
+extern float Ipt100=0.00154155;
+extern uint32_t K=1;
 extern uint8_t analogProcessDone = 0;
 extern uint8_t dsadcProcessTimeOutCounter = 0;
 extern uint8_t adcProcessTimeOutCounter = 0;
@@ -305,9 +307,10 @@ void PT100_procedure(void){
         dsadcProcess--;
         break;
     case 13:
-        if (dsadc_ready)
+        if ((dsadc_ready)&(!adcProcess))
         {
             dsadc_ready = 0;
+            calibrationIpt100();
             get_pt100_result(&PT100result);
             dsadcProcess--;
         }
@@ -453,5 +456,9 @@ void BLE_ShutDown_procedure(void)
 
         break;
     }
+}
+void calibrationIpt100(void){
+    Ipt100 = (float) pcbTemperature * K; // Ipt100 = 0.0154 @ PCB temperature in 30 degC  ~ 0.0190 @ PCB temperature in 60degC
+    Ipt100 = 0.00154155;
 }
 /* End user code. Do not edit comment generated here */

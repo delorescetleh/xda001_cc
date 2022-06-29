@@ -64,7 +64,7 @@ uint32_t ds_adc_result0[DSADC_RESULT_BUF_SIZE];
 uint32_t ds_adc_result1[DSADC_RESULT_BUF_SIZE];
 uint32_t ds_adc_result2[DSADC_RESULT_BUF_SIZE];
 uint32_t ds_adc_result3[DSADC_RESULT_BUF_SIZE];
-float Ipt100=0.00154155;
+
 uint32_t ds_adc_result4[DSADC_RESULT_BUF_SIZE];
 
 
