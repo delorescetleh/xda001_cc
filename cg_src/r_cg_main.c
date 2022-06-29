@@ -230,7 +230,7 @@ void normal_process(void){
         }
         if ((BLE_NO_CONNECT)||(bleShutDown))
         {
-            if ((!dsadc_ready) & (!loraProcess) & (!adcProcess)& (!bleShutDownProcess))
+            if ((!dsadcProcess) & (!loraProcess) & (!adcProcess)& (!bleShutDownProcess))
             {
                 goToSleep();
             }
