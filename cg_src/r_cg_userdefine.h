@@ -103,15 +103,15 @@ User definitions
 #define UART0_TXD_MODE         PM3_bit.no7
 
 
-#define LORA_PROGRAMMING  P0_bit.no7// P3_bit.no2
+#define IS_LORA_PROGRAMMING  !(P0_bit.no7)// P3_bit.no2
+#define IN_FACTORY  !(P0_bit.no6)// P3_bit.no2
+
 #define LORA_READY  P3_bit.no2// P3_bit.no2
 #define LORA_READY_MODE   PM3_bit.no2
 #define LORA_RESET  P3_bit.no5//P3_bit.no5
 #define LORA_RESET_MODE   PM3_bit.no5
 #define LORA_STA    P7_bit.no0
 // #define LORA_STA_MODE   PM7_bit.no0
-
-
 #define LORA_POW_CNT    P7_bit.no1
 
 #define MAX_LORA_RECEIVE 6
@@ -204,7 +204,7 @@ User definitions
 
 /* BLE MESSAGE*/
 
- #define BLE_TOTAL_FACTORY_SETTING_COMMAND_NUMBER 7
+#define BLE_TOTAL_FACTORY_SETTING_COMMAND_NUMBER 7
 #define BLE_FACTORY_SETTING_FINISH 0xFF
 #define BLE_SHUT_DOWN 0xA5
 
@@ -213,12 +213,7 @@ User definitions
 #define SENSOR_FETCH_TIMES 4
 #define eepromIndexStorageAddressinEEPROM 90000
 
-/* BLE Struct */
-typedef enum mode
-{
-  FACTORY_MODE = 0,
-  NORMAL_MODE = 1
-} mode_t;
+
 
 extern uint8_t events;
 extern uint8_t loraProcessIntervalTime;

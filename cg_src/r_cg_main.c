@@ -59,20 +59,15 @@ Global variables and functions
 /* Start user code for global. Do not edit comment generated here */
 // volatile unsigned char EVENTS;
 volatile unsigned char dataFlash;
-mode_t Mode = NORMAL_MODE;
 int16_t pcbTemperature=250;
 int PT100result;
-
-
 uint8_t lora_data_ready = 0;
-
-
 uint8_t data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 uint8_t *hardWareSetting=0;
 uint8_t *factorySetting=0;
 uint8_t bleShutDown = 0;
 
-void process(mode_t Mode);
+void lora_programming_process(void);
 void normal_process(void);
 void factory_process(void);
 void goToSleep(void);
@@ -83,6 +78,7 @@ void PT100_procedure(void);
 void LoRa_procedure(void);
 void BLE_procedure(void);
 void BLE_ShutDown_procedure(void);
+
 
 extern uint8_t analogProcessDone = 0;
 extern uint8_t dsadcProcessTimeOutCounter = 0;
@@ -120,12 +116,14 @@ void main(void)
     LORA_POW_CNT = POWER_OFF; /* LORA_RESET Should be output mode and set to low make sure lora module no working when system start*/ 
     BLE_POW_CNT = POWER_OFF; /* Take Max 300mA */ 
     EPROM_POW_CNT = POWER_OFF;/* Take Max 30mA */ 
-    if (!LORA_PROGRAMMING){
-        Mode = FACTORY_MODE;
+    
+    if (IS_LORA_PROGRAMMING){
+        lora_programming_process();
+    }else if (IN_FACTORY){
+        factory_process();
     }else{
-        Mode = NORMAL_MODE;
+        normal_process();
     }
-    process(Mode);
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************
@@ -142,16 +140,25 @@ static void R_MAIN_UserInit(void)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-void process(mode_t Mode){
-    if (Mode==FACTORY_MODE){
-        factory_process();
-    } else{
-        normal_process();
-    }
+void factory_process(void){
+    // while (0)
+    // {
+    //      if (events & TIMER_PERIODIC_EVENT) // R_IT8Bit0_Channel0 , 1s
+    //     {
+    //         events &= ~TIMER_PERIODIC_EVENT;
+	//     }
+    // }
+    // if(L_BLE_INIT())
+    // {
+    //    L_BLE_FACTORY_MODE_SETTING();
+    //     delayInMs(100);
+    //     set_TXD1_as_Input_Mode();
+    //     L_BLE_STOP();
+    // }
+    // goToSleep();
 }
 
-void factory_process(void){
-
+void lora_programming_process(void){
     R_INTC1_Stop();
     L_BLE_STOP();
     R_ADC_Stop();
@@ -173,21 +180,6 @@ void factory_process(void){
     while(1){
          goToSleep();
     }
-    // while (0)
-    // {
-    //      if (events & TIMER_PERIODIC_EVENT) // R_IT8Bit0_Channel0 , 1s
-    //     {
-    //         events &= ~TIMER_PERIODIC_EVENT;
-	//     }
-    // }
-    // if(L_BLE_INIT())
-    // {
-    //    L_BLE_FACTORY_MODE_SETTING();
-    //     delayInMs(100);
-    //     set_TXD1_as_Input_Mode();
-    //     L_BLE_STOP();
-    // }
-    // goToSleep();
 }
 
 void normal_process(void){
