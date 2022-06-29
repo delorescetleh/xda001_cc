@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file includes user definition.
-* Creation Date: 2022/6/28
+* Creation Date: 2022/6/29
 ***********************************************************************************************************************/
 #ifndef _USER_DEF_H
 #define _USER_DEF_H
@@ -93,7 +93,8 @@ User definitions
 
 #define BLE_STATUS_1          P12_bit.no1
 #define BLE_NO_CONNECT        P12_bit.no1
-#define BLE_NO_CONNECT_MODE         PM12_bit.no1
+#define BLE_NO_CONNECT_MODE   PM12_bit.no1
+#define BLE_NO_CONNECT_MODE_PULL_UP PU12_bit.no1
 
 #define BLE_RESET         P5_bit.no2
 #define BLE_RESET_MODE         PM5_bit.no2//PM5_bit.no2
@@ -109,7 +110,7 @@ User definitions
 #define LORA_RESET_MODE   PM3_bit.no5
 #define LORA_STA    P7_bit.no0
 // #define LORA_STA_MODE   PM7_bit.no0
-// #define LORA_STA_MODE_PULL_UP PU7_bit.no0
+
 
 #define LORA_POW_CNT    P7_bit.no1
 

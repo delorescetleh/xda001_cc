@@ -173,13 +173,12 @@ Amplifier unit 3 : Amplifier ELC trigger 3</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Resolution setting</td><td bgColor="#CCFFFF">10 bits</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">VREF(+) setting</td><td bgColor="#CCFFFF">VDD</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">VREF(-) setting</td><td bgColor="#CCFFFF">VSS</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Trigger mode setting</td><td bgColor="#CCFFFF">Hardware trigger wait mode</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Hardware trigger wait mode</td><td bgColor="#CCFFFF">ELC</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Trigger mode setting</td><td bgColor="#CCFFFF">Software trigger mode</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Operation mode setting</td><td bgColor="#CCFFFF">Continuous mode</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Analog input selection</td><td bgColor="#CCFFFF">ANI8, </td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">A/D channel selection</td><td bgColor="#CCFFFF">Temperature sensor output voltage</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Conversion time mode</td><td bgColor="#CCFFFF">Normal 1</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Conversion time</td><td bgColor="#CCFFFF">864/fCLK, 54(£gs)</td></tr>
+<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Conversion time</td><td bgColor="#CCFFFF">608/fCLK, 38(£gs)</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Conversion result upper/lower bound value setting</td><td bgColor="#CCFFFF">Generates an interrupt request (INTAD) when ADLL ? ADCR ? ADUL</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Upper bound (ADUL) value</td><td bgColor="#CCFFFF">255</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Lower bound (ADLL) value</td><td bgColor="#CCFFFF">0</td></tr>
@@ -246,32 +245,10 @@ Amplifier unit 3 : Amplifier ELC trigger 3</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">DTC</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">BaseAddress</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">DTC base address</td><td bgColor="#CCFFFF">0xffd00</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">DTCDSource0</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Control data0 (DTCD0)</td><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Chain transfer</td><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Activation sources</td><td bgColor="#CCFFFF">10-bit A/D conversion end</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">DTCDSource1</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Control data1 (DTCD1)</td><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Chain transfer</td><td bgColor="#CCFFFF">Unused</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Activation sources</td><td bgColor="#CCFFFF">10-bit A/D conversion end</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">DTCDSource10</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Control data10 (DTCD10)</td><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Chain transfer</td><td bgColor="#CCFFFF">Unused</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Activation sources</td><td bgColor="#CCFFFF">UART1 reception transfer end</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">DTCD0</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Transfer mode setting</td><td bgColor="#CCFFFF">Normal mode</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Transfer data size setting</td><td bgColor="#CCFFFF">16 bits</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Source address</td><td bgColor="#CCFFFF">0xFF1E,Address fixed</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Destination address</td><td bgColor="#CCFFFF">0xF900,Address incremented</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Count</td><td bgColor="#CCFFFF">8</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Block size</td><td bgColor="#CCFFFF">2</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">DTCD1</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Transfer mode setting</td><td bgColor="#CCFFFF">Normal mode</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Transfer data size setting</td><td bgColor="#CCFFFF">8 bits</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Source address</td><td bgColor="#CCFFFF">0xFA00,Address incremented</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Destination address</td><td bgColor="#CCFFFF">0xFF31,Address fixed</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Count</td><td bgColor="#CCFFFF">8</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Block size</td><td bgColor="#CCFFFF">1</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">DTCD10</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Transfer mode setting</td><td bgColor="#CCFFFF">Repeat mode</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Transfer data size setting</td><td bgColor="#CCFFFF">8 bits</td></tr>
@@ -281,11 +258,7 @@ Amplifier unit 3 : Amplifier ELC trigger 3</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Destination address</td><td bgColor="#CCFFFF">0xFC00,(The lower 8 bits of the initial value for the repeat area address must be 00h)</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Count</td><td bgColor="#CCFFFF">160</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Block size</td><td bgColor="#CCFFFF">1</td></tr>
-<tr><td bgColor="#CCFFFF">Event Link Controller</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">ELC</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">ELSELR0</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">A/D converter</td><td bgColor="#CCFFFF">Used</td></tr>
-<tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Event generation sourc</td><td bgColor="#CCFFFF">Compare match of 12-bit interval timer</td></tr>
+<tr><td bgColor="#CCFFFF">Event Link Controller</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Unused</td></tr>
 <tr><td bgColor="#CCFFFF">Interrupt Function</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">INTP</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>
 <tr><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">INTP1</td><td bgColor="#CCFFFF" /><td bgColor="#CCFFFF">Used</td></tr>

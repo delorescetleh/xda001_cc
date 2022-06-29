@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for RTC module.
-* Creation Date: 2022/6/28
+* Creation Date: 2022/6/29
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -86,6 +86,7 @@ static void r_rtc_callback_constperiod(void)
     /* Start user code. Do not edit comment generated here */
     if (!rtc_counter)
     {
+        R_IT8Bit0_Channel0_Start();
         rtc_counter = RTC_TIME_SPEED;
         adcProcess=10;
         dsadcProcess=15;

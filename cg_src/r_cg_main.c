@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2022/6/28
+* Creation Date: 2022/6/29
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -70,6 +70,7 @@ uint8_t lora_data_ready = 0;
 uint8_t data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 uint8_t *hardWareSetting=0;
 uint8_t *factorySetting=0;
+uint8_t bleShutDown = 0;
 
 void process(mode_t Mode);
 void normal_process(void);
@@ -233,7 +234,7 @@ void normal_process(void){
                 }
             }
         }
-        if (BLE_NO_CONNECT)
+        if ((BLE_NO_CONNECT)||(bleShutDown))
         {
             if ((!dsadc_ready) & (!loraProcess) & (!adcProcess)& (!bleShutDownProcess))
             {
@@ -244,6 +245,7 @@ void normal_process(void){
 }
 
 void goToSleep(void){
+    R_IT8Bit0_Channel0_Stop();
     if (P_TEST)
     {
         HALT();
@@ -260,37 +262,31 @@ void PCB_TEMP_procedure(void)
     {
     case 10:
         init_pcb_temperature();
+        R_ADC_Create();
         adcProcess--;
         break;
     case 9:
-        // R_DTCD0_Start();
         R_ADC_Start();
         adcProcess--;
         break;
+    case 8:
+        get_pcb_temperature(&pcbTemperature);
+        adcProcess--;
+        break;    
     case 7:
         get_pcb_temperature(&pcbTemperature);
         adcProcess--;
         break;
-    case 5:
+    case 6:
         get_pcb_temperature(&pcbTemperature);
-        adcProcess--;
+        adcProcess=1;
         break;
-    case 3:
+    case 1:
         get_pcb_temperature(&pcbTemperature);
-        // R_DTCD0_Stop();
         R_ADC_Stop();
-         adcProcess--;
-        break;
-    // case 1:
-    //     get_pcb_temperature(&pcbTemperature);
-    //     adcProcess=1;
-    //     break;
-    // case 1:
-    //     // get_pcb_temperature(&pcbTemperature);
-
-    //     adcProcess--;
-    //     break;   
-    
+        ADCEN = 0U;
+        adcProcess--;
+        break;    
     default:
         adcProcess--;
         break;
@@ -340,12 +336,12 @@ void PT100_procedure(void){
     case 10:
         L_EEPROM_STOP();
         dsadcProcessTimeOutCounter = 0;
+        dsadcProcess=1;
+        break;
+    case 1:
+        dsadcProcessTimeOutCounter = 0;
         dsadcProcess--;
         break;
-    // case 1:
-    //     dsadcProcessTimeOutCounter = 0;
-    //     dsadcProcess--;
-    //     break;
     default:
         if (dsadcProcess)
         dsadcProcess--;
@@ -383,7 +379,7 @@ void LoRa_procedure(void){
     case 5:
         if (LORA_STA) // LORA_STA Turn High means Lora got
         {
-            loraProcess=1;
+            loraProcess--;
         }
         break;
     // case 4: // stop lora process
@@ -421,6 +417,8 @@ void BLE_procedure(void)
                 bleProcess = 10;
                 R_DTCD10_Start();
             }
+        }else{
+            bleProcess=1;
         }
         break;
     case 1:
@@ -439,20 +437,21 @@ void BLE_ShutDown_procedure(void)
 
     switch (bleShutDownProcess)
     {
-    case 100:
+    case 200:
         R_INTC1_Stop();
         L_BLE_STOP();
         bleShutDownProcess--;
         break;
-    case 40:
+    case 190:
         BLE_RESET_MODE = PIN_MODE_AS_OUTPUT;
         BLE_RESET = PIN_LEVEL_AS_LOW;
         BLE_POW_CNT = POWER_OFF;
         delayInMs(2);
-        // BLE_RESET_MODE = PIN_MODE_AS_INPUT;
+        BLE_RESET_MODE = PIN_MODE_AS_INPUT;
         BLE_UART_RXD_IND_MODE = PIN_MODE_AS_INPUT;
         delayInMs(30);
-        bleShutDownProcess --;
+        bleShutDown = 1;
+        bleShutDownProcess=1;
         break;
     
     default:

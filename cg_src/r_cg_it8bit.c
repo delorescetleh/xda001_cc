@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for IT8Bit module.
-* Creation Date: 2022/6/28
+* Creation Date: 2022/6/29
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -63,8 +63,8 @@ void R_IT8Bit0_Channel0_Create(void)
     ITPR100 = 1U;
     ITPR000 = 1U;
     TRTCR0 |= _00_IT8BIT_8BIT_COUNT_MODE;
-    TRTMD0 |= _07_IT8BIT_CLOCK0_128;
-    TRTCMP00 = _FF_IT8BIT_CMP00_VALUE;
+    TRTMD0 |= _05_IT8BIT_CLOCK0_32;
+    TRTCMP00 = _CC_IT8BIT_CMP00_VALUE;
 }
 /***********************************************************************************************************************
 * Function Name: R_IT8Bit0_Channel0_Start

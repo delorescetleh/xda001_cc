@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for SAU module.
-* Creation Date: 2022/6/28
+* Creation Date: 2022/6/29
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -368,7 +368,7 @@ static void doBleTask_SetLoraInterval(void){
 static void doBleTask_ShutDownBle(void){
     R_INTC1_Stop();
     bleProcess = 1; // count down to shut down BLE
-    bleShutDownProcess = 100;
+    bleShutDownProcess = 200;
 }
 
 void checkAppCommand(void) {
