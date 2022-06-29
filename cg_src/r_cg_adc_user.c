@@ -53,11 +53,12 @@ Pragma directive
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
-volatile uint16_t adc_buf[MAX_ADC_BUF];
-volatile uint8_t ads_buf[MAX_ADC_BUF];
-uint32_t ADCtemp=0,ADCvolt=0;
+volatile uint16_t volt_buf[MAX_ADC_BUF];
+volatile uint16_t temp_buf[MAX_ADC_BUF];
+uint16_t ADCtemp=0,ADCvolt=0;
 int16_t g_tempv_int;
-int16_t adcIndex=MAX_ADC_BUF;
+int16_t voltIndex=MAX_ADC_BUF;
+int16_t tempIndex=MAX_ADC_BUF;
 // uint8_t adc_counter = 0;
 /* End user code. Do not edit comment generated here */
 
@@ -73,38 +74,43 @@ static void __near r_adc_interrupt(void)
     switch (ADS)
     {
     case _80_AD_INPUT_TEMPERSENSOR:
+        R_ADC_Get_Result(&ADCtemp);
+        temp_buf[tempIndex] = ADCtemp;
         ADS = _81_AD_INPUT_INTERREFVOLT;
+        tempIndex--;
+        if (!tempIndex){
+            tempIndex = MAX_ADC_BUF;
+        }
         break;
     case _81_AD_INPUT_INTERREFVOLT:
+        R_ADC_Get_Result(&ADCvolt);
+        volt_buf[voltIndex] = ADCvolt;
         ADS = _80_AD_INPUT_TEMPERSENSOR;
+        voltIndex--;
+        if (!voltIndex){
+            voltIndex = MAX_ADC_BUF;
+        }
         break;
-    }
-    adcIndex--;
-    R_ADC_Get_Result(&adc_buf[adcIndex]);
-    if (adcIndex==0){
-        adcIndex = MAX_ADC_BUF;
     }
     /* End user code. Do not edit comment generated here */
 }
 
 /* Start user code for adding. Do not edit comment generated here */
 void init_pcb_temperature(void){
-    memclr((uint8_t *)&adc_buf[0], 16);
+    memclr((uint8_t *)&temp_buf[0], MAX_ADC_BUF*2);
+    memclr((uint8_t *)&volt_buf[0], MAX_ADC_BUF*2);
 }
 void get_pcb_temperature(int16_t *pcbTemperature){
     int i;
     int16_t temp = 0;
-    for (i = 0; i < 8;i=i+2){
-        ADCtemp = adc_buf[i+1];
-        ADCvolt = adc_buf[i];
-        g_tempv_int = (int16_t)(((INT_REF_V_SCALED)*ADCtemp /
-                                ADCvolt) -
+    for (i = 1; i < MAX_ADC_BUF;i++){
+        g_tempv_int = (int16_t)(((INT_REF_V_SCALED)*temp_buf[i] /
+                                volt_buf[i]) -
                                 (INT_REF_TEMP_SCALED));
 
         temp += (int16_t)(-(g_tempv_int / (TEMP_SENSOR_GAIN_SCALED)) +
                                     SENSOR_REF_TEMP_SCALED);
     }
-    *pcbTemperature = (*pcbTemperature+temp / 4)/2;
+    *pcbTemperature = (*pcbTemperature+(temp / (MAX_ADC_BUF-1)))/2;
 }
-
 /* End user code. Do not edit comment generated here */
