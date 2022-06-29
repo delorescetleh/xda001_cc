@@ -213,6 +213,7 @@ User definitions
 #define SENSOR_FETCH_TIMES 4
 #define eepromIndexStorageAddressinEEPROM 90000
 
+extern uint32_t Rpt100;
 extern float Ipt100;
 extern uint8_t events;
 extern uint8_t loraProcessIntervalTime;

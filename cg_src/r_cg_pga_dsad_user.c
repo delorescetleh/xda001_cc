@@ -173,8 +173,8 @@ void get_pt100_result(int *result){
     uint32_t *result0 = &ds_adc_result0[0];
     uint32_t *result3 = &ds_adc_result3[0];
     uint16_t i = 0;
-    uint32_t pt100 = 0;
 
+    Rpt100 = 0;
     for (i = 0; i <(DSADC_BUF_SIZE/2);i++){
         BufferH=dsadc_buf[i * 2];
         BufferL=dsadc_buf[i * 2+1];
@@ -201,12 +201,12 @@ void get_pt100_result(int *result){
         ds_adc_result3[i] = (float)ds_adc_result3[i]*0.023842; //    0.023842 uV   =(1.6 V/4)*(1/2^24)*1000*1000
         */
         // pt100 += (((ds_adc_result3[i]<<4)-(ds_adc_result0[i]<<1))>>12)*DSADC_DIFF_PGA_GAIN_64*SHIFT_12Bit_BASE_1M_ERROR/Ipt100;//ohm
-        pt100 += (((ds_adc_result3[i] << 4) - (ds_adc_result0[i] << 1)) >> 16);
+        Rpt100 += (((ds_adc_result3[i] << 4) - (ds_adc_result0[i] << 1)) >> 16);
     }
-    pt100 = ((pt100 / DSADC_RESULT_BUF_SIZE )*(DSADC_DIFF_PGA_GAIN_64/SHIFT_16Bit_BASE_1M_ERROR/Ipt100));//mOhm ;
+    Rpt100 = ((Rpt100 / DSADC_RESULT_BUF_SIZE )*(DSADC_DIFF_PGA_GAIN_64/SHIFT_16Bit_BASE_1M_ERROR/Ipt100));//mOhm ;
 
     // pt100=pt100*DSADC_DIFF_PGA_GAIN_64/SHIFT_12Bit_BASE_1M_ERROR/Ipt100;//ohm
-    *result = ((int)pt100 - PT100_BASE) / PT100_TEMPERATURE_RATE;
+    *result = ((int)Rpt100 - PT100_BASE) / PT100_TEMPERATURE_RATE;
 }
 
 

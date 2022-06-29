@@ -80,6 +80,7 @@ void BLE_procedure(void);
 void BLE_ShutDown_procedure(void);
 void calibrationIpt100(void);
 
+extern uint32_t Rpt100 = 0;
 extern float Ipt100=0.00154155;
 extern uint32_t K=1;
 extern uint8_t analogProcessDone = 0;
@@ -386,7 +387,7 @@ void LoRa_procedure(void){
         loraProcess--;
     case 6:
         LORA_READY = PIN_LEVEL_AS_LOW;
-        doSendLoraData((uint16_t)PT100result, (uint16_t)(pcbTemperature + 500) / 5);
+        doSendLoraData((uint16_t)PT100result, (uint16_t)pcbTemperature);
         loraProcess--;
         break;
     case 5:
