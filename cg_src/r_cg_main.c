@@ -143,21 +143,39 @@ static void R_MAIN_UserInit(void)
 
 /* Start user code for adding. Do not edit comment generated here */
 void factory_process(void){
-    // while (0)
-    // {
-    //      if (events & TIMER_PERIODIC_EVENT) // R_IT8Bit0_Channel0 , 1s
-    //     {
-    //         events &= ~TIMER_PERIODIC_EVENT;
-	//     }
-    // }
-    // if(L_BLE_INIT())
-    // {
-    //    L_BLE_FACTORY_MODE_SETTING();
-    //     delayInMs(100);
-    //     set_TXD1_as_Input_Mode();
-    //     L_BLE_STOP();
-    // }
-    // goToSleep();
+    L_BLE_STOP();
+    R_RTC_Start();
+    R_IT8Bit0_Channel0_Start();//400mS
+    delayInMs(10);
+    while (1)
+    {
+        if (events)
+        {
+            if(events & TIMER_PERIODIC_EVENT)//R_IT8Bit0_Channel0 , 200mS
+            {
+                events &= ~TIMER_PERIODIC_EVENT;
+                if (dsadcProcess)
+                {
+                    PT100_procedure();
+                }
+                if (adcProcess)
+                {
+                    PCB_TEMP_procedure();
+                }
+                if (loraProcess)
+                {
+                    if (!dsadcProcess)
+                    {
+                        LoRa_procedure();
+                    }
+                }
+            }
+        }
+        if ((!dsadcProcess) & (!loraProcess) & (!adcProcess))
+        {
+            goToSleep();
+        }
+    }
 }
 
 void lora_programming_process(void){
@@ -230,7 +248,7 @@ void normal_process(void){
         }
         if ((BLE_NO_CONNECT)||(bleShutDown))
         {
-            if ((!dsadc_ready) & (!loraProcess) & (!adcProcess)& (!bleShutDownProcess))
+            if ((!dsadcProcess) & (!loraProcess) & (!adcProcess)& (!bleShutDownProcess))
             {
                 goToSleep();
             }
