@@ -376,7 +376,7 @@ void PT100_procedure(void){
 
 void LoRa_procedure(void){
     loraProcessTimeOutCounter++;
-    if (loraProcessTimeOutCounter > 150)
+    if (loraProcessTimeOutCounter > 15)
     {
         loraProcess = 1;
     }
@@ -488,6 +488,49 @@ void BLE_ShutDown_procedure(void)
     }
 }
 void factory_process(void){
-
+    dsadcProcess = 15;
+    adcProcess = 10;
+    loraProcess = 15;
+    bleProcess = 0;
+    bleShutDownProcess = 0;
+    R_IT8Bit0_Channel0_Start();//400mS
+    while (1)
+    {
+        if(events)
+        {
+            if(events & TIMER_PERIODIC_EVENT)//R_IT8Bit0_Channel0 , 200mS
+            {
+                events &= ~TIMER_PERIODIC_EVENT;
+                if (dsadcProcess)
+                {
+                    //dsadcProcess = 0;
+                    PT100_procedure();
+                }
+                if (adcProcess)
+                {
+                    //  adcProcess = 0;
+                    PCB_TEMP_procedure();
+                }
+                if (loraProcess)
+                {
+                    // analogProcessDone = 0;
+                    if ((!adcProcess)&(!dsadcProcess))
+                    {
+                        LoRa_procedure();
+                    }
+                }
+                if (bleProcess)
+                {
+                   BLE_procedure();
+                }
+                if (bleShutDownProcess)
+                {
+                    BLE_ShutDown_procedure();
+                }
+            }
+        }
+    }
 }
+
+
 /* End user code. Do not edit comment generated here */
