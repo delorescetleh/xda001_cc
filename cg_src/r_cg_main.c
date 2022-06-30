@@ -121,10 +121,10 @@ void main(void)
     BLE_POW_CNT = POWER_OFF; /* Take Max 300mA */ 
     EPROM_POW_CNT = POWER_OFF;/* Take Max 30mA */ 
     
-    if (0)//(IS_LORA_PROGRAMMING)
+    if (IS_LORA_PROGRAMMING)
     {
         lora_programming_process();
-    }else if (1)// (IN_FACTORY)
+    }else if (IN_FACTORY)
     {
         factory_process();
     }else{

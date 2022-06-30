@@ -2545,8 +2545,8 @@ FirstVisiblePosition:Right,0,0
       <StatusText6>VerticalSplitPercentage:0.00
 HorizontalSplitPercentage:0.00
 ActiveViewPlacement:Right
-CaretPosition:266,0
-FirstVisiblePosition:Right,258,0
+CaretPosition:113,0
+FirstVisiblePosition:Right,113,0
 </StatusText6>
     </Instance>
   </Class>
