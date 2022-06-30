@@ -72,6 +72,7 @@ void normal_process(void);
 void factory_process(void);
 void goToSleep(void);
 void turnOffAll(void);
+void factory_test(void);
 
 void PCB_TEMP_procedure(void);
 void PT100_procedure(void);
@@ -121,10 +122,18 @@ void main(void)
     BLE_POW_CNT = POWER_OFF; /* Take Max 300mA */ 
     EPROM_POW_CNT = POWER_OFF;/* Take Max 30mA */ 
     
-    if(IS_LORA_PROGRAMMING)
+
+    if (0){
+        factory_test();//only for development test
+        while (1)
+        {
+        }
+    }
+
+    if(0)//(IS_LORA_PROGRAMMING)
     {
         lora_programming_process();
-    }else if(IN_FACTORY)
+    }else if(1)//(IN_FACTORY)
     {
         factory_process();
     }else{
@@ -146,7 +155,7 @@ static void R_MAIN_UserInit(void)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-void factory_process(void){
+void factory_test(void){
     L_BLE_STOP();
     R_RTC_Start();
     R_IT8Bit0_Channel0_Start();//400mS
@@ -483,5 +492,8 @@ void BLE_ShutDown_procedure(void)
 
         break;
     }
+}
+void factory_process(void){
+
 }
 /* End user code. Do not edit comment generated here */
