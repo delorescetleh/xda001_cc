@@ -121,10 +121,10 @@ void main(void)
     BLE_POW_CNT = POWER_OFF; /* Take Max 300mA */ 
     EPROM_POW_CNT = POWER_OFF;/* Take Max 30mA */ 
     
-    if (IS_LORA_PROGRAMMING)
+    if(IS_LORA_PROGRAMMING)
     {
         lora_programming_process();
-    }else if (IN_FACTORY)
+    }else if(IN_FACTORY)
     {
         factory_process();
     }else{
@@ -183,6 +183,12 @@ void factory_process(void){
 }
 
 void lora_programming_process(void){
+    if(L_BLE_INIT())
+    {
+       L_BLE_FACTORY_MODE_SETTING();
+       delayInMs(100);
+       set_TXD1_as_Input_Mode();
+    }
     R_INTC1_Stop();
     L_BLE_STOP();
     R_ADC_Stop();
