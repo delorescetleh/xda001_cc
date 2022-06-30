@@ -501,4 +501,89 @@ void set_TXD1_as_Input_Mode(void){
 void set_TXD0_as_Input_Mode(void){
     UART0_TXD_MODE = PIN_MODE_AS_INPUT;
 }
+void F_BLE_procedure(void)
+{
+    switch (bleProcess)
+    {
+    case 14:
+        R_UART1_Create();
+        R_UART1_Start();
+        BLE_UART_RXD_IND = PIN_LEVEL_AS_LOW;
+        bleProcess--;
+        break;
+    case 13:
+        L_BLE_INIT();
+        bleProcess--;
+        break;
+    case 12:
+        if (L_BLE_SEND_COMMAND("$$$", 3, "CMD>", 4))
+        {
+            bleProcess--;
+        }
+        break;
+    case 11:
+        if (L_BLE_SEND_COMMAND("SS,40\r", 6, "AOK", 3))
+        {
+        bleProcess--;
+        }
+        break;
+    case 10:
+        if (!loraProcess)
+        {
+        bleProcess--;
+        }
+         break;
+    case 9:
+        if (L_BLE_SEND_COMMAND((char *)setBleDeviceNameCommand, 12, "AOK", 3))
+        {
+            bleProcess--;
+        }
+        break;
+    case 8:
+        if (L_BLE_SEND_COMMAND("SW,0B,07\r", 9, "AOK", 3))
+        {
+            bleProcess--;
+        }
+        break;
+    case 7:
+        if (L_BLE_SEND_COMMAND("SW,0A,04\r", 9, "AOK", 3))
+        {
+            bleProcess--;
+        }
+        break;
+    case 6:
+        if (L_BLE_SEND_COMMAND("SO,1\r", 5, "AOK", 3))
+        {
+            bleProcess--;
+        }
+        break;
+    case 5:
+        if (L_BLE_SEND_COMMAND("R,1\r", 4, "Rebooting", 9))
+        {
+            bleProcess--;
+        }
+        break;
+    case 4:
+        checkAppCommand();
+        if (!bleShutDownProcess){
+            if(BLE_NO_CONNECT){
+                bleProcess=1;
+            }else{
+                bleProcess = 10;
+                R_DTCD10_Start();
+            }
+        }else{
+            bleProcess=1;
+        }
+        break;
+    case 1:
+        L_BLE_STOP();
+        bleProcess--;
+        break;
+    default:
+    if(bleProcess)
+        bleProcess--;
+        break;
+    }
+}
 /* End user code. Do not edit comment generated here */

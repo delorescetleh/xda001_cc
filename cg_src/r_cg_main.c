@@ -79,7 +79,6 @@ void PT100_procedure(void);
 void LoRa_procedure(void);
 void BLE_procedure(void);
 void BLE_ShutDown_procedure(void);
-
 extern int16_t pcbTemperature=250;
 extern uint32_t Rpt100 = 0;
 extern float Ipt100=0.001543572;
@@ -491,7 +490,7 @@ void factory_process(void){
     dsadcProcess = 15;
     adcProcess = 10;
     loraProcess = 15;
-    bleProcess = 0;
+    bleProcess = 15;
     bleShutDownProcess = 0;
     R_IT8Bit0_Channel0_Start();//400mS
     while (1)
@@ -521,7 +520,7 @@ void factory_process(void){
                 }
                 if (bleProcess)
                 {
-                   BLE_procedure();
+                   F_BLE_procedure();
                 }
                 if (bleShutDownProcess)
                 {
@@ -531,6 +530,8 @@ void factory_process(void){
         }
     }
 }
+
+
 
 
 /* End user code. Do not edit comment generated here */
