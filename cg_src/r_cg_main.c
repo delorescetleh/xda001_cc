@@ -192,12 +192,6 @@ void factory_test(void){
 }
 
 void lora_programming_process(void){
-    if(L_BLE_INIT())
-    {
-       L_BLE_FACTORY_MODE_SETTING();
-       delayInMs(100);
-       set_TXD1_as_Input_Mode();
-    }
     R_INTC1_Stop();
     L_BLE_STOP();
     R_ADC_Stop();
