@@ -59,7 +59,7 @@ Global variables and functions
 /* Start user code for global. Do not edit comment generated here */
 // volatile unsigned char EVENTS;
 volatile unsigned char dataFlash;
-int16_t pcbTemperature=250;
+
 int PT100result;
 uint8_t lora_data_ready = 0;
 uint8_t data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
@@ -78,10 +78,11 @@ void PT100_procedure(void);
 void LoRa_procedure(void);
 void BLE_procedure(void);
 void BLE_ShutDown_procedure(void);
-void calibrationIpt100(void);
 
+extern int16_t pcbTemperature=250;
 extern uint32_t Rpt100 = 0;
-extern float Ipt100=0.00154155;
+extern float Ipt100=0.001543572;
+extern uint32_t guessIpt100=150000;
 extern uint32_t K=1;
 extern uint8_t analogProcessDone = 0;
 extern uint8_t dsadcProcessTimeOutCounter = 0;
@@ -120,9 +121,11 @@ void main(void)
     BLE_POW_CNT = POWER_OFF; /* Take Max 300mA */ 
     EPROM_POW_CNT = POWER_OFF;/* Take Max 30mA */ 
     
-    if (IS_LORA_PROGRAMMING){
+    if (0)//(IS_LORA_PROGRAMMING)
+    {
         lora_programming_process();
-    }else if (IN_FACTORY){
+    }else if (1)// (IN_FACTORY)
+    {
         factory_process();
     }else{
         normal_process();
@@ -259,7 +262,7 @@ void normal_process(void){
 
 void goToSleep(void){
     R_IT8Bit0_Channel0_Stop();
-    if (P_TEST)
+    if(1)// (P_TEST)
     {
         HALT();
     }
@@ -329,7 +332,6 @@ void PT100_procedure(void){
         if ((dsadc_ready)&(!adcProcess))
         {
             dsadc_ready = 0;
-            calibrationIpt100();
             get_pt100_result(&PT100result);
             dsadcProcess--;
         }
@@ -475,9 +477,5 @@ void BLE_ShutDown_procedure(void)
 
         break;
     }
-}
-void calibrationIpt100(void){
-    Ipt100 = (float) pcbTemperature * K; // Ipt100 = 0.0154 @ PCB temperature in 30 degC  ~ 0.0190 @ PCB temperature in 60degC
-    Ipt100 = 0.00154155;
 }
 /* End user code. Do not edit comment generated here */

@@ -314,9 +314,9 @@ uint8_t doSendLoraData(uint16_t temp, uint16_t pcbTemp)
         sendToLora[1] = (uint8_t)(pcbTemp / 120);
         sendToLora[2] = (uint8_t)((pcbTemp % 120) % 120);
         sendToLora[3] = 'F';
-        sendToLora[4] = (uint8_t)(Rpt100/14400);
-        sendToLora[5] = (uint8_t)((Rpt100%14400)/120);
-        sendToLora[6] = (uint8_t)((Rpt100%14400)%120);
+        sendToLora[4] = (uint8_t)(guessIpt100/14400);
+        sendToLora[5] = (uint8_t)((guessIpt100%14400)/120);
+        sendToLora[6] = (uint8_t)((guessIpt100%14400)%120);
         sendToLora[7] = '}';
         // sendToLora[4] = (uint8_t)((Rpt100/100000)        + 0x30);
         // sendToLora[5] = (uint8_t)((Rpt100%100000)/10000  + 0x30);

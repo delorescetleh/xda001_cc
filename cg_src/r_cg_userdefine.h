@@ -231,5 +231,7 @@ extern uint8_t adcProcessTimeOutCounter;
 extern uint8_t loraProcessTimeOutCounter;
 extern uint8_t bleShutDownProcess;
 extern uint8_t lora_start_time_delay_count;
+extern uint32_t guessIpt100;
+extern int16_t pcbTemperature;
 /* End user code. Do not edit comment generated here */
 #endif
