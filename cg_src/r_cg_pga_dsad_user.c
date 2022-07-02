@@ -44,7 +44,7 @@ Pragma directive
 /* Start user code for pragma. Do not edit comment generated here */
 #pragma address (dsadc_buf=0xFF800U)
 # define DSADC_SKIP_LENGTH 0
-# define DSADC_BUF_SIZE 16
+# define DSADC_BUF_SIZE 32
 # define DSADC_RESULT_BUF_SIZE 4 
 # define DSADC_DIFF_PGA_GAIN_64 (float) 1.49012 //mV = (1.6 V /64)*(1/2^24)*1000
 # define SHIFT_20Bit_BASE_1M_ERROR (float) 0.9536743164 // 1,000,000 / 2^20  = 0.9536743164
@@ -52,6 +52,16 @@ Pragma directive
 # define SHIFT_12Bit_BASE_1M_ERROR (float) 244.14 // 1,000,000 / 2^12  = 244.14
 # define PT100_TEMPERATURE_RATE (float) 36.7725
 # define PT100_BASE (int) 100000
+# define PCBtemp30 (int) 354
+# define PCBtemp40 (int) 401
+# define PCBtemp50 (int) 501
+# define IPT100_30 (float) 0.00155033
+# define IPT100_40 (float) 0.00156772
+# define IPT100_50 (float) 0.00159959
+# define Rate_30 (float) 0.039522727
+# define Rate_40 (float) 0.032536842
+# define Rate_50 (float) 0.026135294
+
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -64,16 +74,16 @@ uint32_t ds_adc_result0[DSADC_RESULT_BUF_SIZE];
 uint32_t ds_adc_result1[DSADC_RESULT_BUF_SIZE];
 uint32_t ds_adc_result2[DSADC_RESULT_BUF_SIZE];
 uint32_t ds_adc_result3[DSADC_RESULT_BUF_SIZE];
-
 uint32_t ds_adc_result4[DSADC_RESULT_BUF_SIZE];
 
 
-float r0_r1[DSADC_RESULT_BUF_SIZE];
-float b0_r1[DSADC_RESULT_BUF_SIZE];
-float i1[DSADC_RESULT_BUF_SIZE];
-float r100[DSADC_RESULT_BUF_SIZE];
+// float r0_r1[DSADC_RESULT_BUF_SIZE];
+// float b0_r1[DSADC_RESULT_BUF_SIZE];
+// float i1[DSADC_RESULT_BUF_SIZE];
+// float r100[DSADC_RESULT_BUF_SIZE];
 
 void parseDifferential_DSADC_Result(uint32_t BufferH, uint32_t BufferL, uint32_t *result);
+void calibrationIpt100(void);
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -168,13 +178,14 @@ void L_PGA_STOP(void){
 //     R_PGA_DSAD_Start();
 // }
 
-void get_pt100_result(int *result){
+void get_pt100_result(int *result,int16_t *temperatureOffset){
     uint16_t _DSADCRC,BufferH,BufferL;
     uint32_t *result0 = &ds_adc_result0[0];
     uint32_t *result3 = &ds_adc_result3[0];
-    uint16_t i = 0;
     uint32_t pt100 = 0;
+    uint16_t i = 0;
 
+    Rpt100 = 0;
     for (i = 0; i <(DSADC_BUF_SIZE/2);i++){
         BufferH=dsadc_buf[i * 2];
         BufferL=dsadc_buf[i * 2+1];
@@ -203,10 +214,12 @@ void get_pt100_result(int *result){
         // pt100 += (((ds_adc_result3[i]<<4)-(ds_adc_result0[i]<<1))>>12)*DSADC_DIFF_PGA_GAIN_64*SHIFT_12Bit_BASE_1M_ERROR/Ipt100;//ohm
         pt100 += (((ds_adc_result3[i] << 4) - (ds_adc_result0[i] << 1)) >> 16);
     }
-    pt100 = ((pt100 / DSADC_RESULT_BUF_SIZE )*(DSADC_DIFF_PGA_GAIN_64/SHIFT_16Bit_BASE_1M_ERROR/Ipt100));//mOhm ;
 
+    //guessIpt100=(uint32_t)((pt100 / DSADC_RESULT_BUF_SIZE )*(DSADC_DIFF_PGA_GAIN_64/SHIFT_16Bit_BASE_1M_ERROR/0.001011));//mA
+    calibrationIpt100();
+    Rpt100 = ((pt100 / DSADC_RESULT_BUF_SIZE )*(DSADC_DIFF_PGA_GAIN_64/SHIFT_16Bit_BASE_1M_ERROR/Ipt100));//mOhm ;
     // pt100=pt100*DSADC_DIFF_PGA_GAIN_64/SHIFT_12Bit_BASE_1M_ERROR/Ipt100;//ohm
-    *result = ((int)pt100 - PT100_BASE) / PT100_TEMPERATURE_RATE;
+    *result = ((int)Rpt100 - PT100_BASE) / PT100_TEMPERATURE_RATE + *temperatureOffset;
 }
 
 
@@ -221,5 +234,13 @@ void parseDifferential_DSADC_Result(uint32_t BufferH,uint32_t BufferL,uint32_t *
 void clr_dsadc_buf(void){
     memclr((uint8_t *)&dsadc_buf[0], DSADC_BUF_SIZE*2);
 }
-
+void calibrationIpt100(void){
+    if (pcbTemperature>500){
+        Ipt100 = ((pcbTemperature - PCBtemp50)/1000) * Rate_50 + IPT100_50;
+    }else if(pcbTemperature>400){
+        Ipt100 = ((pcbTemperature - PCBtemp40)/1000) * Rate_40 + IPT100_40;
+    }else{
+        Ipt100 = ((pcbTemperature - PCBtemp30)/1000) * Rate_30 + IPT100_30;
+    }
+}
 /* End user code. Do not edit comment generated here */

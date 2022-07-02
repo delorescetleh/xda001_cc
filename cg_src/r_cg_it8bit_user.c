@@ -47,7 +47,6 @@ Pragma directive
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
-uint8_t count30 = 0;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************

@@ -43,14 +43,12 @@ User definitions
 #include "r_cg_rtc.h"
 // SHOULD SET TIMER LET TIME_SPEED * BASE_TIME = 1 MIN
 #define TEST_FACTORY_MODE_NOW           0x00
-#define RTC_TIME_SPEED 60
+#define RTC_TIME_SPEED 120
 #define LORA_START_TIME_DELAY_SEC 10
 #define WORK_WITH_E1 1
 
 //########################################################################
-// #define events (*(volatile __near unsigned char  *)0xE900)
-// #define loraProcessIntervalTime (*(volatile __near unsigned char  *)0xE910)
-// #define loraRecieveData (*(volatile __near unsigned char  *)0xF800)
+#pragma address (board =0xFF700U)
 
 #define TIMER_PERIODIC_EVENT                        0x01 // should not use in V4 version , change to OVER_TIME_EVENT 
 #define DSADC_NOTIFICATION_EVENT                    0x02
@@ -157,7 +155,7 @@ User definitions
 /* Basic data */
 #define DATA_FLASH_BLOCK_SIZE   0x400l  /* Standard block size                     */
 #define DATA_FLASH_TARGET_BLOCK 0       /* Writing start block (0x0:F1000H)        */
-#define DATA_FLASH_SIZE   10      /* Write data size                         */
+#define DATA_FLASH_SIZE   5      /* Write data size                         */
 #define DATA_FLASH_DREAD_OFSET  0x1000  /* Direct reading offset address           */
 
 /* PFDL initial settings */
@@ -172,11 +170,12 @@ User definitions
 #define BLE_CMD_LENGTH 2
 /*factory setting value*/
 #define F_READY           0x01 
-#define F_BLE_READY       0x02 
-#define F_PT100_READY     0x04 
-#define F_K_SENSOR_READY  0x08 
-#define F_EEPROM_READY    0x10 
+#define F_ADC_READY  0x02
+#define F_BLE_READY       0x04
+#define F_DSADC_READY     0x08
+#define F_EEPROM_READY    0x10
 #define F_LORA_READY      0x20
+
 
 /*hardwaresetting bytes define */
 #define F_NO_BLE          0x01 
@@ -184,13 +183,6 @@ User definitions
 #define F_NO_LORA         0x04 
 #define F_NO_PT100        0x08 
 #define F_NO_K_SENSOR     0x10 
-
-#define F_FACTORY_SETTING_BYTE      0
-#define F_HAREWARE_SETTING_BYTE     1
-#define F_TEMPERATURE_K_VALUE_BYTE  2
-#define F_LORA_INTV_BYTE            6
-#define F_BLE_OFFSET_BYTE           7
-#define F_PCB_TEMPERATURE_BYTE      8
 
 #define I2C_ERROR 0x01
 #define I2C_RECEIVED_END 0x02
@@ -213,9 +205,28 @@ User definitions
 #define SENSOR_FETCH_TIMES 4
 #define eepromIndexStorageAddressinEEPROM 90000
 
+
+typedef enum{
+    lora_programming_mode = 1,
+    factory_test_mode = 2,
+    factory_mode = 3,
+    normal_mode = 4
+} mode_t;
+
+
+
+typedef struct
+{
+  uint8_t TESTED;
+  uint8_t HARDWARE;
+  uint8_t F_LORA_INTV;
+  int16_t F_DSADC_TEMPERATURE_SENSOR_OFFSET;
+}board_t;
+
+extern int16_t temperatureCalibrationOffset[3];
+extern uint32_t Rpt100;
 extern float Ipt100;
 extern uint8_t events;
-extern uint8_t loraProcessIntervalTime;
 extern uint8_t dubReadBuffer[10];
 extern uint8_t dubWriteBuffer[10];
 extern uint8_t countToEnableLoraProcess;
@@ -230,5 +241,9 @@ extern uint8_t adcProcessTimeOutCounter;
 extern uint8_t loraProcessTimeOutCounter;
 extern uint8_t bleShutDownProcess;
 extern uint8_t lora_start_time_delay_count;
+extern uint32_t guessIpt100;
+extern int16_t pcbTemperature;
+extern uint8_t BLE_F_Done;
+extern void setLoraIntervalTime(uint8_t lora_intv);
 /* End user code. Do not edit comment generated here */
 #endif

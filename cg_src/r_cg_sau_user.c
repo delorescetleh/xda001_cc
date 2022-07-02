@@ -44,7 +44,7 @@ Pragma directive
 #pragma interrupt r_uart1_interrupt_receive(vect=INTSR1)
 /* Start user code for pragma. Do not edit comment generated here */
 # pragma address (receivedFromBle=0xFFC00U)
-# pragma address (receivedFromLora=0xFF700U)
+// # pragma address (receivedFromLora=0xFF700U)
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -301,14 +301,34 @@ uint8_t checkLoraMessage(void){
 uint8_t doSendLoraData(uint16_t temp, uint16_t pcbTemp)
 {
     sendToLora[0] = '{';
-    sendToLora[1] = (uint8_t)((temp/100) + 0x30);
-    sendToLora[2] = (uint8_t)(((temp%100)/10)+ 0x30);
-    sendToLora[3] = (uint8_t)((temp%10)  + 0x30);
-    sendToLora[4] = (uint8_t)((pcbTemp/100) + 0x30);
-    sendToLora[5] = (uint8_t)(((pcbTemp%100)/10)+ 0x30);
-    sendToLora[6] = (uint8_t)((pcbTemp%10)  + 0x30);
-    sendToLora[7] = '}';
-    R_UART0_Send(sendToLora, 8);
+    if (!IN_FACTORY){
+        sendToLora[1] = (uint8_t)((temp / 100) + 0x30);
+        sendToLora[2] = (uint8_t)(((temp % 100) / 10) + 0x30);
+        sendToLora[3] = (uint8_t)((temp % 10) + 0x30);
+        sendToLora[4] = (uint8_t)(0x30);
+        sendToLora[5] = (uint8_t)(0x30);
+        sendToLora[6] = (uint8_t)(0x30);
+        sendToLora[7] = '}';
+        R_UART0_Send(sendToLora, 8);
+    }else{
+        sendToLora[1] = (uint8_t)(pcbTemp / 120);
+        sendToLora[2] = (uint8_t)((pcbTemp % 120) % 120);
+        sendToLora[3] = 'F';
+        sendToLora[4] = (uint8_t)(guessIpt100/14400);
+        sendToLora[5] = (uint8_t)((guessIpt100%14400)/120);
+        sendToLora[6] = (uint8_t)((guessIpt100%14400)%120);
+        sendToLora[7] = '}';
+        // sendToLora[4] = (uint8_t)((Rpt100/100000)        + 0x30);
+        // sendToLora[5] = (uint8_t)((Rpt100%100000)/10000  + 0x30);
+        // sendToLora[6] = (uint8_t)((Rpt100%10000)/1000    + 0x30);
+        // sendToLora[7] = (uint8_t)((Rpt100%1000)/100      + 0x30);
+        // sendToLora[8] = (uint8_t)((Rpt100%100)/10        + 0x30);
+        // sendToLora[9] = (uint8_t)((Rpt100%10)            + 0x30);
+        // sendToLora[10] = '}';
+        R_UART0_Send(sendToLora, 8);
+    }
+
+
     return 1;
 }
 void L_LORA_STOP(void){
@@ -348,21 +368,12 @@ static void doBleTask_AppGetEcho(void){
 }
 
 static void doBleTask_SetLoraInterval(void){
-    loraProcessIntervalTime = *appParam;
-    // Save into DataFlash
-    dataFlashStart();
-    dataFlashRead(dubReadBuffer,0);
-    *(dubReadBuffer+F_LORA_INTV_BYTE)=*appParam;
-    memcpy(dubWriteBuffer, dubReadBuffer, DATA_FLASH_SIZE);
-    dataFlashWrite(dubWriteBuffer,0);
-    dataFlashEnd();
+    setLoraIntervalTime(*appParam);
     //set ble ack to app
     sendToBle[0] = 0xA1;
     sendToBle[1] = 0x01;
     sendToBle[2] = 0x55;
     R_UART1_Send(sendToBle,(uint8_t) 3);
-    // lora_rtc_counter = 0;
-    resetLoRaCounter();// reset relative parameter
 }
 
 static void doBleTask_ShutDownBle(void){
@@ -480,5 +491,91 @@ void set_TXD1_as_Input_Mode(void){
 
 void set_TXD0_as_Input_Mode(void){
     UART0_TXD_MODE = PIN_MODE_AS_INPUT;
+}
+void F_BLE_procedure(void)
+{
+    switch (bleProcess)
+    {
+    case 14:
+        R_UART1_Create();
+        R_UART1_Start();
+        BLE_UART_RXD_IND = PIN_LEVEL_AS_LOW;
+        bleProcess--;
+        break;
+    case 13:
+        L_BLE_INIT();
+        bleProcess--;
+        break;
+    case 12:
+        if (L_BLE_SEND_COMMAND("$$$", 3, "CMD>", 4))
+        {
+            bleProcess--;
+        }
+        break;
+    case 11:
+        if (L_BLE_SEND_COMMAND("SS,40\r", 6, "AOK", 3))
+        {
+        bleProcess--;
+        }
+        break;
+    case 10:
+        if (!loraProcess)
+        {
+        bleProcess--;
+        }
+         break;
+    case 9:
+        if (L_BLE_SEND_COMMAND((char *)setBleDeviceNameCommand, 12, "AOK", 3))
+        {
+            bleProcess--;
+        }
+        break;
+    case 8:
+        if (L_BLE_SEND_COMMAND("SW,0B,07\r", 9, "AOK", 3))
+        {
+            bleProcess--;
+        }
+        break;
+    case 7:
+        if (L_BLE_SEND_COMMAND("SW,0A,04\r", 9, "AOK", 3))
+        {
+            bleProcess--;
+        }
+        break;
+    case 6:
+        if (L_BLE_SEND_COMMAND("SO,1\r", 5, "AOK", 3))
+        {
+            bleProcess--;
+        }
+        break;
+    case 5:
+        if (L_BLE_SEND_COMMAND("R,1\r", 4, "Rebooting", 9))
+        {
+            bleProcess--;
+        }
+        break;
+    case 4:
+        checkAppCommand();
+        if (!bleShutDownProcess){
+            if(BLE_NO_CONNECT){
+                bleProcess=1;
+            }else{
+                bleProcess = 10;
+                R_DTCD10_Start();
+            }
+        }else{
+            bleProcess=1;
+        }
+        break;
+    case 1:
+        L_BLE_STOP();
+        BLE_F_Done = 1;
+        bleProcess--;
+        break;
+    default:
+    if(bleProcess)
+        bleProcess--;
+        break;
+    }
 }
 /* End user code. Do not edit comment generated here */

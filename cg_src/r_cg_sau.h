@@ -344,5 +344,6 @@ void set_TXD0_as_Input_Mode(void);
 void set_TXD1_as_Input_Mode(void);
 void gotoSleepBLE(void);
 void wakeUpBLE(void);
+void F_BLE_procedure(void);
 /* End user code. Do not edit comment generated here */
 #endif

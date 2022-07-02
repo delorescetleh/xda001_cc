@@ -140,6 +140,7 @@ void R_RTC_Set_ConstPeriodInterruptOff(void);
 static void r_rtc_callback_constperiod(void);
 static void r_rtc_callback_alarm(void);
 /* Start user code for function. Do not edit comment generated here */
-void resetLoRaCounter(void);
+void resetLoRaCounter(uint8_t times);
+// void initLoRaCounter(uint8_t times);
 /* End user code. Do not edit comment generated here */
 #endif

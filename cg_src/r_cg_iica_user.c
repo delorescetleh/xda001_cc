@@ -294,7 +294,8 @@ extern void doEepromReadRecords(void){
     delayInMs(10);
 }
 
-void doEepromWriteRecords(uint16_t data){
+uint8_t doEepromWriteRecords(uint16_t data){
+    uint8_t success = 1;
     uint32_t i2cAccessIndex = ((uint32_t)(storeIndex))*EEPROM_DATA_SIZE;
     setEepromAccessAddress(i2cAccessIndex);
     L_EEPROM_INIT();
@@ -323,6 +324,7 @@ void doEepromWriteRecords(uint16_t data){
     {
         storeCounter = TOTAL_RECORD_QTY;
     }
+    return success;
 }
 void setEepromAccessAddress(uint32_t i2cAccessIndex){
 
