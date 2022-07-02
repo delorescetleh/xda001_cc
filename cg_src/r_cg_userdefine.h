@@ -223,12 +223,9 @@ typedef struct
   int16_t F_DSADC_TEMPERATURE_SENSOR_OFFSET;
 }board_t;
 
-extern int16_t temperatureCalibrationOffset[3];
 extern uint32_t Rpt100;
 extern float Ipt100;
 extern uint8_t events;
-extern uint8_t dubReadBuffer[10];
-extern uint8_t dubWriteBuffer[10];
 extern uint8_t countToEnableLoraProcess;
 extern uint8_t adcProcess;
 extern uint8_t dsadcProcess;
@@ -244,6 +241,8 @@ extern uint8_t lora_start_time_delay_count;
 extern uint32_t guessIpt100;
 extern int16_t pcbTemperature;
 extern uint8_t BLE_F_Done;
+extern uint8_t USER_DSADC_temperature_calibration_process;
+extern int16_t user_Temperature;
 extern void setLoraIntervalTime(uint8_t lora_intv);
 /* End user code. Do not edit comment generated here */
 #endif

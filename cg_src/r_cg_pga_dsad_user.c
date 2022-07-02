@@ -76,7 +76,7 @@ uint32_t ds_adc_result2[DSADC_RESULT_BUF_SIZE];
 uint32_t ds_adc_result3[DSADC_RESULT_BUF_SIZE];
 uint32_t ds_adc_result4[DSADC_RESULT_BUF_SIZE];
 
-
+int16_t temperatureOffset;
 // float r0_r1[DSADC_RESULT_BUF_SIZE];
 // float b0_r1[DSADC_RESULT_BUF_SIZE];
 // float i1[DSADC_RESULT_BUF_SIZE];
@@ -178,7 +178,7 @@ void L_PGA_STOP(void){
 //     R_PGA_DSAD_Start();
 // }
 
-void get_pt100_result(int *result,int16_t *temperatureOffset){
+void get_pt100_result(int *result){
     uint16_t _DSADCRC,BufferH,BufferL;
     uint32_t *result0 = &ds_adc_result0[0];
     uint32_t *result3 = &ds_adc_result3[0];
@@ -219,7 +219,7 @@ void get_pt100_result(int *result,int16_t *temperatureOffset){
     calibrationIpt100();
     Rpt100 = ((pt100 / DSADC_RESULT_BUF_SIZE )*(DSADC_DIFF_PGA_GAIN_64/SHIFT_16Bit_BASE_1M_ERROR/Ipt100));//mOhm ;
     // pt100=pt100*DSADC_DIFF_PGA_GAIN_64/SHIFT_12Bit_BASE_1M_ERROR/Ipt100;//ohm
-    *result = ((int)Rpt100 - PT100_BASE) / PT100_TEMPERATURE_RATE + *temperatureOffset;
+    *result = ((int)Rpt100 - PT100_BASE) / PT100_TEMPERATURE_RATE ;
 }
 
 
@@ -242,5 +242,8 @@ void calibrationIpt100(void){
     }else{
         Ipt100 = ((pcbTemperature - PCBtemp30)/1000) * Rate_30 + IPT100_30;
     }
+}
+void resetDSADC(int16_t temperature){
+    temperatureOffset = temperature;
 }
 /* End user code. Do not edit comment generated here */

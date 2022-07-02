@@ -61,7 +61,8 @@ Global variables and functions
 volatile unsigned char dataFlash;
 board_t board;
 mode_t mode;
-int PT100_Temperature;
+int DSADC_Temperature;
+int Record_Temperature;
 uint16_t Record_Data;
 uint8_t lora_data_ready = 0;
 uint8_t data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
@@ -83,6 +84,8 @@ void PT100_procedure(void);
 void LoRa_procedure(void);
 void BLE_procedure(void);
 void BLE_ShutDown_procedure(void);
+void USER_Calibrartion_DSADC_procedure(void);
+
 void DataFlashWrite(void);
 
 uint8_t F_Done = 0;
@@ -95,7 +98,7 @@ uint8_t DSADC_temperature_calibration_process = 2;
 
 extern int16_t temperatureCalibrationOffset[3] = {0};
 
-
+extern int16_t user_Temperature=0;
 extern int16_t pcbTemperature=250;
 extern uint32_t Rpt100 = 0;
 extern float Ipt100=0.001543572;
@@ -107,18 +110,14 @@ extern uint8_t adcProcessTimeOutCounter = 0;
 extern uint8_t loraProcessTimeOutCounter = 0;
 // extern uint8_t lora_start_time_delay_count = 0;
 extern uint8_t bleShutDownProcess = 0;
-
 extern uint8_t bleProcess=0;
 extern uint8_t adcProcess=10;
 extern uint8_t dsadcProcess=15;
 extern uint8_t loraProcess = 0;
 extern uint8_t events=0;
 extern uint8_t dsadc_ready=0;
-// extern uint8_t *loraProcessIntervalTime;
-
+extern uint8_t USER_DSADC_temperature_calibration_process = 0;
 extern uint8_t countToEnableLoraProcess = 0;
-extern uint8_t dubReadBuffer[10]={0};
-extern uint8_t dubWriteBuffer[10]= {0x37, 0x10, 0x01, 0x02, 0x03, 0x04, 0x01, 0x20, 0x11, 0xFF};
 /* End user code. Do not edit comment generated here */
 
 static void R_MAIN_UserInit(void);
@@ -234,6 +233,7 @@ void normal_process(void){
     dataFlashRead((pfdl_u08 *)&board,0);
     dataFlashEnd();
     resetLoRaCounter(board.F_LORA_INTV);
+    resetDSADC(board.F_DSADC_TEMPERATURE_SENSOR_OFFSET);
     DSADC_temperature_calibration_process = 0;
 
     L_BLE_INIT();
@@ -273,6 +273,10 @@ void normal_process(void){
                 if (bleShutDownProcess)
                 {
                     BLE_ShutDown_procedure();
+                }
+                if (USER_DSADC_temperature_calibration_process)
+                {
+                    USER_Calibrartion_DSADC_procedure();
                 }
             }
         }
@@ -363,14 +367,14 @@ void PT100_procedure(void){
         if ((dsadc_ready)&(!adcProcess))
         {
             dsadc_ready = 0;
-            get_pt100_result(&PT100_Temperature, &board.F_DSADC_TEMPERATURE_SENSOR_OFFSET);
+            get_pt100_result(&DSADC_Temperature);
             dsadcProcess--;
         }
         break;
     case 12:
         if (DSADC_temperature_calibration_process)
             {
-                temperatureCalibrationOffset[DSADC_temperature_calibration_process] = pcbTemperature - PT100_Temperature;
+                temperatureCalibrationOffset[DSADC_temperature_calibration_process] = pcbTemperature - DSADC_Temperature;
                 if (DSADC_temperature_calibration_process == 1)
                 {
                     board.F_DSADC_TEMPERATURE_SENSOR_OFFSET = (temperatureCalibrationOffset[1]*80 + temperatureCalibrationOffset[2]*20) / 100;
@@ -380,7 +384,8 @@ void PT100_procedure(void){
                 dsadcProcess = 10;
             }else{
             L_PGA_STOP();
-            Record_Data = (uint16_t)(PT100_Temperature / 5 + 100); // Record Temperature as 0~999 (as -50degC to 450 degC)
+            Record_Temperature = DSADC_Temperature + board.F_DSADC_TEMPERATURE_SENSOR_OFFSET;
+            Record_Data = (uint16_t)((Record_Temperature) / 5 + 100); // Record Temperature as 0~999 (as -50degC to 450 degC)
             if (Record_Data >= 1000)
             {
                 Record_Data = 0; // means record value will become 0, send to Lora "000" mean ERR
@@ -531,6 +536,7 @@ void factory_process(void){
     board.F_LORA_INTV = 1;
     DSADC_temperature_calibration_process = 2;
     resetLoRaCounter(board.F_LORA_INTV);
+    resetDSADC(0);
     R_RTC_Start();
     while (1)
     {
@@ -631,5 +637,26 @@ extern void setLoraIntervalTime(uint8_t lora_intv){
     board.F_LORA_INTV = lora_intv;
     resetLoRaCounter(lora_intv);
     DataFlashWrite();
+}
+extern void USER_Calibrartion_DSADC_procedure(void){
+    switch (USER_DSADC_temperature_calibration_process)
+    {
+    case 10:
+        if(!dsadcProcess){
+            resetDSADC(user_Temperature);
+            board.F_DSADC_TEMPERATURE_SENSOR_OFFSET = user_Temperature - DSADC_Temperature;
+            USER_DSADC_temperature_calibration_process--;
+        }
+        break;
+    case 9:
+        DataFlashWrite();
+        USER_DSADC_temperature_calibration_process = 0;
+        break;
+    case 1:
+        /* code */
+        break;
+    default:
+        break;
+    }
 }
 /* End user code. Do not edit comment generated here */

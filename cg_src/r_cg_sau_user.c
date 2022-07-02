@@ -358,7 +358,14 @@ uint8_t L_LORA_INIT(void){
     return 0;
 }
 
-
+static void doBleTask_SetTemperatureOffset(void){
+    user_Temperature = (*appParam)*10 + *(appParam+1);
+    USER_DSADC_temperature_calibration_process = 10;
+    sendToBle[0] = 0xA4;
+    sendToBle[1] = 0x01;
+    sendToBle[2] = 0x55;
+    R_UART1_Send(sendToBle,(uint8_t) 3);
+}
 static void doBleTask_AppGetEcho(void){
     uint8_t bleAck[4] = {0xa5, 0x02, 0x00, 0x00};// ble ack to app
     bleAck[2] = *appParam;
@@ -380,6 +387,10 @@ static void doBleTask_ShutDownBle(void){
     R_INTC1_Stop();
     bleProcess = 1; // count down to shut down BLE
     bleShutDownProcess = 200;
+    sendToBle[0] = 0xA3;
+    sendToBle[1] = 0x01;
+    sendToBle[2] = 0x00;
+    R_UART1_Send(sendToBle,(uint8_t) 3);
 }
 
 void checkAppCommand(void) {
@@ -411,6 +422,7 @@ void checkAppCommand(void) {
     {
         if (offset<158){
             appParam = receivedFromBle + offset + 1;
+            doBleTask_SetTemperatureOffset();
         }
         memclr(receivedFromBle, 160);
         reset_DTC10();

@@ -211,7 +211,8 @@ void R_PGA_DSAD_Get_AverageResult(uint16_t * const bufferH, uint16_t * const buf
 /* Start user code for function. Do not edit comment generated here */
 void L_PGA_STOP(void);
 void get_dsadc_result(void);
-void get_pt100_result(int *result,int16_t *temperatureOffset);
+void get_pt100_result(int *result);
 void clr_dsadc_buf(void);
+void resetDSADC(int16_t temperature);
 /* End user code. Do not edit comment generated here */
 #endif
