@@ -43,7 +43,7 @@ User definitions
 #include "r_cg_rtc.h"
 // SHOULD SET TIMER LET TIME_SPEED * BASE_TIME = 1 MIN
 #define TEST_FACTORY_MODE_NOW           0x00
-#define RTC_TIME_SPEED 60
+#define RTC_TIME_SPEED 120
 #define LORA_START_TIME_DELAY_SEC 10
 #define WORK_WITH_E1 1
 

@@ -235,7 +235,7 @@ void normal_process(void){
     dataFlashEnd();
     resetLoRaCounter(board.F_LORA_INTV);
     DSADC_temperature_calibration_process = 0;
-    
+
     L_BLE_INIT();
     L_BLE_STOP();
     R_INTC1_Start();
@@ -288,7 +288,7 @@ void normal_process(void){
 
 void goToSleep(void){
     R_IT8Bit0_Channel0_Stop();
-    if(1)// (P_TEST)
+    if(P_TEST)
     {
         HALT();
     }
