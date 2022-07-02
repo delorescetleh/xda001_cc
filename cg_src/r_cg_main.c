@@ -59,26 +59,43 @@ Global variables and functions
 /* Start user code for global. Do not edit comment generated here */
 // volatile unsigned char EVENTS;
 volatile unsigned char dataFlash;
-
-int PT100result;
+board_t board;
+mode_t mode;
+int PT100_Temperature;
+uint16_t Record_Data;
 uint8_t lora_data_ready = 0;
 uint8_t data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-uint8_t *hardWareSetting=0;
-uint8_t *factorySetting=0;
 uint8_t bleShutDown = 0;
 
+
+void factory_test_process(void);
 void lora_programming_process(void);
 void normal_process(void);
 void factory_process(void);
+
 void goToSleep(void);
 void turnOffAll(void);
-void factory_test(void);
+
+void processMode(mode_t mode);
 
 void PCB_TEMP_procedure(void);
 void PT100_procedure(void);
 void LoRa_procedure(void);
 void BLE_procedure(void);
 void BLE_ShutDown_procedure(void);
+void DataFlashWrite(void);
+
+uint8_t F_Done = 0;
+uint8_t LORA_F_Done = 0;
+uint8_t EEPROM_F_Done = 0;
+uint8_t DSADC_F_Done = 0;
+uint8_t ADC_F_Done = 0;
+extern uint8_t BLE_F_Done = 0;
+uint8_t DSADC_temperature_calibration_process = 2;
+
+extern int16_t temperatureCalibrationOffset[3] = {0};
+
+
 extern int16_t pcbTemperature=250;
 extern uint32_t Rpt100 = 0;
 extern float Ipt100=0.001543572;
@@ -97,7 +114,7 @@ extern uint8_t dsadcProcess=15;
 extern uint8_t loraProcess = 0;
 extern uint8_t events=0;
 extern uint8_t dsadc_ready=0;
-extern uint8_t loraProcessIntervalTime=1;
+// extern uint8_t *loraProcessIntervalTime;
 
 extern uint8_t countToEnableLoraProcess = 0;
 extern uint8_t dubReadBuffer[10]={0};
@@ -119,25 +136,22 @@ void main(void)
     BLE_RESET = PIN_LEVEL_AS_LOW;
     LORA_POW_CNT = POWER_OFF; /* LORA_RESET Should be output mode and set to low make sure lora module no working when system start*/ 
     BLE_POW_CNT = POWER_OFF; /* Take Max 300mA */ 
-    EPROM_POW_CNT = POWER_OFF;/* Take Max 30mA */ 
+    EPROM_POW_CNT = POWER_OFF;/* Take Max 30mA */
+
     
-
-    if (0){
-        factory_test();//only for development test
-        while (1)
-        {
-        }
-    }
-
-    if(0)//(IS_LORA_PROGRAMMING)
+    if(IS_LORA_PROGRAMMING)
     {
-        lora_programming_process();
-    }else if(1)//(IN_FACTORY)
+        mode = lora_programming_mode;
+    }else if(IN_FACTORY)
     {
-        factory_process();
+        mode = factory_mode;
     }else{
-        normal_process();
+        mode = normal_mode;
     }
+    // mode = factory_test_mode;
+    // mode = factory_mode;
+
+    processMode(mode);
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************
@@ -154,7 +168,7 @@ static void R_MAIN_UserInit(void)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-void factory_test(void){
+void factory_test_process(void){
     L_BLE_STOP();
     R_RTC_Start();
     R_IT8Bit0_Channel0_Start();//400mS
@@ -215,14 +229,18 @@ void lora_programming_process(void){
 }
 
 void normal_process(void){
-    getFactroySetting(hardWareSetting, factorySetting, dubReadBuffer);
+    
+    dataFlashStart();
+    dataFlashRead((pfdl_u08 *)&board,0);
+    dataFlashEnd();
+    resetLoRaCounter(board.F_LORA_INTV);
+    DSADC_temperature_calibration_process = 0;
+    
     L_BLE_INIT();
     L_BLE_STOP();
     R_INTC1_Start();
     L_LORA_STOP();
     R_RTC_Start();
-    R_IT8Bit0_Channel0_Start();//400mS
-    delayInMs(10);
     while (1)
     {
         if(events)
@@ -309,6 +327,11 @@ void PCB_TEMP_procedure(void)
         get_pcb_temperature(&pcbTemperature);
         R_ADC_Stop();
         ADCEN = 0U;
+        if (factory_mode){
+            if((pcbTemperature>100)&(pcbTemperature<400)){
+                ADC_F_Done=1;
+            }
+        }
         adcProcess--;
         break;    
     default:
@@ -340,21 +363,33 @@ void PT100_procedure(void){
         if ((dsadc_ready)&(!adcProcess))
         {
             dsadc_ready = 0;
-            get_pt100_result(&PT100result);
+            get_pt100_result(&PT100_Temperature, &board.F_DSADC_TEMPERATURE_SENSOR_OFFSET);
             dsadcProcess--;
         }
         break;
     case 12:
-        L_PGA_STOP();
-        PT100result = PT100result / 5 + 100; // Record Temperature as 0~999 (as -50degC to 450 degC)
-        if (PT100result >= 1000)
-        {
-            PT100result = 0; // means record value will become 0, send to Lora "000" mean ERR
+        if (DSADC_temperature_calibration_process)
+            {
+                temperatureCalibrationOffset[DSADC_temperature_calibration_process] = pcbTemperature - PT100_Temperature;
+                if (DSADC_temperature_calibration_process == 1)
+                {
+                    board.F_DSADC_TEMPERATURE_SENSOR_OFFSET = (temperatureCalibrationOffset[1]*80 + temperatureCalibrationOffset[2]*20) / 100;
+                    DSADC_F_Done = 1;
+                }
+                DSADC_temperature_calibration_process--;
+                dsadcProcess = 10;
+            }else{
+            L_PGA_STOP();
+            Record_Data = (uint16_t)(PT100_Temperature / 5 + 100); // Record Temperature as 0~999 (as -50degC to 450 degC)
+            if (Record_Data >= 1000)
+            {
+                Record_Data = 0; // means record value will become 0, send to Lora "000" mean ERR
+            }
+            dsadcProcess--;
         }
-        dsadcProcess--;
         break;
     case 11:
-        doEepromWriteRecords((uint16_t)PT100result);
+        EEPROM_F_Done=doEepromWriteRecords((uint16_t)Record_Data);
         dsadcProcess--;
         break;
     case 10:
@@ -397,13 +432,16 @@ void LoRa_procedure(void){
         loraProcess--;
     case 6:
         LORA_READY = PIN_LEVEL_AS_LOW;
-        doSendLoraData((uint16_t)PT100result, (uint16_t)pcbTemperature);
+        doSendLoraData(Record_Data, (uint16_t)pcbTemperature);
         loraProcess--;
         break;
     case 5:
         if (LORA_STA) // LORA_STA Turn High means Lora got
         {
             loraProcess--;
+            if(factory_mode){
+                LORA_F_Done = 1;
+            }
         }
         break;
     // case 4: // stop lora process
@@ -487,14 +525,45 @@ void BLE_ShutDown_procedure(void)
     }
 }
 void factory_process(void){
-    dsadcProcess = 15;
-    adcProcess = 10;
-    loraProcess = 15;
-    bleProcess = 15;
-    bleShutDownProcess = 0;
-    R_IT8Bit0_Channel0_Start();//400mS
+    board.F_DSADC_TEMPERATURE_SENSOR_OFFSET = 0;
+    board.TESTED = 0;
+    board.HARDWARE = 0;
+    board.F_LORA_INTV = 1;
+    DSADC_temperature_calibration_process = 2;
+    resetLoRaCounter(board.F_LORA_INTV);
+    R_RTC_Start();
     while (1)
     {
+        if (!F_Done)
+        {
+            if (ADC_F_Done)
+            {
+                board.TESTED |= F_ADC_READY;
+                if (LORA_F_Done)
+                {
+                    board.TESTED |= F_LORA_READY;
+                    if (BLE_F_Done)
+                    {
+                        board.TESTED |= F_BLE_READY;
+                        if (DSADC_F_Done)
+                        {
+                            board.TESTED |= F_DSADC_READY;
+                            if (!dsadcProcess)
+                            {
+                                R_IT8Bit0_Channel0_Stop();
+                                R_RTC_Stop();
+                                board.F_LORA_INTV = 3;
+                                board.HARDWARE = 0B00001111;
+                                DataFlashWrite();
+                                F_Done = 1;
+                                P_STATUS = 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         if(events)
         {
             if(events & TIMER_PERIODIC_EVENT)//R_IT8Bit0_Channel0 , 200mS
@@ -502,17 +571,14 @@ void factory_process(void){
                 events &= ~TIMER_PERIODIC_EVENT;
                 if (dsadcProcess)
                 {
-                    //dsadcProcess = 0;
                     PT100_procedure();
                 }
                 if (adcProcess)
                 {
-                    //  adcProcess = 0;
                     PCB_TEMP_procedure();
                 }
                 if (loraProcess)
                 {
-                    // analogProcessDone = 0;
                     if ((!adcProcess)&(!dsadcProcess))
                     {
                         LoRa_procedure();
@@ -520,18 +586,50 @@ void factory_process(void){
                 }
                 if (bleProcess)
                 {
-                   F_BLE_procedure();
+                    if(!BLE_F_Done){
+                        F_BLE_procedure();
+                    }
                 }
                 if (bleShutDownProcess)
                 {
                     BLE_ShutDown_procedure();
                 }
+                P_STATUS = !P_STATUS;
             }
         }
     }
 }
 
+void processMode(mode_t mode)
+{
+    switch (mode)
+    {
+    case normal_mode:
+        normal_process();
+        break;
+    case factory_mode:
+        factory_process();
+        break;
+    case lora_programming_mode:
+        lora_programming_process();
+        break;
+    case factory_test_mode:
+        factory_test_process();
+        break;                    
+    default:
+        normal_process();
+        break;
+    }
+}
 
-
-
+void DataFlashWrite(void){
+    dataFlashStart();
+    dataFlashWrite((pfdl_u08 *)&board, 0);
+    dataFlashEnd();
+}
+extern void setLoraIntervalTime(uint8_t lora_intv){
+    board.F_LORA_INTV = lora_intv;
+    resetLoRaCounter(lora_intv);
+    DataFlashWrite();
+}
 /* End user code. Do not edit comment generated here */

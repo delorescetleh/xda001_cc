@@ -49,6 +49,7 @@ Global variables and functions
 /* Start user code for global. Do not edit comment generated here */
 uint16_t rtc_counter = 0;
 uint8_t lora_rtc_counter = 0;
+uint8_t lora_intv_time = 0;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -87,13 +88,28 @@ static void r_rtc_callback_constperiod(void)
     if (!rtc_counter)
     {
         R_IT8Bit0_Channel0_Start();
-        rtc_counter = RTC_TIME_SPEED;
-        adcProcess=10;
-        dsadcProcess=15;
+        
+        dsadcProcess = 15;
+        adcProcess = 10;
         dsadcProcessTimeOutCounter = 0;
+        bleShutDownProcess = 0;
+        if(factory_mode){
+            rtc_counter = RTC_TIME_SPEED/2;
+            bleProcess = 15;
+        }else{
+            rtc_counter = RTC_TIME_SPEED;
+            bleProcess = 0;
+        }
         if (!(lora_rtc_counter)){
-            lora_rtc_counter = loraProcessIntervalTime;
-            loraProcess = 9;
+            lora_rtc_counter = lora_intv_time;
+            if (factory_mode)
+            {
+                loraProcess = 15;
+            }
+            else
+            {
+                loraProcess = 9;
+            }
             loraProcessTimeOutCounter = 0;
         }
         lora_rtc_counter--;
@@ -114,7 +130,8 @@ static void r_rtc_callback_alarm(void)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-void resetLoRaCounter(void){
-    lora_rtc_counter = loraProcessIntervalTime;
+void resetLoRaCounter(uint8_t times){
+    lora_rtc_counter = 0;
+    lora_intv_time = times;
 }
 /* End user code. Do not edit comment generated here */

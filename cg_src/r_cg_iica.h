@@ -157,11 +157,7 @@ uint8_t eepromRandomRead(uint8_t adr, uint8_t *const tx_buf, uint16_t tx_num, ui
 void doEepromReadRecords(void); 
 void L_EEPROM_INIT(void);
 void L_EEPROM_STOP(void);
-
-// static void doEepromAction(void);
-
-void doEepromWriteRecords(uint16_t data);
-// void doEepromProcessing(void);
+uint8_t doEepromWriteRecords(uint16_t data);
 void setEepromAccessAddress(uint32_t i2cAccessIndex);
 
 uint16_t getStoreIndexFromEEPROM(void);

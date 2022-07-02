@@ -44,7 +44,7 @@ Pragma directive
 #pragma interrupt r_uart1_interrupt_receive(vect=INTSR1)
 /* Start user code for pragma. Do not edit comment generated here */
 # pragma address (receivedFromBle=0xFFC00U)
-# pragma address (receivedFromLora=0xFF700U)
+// # pragma address (receivedFromLora=0xFF700U)
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -368,21 +368,12 @@ static void doBleTask_AppGetEcho(void){
 }
 
 static void doBleTask_SetLoraInterval(void){
-    loraProcessIntervalTime = *appParam;
-    // Save into DataFlash
-    dataFlashStart();
-    dataFlashRead(dubReadBuffer,0);
-    *(dubReadBuffer+F_LORA_INTV_BYTE)=*appParam;
-    memcpy(dubWriteBuffer, dubReadBuffer, DATA_FLASH_SIZE);
-    dataFlashWrite(dubWriteBuffer,0);
-    dataFlashEnd();
+    setLoraIntervalTime(*appParam);
     //set ble ack to app
     sendToBle[0] = 0xA1;
     sendToBle[1] = 0x01;
     sendToBle[2] = 0x55;
     R_UART1_Send(sendToBle,(uint8_t) 3);
-    // lora_rtc_counter = 0;
-    resetLoRaCounter();// reset relative parameter
 }
 
 static void doBleTask_ShutDownBle(void){
@@ -578,6 +569,7 @@ void F_BLE_procedure(void)
         break;
     case 1:
         L_BLE_STOP();
+        BLE_F_Done = 1;
         bleProcess--;
         break;
     default:
