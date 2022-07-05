@@ -33,14 +33,22 @@ User definitions
 ***********************************************************************************************************************/
 
 /* Start user code for function. Do not edit comment generated here */
-# include "L_useful.h"
-# include "r_cg_sau.h"
-# include "r_cg_dtc.h"
-# include "r_cg_intp.h"
-# include "r_cg_it.h"
+#include "r_cg_macrodriver.h"
+#include "r_cg_cgc.h"
+#include "r_cg_port.h"
 #include "r_cg_it8bit.h"
-#include "r_cg_iica.h"
 #include "r_cg_rtc.h"
+#include "r_cg_pga_dsad.h"
+#include "r_cg_amp.h"
+#include "r_cg_adc.h"
+#include "r_cg_sau.h"
+#include "r_cg_iica.h"
+#include "r_cg_dtc.h"
+#include "r_cg_intp.h"
+
+# include "L_useful.h"
+# include "L_factory.h"
+
 // SHOULD SET TIMER LET TIME_SPEED * BASE_TIME = 1 MIN
 #define TEST_FACTORY_MODE_NOW           0x00
 #define RTC_TIME_SPEED 60
@@ -237,7 +245,9 @@ extern int16_t pcbTemperature;
 extern uint8_t BLE_F_Done;
 extern uint8_t USER_DSADC_temperature_calibration_process;
 extern int16_t user_Temperature;
-extern void setLoraIntervalTime(uint8_t lora_intv);
 extern uint8_t board[10];
+
+extern void goToSleep(void);
+extern void setLoraIntervalTime(uint8_t lora_intv);
 /* End user code. Do not edit comment generated here */
 #endif
