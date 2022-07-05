@@ -130,55 +130,6 @@ void L_PGA_STOP(void){
     R_PGA_DSAD_Stop();
 }
 
-// void get_dsadc_result(void){
-//     uint16_t _DSADCRC,BufferH,BufferL;
-//     uint32_t *result0 = &ds_adc_result0[0];
-//     uint32_t *result1 = &ds_adc_result1[0];
-//     uint32_t *result2 = &ds_adc_result2[0];
-//     uint32_t *result3 = &ds_adc_result3[0];
-//     uint16_t i = 0;
-//     for (i = 0; i <(DSADC_BUF_SIZE/2);i++){
-
-//         BufferH=dsadc_buf[i * 2];
-//         BufferL=dsadc_buf[i * 2+1];
-//         _DSADCRC = (uint8_t)(BufferL & 0x00F8);
-
-//         switch (_DSADCRC)
-//         {
-//         case 0x20:
-//             *result0 = (((uint32_t)BufferH << 8) | ((uint32_t)BufferL >> 8)) & 0x00ffffff;
-//             if (((*result0 & 0x00800000) >> 23) == 1)
-//             {
-//                 *result0 += 0xff000000;
-//             }
-//             result0++;
-//             break;
-//         case 0x40:
-//             // *result1 = (((uint32_t)avgBufferH << 8) | ((uint32_t)avgBufferL >> 8)) & 0x00ffffff;
-//             result1++;
-//             break;
-//         case 0x60:
-//             // *result2 = (((uint32_t)avgBufferH << 8) | ((uint32_t)avgBufferL >> 8)) & 0x00ffffff;
-//             result2++;
-//             break;
-//         case 0x80:
-//             *result3 = (((uint32_t)BufferH << 8) | ((uint32_t)BufferL >> 8)) & 0x00ffffff;
-//             if (((*result3 & 0x00800000) >> 23) == 1)
-//             {
-//                 *result3 += 0xff000000;
-//             }
-//             result3++;
-//             break;
-//         }
-//     }
-//     for (i = 0; i < DSADC_RESULT_BUF_SIZE;i++){
-//         r0_r1[i] = ds_adc_result0[i]*0.00149012; //uV
-//         b0_r1[i] = ds_adc_result3[i]*0.023842; //uV
-//         r100[i]=(b0_r1[i]-r0_r1[i]*2)/1000000/0.00154155;//ohm
-//     }
-//     R_PGA_DSAD_Start();
-// }
-
 void get_pt100_result(int *result){
     uint16_t _DSADCRC,BufferH,BufferL;
     uint32_t *result0 = &ds_adc_result0[0];
@@ -245,14 +196,9 @@ void calibrationIpt100(void){
     }
 }
 void resetDSADC(uint8_t *temperature){
-    temperatureOffset = ((int16_t)*temperature)+((int16_t)*(temperature+1))<<8;
+    temperatureOffset = (int16_t)(((int16_t) board[F_DSADC_TEMPERATURE_SENSOR_OFFSET+1]<<8)|board[F_DSADC_TEMPERATURE_SENSOR_OFFSET]);
 }
 int16_t boardOffset(uint8_t *temperature){
-    buffer_[0] = board[F_DSADC_TEMPERATURE_SENSOR_OFFSET];
-    buffer_[1] = board[F_DSADC_TEMPERATURE_SENSOR_OFFSET+1];
-    buffer_[2] =(int16_t) board[F_DSADC_TEMPERATURE_SENSOR_OFFSET+1]<<8;
-    buffer_[3] =(int16_t) (buffer_[2]|buffer_[0]);
-    temperatureOffset = (int16_t)buffer_[3];
-    return temperatureOffset;
+    return (int16_t)(((int16_t) board[F_DSADC_TEMPERATURE_SENSOR_OFFSET+1]<<8)|board[F_DSADC_TEMPERATURE_SENSOR_OFFSET]);
 }
 /* End user code. Do not edit comment generated here */
