@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for PGIA module.
-* Creation Date: 2022/6/29
+* Creation Date: 2022/7/5
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -195,9 +195,9 @@ void calibrationIpt100(void){
         Ipt100 = ((pcbTemperature - PCBtemp30)/1000) * Rate_30 + IPT100_30;
     }
 }
-void resetDSADC(uint8_t *temperature){
-    temperatureOffset = (int16_t)(((int16_t) board[F_DSADC_TEMPERATURE_SENSOR_OFFSET+1]<<8)|board[F_DSADC_TEMPERATURE_SENSOR_OFFSET]);
-}
+// void resetDSADC(uint8_t *temperature){
+//     temperatureOffset = (int16_t)(((int16_t) board[F_DSADC_TEMPERATURE_SENSOR_OFFSET+1]<<8)|board[F_DSADC_TEMPERATURE_SENSOR_OFFSET]);
+// }
 int16_t boardOffset(uint8_t *temperature){
     return (int16_t)(((int16_t) board[F_DSADC_TEMPERATURE_SENSOR_OFFSET+1]<<8)|board[F_DSADC_TEMPERATURE_SENSOR_OFFSET]);
 }

@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2022/6/29
+* Creation Date: 2022/7/5
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -34,7 +34,6 @@ Includes
 #include "r_cg_port.h"
 #include "r_cg_it8bit.h"
 #include "r_cg_rtc.h"
-#include "r_cg_it.h"
 #include "r_cg_pga_dsad.h"
 #include "r_cg_amp.h"
 #include "r_cg_adc.h"
@@ -138,7 +137,7 @@ void main(void)
     BLE_POW_CNT = POWER_OFF; /* Take Max 300mA */ 
     EPROM_POW_CNT = POWER_OFF;/* Take Max 30mA */
 
-    
+    delayInMs(5000);
     if(IS_LORA_PROGRAMMING)
     {
         mode = lora_programming_mode;
@@ -153,7 +152,7 @@ void main(void)
         }
     } 
     // mode = factory_test_mode;
-      mode =  normal_mode;
+     //mode =  normal_mode;
 
     processMode(mode);
     /* End user code. Do not edit comment generated here */
@@ -219,8 +218,8 @@ void lora_programming_process(void){
     R_DTCD10_Stop();
     // R_DTCD8_Stop();
     R_IT8Bit0_Channel0_Stop();
-    R_IT8Bit0_Channel1_Stop();
-    R_IT_Stop();
+    // R_IT8Bit0_Channel1_Stop();
+    //R_IT_Stop();
     R_RTC_Stop();
     LORA_READY_MODE = PIN_MODE_AS_INPUT;
     UART0_TXD_MODE = PIN_MODE_AS_INPUT;
@@ -238,7 +237,7 @@ void normal_process(void){
     dataFlashRead((pfdl_u08 *)&board,0);
     dataFlashEnd();
     resetLoRaCounter(board[F_LORA_INTV]);
-    resetDSADC(board[F_DSADC_TEMPERATURE_SENSOR_OFFSET]);
+    //resetDSADC(board[F_DSADC_TEMPERATURE_SENSOR_OFFSET]);
     DSADC_temperature_calibration_process = 0;
 
     L_BLE_INIT();
@@ -503,26 +502,26 @@ void LoRa_procedure(void){
     }
     switch (loraProcess)
     {
-    case 9:
+    case 15:
         L_LORA_INIT();
         loraProcess--;
         break;
-    case 8:
+    case 14:
         if (checkLoraMessage())
         {
             LORA_READY = PIN_LEVEL_AS_LOW;
             loraProcess--;
         }
         break;
-    case 7:
+    case 13:
         LORA_READY = PIN_LEVEL_AS_LOW;    
         loraProcess--;
-    case 6:
+    case 12:
         LORA_READY = PIN_LEVEL_AS_LOW;
         doSendLoraData(Record_Data, (uint16_t)pcbTemperature);
         loraProcess--;
         break;
-    case 5:
+    case 11:
         if (LORA_STA) // LORA_STA Turn High means Lora got
         {
             loraProcess--;
@@ -618,7 +617,7 @@ void factory_process(void){
     board[F_LORA_INTV] = 1;
     DSADC_temperature_calibration_process = 2;
     resetLoRaCounter(board[F_LORA_INTV]);
-    resetDSADC(0);
+    // resetDSADC(0);
     R_RTC_Start();
     while (1)
     {
@@ -729,7 +728,7 @@ extern void USER_Calibrartion_DSADC_procedure(void){
     {
     case 10:
         if(!dsadcProcess){
-            resetDSADC(user_Temperature);
+           // resetDSADC(user_Temperature);
             board[F_DSADC_TEMPERATURE_SENSOR_OFFSET] = user_Temperature - DSADC_Temperature;
             USER_DSADC_temperature_calibration_process--;
         }
