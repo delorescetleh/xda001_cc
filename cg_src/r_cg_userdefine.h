@@ -48,8 +48,6 @@ User definitions
 #define WORK_WITH_E1 1
 
 //########################################################################
-#pragma address (board =0xFF700U)
-
 #define TIMER_PERIODIC_EVENT                        0x01 // should not use in V4 version , change to OVER_TIME_EVENT 
 #define DSADC_NOTIFICATION_EVENT                    0x02
 #define BLE_NOTIFICATION_EVENT                      0x04
@@ -194,7 +192,10 @@ User definitions
 #define FCNT_START 121
 #define MAX_LORA_SENDING_PROCESS_TIMES 3
 
-/* BLE MESSAGE*/
+#define   TESTED 0
+#define   HARDWARE 1
+#define   F_LORA_INTV 2
+#define   F_DSADC_TEMPERATURE_SENSOR_OFFSET 3 
 
 #define BLE_TOTAL_FACTORY_SETTING_COMMAND_NUMBER 7
 #define BLE_FACTORY_SETTING_FINISH 0xFF
@@ -215,13 +216,6 @@ typedef enum{
 
 
 
-typedef struct
-{
-  uint8_t TESTED;
-  uint8_t HARDWARE;
-  uint8_t F_LORA_INTV;
-  int16_t F_DSADC_TEMPERATURE_SENSOR_OFFSET;
-}board_t;
 
 extern uint32_t Rpt100;
 extern float Ipt100;
@@ -244,5 +238,6 @@ extern uint8_t BLE_F_Done;
 extern uint8_t USER_DSADC_temperature_calibration_process;
 extern int16_t user_Temperature;
 extern void setLoraIntervalTime(uint8_t lora_intv);
+extern uint8_t board[10];
 /* End user code. Do not edit comment generated here */
 #endif

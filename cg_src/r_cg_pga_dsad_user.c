@@ -84,6 +84,7 @@ int16_t temperatureOffset;
 
 void parseDifferential_DSADC_Result(uint32_t BufferH, uint32_t BufferL, uint32_t *result);
 void calibrationIpt100(void);
+uint16_t buffer_[4] = {0};
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -243,7 +244,15 @@ void calibrationIpt100(void){
         Ipt100 = ((pcbTemperature - PCBtemp30)/1000) * Rate_30 + IPT100_30;
     }
 }
-void resetDSADC(int16_t temperature){
-    temperatureOffset = temperature;
+void resetDSADC(uint8_t *temperature){
+    temperatureOffset = ((int16_t)*temperature)+((int16_t)*(temperature+1))<<8;
+}
+int16_t boardOffset(uint8_t *temperature){
+    buffer_[0] = board[F_DSADC_TEMPERATURE_SENSOR_OFFSET];
+    buffer_[1] = board[F_DSADC_TEMPERATURE_SENSOR_OFFSET+1];
+    buffer_[2] =(int16_t) board[F_DSADC_TEMPERATURE_SENSOR_OFFSET+1]<<8;
+    buffer_[3] =(int16_t) (buffer_[2]|buffer_[0]);
+    temperatureOffset = (int16_t)buffer_[3];
+    return temperatureOffset;
 }
 /* End user code. Do not edit comment generated here */

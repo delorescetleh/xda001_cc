@@ -213,6 +213,7 @@ void L_PGA_STOP(void);
 void get_dsadc_result(void);
 void get_pt100_result(int *result);
 void clr_dsadc_buf(void);
-void resetDSADC(int16_t temperature);
+void resetDSADC(uint8_t *temperature);
+int16_t boardOffset(uint8_t *temperature);
 /* End user code. Do not edit comment generated here */
 #endif
