@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file includes user definition.
-* Creation Date: 2022/7/5
+* Creation Date: 2022/7/6
 ***********************************************************************************************************************/
 #ifndef _USER_DEF_H
 #define _USER_DEF_H
@@ -215,16 +215,12 @@ User definitions
 #define eepromIndexStorageAddressinEEPROM 90000
 
 
-typedef enum{
-    lora_programming_mode = 1,
-    factory_test_mode = 2,
-    factory_mode = 3,
-    normal_mode = 4
-} mode_t;
+#define lora_programming_mode 1
+#define factory_test_mode 2
+#define factory_mode 3
+#define    normal_mode 4
 
-
-
-
+extern uint8_t mode;
 extern uint32_t Rpt100;
 extern float Ipt100;
 extern uint8_t events;
@@ -246,7 +242,6 @@ extern uint8_t BLE_F_Done;
 extern uint8_t USER_DSADC_temperature_calibration_process;
 extern int16_t user_Temperature;
 extern uint8_t board[10];
-
 extern void goToSleep(void);
 extern void setLoraIntervalTime(uint8_t lora_intv);
 /* End user code. Do not edit comment generated here */

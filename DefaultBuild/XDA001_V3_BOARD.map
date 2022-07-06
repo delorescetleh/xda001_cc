@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (W3.03.00 )             06-Jul-2022 06:36:54
+Renesas Optimizing Linker (W3.03.00 )             06-Jul-2022 18:32:19
 
 *** Options ***
 
@@ -32,6 +32,8 @@ Renesas Optimizing Linker (W3.03.00 )             06-Jul-2022 06:36:54
 -Input=DefaultBuild\r_cg_it8bit_user.obj
 -Input=DefaultBuild\L_factory.obj
 -Input=DefaultBuild\L_normal.obj
+-Input=DefaultBuild\L_PT100.obj
+-Input=DefaultBuild\L_PCB_TEMP.obj
 -LIBrary=FDL\CCRL_100\lib\pfdl.lib
 -SECURITY_ID=00000000000000000000
 -DEVICE=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11NGG.DVF
@@ -74,27 +76,25 @@ SECTION                            START      END         SIZE   ALIGN
 .monitor1
                                   000000ce  000000d7         a   1
 .data
-                                  000000d8  000002f8       221   2
+                                  000000d8  00000319       242   2
 .text
-                                  000002f9  000005bb       2c3   1
+                                  0000031a  0000068d       374   1
 PFDL_COD
-                                  000005bc  00000649        8e   2
+                                  0000068e  0000071b        8e   2
 .RLIB
-                                  0000064a  00000b40       4f7   1
+                                  0000071c  00000c12       4f7   1
 .const
                                   00002000  000020a6        a7   2
 .textf
-                                  000020a7  00003aaa      1a04   1
+                                  000020a7  00003e36      1d90   1
 .monitor2
                                   0001fe00  0001ffff       200   1
 .bss_ATF1F00
                                   000f1f00  000f1f00         1   1
 .bss
-                                  000fe900  000fe9bf        c0   2
+                                  000fe900  000fea37       138   2
 .dataR
-                                  000fe9c0  000febe0       221   2
-.bss_ATFF800
-                                  000ff800  000ff83f        40   1
+                                  000fea38  000fec79       242   2
 .bss_ATFFC00
                                   000ffc00  000ffc9f        a0   1
 .bss_ATFFD00

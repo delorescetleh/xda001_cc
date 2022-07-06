@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for RTC module.
-* Creation Date: 2022/7/5
+* Creation Date: 2022/7/6
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -93,13 +93,23 @@ static void r_rtc_callback_constperiod(void)
         adcProcess = 10;
         dsadcProcessTimeOutCounter = 0;
         bleShutDownProcess = 0;
-        if(factory_mode){
+        switch (mode)
+        {
+        case factory_mode:
             rtc_counter = RTC_TIME_SPEED;
             bleProcess = 15;
-        }else{
+            break;        
+        case normal_mode:
             rtc_counter = RTC_TIME_SPEED;
             bleProcess = 0;
+            break;
+        case factory_test_mode:
+            rtc_counter = RTC_TIME_SPEED/6;
+            pt100_process = 15;
+            pcb_temperature_process = 5;
+            break;
         }
+
         if (!(lora_rtc_counter)){
             lora_rtc_counter = lora_intv_time;
             if (factory_mode)
@@ -134,4 +144,5 @@ void resetLoRaCounter(uint8_t times){
     lora_rtc_counter = 0;
     lora_intv_time = times;
 }
+
 /* End user code. Do not edit comment generated here */

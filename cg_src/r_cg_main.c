@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2022/7/5
+* Creation Date: 2022/7/6
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -58,7 +58,7 @@ Global variables and functions
 /* Start user code for global. Do not edit comment generated here */
 // volatile unsigned char EVENTS;
 volatile unsigned char dataFlash;
-mode_t mode;
+
 int different;
 int DSADC_Temperature;
 int Record_Temperature;
@@ -75,7 +75,7 @@ void normal_process(void);
 
 void turnOffAll(void);
 
-void processMode(mode_t mode);
+void processMode(void);
 
 void PCB_TEMP_procedure(void);
 void F_PT100_procedure(void);
@@ -96,7 +96,7 @@ extern uint8_t BLE_F_Done = 0;
 uint8_t DSADC_temperature_calibration_process = 2;
 extern uint8_t board[10] = {0};
 extern int16_t temperatureCalibrationOffset[3] = {0};
-
+uint8_t mode;
 extern int16_t user_Temperature=0;
 extern int16_t pcbTemperature=250;
 extern uint32_t Rpt100 = 0;
@@ -117,8 +117,6 @@ extern uint8_t events=0;
 extern uint8_t dsadc_ready=0;
 extern uint8_t USER_DSADC_temperature_calibration_process = 0;
 extern uint8_t countToEnableLoraProcess = 0;
-
-
 extern void goToSleep(void);
 /* End user code. Do not edit comment generated here */
 
@@ -139,7 +137,7 @@ void main(void)
     BLE_POW_CNT = POWER_OFF; /* Take Max 300mA */ 
     EPROM_POW_CNT = POWER_OFF;/* Take Max 30mA */
 
-    delayInMs(5000);
+    delayInMs(1000);
     if(IS_LORA_PROGRAMMING)
     {
         mode = lora_programming_mode;
@@ -153,10 +151,10 @@ void main(void)
             mode = normal_mode;
         }
     } 
-    // mode = factory_test_mode;
+    mode = factory_test_mode;
      //mode =  normal_mode;
 
-    processMode(mode);
+    processMode();
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************
@@ -281,7 +279,7 @@ void PCB_TEMP_procedure(void)
         get_pcb_temperature(&pcbTemperature);
         R_ADC_Stop();
         ADCEN = 0U;
-        if (factory_mode){
+        if (mode==factory_mode){
             if((pcbTemperature>100)&(pcbTemperature<400)){
                 ADC_F_Done=1;
             }
@@ -471,7 +469,7 @@ void LoRa_procedure(void){
         if (LORA_STA) // LORA_STA Turn High means Lora got
         {
             loraProcess--;
-            if(factory_mode){
+            if(mode==factory_mode){
                 LORA_F_Done = 1;
             }
         }
@@ -637,7 +635,7 @@ void BLE_ShutDown_procedure(void)
 //     }
 // }
 
-void processMode(mode_t mode)
+void processMode(void)
 {
     switch (mode)
     {

@@ -1,6 +1,8 @@
 #include "L_factory.h"
-
-
+#include "L_PT100.h"
+#include "L_PCB_TEMP.h"
+extern uint8_t pcb_temperature_process;
+extern uint8_t pt100_process;
 void lora_programming_process(void){
     R_INTC1_Stop();
     L_BLE_STOP();
@@ -23,25 +25,25 @@ void lora_programming_process(void){
 
 
 void factory_test_process(void){
-    // L_BLE_STOP();
-    // R_RTC_Start();
-    // R_IT8Bit0_Channel0_Start();
-    // delayInMs(10);
-    // while (1)
-    // {
-    //     if (events)
-    //     {
-    //         if(events & TIMER_PERIODIC_EVENT)//R_IT8Bit0_Channel0 , 200mS
-    //         {
-    //             events &= ~TIMER_PERIODIC_EVENT;
-    //             if (dsadcProcess)
-    //             {
-    //                 PT100_procedure();
-    //             }
-    //             if (adcProcess)
-    //             {
-    //                 PCB_TEMP_procedure();
-    //             }
+    L_BLE_STOP();
+    R_RTC_Start();
+    R_IT8Bit0_Channel0_Start();
+    delayInMs(10);
+    while (1)
+    {
+        if (events)
+        {
+            if(events & TIMER_PERIODIC_EVENT)//R_IT8Bit0_Channel0 , 200mS
+            {
+                events &= ~TIMER_PERIODIC_EVENT;
+                if (pt100_process)
+                {
+                    L_PT100_Procedure();
+                }
+                if (pcb_temperature_process)
+                {
+                    L_PCB_TEMP_procedure();
+                }
     //             if (loraProcess)
     //             {
     //                 if (!dsadcProcess)
@@ -49,13 +51,13 @@ void factory_test_process(void){
     //                     LoRa_procedure();
     //                 }
     //             }
-    //         }
-    //     }
-    //     if ((!dsadcProcess) & (!loraProcess) & (!adcProcess))
-    //     {
-    //         goToSleep();
-    //     }
-    // }
+            }
+        }
+        if ((!dsadcProcess) & (!loraProcess) & (!adcProcess)& (!pt100_process))
+        {
+            goToSleep();
+        }
+    }
 }
 
 

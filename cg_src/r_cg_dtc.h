@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for DTC module.
-* Creation Date: 2022/7/5
+* Creation Date: 2022/7/6
 ***********************************************************************************************************************/
 #ifndef DTC_H
 #define DTC_H

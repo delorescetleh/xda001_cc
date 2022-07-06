@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for ADC module.
-* Creation Date: 2022/7/5
+* Creation Date: 2022/7/6
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -100,7 +100,7 @@ void init_pcb_temperature(void){
     memclr((uint8_t *)&temp_buf[0], MAX_ADC_BUF*2);
     memclr((uint8_t *)&volt_buf[0], MAX_ADC_BUF*2);
 }
-void get_pcb_temperature(int16_t *pcbTemperature){
+void get_pcb_temperature(int *pcbTemperature){
     int i;
     int16_t temp = 0;
     for (i = 1; i < MAX_ADC_BUF;i++){
@@ -111,6 +111,6 @@ void get_pcb_temperature(int16_t *pcbTemperature){
         temp += (int16_t)(-(g_tempv_int / (TEMP_SENSOR_GAIN_SCALED)) +
                                     SENSOR_REF_TEMP_SCALED);
     }
-    *pcbTemperature = (*pcbTemperature+(temp / (MAX_ADC_BUF-1)))/2;
+    *pcbTemperature = temp / (MAX_ADC_BUF-1);
 }
 /* End user code. Do not edit comment generated here */

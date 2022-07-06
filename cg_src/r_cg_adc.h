@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for ADC module.
-* Creation Date: 2022/7/5
+* Creation Date: 2022/7/6
 ***********************************************************************************************************************/
 #ifndef ADC_H
 #define ADC_H
@@ -151,6 +151,6 @@ void R_ADC_Set_OperationOff(void);
 void R_ADC_Get_Result(uint16_t * const buffer);
 /* Start user code for function. Do not edit comment generated here */
 void init_pcb_temperature(void);
-void get_pcb_temperature(int16_t *pcb_temperature);
+void get_pcb_temperature(int *pcb_temperature);
 /* End user code. Do not edit comment generated here */
 #endif

@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for PGIA module.
-* Creation Date: 2022/7/5
+* Creation Date: 2022/7/6
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -42,10 +42,10 @@ Pragma directive
 #pragma interrupt r_pga_dsad_conversion_interrupt(vect=INTDSAD)
 #pragma interrupt r_pga_dsad_scan_interrupt(vect=INTDSADS)
 /* Start user code for pragma. Do not edit comment generated here */
-#pragma address (dsadc_buf=0xFF800U)
+// #pragma address (dsadc_buf=0xFF800U)
 # define DSADC_SKIP_LENGTH 0
-# define DSADC_BUF_SIZE 32
-# define DSADC_RESULT_BUF_SIZE 4 
+# define DSADC_BUF_SIZE 36
+# define DSADC_RESULT_BUF_SIZE 4
 # define DSADC_DIFF_PGA_GAIN_64 (float) 1.49012 //mV = (1.6 V /64)*(1/2^24)*1000
 # define SHIFT_20Bit_BASE_1M_ERROR (float) 0.9536743164 // 1,000,000 / 2^20  = 0.9536743164
 # define SHIFT_16Bit_BASE_1M_ERROR (float) 15.25878906 // 1,000,000 / 
@@ -61,6 +61,7 @@ Pragma directive
 # define Rate_30 (float) 0.039522727
 # define Rate_40 (float) 0.032536842
 # define Rate_50 (float) 0.026135294
+# define vsbias 14404169
 
 /* End user code. Do not edit comment generated here */
 
@@ -68,14 +69,29 @@ Pragma directive
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
+struct DSADC_BUFs
+{
+    uint16_t _DSADMV1;
+    uint16_t _DSADMV0;
+};
+
+struct DSADC_BUFs dsadc_buffer0[DSADC_RESULT_BUF_SIZE];
+struct DSADC_BUFs dsadc_buffer1[DSADC_RESULT_BUF_SIZE];
+struct DSADC_BUFs dsadc_buffer2[DSADC_RESULT_BUF_SIZE];
+struct DSADC_BUFs dsadc_buffer3[DSADC_RESULT_BUF_SIZE];
+uint32_t current = 0;
+double Ipt = 0;
 uint16_t dsadc_buf[DSADC_BUF_SIZE];
 uint8_t dsadc_counter = 0;
 uint32_t ds_adc_result0[DSADC_RESULT_BUF_SIZE];
 uint32_t ds_adc_result1[DSADC_RESULT_BUF_SIZE];
 uint32_t ds_adc_result2[DSADC_RESULT_BUF_SIZE];
 uint32_t ds_adc_result3[DSADC_RESULT_BUF_SIZE];
-uint32_t ds_adc_result4[DSADC_RESULT_BUF_SIZE];
-
+int result0 = DSADC_RESULT_BUF_SIZE - 1;
+int result1 = DSADC_RESULT_BUF_SIZE - 1;
+int result2 = DSADC_RESULT_BUF_SIZE - 1;
+int result3 = DSADC_RESULT_BUF_SIZE - 1;
+uint32_t fetchCounter = 0;
 int16_t temperatureOffset;
 // float r0_r1[DSADC_RESULT_BUF_SIZE];
 // float b0_r1[DSADC_RESULT_BUF_SIZE];
@@ -83,7 +99,9 @@ int16_t temperatureOffset;
 // float r100[DSADC_RESULT_BUF_SIZE];
 
 void parseDifferential_DSADC_Result(uint32_t BufferH, uint32_t BufferL, uint32_t *result);
+void parseSingle_DSADC_Result(uint32_t BufferH, uint32_t BufferL, uint32_t *result);
 void calibrationIpt100(void);
+double getIpt(void);
 uint16_t buffer_[4] = {0};
 /* End user code. Do not edit comment generated here */
 
@@ -96,16 +114,75 @@ uint16_t buffer_[4] = {0};
 static void __near r_pga_dsad_conversion_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
-    uint8_t index = dsadc_counter * 2;
-    dsadc_buf[index]= DSADMV1;
-    dsadc_buf[index+1] = DSADMV0;
-    dsadc_counter = dsadc_counter + 1;
-    if (dsadc_counter > (DSADC_BUF_SIZE / 2))
+    // uint8_t index = dsadc_counter * 2;
+    switch (DSADMVC)
     {
-        dsadc_ready = 1;
-        dsadc_counter = 0;
+        case 0x20:
+            dsadc_buffer0[result0]._DSADMV1 = DSADMV1;
+            dsadc_buffer0[result0]._DSADMV0 = DSADMV0;
+            if (result0)
+            {
+                result0--;
+            }else
+            {
+                result0 = DSADC_RESULT_BUF_SIZE - 1;
+            }
+                fetchCounter++;
+            break;
+        case 0x40:
+            dsadc_buffer1[result1]._DSADMV1 = DSADMV1;
+            dsadc_buffer1[result1]._DSADMV0 = DSADMV0;
+            if (result1)
+            {
+                result1--;
+            }
+            else
+            {
+                result1 = DSADC_RESULT_BUF_SIZE - 1;
+            }
+                fetchCounter++;
+            break;
+        case 0x60:
+            dsadc_buffer2[result2]._DSADMV1 = DSADMV1;
+            dsadc_buffer2[result2]._DSADMV0 = DSADMV0;
+            if (result2)
+            {
+                result2--;
+            }
+            else
+            {
+                result2 = DSADC_RESULT_BUF_SIZE - 1;
+            }
+                fetchCounter++;
+            break;
+        case 0x80:
+            dsadc_buffer3[result3]._DSADMV1 = DSADMV1;
+            dsadc_buffer3[result3]._DSADMV0 = DSADMV0;
+            if (result3)
+            {
+                result3--;
+            }
+            else
+            {
+                result3 = DSADC_RESULT_BUF_SIZE - 1;
+            }
+                fetchCounter++;
+            break;
+    }
+    // dsadc_buf[index]= DSADMV1;
+    // dsadc_buf[index+1] = DSADMV0;
+    // dsadc_counter = dsadc_counter + 1;
+    if (fetchCounter>50)// (dsadc_counter >= (DSADC_BUF_SIZE / 2))
+    {
+        dsadc_ready=1;
+        result0 = DSADC_RESULT_BUF_SIZE - 1;
+        result1 = DSADC_RESULT_BUF_SIZE - 1;
+        result2 = DSADC_RESULT_BUF_SIZE - 1;
+        result3 = DSADC_RESULT_BUF_SIZE - 1;
+        fetchCounter = 0;
         R_PGA_DSAD_Stop();
     }
+
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************
@@ -130,7 +207,51 @@ void L_PGA_STOP(void){
     R_PGA_DSAD_Stop();
 }
 
-void get_pt100_result(int *result){
+void L_get_pt100_result(int *result){
+    
+    uint32_t pt100 = 0;
+    uint16_t i = 0;
+    for (i = 0; i < DSADC_RESULT_BUF_SIZE; i++)
+    {
+        parseDifferential_DSADC_Result(dsadc_buffer0[i]._DSADMV1,dsadc_buffer0[i]._DSADMV0, &ds_adc_result0[i]);
+        parseSingle_DSADC_Result(dsadc_buffer1[i]._DSADMV1, dsadc_buffer1[i]._DSADMV0, &ds_adc_result1[i]);
+        parseSingle_DSADC_Result(dsadc_buffer2[i]._DSADMV1, dsadc_buffer2[i]._DSADMV0, &ds_adc_result2[i]);
+        parseDifferential_DSADC_Result(dsadc_buffer3[i]._DSADMV1, dsadc_buffer3[i]._DSADMV0, &ds_adc_result3[i]);
+        pt100 += (((ds_adc_result3[i] << 4) - (ds_adc_result0[i] << 1)) >> 16);
+    }
+    Rpt100 = (pt100 / DSADC_RESULT_BUF_SIZE )*(DSADC_DIFF_PGA_GAIN_64/SHIFT_16Bit_BASE_1M_ERROR/getIpt());
+    *result = ((int)Rpt100 - PT100_BASE) / PT100_TEMPERATURE_RATE ;
+}
+
+double getIpt(void)
+{
+    double Ipt100=0;
+    if (pcbTemperature>500)
+    {
+        Ipt100 = ((pcbTemperature - PCBtemp50)/1000) * Rate_50 + IPT100_50;
+    }
+    else
+    {
+        if (pcbTemperature > 400)
+        {
+            Ipt100 = ((pcbTemperature - PCBtemp40) / 1000) * Rate_40 + IPT100_40;
+        }
+        else
+        {
+            if (pcbTemperature > 100)
+            {
+                Ipt100 = ((pcbTemperature - PCBtemp30) / 1000) * Rate_30 + IPT100_30;
+            }
+            else
+            {
+                Ipt100 = 0.001543572;
+            }
+        }
+    }
+    return Ipt100;
+}
+
+double get_pt100_result(int *result){
     uint16_t _DSADCRC,BufferH,BufferL;
     uint32_t *result0 = &ds_adc_result0[0];
     uint32_t *result3 = &ds_adc_result3[0];
@@ -172,6 +293,7 @@ void get_pt100_result(int *result){
     Rpt100 = ((pt100 / DSADC_RESULT_BUF_SIZE )*(DSADC_DIFF_PGA_GAIN_64/SHIFT_16Bit_BASE_1M_ERROR/Ipt100));//mOhm ;
     // pt100=pt100*DSADC_DIFF_PGA_GAIN_64/SHIFT_12Bit_BASE_1M_ERROR/Ipt100;//ohm
     *result = ((int)Rpt100 - PT100_BASE) / PT100_TEMPERATURE_RATE ;
+    return (pt100 / DSADC_RESULT_BUF_SIZE) * (DSADC_DIFF_PGA_GAIN_64);
 }
 
 
@@ -181,6 +303,10 @@ void parseDifferential_DSADC_Result(uint32_t BufferH,uint32_t BufferL,uint32_t *
             {
                 *result += 0xff000000;
             }
+}
+
+void parseSingle_DSADC_Result(uint32_t BufferH,uint32_t BufferL,uint32_t *result){
+            *result = ((BufferH << 8) | (BufferL >> 8)) & 0x00ffffff;
 }
 
 void clr_dsadc_buf(void){
