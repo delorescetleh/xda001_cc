@@ -38,19 +38,22 @@ void factory_test_process(void){
                 events &= ~TIMER_PERIODIC_EVENT;
                 if (pt100_process)
                 {
+                    if (!pcb_temperature_process)
+                    {
                     L_PT100_Procedure();
+                    }
                 }
                 if (pcb_temperature_process)
                 {
                     L_PCB_TEMP_procedure();
                 }
-    //             if (loraProcess)
-    //             {
-    //                 if (!dsadcProcess)
-    //                 {
-    //                     LoRa_procedure();
-    //                 }
-    //             }
+                if (lora_process)
+                {
+                    if (!pt100_process)
+                    {
+                        L_Lora_procedure();
+                    }
+                }
             }
         }
         if ((!dsadcProcess) & (!loraProcess) & (!adcProcess)& (!pt100_process))

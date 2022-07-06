@@ -2,8 +2,7 @@
 #include "r_cg_userdefine.h"
 
 double pt100_line_voltage=0; // mv
-int dsadc_temperature=0;
-
+extern int dsadc_temperature=0;
 extern uint8_t pt100_process=PT100_PROCESS_START;
 extern uint8_t pt100_process_timeout_counter=0;
 

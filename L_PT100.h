@@ -5,5 +5,5 @@
 
 extern uint8_t pt100_process;
 extern uint8_t pt100_process_timeout_counter;
-
+extern int dsadc_temperature;
 extern void L_PT100_Procedure(void);

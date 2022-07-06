@@ -120,6 +120,34 @@
       <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
       <ParentItem>81ad9a81-1fbe-4649-932f-c133eef24a10</ParentItem>
     </Instance>
+    <Instance Guid="99cf8d62-9927-4a67-8765-e6dbfe15a299">
+      <Name>L_PCB_TEMP.c</Name>
+      <Type>File</Type>
+      <RelativePath>L_PCB_TEMP.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>81ad9a81-1fbe-4649-932f-c133eef24a10</ParentItem>
+    </Instance>
+    <Instance Guid="7ce10a8e-5c62-4f1b-8965-8766da63677f">
+      <Name>L_PCB_TEMP.h</Name>
+      <Type>File</Type>
+      <RelativePath>L_PCB_TEMP.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>81ad9a81-1fbe-4649-932f-c133eef24a10</ParentItem>
+    </Instance>
+    <Instance Guid="bb6ef875-bf6d-493d-9695-1c809a391548">
+      <Name>L_Lora.c</Name>
+      <Type>File</Type>
+      <RelativePath>L_Lora.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>81ad9a81-1fbe-4649-932f-c133eef24a10</ParentItem>
+    </Instance>
+    <Instance Guid="03e1f002-2566-4956-9b9f-d424f6ac9aca">
+      <Name>L_Lora.h</Name>
+      <Type>File</Type>
+      <RelativePath>L_Lora.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>81ad9a81-1fbe-4649-932f-c133eef24a10</ParentItem>
+    </Instance>
     <Instance Guid="77875f6f-a7bc-48ba-b723-a620262e3b27">
       <Name>r_cg_main.c</Name>
       <Type>File</Type>
@@ -486,7 +514,11 @@
       <SourceItemType29>CSource</SourceItemType29>
       <SourceItemGuid30>433d19d6-c359-4db4-804a-837e46b4793f</SourceItemGuid30>
       <SourceItemType30>CSource</SourceItemType30>
-      <SourceItemCount>31</SourceItemCount>
+      <SourceItemGuid31>99cf8d62-9927-4a67-8765-e6dbfe15a299</SourceItemGuid31>
+      <SourceItemType31>CSource</SourceItemType31>
+      <SourceItemGuid32>bb6ef875-bf6d-493d-9695-1c809a391548</SourceItemGuid32>
+      <SourceItemType32>CSource</SourceItemType32>
+      <SourceItemCount>33</SourceItemCount>
       <LastDeviceChangedCounter>0</LastDeviceChangedCounter>
     </Instance>
     <Instance Guid="6bb7060d-7e24-4135-bd9b-7db166417523">
@@ -1341,6 +1373,22 @@ cg_src
       <ItemAddTime>637926891685400077</ItemAddTime>
       <ItemAddTimeCount>0</ItemAddTimeCount>
     </Instance>
+    <Instance Guid="99cf8d62-9927-4a67-8765-e6dbfe15a299">
+      <ItemAddTime>637927274777623898</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="7ce10a8e-5c62-4f1b-8965-8766da63677f">
+      <ItemAddTime>637927274907130485</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="bb6ef875-bf6d-493d-9695-1c809a391548">
+      <ItemAddTime>637927297258123102</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="03e1f002-2566-4956-9b9f-d424f6ac9aca">
+      <ItemAddTime>637927297386739772</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
     <Instance Guid="0b7e78c3-aadd-45ee-9f9d-ffac6141eeb2">
       <TimeTagModified-SourceItem0--0>-8585468735465562039</TimeTagModified-SourceItem0--0>
       <SourceItem0-IsLockedByUser>False</SourceItem0-IsLockedByUser>
@@ -1464,6 +1512,14 @@ cg_src
       <SourceItem30-IsLockedByUser>False</SourceItem30-IsLockedByUser>
       <SourceItem30-BuildingTarget-0>True</SourceItem30-BuildingTarget-0>
       <SourceItem30-IndividualCompileOption-0>False</SourceItem30-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem31--0>-8585445050077151910</TimeTagModified-SourceItem31--0>
+      <SourceItem31-IsLockedByUser>False</SourceItem31-IsLockedByUser>
+      <SourceItem31-BuildingTarget-0>True</SourceItem31-BuildingTarget-0>
+      <SourceItem31-IndividualCompileOption-0>False</SourceItem31-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem32--0>-8585445027596652706</TimeTagModified-SourceItem32--0>
+      <SourceItem32-IsLockedByUser>False</SourceItem32-IsLockedByUser>
+      <SourceItem32-BuildingTarget-0>True</SourceItem32-BuildingTarget-0>
+      <SourceItem32-IndividualCompileOption-0>False</SourceItem32-IndividualCompileOption-0>
     </Instance>
     <Instance Guid="e4582a76-90da-4988-9864-24db24826845">
       <TimeTagModified-SourceItem3--0>-8585461604358778776</TimeTagModified-SourceItem3--0>
@@ -2044,6 +2100,7 @@ cg_src
       <DebuggerProperty-HookProperty-HookTransaction-Broke-Length>0</DebuggerProperty-HookProperty-HookTransaction-Broke-Length>
       <DebuggerProperty-HookProperty-HookTransaction-Connected-Length>0</DebuggerProperty-HookProperty-HookTransaction-Connected-Length>
       <DebuggerProperty-HookProperty-HookTransaction-Disconnecting-Length>0</DebuggerProperty-HookProperty-HookTransaction-Disconnecting-Length>
+      <DebuggerProperty-EssentialProperty-EmulatorConnect-SerialNumber />
     </Instance>
   </Class>
   <Class Guid="ae6bc4a9-3063-4942-8876-1ad4be827a16">

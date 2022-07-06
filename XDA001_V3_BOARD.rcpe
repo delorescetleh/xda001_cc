@@ -61,6 +61,10 @@
       <Path>L_normal.h</Path>
       <Path>L_PT100.c</Path>
       <Path>L_PT100.h</Path>
+      <Path>L_PCB_TEMP.c</Path>
+      <Path>L_PCB_TEMP.h</Path>
+      <Path>L_Lora.c</Path>
+      <Path>L_Lora.h</Path>
     </Files>
     <DebugOptions>
       <ConnectSettings>
@@ -102,6 +106,8 @@
           <Path>DefaultBuild\L_factory.obj</Path>
           <Path>DefaultBuild\L_normal.obj</Path>
           <Path>DefaultBuild\L_PT100.obj</Path>
+          <Path>DefaultBuild\L_PCB_TEMP.obj</Path>
+          <Path>DefaultBuild\L_Lora.obj</Path>
           <Path>FDL\CCRL_100\lib\pfdl.lib</Path>
         </LinkOrder>
         <CommonOptions>

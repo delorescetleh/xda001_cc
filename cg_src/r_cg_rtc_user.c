@@ -104,9 +104,10 @@ static void r_rtc_callback_constperiod(void)
             bleProcess = 0;
             break;
         case factory_test_mode:
-            rtc_counter = RTC_TIME_SPEED/6;
+            rtc_counter = RTC_TIME_SPEED/2;
             pt100_process = 15;
             pcb_temperature_process = 5;
+            lora_process = 12;
             break;
         }
 
