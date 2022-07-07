@@ -299,7 +299,7 @@ uint8_t checkLoraMessage(void){
 }
 uint8_t doSendLoraData(void)
 {
-    R_UART0_Send(sendToLora, 8);
+    R_UART0_Send(sendToLora, 17);
     return 1;
 }
 void L_LORA_STOP(void){

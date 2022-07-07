@@ -225,7 +225,7 @@ extern uint8_t sendToLora[20];
 
 extern uint8_t mode;
 extern uint32_t Rpt100;
-extern float Ipt100;
+// extern float Ipt100;
 extern uint8_t events;
 extern uint8_t countToEnableLoraProcess;
 extern uint8_t adcProcess;
@@ -249,5 +249,9 @@ extern uint16_t Record_Data;
 
 extern void goToSleep(void);
 extern void setLoraIntervalTime(uint8_t lora_intv);
+extern uint32_t Vm0 ;
+extern uint32_t Vm1 ;
+extern uint32_t Vm2 ;
+extern uint32_t Vm3 ;
 /* End user code. Do not edit comment generated here */
 #endif

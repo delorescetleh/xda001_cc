@@ -4,7 +4,7 @@
 double pt100_line_voltage=0; // mv
 int dsadc_temperature=0;
 uint16_t convertTemperatureFormat(void);
-
+void prepareDataToLora(void);
 extern uint8_t pt100_process=PT100_PROCESS_START;
 extern uint8_t pt100_process_timeout_counter=0;
 
@@ -38,6 +38,7 @@ void L_PT100_Procedure(void)
             }
             break;
         case 12:
+            prepareDataToLora();
             L_PGA_STOP();
         //     Record_Temperature = DSADC_Temperature + boardOffset(&board[F_DSADC_TEMPERATURE_SENSOR_OFFSET]);
         //     Record_Data = (uint16_t)((Record_Temperature) / 5 + 100); // Record Temperature as 0~999 (as -50degC to 450 degC)

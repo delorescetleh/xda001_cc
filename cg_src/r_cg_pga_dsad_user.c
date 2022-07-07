@@ -55,9 +55,9 @@ Pragma directive
 # define PCBtemp30 (int) 354
 # define PCBtemp40 (int) 401
 # define PCBtemp50 (int) 501
-# define IPT100_30 (float) 0.00155033
-# define IPT100_40 (float) 0.00156772
-# define IPT100_50 (float) 0.00159959
+# define IPT100_30 (float) 1.55033
+# define IPT100_40 (float) 1.56772
+# define IPT100_50 (float) 1.59959
 # define Rate_30 (float) 0.039522727
 # define Rate_40 (float) 0.032536842
 # define Rate_50 (float) 0.026135294
@@ -91,6 +91,14 @@ int result0 = DSADC_RESULT_BUF_SIZE - 1;
 int result1 = DSADC_RESULT_BUF_SIZE - 1;
 int result2 = DSADC_RESULT_BUF_SIZE - 1;
 int result3 = DSADC_RESULT_BUF_SIZE - 1;
+
+extern uint32_t Vm0 = 0;
+extern uint32_t Vm1 = 0;
+extern uint32_t Vm2 = 0;
+extern uint32_t Vm3 = 0;
+
+double Ipt100=0;
+
 uint32_t fetchCounter = 0;
 int16_t temperatureOffset;
 // float r0_r1[DSADC_RESULT_BUF_SIZE];
@@ -208,43 +216,57 @@ void L_PGA_STOP(void){
 }
 
 void L_get_pt100_result(int *result){
-    
-    uint32_t pt100 = 0;
+
+    double Vpt100 = 0;
     uint16_t i = 0;
+    Vm0 = 0;
+    Vm1 = 0;
+    Vm2 = 0;
+    Vm3 = 0;
+    
     for (i = 0; i < DSADC_RESULT_BUF_SIZE; i++)
     {
         parseDifferential_DSADC_Result(dsadc_buffer0[i]._DSADMV1,dsadc_buffer0[i]._DSADMV0, &ds_adc_result0[i]);
         parseSingle_DSADC_Result(dsadc_buffer1[i]._DSADMV1, dsadc_buffer1[i]._DSADMV0, &ds_adc_result1[i]);
         parseSingle_DSADC_Result(dsadc_buffer2[i]._DSADMV1, dsadc_buffer2[i]._DSADMV0, &ds_adc_result2[i]);
         parseDifferential_DSADC_Result(dsadc_buffer3[i]._DSADMV1, dsadc_buffer3[i]._DSADMV0, &ds_adc_result3[i]);
-        pt100 += (((ds_adc_result3[i] << 4) - (ds_adc_result0[i] << 1)) >> 16);
+       // Vpt100 += (((ds_adc_result3[i] << 4) - (ds_adc_result0[i] << 1)) >> 16);
+        Vm0 += ds_adc_result0[i];
+        Vm1 += ds_adc_result1[i];
+        Vm2 += ds_adc_result2[i];
+        Vm3 += ds_adc_result3[i];
     }
-    Rpt100 = (pt100 / DSADC_RESULT_BUF_SIZE )*(DSADC_DIFF_PGA_GAIN_64/SHIFT_16Bit_BASE_1M_ERROR/getIpt());
+    Vm0 = ((((((Vm0 *125) / DSADC_RESULT_BUF_SIZE))>>6)>>13)*625)/100;//uV
+    Vm1 = ((((((Vm1) / DSADC_RESULT_BUF_SIZE)*125)>>0)>>13)*625+20000000)/100;//uV
+    Vm2 = ((((((Vm2) / DSADC_RESULT_BUF_SIZE)*125)>>0)>>13)*625+20000000)/100;//uV
+    Vm3 = ((((((Vm3 *125) / DSADC_RESULT_BUF_SIZE))>>2)>>13)*625)/100;//uV
+    Vpt100 = (Vm3-Vm0*2); //mV
+    Rpt100 = (Vpt100/getIpt());
     *result = ((int)Rpt100 - PT100_BASE) / PT100_TEMPERATURE_RATE ;
 }
 
 double getIpt(void)
 {
-    double Ipt100=0;
-    if (pcbTemperature>500)
+
+    if (pcb_temperature>500)
     {
-        Ipt100 = ((pcbTemperature - PCBtemp50)/1000) * Rate_50 + IPT100_50;
+        Ipt100 = ((pcb_temperature - PCBtemp50)/1000) * Rate_50 + IPT100_50;
     }
     else
     {
-        if (pcbTemperature > 400)
+        if (pcb_temperature > 400)
         {
-            Ipt100 = ((pcbTemperature - PCBtemp40) / 1000) * Rate_40 + IPT100_40;
+            Ipt100 = ((pcb_temperature - PCBtemp40)/1000) * Rate_40 + IPT100_40;
         }
         else
         {
-            if (pcbTemperature > 100)
+            if (pcb_temperature > 100)
             {
-                Ipt100 = ((pcbTemperature - PCBtemp30) / 1000) * Rate_30 + IPT100_30;
+                Ipt100 = ((pcb_temperature - PCBtemp30)/1000) * Rate_30 + IPT100_30;
             }
             else
             {
-                Ipt100 = 0.001543572;
+                Ipt100 = 1.543572;
             }
         }
     }

@@ -86,11 +86,7 @@ void USER_Calibrartion_DSADC_procedure(void);
 
 void DataFlashWrite(void);
 
-uint8_t F_Done = 0;
-uint8_t LORA_F_Done = 0;
-uint8_t EEPROM_F_Done = 0;
-uint8_t DSADC_F_Done = 0;
-uint8_t ADC_F_Done = 0;
+
 uint8_t DSADC_temperature_calibration_process = 2;
 extern uint8_t sendToLora[20]={0};
 extern uint8_t BLE_F_Done = 0;
@@ -101,7 +97,7 @@ extern uint16_t Record_Data=0;
 extern int16_t user_Temperature=0;
 extern int16_t pcbTemperature=250;
 extern uint32_t Rpt100 = 0;
-extern float Ipt100=0.001543572;
+// extern float Ipt100=0.001543572;
 extern uint32_t guessIpt100=150000;
 extern uint32_t K=1;
 extern uint8_t analogProcessDone = 0;
@@ -153,7 +149,7 @@ void main(void)
         }
     } 
     mode = factory_test_mode;
-     //mode =  normal_mode;
+    // mode =  lora_programming_mode;
 
     processMode();
     /* End user code. Do not edit comment generated here */
@@ -282,7 +278,7 @@ void PCB_TEMP_procedure(void)
         ADCEN = 0U;
         if (mode==factory_mode){
             if((pcbTemperature>100)&(pcbTemperature<400)){
-                ADC_F_Done=1;
+               // ADC_F_Done=1;
             }
         }
         adcProcess--;
@@ -401,7 +397,7 @@ void F_PT100_procedure(void){
         different = (temperatureCalibrationOffset[1] * 80 + temperatureCalibrationOffset[2] * 20) / 100;
         board[F_DSADC_TEMPERATURE_SENSOR_OFFSET] = different;
         board[F_DSADC_TEMPERATURE_SENSOR_OFFSET+1] = different>>8;
-        DSADC_F_Done = 1;
+      //  DSADC_F_Done = 1;
         dsadcProcess--;
         break;
     case 6:
@@ -471,7 +467,7 @@ void LoRa_procedure(void){
         {
             loraProcess--;
             if(mode==factory_mode){
-                LORA_F_Done = 1;
+              //  LORA_F_Done = 1;
             }
         }
         break;

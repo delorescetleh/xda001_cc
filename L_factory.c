@@ -1,8 +1,17 @@
 #include "L_factory.h"
 // #include "L_PT100.h"
 // #include "L_PCB_TEMP.h"
+
+uint8_t F_Done = 0;
+uint8_t LORA_F_Done = 0;
+uint8_t EEPROM_F_Done = 0;
+uint8_t DSADC_F_Done = 0;
+uint8_t ADC_F_Done = 0;
+
+
 extern uint8_t pcb_temperature_process;
 extern uint8_t pt100_process;
+void prepareDataToLora_factory_test(void);
 void lora_programming_process(void){
     R_INTC1_Stop();
     L_BLE_STOP();
@@ -61,84 +70,66 @@ void factory_test_process(void){
     }
 }
 
-
+void prepareDataToLora_factory_test(void)
+{
+    sendToLora[0] = '{';
+    sendToLora[1] = (uint8_t)((Record_Data / 100) + 0x30);
+    sendToLora[2] = (uint8_t)(((Record_Data % 100) / 10) + 0x30);
+    sendToLora[3] = (uint8_t)((Record_Data % 10) + 0x30);
+    sendToLora[4] = 0x30;
+    sendToLora[5] = 0x30;
+    sendToLora[6] = 0x30;
+    sendToLora[7] = '}';
+}
 void factory_process(void){
-    // board[F_DSADC_TEMPERATURE_SENSOR_OFFSET] = 0;
-    // board[TESTED] = 0;
-    // board[HARDWARE] = 0;
-    // board[F_LORA_INTV] = 1;
-    // DSADC_temperature_calibration_process = 2;
-    // resetLoRaCounter(board[F_LORA_INTV]);
-    // // resetDSADC(0);
-    // R_RTC_Start();
-    // while (1)
-    // {
-    //     if (!F_Done)
-    //     {
-    //         if (ADC_F_Done)
-    //         {
-    //             board[TESTED] |= F_ADC_READY;
-    //             if (LORA_F_Done)
-    //             {
-    //                 board[TESTED] |= F_LORA_READY;
-    //                 if (BLE_F_Done)
-    //                 {
-    //                     board[TESTED] |= F_BLE_READY;
-    //                     if (DSADC_F_Done)
-    //                     {
-    //                         board[TESTED] |= F_DSADC_READY;
-    //                         if (!dsadcProcess)
-    //                         {
-    //                             R_IT8Bit0_Channel0_Stop();
-    //                             R_RTC_Stop();
-    //                             board[F_LORA_INTV] = 0x03;
-    //                             board[HARDWARE] = 0B00001111;
-    //                             DataFlashWrite();
-    //                             F_Done = 1;
-    //                             // P_STATUS = 1;
-    //                             while (1)
-    //                             {
-    //                             }
+    board[F_DSADC_TEMPERATURE_SENSOR_OFFSET] = 0;
+    board[TESTED] = 0;
+    board[HARDWARE] = 0;
+    board[F_LORA_INTV] = 1;
+    R_RTC_Start();
+    while (1)
+    {
+        if (!F_Done)
+        {
+            if (ADC_F_Done)
+            {
+                board[TESTED] |= F_ADC_READY;
+                if (LORA_F_Done)
+                {
+                    board[TESTED] |= F_LORA_READY;
+                    if (BLE_F_Done)
+                    {
+                        board[TESTED] |= F_BLE_READY;
+                        if (DSADC_F_Done)
+                        {
+                            board[TESTED] |= F_DSADC_READY;
+                            if (!dsadcProcess)
+                            {
+                                R_IT8Bit0_Channel0_Stop();
+                                R_RTC_Stop();
+                                board[F_LORA_INTV] = 0x03;
+                                board[HARDWARE] = 0B00001111;
+                                DataFlashWrite();
+                                F_Done = 1;
+                                // P_STATUS = 1;
+                                while (1)
+                                {
+                                }
                                 
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
-    //     if(events)
-    //     {
-    //         if(events & TIMER_PERIODIC_EVENT)//R_IT8Bit0_Channel0 , 200mS
-    //         {
-    //             events &= ~TIMER_PERIODIC_EVENT;
-    //             if (dsadcProcess)
-    //             {
-    //                 F_PT100_procedure();
-    //             }
-    //             if (adcProcess)
-    //             {
-    //                 PCB_TEMP_procedure();
-    //             }
-    //             if (loraProcess)
-    //             {
-    //                 if ((!adcProcess)&(!dsadcProcess))
-    //                 {
-    //                     LoRa_procedure();
-    //                 }
-    //             }
-    //             if (bleProcess)
-    //             {
-    //                 if(!BLE_F_Done){
-    //                     F_BLE_procedure();
-    //                 }
-    //             }
-    //             if (bleShutDownProcess)
-    //             {
-    //                 BLE_ShutDown_procedure();
-    //             }
-    //             P_STATUS = !P_STATUS;
-    //         }
-    //     }
-    // }
+        if(events)
+        {
+            if(events & TIMER_PERIODIC_EVENT)//R_IT8Bit0_Channel0 , 200mS
+            {
+                events &= ~TIMER_PERIODIC_EVENT;
+                P_STATUS = !P_STATUS;
+            }
+        }
+    }
 }
