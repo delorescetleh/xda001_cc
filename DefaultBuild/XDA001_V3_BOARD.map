@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (W3.03.00 )             06-Jul-2022 19:24:16
+Renesas Optimizing Linker (W3.03.00 )             07-Jul-2022 10:01:12
 
 *** Options ***
 
@@ -35,6 +35,7 @@ Renesas Optimizing Linker (W3.03.00 )             06-Jul-2022 19:24:16
 -Input=DefaultBuild\L_PT100.obj
 -Input=DefaultBuild\L_PCB_TEMP.obj
 -Input=DefaultBuild\L_Lora.obj
+-Input=DefaultBuild\L_EEPROM.obj
 -LIBrary=FDL\CCRL_100\lib\pfdl.lib
 -SECURITY_ID=00000000000000000000
 -DEVICE=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11NGG.DVF
@@ -77,25 +78,25 @@ SECTION                            START      END         SIZE   ALIGN
 .monitor1
                                   000000ce  000000d7         a   1
 .data
-                                  000000d8  0000031d       246   2
+                                  000000d8  00000339       262   2
 .text
-                                  0000031e  00000691       374   1
+                                  0000033a  000006ad       374   1
 PFDL_COD
-                                  00000692  0000071f        8e   2
+                                  000006ae  0000073b        8e   2
 .RLIB
-                                  00000720  00000c16       4f7   1
+                                  0000073c  00000c32       4f7   1
 .const
                                   00002000  000020a6        a7   2
 .textf
-                                  000020a7  00003ec0      1e1a   1
+                                  000020a7  00003e26      1d80   1
 .monitor2
                                   0001fe00  0001ffff       200   1
 .bss_ATF1F00
                                   000f1f00  000f1f00         1   1
 .bss
-                                  000fe900  000fea37       138   2
+                                  000fe900  000fea1f       120   2
 .dataR
-                                  000fea38  000fec7d       246   2
+                                  000fea20  000fec81       262   2
 .bss_ATFFC00
                                   000ffc00  000ffc9f        a0   1
 .bss_ATFFD00

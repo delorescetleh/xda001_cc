@@ -88,40 +88,33 @@ static void r_rtc_callback_constperiod(void)
     if (!rtc_counter)
     {
         R_IT8Bit0_Channel0_Start();
-        
-        dsadcProcess = 15;
-        adcProcess = 10;
-        dsadcProcessTimeOutCounter = 0;
-        bleShutDownProcess = 0;
         switch (mode)
         {
         case factory_mode:
-            rtc_counter = RTC_TIME_SPEED;
-            bleProcess = 15;
+            // // dsadcProcess = 15;
+            // // adcProcess = 10;
+            // // dsadcProcessTimeOutCounter = 0;
+            // // bleShutDownProcess = 0;
+            // rtc_counter = RTC_TIME_SPEED;
+            // bleProcess = 15;
+            // if(!lora_rtc_counter){
+            //     lora_rtc_counter = board[F_LORA_INTV];
+            //     lora_process = 12;
+            //     loraProcessTimeOutCounter = 0;
+            // }
             break;        
         case normal_mode:
-            rtc_counter = RTC_TIME_SPEED;
-            bleProcess = 0;
+            // rtc_counter = RTC_TIME_SPEED;
+            // bleProcess = 0;
+            // if(!lora_rtc_counter){
+            //     lora_rtc_counter = board[F_LORA_INTV];
+            //     lora_process = 12;
+            //     loraProcessTimeOutCounter = 0;
+            // }
             break;
         case factory_test_mode:
-            rtc_counter = RTC_TIME_SPEED/2;
-            pt100_process = 15;
-            pcb_temperature_process = 5;
-            lora_process = 12;
+                factory_test_mode_init_setting();
             break;
-        }
-
-        if (!(lora_rtc_counter)){
-            lora_rtc_counter = lora_intv_time;
-            if (factory_mode)
-            {
-                loraProcess = 15;
-            }
-            else
-            {
-                loraProcess = 15;
-            }
-            loraProcessTimeOutCounter = 0;
         }
         lora_rtc_counter--;
     }
@@ -145,5 +138,16 @@ void resetLoRaCounter(uint8_t times){
     lora_rtc_counter = 0;
     lora_intv_time = times;
 }
-
+void factory_test_mode_init_setting(void){
+    rtc_counter = RTC_TIME_SPEED / 6;
+    pt100_process = PT100_PROCESS_START;
+    pcb_temperature_process = PCB_TEMPERATURE_PROCESS_START;
+    eeprom_process = EEPROM_PROCESS_START;
+    if (!lora_rtc_counter)
+    {
+        lora_rtc_counter = board[F_LORA_INTV];
+        lora_process = LORA_PROCESS_START;
+        lora_process_timeout_counter = 0;
+    }
+}
 /* End user code. Do not edit comment generated here */

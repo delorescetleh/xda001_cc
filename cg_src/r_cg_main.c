@@ -62,7 +62,6 @@ volatile unsigned char dataFlash;
 int different;
 int DSADC_Temperature;
 int Record_Temperature;
-uint16_t Record_Data;
 uint8_t lora_data_ready = 0;
 uint8_t data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 uint8_t bleShutDown = 0;
@@ -92,11 +91,13 @@ uint8_t LORA_F_Done = 0;
 uint8_t EEPROM_F_Done = 0;
 uint8_t DSADC_F_Done = 0;
 uint8_t ADC_F_Done = 0;
-extern uint8_t BLE_F_Done = 0;
 uint8_t DSADC_temperature_calibration_process = 2;
+extern uint8_t sendToLora[20]={0};
+extern uint8_t BLE_F_Done = 0;
 extern uint8_t board[10] = {0};
 extern int16_t temperatureCalibrationOffset[3] = {0};
-uint8_t mode;
+extern uint8_t mode=0;
+extern uint16_t Record_Data=0;
 extern int16_t user_Temperature=0;
 extern int16_t pcbTemperature=250;
 extern uint32_t Rpt100 = 0;
@@ -322,15 +323,15 @@ void PT100_procedure(void){
     case 12:
         L_PGA_STOP();
         Record_Temperature = DSADC_Temperature + boardOffset(&board[F_DSADC_TEMPERATURE_SENSOR_OFFSET]);
-        Record_Data = (uint16_t)((Record_Temperature) / 5 + 100); // Record Temperature as 0~999 (as -50degC to 450 degC)
-        if (Record_Data >= 1000)
-        {
-            Record_Data = 0; // means record value will become 0, send to Lora "000" mean ERR
-        }
+        // Record_Data = (uint16_t)((Record_Temperature) / 5 + 100); // Record Temperature as 0~999 (as -50degC to 450 degC)
+        // if (Record_Data >= 1000)
+        // {
+        //     Record_Data = 0; // means record value will become 0, send to Lora "000" mean ERR
+        // }
         dsadcProcess--;
         break;
     case 11:
-        EEPROM_F_Done=doEepromWriteRecords((uint16_t)Record_Data);
+        // EEPROM_F_Done=doEepromWriteRecords((uint16_t)Record_Data);
         dsadcProcess--;
         break;
     case 10:
@@ -405,15 +406,15 @@ void F_PT100_procedure(void){
         break;
     case 6:
         Record_Temperature = DSADC_Temperature + different;
-        Record_Data = (uint16_t)((Record_Temperature) / 5 + 100); // Record Temperature as 0~999 (as -50degC to 450 degC)
-        if (Record_Data >= 1000)
-        {
-            Record_Data = 0; // means record value will become 0, send to Lora "000" mean ERR
-        }
+        // Record_Data = (uint16_t)((Record_Temperature) / 5 + 100); // Record Temperature as 0~999 (as -50degC to 450 degC)
+        // if (Record_Data >= 1000)
+        // {
+        //     Record_Data = 0; // means record value will become 0, send to Lora "000" mean ERR
+        // }
         dsadcProcess--;
         break;
     case 5:
-        EEPROM_F_Done=doEepromWriteRecords((uint16_t)Record_Data);
+        // EEPROM_F_Done=doEepromWriteRecords((uint16_t)Record_Data);
         dsadcProcess--;
         break;
     case 4:
@@ -462,7 +463,7 @@ void LoRa_procedure(void){
         loraProcess--;
     case 12:
         LORA_READY = PIN_LEVEL_AS_LOW;
-        doSendLoraData(Record_Data, (uint16_t)pcbTemperature);
+        // doSendLoraData(Record_Data, (uint16_t)pcbTemperature);
         loraProcess--;
         break;
     case 11:

@@ -1,5 +1,5 @@
 #include "L_PCB_TEMP.h"
-#include "r_cg_userdefine.h"
+// #include "r_cg_userdefine.h"
 
 extern int pcb_temperature=0;
 extern uint8_t pcb_temperature_process=PCB_TEMPERATURE_PROCESS_START;

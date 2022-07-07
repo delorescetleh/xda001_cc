@@ -1,10 +1,9 @@
 #include "L_Lora.h"
-#include "r_cg_userdefine.h"
+// #include "r_cg_userdefine.h"
 
 extern uint8_t lora_process=LORA_PROCESS_START;
 extern uint8_t lora_process_timeout_counter=0;
 uint16_t Record_Data1 = 0;
-uint16_t convertTemperatureFormat(int dsadc_temperature);
 void L_Lora_procedure(void)
 {
     lora_process_timeout_counter++;
@@ -30,7 +29,15 @@ void L_Lora_procedure(void)
         lora_process--;
     case 9:
         LORA_READY = PIN_LEVEL_AS_LOW;
-        doSendLoraData(convertTemperatureFormat(dsadc_temperature), (uint16_t)pcbTemperature);
+        sendToLora[0] = '{';
+        sendToLora[1] = (uint8_t)((Record_Data / 100) + 0x30);
+        sendToLora[2] = (uint8_t)(((Record_Data % 100) / 10) + 0x30);
+        sendToLora[3] = (uint8_t)((Record_Data % 10) + 0x30);
+        sendToLora[4] =  0x30;
+        sendToLora[5] =  0x30;
+        sendToLora[6] =  0x30;
+        sendToLora[7] = '}';
+        doSendLoraData();
         lora_process--;
         break;
     case 8:
@@ -44,7 +51,7 @@ void L_Lora_procedure(void)
         break;
     case LORA_PROCESS_END:
         L_LORA_STOP();
-        loraProcessTimeOutCounter = 0;
+        lora_process_timeout_counter = 0;
         lora_process--;
         break;  
     default:
@@ -56,7 +63,4 @@ void L_Lora_procedure(void)
     }
 }
 
-uint16_t convertTemperatureFormat(int dsadc_temperature)
-{
-    return (dsadc_temperature/5+100);
-}
+

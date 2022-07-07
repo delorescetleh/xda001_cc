@@ -142,6 +142,7 @@ static void r_rtc_callback_alarm(void);
 /* Start user code for function. Do not edit comment generated here */
 void resetLoRaCounter(uint8_t times);
 void modeInit(uint8_t mode);
-// void initLoRaCounter(uint8_t times);
+void factory_test_mode_init_setting(void);
+void factory_mode_init_setting(void);
 /* End user code. Do not edit comment generated here */
 #endif

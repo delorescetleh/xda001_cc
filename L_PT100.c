@@ -2,7 +2,9 @@
 #include "r_cg_userdefine.h"
 
 double pt100_line_voltage=0; // mv
-extern int dsadc_temperature=0;
+int dsadc_temperature=0;
+uint16_t convertTemperatureFormat(void);
+
 extern uint8_t pt100_process=PT100_PROCESS_START;
 extern uint8_t pt100_process_timeout_counter=0;
 
@@ -31,6 +33,7 @@ void L_PT100_Procedure(void)
             {
                 dsadc_ready = 0;
                 L_get_pt100_result(&dsadc_temperature);
+                Record_Data = convertTemperatureFormat();
                 pt100_process--;
             }
             break;
@@ -62,4 +65,8 @@ void L_PT100_Procedure(void)
             pt100_process--;
             break;
     }
+}
+uint16_t convertTemperatureFormat(void)
+{
+    return (dsadc_temperature/5+100);
 }

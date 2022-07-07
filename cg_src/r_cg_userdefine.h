@@ -48,6 +48,7 @@ User definitions
 
 # include "L_useful.h"
 # include "L_factory.h"
+# include "L_EEPROM.h"
 
 // SHOULD SET TIMER LET TIME_SPEED * BASE_TIME = 1 MIN
 #define TEST_FACTORY_MODE_NOW           0x00
@@ -220,6 +221,8 @@ User definitions
 #define factory_mode 3
 #define    normal_mode 4
 
+extern uint8_t sendToLora[20];
+
 extern uint8_t mode;
 extern uint32_t Rpt100;
 extern float Ipt100;
@@ -242,6 +245,8 @@ extern uint8_t BLE_F_Done;
 extern uint8_t USER_DSADC_temperature_calibration_process;
 extern int16_t user_Temperature;
 extern uint8_t board[10];
+extern uint16_t Record_Data;
+
 extern void goToSleep(void);
 extern void setLoraIntervalTime(uint8_t lora_intv);
 /* End user code. Do not edit comment generated here */

@@ -6,4 +6,3 @@ extern uint8_t lora_process;
 extern uint8_t lora_process_timeout_counter;
 // extern int lora;
 extern void L_Lora_procedure(void);
-extern uint16_t convertTemperatureFormat(int dsadc_temperature);

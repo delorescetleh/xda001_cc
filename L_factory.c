@@ -1,6 +1,6 @@
 #include "L_factory.h"
-#include "L_PT100.h"
-#include "L_PCB_TEMP.h"
+// #include "L_PT100.h"
+// #include "L_PCB_TEMP.h"
 extern uint8_t pcb_temperature_process;
 extern uint8_t pt100_process;
 void lora_programming_process(void){
@@ -23,8 +23,8 @@ void lora_programming_process(void){
     }
 }
 
-
 void factory_test_process(void){
+    board[F_LORA_INTV] = 1;
     L_BLE_STOP();
     R_RTC_Start();
     R_IT8Bit0_Channel0_Start();
@@ -38,10 +38,7 @@ void factory_test_process(void){
                 events &= ~TIMER_PERIODIC_EVENT;
                 if (pt100_process)
                 {
-                    if (!pcb_temperature_process)
-                    {
                     L_PT100_Procedure();
-                    }
                 }
                 if (pcb_temperature_process)
                 {
@@ -49,14 +46,15 @@ void factory_test_process(void){
                 }
                 if (lora_process)
                 {
-                    if (!pt100_process)
-                    {
-                        L_Lora_procedure();
-                    }
+                    L_Lora_procedure();
+                }
+                if (eeprom_process)
+                {
+                    L_EEPROM_procedure();
                 }
             }
         }
-        if ((!dsadcProcess) & (!loraProcess) & (!adcProcess)& (!pt100_process))
+        if ((!pt100_process) & (!pcb_temperature_process) & (!lora_process)& (!eeprom_process))
         {
             goToSleep();
         }

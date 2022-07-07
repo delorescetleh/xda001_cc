@@ -311,7 +311,7 @@ static void r_uart1_callback_softwareoverrun(uint16_t rx_data);
 uint8_t checkLoraMessage(void);
 void L_LORA_STOP(void);
 uint8_t L_LORA_INIT(void);
-uint8_t doSendLoraData(uint16_t temp, uint16_t pcbTemp);
+uint8_t doSendLoraData(void);
 
 void L_BLE_RESTART_FROM_STOP_MODE(void);
 uint8_t L_BLE_POWER_ON_AND_CHECK_GET_REBOOT(void);

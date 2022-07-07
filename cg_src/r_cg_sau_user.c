@@ -62,7 +62,6 @@ extern volatile uint16_t  g_uart1_rx_count;            /* uart1 receive data num
 extern volatile uint16_t  g_uart1_rx_length;           /* uart1 receive data length */
 /* Start user code for global. Do not edit comment generated here */
 uint8_t portP3Status=0;
-uint8_t sendToLora[20];
 uint8_t receivedFromLora[MAX_LORA_RECEIVE];
 uint8_t LoraReceivedEnd;
 // uint8_t maxLoraReceiveLength=6;
@@ -298,37 +297,9 @@ uint8_t checkLoraMessage(void){
     }
     return 0;
 }
-uint8_t doSendLoraData(uint16_t temp, uint16_t pcbTemp)
+uint8_t doSendLoraData(void)
 {
-    sendToLora[0] = '{';
-    if (!IN_FACTORY){
-        sendToLora[1] = (uint8_t)((temp / 100) + 0x30);
-        sendToLora[2] = (uint8_t)(((temp % 100) / 10) + 0x30);
-        sendToLora[3] = (uint8_t)((temp % 10) + 0x30);
-        sendToLora[4] = (uint8_t)(0x30);
-        sendToLora[5] = (uint8_t)(0x30);
-        sendToLora[6] = (uint8_t)(0x30);
-        sendToLora[7] = '}';
-        R_UART0_Send(sendToLora, 8);
-    }else{
-        sendToLora[1] = (uint8_t)(pcbTemp / 120);
-        sendToLora[2] = (uint8_t)((pcbTemp % 120) % 120);
-        sendToLora[3] = 'F';
-        sendToLora[4] = (uint8_t)(guessIpt100/14400);
-        sendToLora[5] = (uint8_t)((guessIpt100%14400)/120);
-        sendToLora[6] = (uint8_t)((guessIpt100%14400)%120);
-        sendToLora[7] = '}';
-        // sendToLora[4] = (uint8_t)((Rpt100/100000)        + 0x30);
-        // sendToLora[5] = (uint8_t)((Rpt100%100000)/10000  + 0x30);
-        // sendToLora[6] = (uint8_t)((Rpt100%10000)/1000    + 0x30);
-        // sendToLora[7] = (uint8_t)((Rpt100%1000)/100      + 0x30);
-        // sendToLora[8] = (uint8_t)((Rpt100%100)/10        + 0x30);
-        // sendToLora[9] = (uint8_t)((Rpt100%10)            + 0x30);
-        // sendToLora[10] = '}';
-        R_UART0_Send(sendToLora, 8);
-    }
-
-
+    R_UART0_Send(sendToLora, 8);
     return 1;
 }
 void L_LORA_STOP(void){
