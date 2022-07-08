@@ -155,8 +155,6 @@ void normal_mode_init_setting(void){
     if (!lora_rtc_counter)
     {
         lora_rtc_counter = board[F_LORA_INTV];
-        lora_process = LORA_PROCESS_START;
-        lora_process_timeout_counter = 0;
     }
 }
 

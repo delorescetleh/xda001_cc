@@ -28,19 +28,24 @@ void normal_process(void){
             if(events & TIMER_PERIODIC_EVENT)//R_IT8Bit0_Channel0 , 400mS
             {
                 events &= ~TIMER_PERIODIC_EVENT;
-                if ((pt100_process)&&(!PT100_F_Done))
+                if (pt100_process)
                 {
                     L_PT100_Procedure();
+                    if (pt100_process==PT100_PROCESS_END)
+                    {
+                        lora_process = LORA_PROCESS_START;
+                        lora_process_timeout_counter = 0;
+                    }
                 }
-                if ((pcb_temperature_process)&&(!PCB_TEMPERATURE_F_Done))
+                if (pcb_temperature_process)
                 {
                     L_PCB_TEMP_procedure();
                 }
-                if ((lora_process)&&(!LORA_F_Done))
+                if (lora_process)
                 {
                     L_Lora_procedure();
                 }
-                if ((eeprom_process)&&(!EEPROM_F_Done))
+                if (eeprom_process)
                 {
                     L_EEPROM_procedure();
                 }

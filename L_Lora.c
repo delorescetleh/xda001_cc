@@ -15,8 +15,8 @@ void L_Lora_procedure(void)
     switch (lora_process)
     {
     case LORA_PROCESS_START:
-        L_LORA_INIT();
-        lora_process--;
+            L_LORA_INIT();
+            lora_process--;
         break;
     case 11:
         if (checkLoraMessage())
