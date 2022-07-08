@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for IICA module.
-* Creation Date: 2022/7/6
+* Creation Date: 2022/7/8
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -258,8 +258,8 @@ extern void doEepromReadRecords(void){
     delayInMs(10);
     while (restQty)
     {
-        if(0)// (BLE_NO_CONNECT)
-	{
+        if(BLE_NO_CONNECT)
+	    {
             break;
         }
         if ((index+maxReadQty)>TOTAL_RECORD_QTY){
@@ -279,16 +279,16 @@ extern void doEepromReadRecords(void){
             index = index + maxReadQty;
             restQty = restQty - maxReadQty;
         }
-        
         setEepromAccessAddress(i2cAccessIndex);
         eepromRandomReadSuccess=eepromRandomRead(iic_device_sel, &iic_bytes[0], (uint16_t)dataByteLength+2, 0x7f);
         delayInMs(10);
         memcpy(sendDataToBle,&iic_bytes[2],dataByteLength);
         R_UART1_Send(sendDataToBle,dataByteLength);
-	delayInMs(10);
+	    delayInMs(10);
         if (!eepromRandomReadSuccess){
             break;
         }
+        ble_connect_process_timeout_counter = BLE_CONNECT_PROCESS_TIMEOUT;
     }
     L_EEPROM_STOP();
     delayInMs(10);

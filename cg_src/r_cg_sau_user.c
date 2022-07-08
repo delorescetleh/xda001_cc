@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for SAU module.
-* Creation Date: 2022/7/6
+* Creation Date: 2022/7/8
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -336,6 +336,7 @@ static void doBleTask_SetTemperatureOffset(void){
     sendToBle[1] = 0x01;
     sendToBle[2] = 0x55;
     R_UART1_Send(sendToBle,(uint8_t) 3);
+    ble_connect_process_timeout_counter = BLE_CONNECT_PROCESS_TIMEOUT;
 }
 static void doBleTask_AppGetEcho(void){
     uint8_t bleAck[4] = {0xa5, 0x02, 0x00, 0x00};// ble ack to app
@@ -343,6 +344,7 @@ static void doBleTask_AppGetEcho(void){
     bleAck[3] = *(appParam+1);
     memcpy(sendToBle, bleAck, 4);
     R_UART1_Send(sendToBle, 4);
+    ble_connect_process_timeout_counter = BLE_CONNECT_PROCESS_TIMEOUT;
 }
 
 static void doBleTask_SetLoraInterval(void){
@@ -352,16 +354,17 @@ static void doBleTask_SetLoraInterval(void){
     sendToBle[1] = 0x01;
     sendToBle[2] = 0x55;
     R_UART1_Send(sendToBle,(uint8_t) 3);
+    ble_connect_process_timeout_counter = BLE_CONNECT_PROCESS_TIMEOUT;
 }
 
 static void doBleTask_ShutDownBle(void){
     R_INTC1_Stop();
-    bleProcess = 1; // count down to shut down BLE
-    bleShutDownProcess = 200;
+    ble_shutdown_process= BLE_SHUTDOWN_START;// count down to shut down BLE
     sendToBle[0] = 0xA3;
     sendToBle[1] = 0x01;
     sendToBle[2] = 0x00;
     R_UART1_Send(sendToBle,(uint8_t) 3);
+    ble_connect_process_timeout_counter = BLE_CONNECT_PROCESS_TIMEOUT;
 }
 
 void checkAppCommand(void) {
@@ -466,99 +469,5 @@ uint8_t L_BLE_FACTORY_MODE_SETTING(void){
         }
     }
     return 0;
-}
-
-void set_TXD1_as_Input_Mode(void){
-    UART1_TXD_MODE = PIN_MODE_AS_INPUT;
-}
-
-void set_TXD0_as_Input_Mode(void){
-    UART0_TXD_MODE = PIN_MODE_AS_INPUT;
-}
-void F_BLE_procedure(void)
-{
-    // switch (bleProcess)
-    // {
-    // case 14:
-    //     R_UART1_Create();
-    //     R_UART1_Start();
-    //     BLE_UART_RXD_IND = PIN_LEVEL_AS_LOW;
-    //     bleProcess--;
-    //     break;
-    // case 13:
-    //     L_BLE_INIT();
-    //     bleProcess--;
-    //     break;
-    // case 12:
-    //     if (L_BLE_SEND_COMMAND("$$$", 3, "CMD>", 4))
-    //     {
-    //         bleProcess--;
-    //     }
-    //     break;
-    // case 11:
-    //     if (L_BLE_SEND_COMMAND("SS,40\r", 6, "AOK", 3))
-    //     {
-    //     bleProcess--;
-    //     }
-    //     break;
-    // case 10:
-    //     if (!loraProcess)
-    //     {
-    //     bleProcess--;
-    //     }
-    //      break;
-    // case 9:
-    //     if (L_BLE_SEND_COMMAND((char *)setBleDeviceNameCommand, 12, "AOK", 3))
-    //     {
-    //         bleProcess--;
-    //     }
-    //     break;
-    // case 8:
-    //     if (L_BLE_SEND_COMMAND("SW,0B,07\r", 9, "AOK", 3))
-    //     {
-    //         bleProcess--;
-    //     }
-    //     break;
-    // case 7:
-    //     if (L_BLE_SEND_COMMAND("SW,0A,04\r", 9, "AOK", 3))
-    //     {
-    //         bleProcess--;
-    //     }
-    //     break;
-    // case 6:
-    //     if (L_BLE_SEND_COMMAND("SO,1\r", 5, "AOK", 3))
-    //     {
-    //         bleProcess--;
-    //     }
-    //     break;
-    // case 5:
-    //     if (L_BLE_SEND_COMMAND("R,1\r", 4, "Rebooting", 9))
-    //     {
-    //         bleProcess--;
-    //     }
-    //     break;
-    // case 4:
-    //     checkAppCommand();
-    //     if (!bleShutDownProcess){
-    //         if(BLE_NO_CONNECT){
-    //             bleProcess=1;
-    //         }else{
-    //             bleProcess = 10;
-    //             R_DTCD10_Start();
-    //         }
-    //     }else{
-    //         bleProcess=1;
-    //     }
-    //     break;
-    // case 1:
-    //     L_BLE_STOP();
-    //     BLE_F_Done = 1;
-    //     bleProcess--;
-    //     break;
-    // default:
-    // if(bleProcess)
-    //     bleProcess--;
-    //     break;
-    // }
 }
 /* End user code. Do not edit comment generated here */

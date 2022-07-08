@@ -7,6 +7,7 @@ extern uint8_t LORA_F_Done = 0;
 extern uint8_t EEPROM_F_Done = 0;
 extern uint8_t PT100_F_Done = 0;
 extern uint8_t PCB_TEMPERATURE_F_Done = 0;
+extern uint8_t BLE_F_Done = 0;
 
 
 extern uint8_t pcb_temperature_process;

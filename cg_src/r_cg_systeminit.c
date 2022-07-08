@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements system initializing function.
-* Creation Date: 2022/7/6
+* Creation Date: 2022/7/8
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -79,6 +79,7 @@ void R_Systeminit(void)
     R_IICA0_Create();
     R_INTC_Create();
     R_IT8Bit0_Channel0_Create();
+    R_IT8Bit0_Channel1_Create();
     R_ADC_Create();
     R_SAU0_Create();
     R_DTC_Create();

@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for PGIA module.
-* Creation Date: 2022/7/6
+* Creation Date: 2022/7/8
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -317,15 +317,15 @@ void parseSingle_DSADC_Result(uint32_t BufferH,uint32_t BufferL,uint32_t *result
 void clr_dsadc_buf(void){
     memclr((uint8_t *)&dsadc_buf[0], DSADC_BUF_SIZE*2);
 }
-void calibrationIpt100(void){
-    if (pcbTemperature>500){
-        Ipt100 = ((pcbTemperature - PCBtemp50)/1000) * Rate_50 + IPT100_50;
-    }else if(pcbTemperature>400){
-        Ipt100 = ((pcbTemperature - PCBtemp40)/1000) * Rate_40 + IPT100_40;
-    }else{
-        Ipt100 = ((pcbTemperature - PCBtemp30)/1000) * Rate_30 + IPT100_30;
-    }
-}
+// void calibrationIpt100(void){
+//     if (pcbTemperature>500){
+//         Ipt100 = ((pcbTemperature - PCBtemp50)/1000) * Rate_50 + IPT100_50;
+//     }else if(pcbTemperature>400){
+//         Ipt100 = ((pcbTemperature - PCBtemp40)/1000) * Rate_40 + IPT100_40;
+//     }else{
+//         Ipt100 = ((pcbTemperature - PCBtemp30)/1000) * Rate_30 + IPT100_30;
+//     }
+// }
 // void resetDSADC(uint8_t *temperature){
 //     temperatureOffset = (int16_t)(((int16_t) board[F_DSADC_TEMPERATURE_SENSOR_OFFSET+1]<<8)|board[F_DSADC_TEMPERATURE_SENSOR_OFFSET]);
 // }

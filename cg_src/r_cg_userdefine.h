@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file includes user definition.
-* Creation Date: 2022/7/6
+* Creation Date: 2022/7/8
 ***********************************************************************************************************************/
 #ifndef _USER_DEF_H
 #define _USER_DEF_H
@@ -53,6 +53,7 @@ User definitions
 #include "L_BLE.h"
 #include "L_PCB_TEMP.h"
 #include "L_Lora.h"
+# include "L_normal.h"
 // SHOULD SET TIMER LET TIME_SPEED * BASE_TIME = 1 MIN
 #define TEST_FACTORY_MODE_NOW           0x00
 #define RTC_TIME_SPEED 60
@@ -61,20 +62,13 @@ User definitions
 
 //########################################################################
 #define TIMER_PERIODIC_EVENT                        0x01 // should not use in V4 version , change to OVER_TIME_EVENT 
-#define DSADC_NOTIFICATION_EVENT                    0x02
-#define BLE_NOTIFICATION_EVENT                      0x04
-#define LoRA_NOTIFICATION_EVENT                     0x08
-#define EEPROM_NOTIFICATION_EVENT                   0x10
-#define ADC_NOTIFICATION_EVENT                      0x20
-#define RTC_NOTIFICATION_EVENT                      0x40
-#define MINUTES_EVENT                               0x80
-
-
-#define TIMER_PERIODIC_CNT          0x0a // Unit : seconds
-#define DEFAULT_PT100_READ_INTV     0x01 // Unit : Minutes
-#define DEFAULT_BLE_ADV_INTV        0x02 // Unit : Seconds
-#define DEFAULT_LoRA_UPDATE_INTV    0x03 // Unit : Minutes
-#define DEFAULT_EEPROM_STORE_INTV   0x01 // Unit : Minutes
+// #define DSADC_NOTIFICATION_EVENT                    0x02
+#define BLE_TIMER_PERIODIC_EVENT                    0x04
+// #define LoRA_NOTIFICATION_EVENT                     0x08
+// #define EEPROM_NOTIFICATION_EVENT                   0x10
+// #define ADC_NOTIFICATION_EVENT                      0x20
+// #define RTC_NOTIFICATION_EVENT                      0x40
+// #define MINUTES_EVENT                               0x80
 
 #define BLE_CONNECTED               0x01
 #define BLE_DISCONNECTED            0x00
@@ -245,7 +239,7 @@ extern uint8_t bleShutDownProcess;
 extern uint8_t lora_start_time_delay_count;
 extern uint32_t guessIpt100;
 extern int16_t pcbTemperature;
-extern uint8_t BLE_F_Done;
+
 extern uint8_t USER_DSADC_temperature_calibration_process;
 extern int16_t user_Temperature;
 extern uint8_t board[10];
@@ -262,6 +256,7 @@ extern uint8_t LORA_F_Done;
 extern uint8_t EEPROM_F_Done;
 extern uint8_t PT100_F_Done;
 extern uint8_t PCB_TEMPERATURE_F_Done;
+extern uint8_t BLE_F_Done;
 extern uint8_t setBleDeviceNameCommand[];
 extern uint16_t K;
 /* End user code. Do not edit comment generated here */

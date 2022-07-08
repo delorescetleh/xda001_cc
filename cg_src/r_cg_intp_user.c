@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for INTP module.
-* Creation Date: 2022/7/6
+* Creation Date: 2022/7/8
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -57,11 +57,14 @@ Global variables and functions
 static void __near r_intc1_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
-    bleProcess = 10;
-    R_DTCD10_Start();
-    R_UART1_Create();
-    R_UART1_Start();
-    BLE_UART_RXD_IND = PIN_LEVEL_AS_LOW;
+    if (!BLE_NO_CONNECT){
+        ble_connect_process= BLE_CONNECT_START;
+        R_IT8Bit0_Channel1_Start();
+        R_DTCD10_Start();
+        R_UART1_Create();
+        R_UART1_Start();
+        BLE_UART_RXD_IND = PIN_LEVEL_AS_LOW;
+    }
     /* End user code. Do not edit comment generated here */
 }
 

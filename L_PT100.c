@@ -1,13 +1,13 @@
 #include "L_PT100.h"
 #include "r_cg_userdefine.h"
-
+extern uint8_t dsadc_ready=0;
 double pt100_line_voltage=0; // mv
 int dsadc_temperature=0;
 uint16_t convertTemperatureFormat(void);
 void prepareDataToLora(void);
 extern uint8_t pt100_process=PT100_PROCESS_START;
 extern uint8_t pt100_process_timeout_counter= PT100_PROCESS_TIMEOUT;
-
+extern uint32_t Rpt100 = 0;
 void L_PT100_Procedure(void)
 {
     pt100_process_timeout_counter--;
