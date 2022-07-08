@@ -14,7 +14,7 @@ void L_Lora_procedure(void)
     }
     switch (lora_process)
     {
-    case 12:
+    case LORA_PROCESS_START:
         L_LORA_INIT();
         lora_process--;
         break;

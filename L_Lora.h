@@ -1,5 +1,5 @@
 #include "r_cg_userdefine.h"
-#define LORA_PROCESS_START 12
+#define LORA_PROCESS_START 15
 #define LORA_PROCESS_END 1
 #define LORA_PROCESS_TIMEOUT 50
 extern uint8_t lora_process;
