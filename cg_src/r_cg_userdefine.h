@@ -49,7 +49,10 @@ User definitions
 # include "L_useful.h"
 # include "L_factory.h"
 # include "L_EEPROM.h"
-
+#include "L_PT100.h"
+#include "L_BLE.h"
+#include "L_PCB_TEMP.h"
+#include "L_Lora.h"
 // SHOULD SET TIMER LET TIME_SPEED * BASE_TIME = 1 MIN
 #define TEST_FACTORY_MODE_NOW           0x00
 #define RTC_TIME_SPEED 60
@@ -204,7 +207,8 @@ User definitions
 #define   TESTED 0
 #define   HARDWARE 1
 #define   F_LORA_INTV 2
-#define   F_DSADC_TEMPERATURE_SENSOR_OFFSET 3 
+#define   F_TEMPERATURE_SENSOR_K_VALUE 3
+#define   F_DSADC_TEMPERATURE_SENSOR_OFFSET 5 
 
 #define BLE_TOTAL_FACTORY_SETTING_COMMAND_NUMBER 7
 #define BLE_FACTORY_SETTING_FINISH 0xFF
@@ -246,12 +250,19 @@ extern uint8_t USER_DSADC_temperature_calibration_process;
 extern int16_t user_Temperature;
 extern uint8_t board[10];
 extern uint16_t Record_Data;
-
+extern void DataFlashWrite(void);
 extern void goToSleep(void);
 extern void setLoraIntervalTime(uint8_t lora_intv);
 extern uint32_t Vm0 ;
 extern uint32_t Vm1 ;
 extern uint32_t Vm2 ;
 extern uint32_t Vm3 ;
+extern uint8_t F_Done;
+extern uint8_t LORA_F_Done;
+extern uint8_t EEPROM_F_Done;
+extern uint8_t PT100_F_Done;
+extern uint8_t PCB_TEMPERATURE_F_Done;
+extern uint8_t setBleDeviceNameCommand[];
+extern uint16_t K;
 /* End user code. Do not edit comment generated here */
 #endif

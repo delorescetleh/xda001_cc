@@ -2,11 +2,11 @@
 // #include "L_PT100.h"
 // #include "L_PCB_TEMP.h"
 
-uint8_t F_Done = 0;
-uint8_t LORA_F_Done = 0;
-uint8_t EEPROM_F_Done = 0;
-uint8_t DSADC_F_Done = 0;
-uint8_t ADC_F_Done = 0;
+extern uint8_t F_Done = 0;
+extern uint8_t LORA_F_Done = 0;
+extern uint8_t EEPROM_F_Done = 0;
+extern uint8_t PT100_F_Done = 0;
+extern uint8_t PCB_TEMPERATURE_F_Done = 0;
 
 
 extern uint8_t pcb_temperature_process;
@@ -91,31 +91,31 @@ void factory_process(void){
     {
         if (!F_Done)
         {
-            if (ADC_F_Done)
+            if (PCB_TEMPERATURE_F_Done)
             {
                 board[TESTED] |= F_ADC_READY;
-                if (LORA_F_Done)
+                if (EEPROM_F_Done)
                 {
-                    board[TESTED] |= F_LORA_READY;
-                    if (BLE_F_Done)
+                    board[TESTED] |= F_EEPROM_READY;
+                    if (LORA_F_Done)
                     {
-                        board[TESTED] |= F_BLE_READY;
-                        if (DSADC_F_Done)
+                        board[TESTED] |= F_LORA_READY;
+                        if (BLE_F_Done)
                         {
-                            board[TESTED] |= F_DSADC_READY;
-                            if (!dsadcProcess)
+                            board[TESTED] |= F_BLE_READY;
+                            if (PT100_F_Done)
                             {
+                                board[TESTED] |= F_DSADC_READY;
                                 R_IT8Bit0_Channel0_Stop();
                                 R_RTC_Stop();
                                 board[F_LORA_INTV] = 0x03;
                                 board[HARDWARE] = 0B00001111;
                                 DataFlashWrite();
                                 F_Done = 1;
-                                // P_STATUS = 1;
+                                P_STATUS = 1;
                                 while (1)
                                 {
                                 }
-                                
                             }
                         }
                     }
@@ -128,6 +128,26 @@ void factory_process(void){
             if(events & TIMER_PERIODIC_EVENT)//R_IT8Bit0_Channel0 , 200mS
             {
                 events &= ~TIMER_PERIODIC_EVENT;
+                if ((pt100_process)&&(!PT100_F_Done))
+                {
+                    L_PT100_Procedure();
+                }
+                if ((pcb_temperature_process)&&(!PCB_TEMPERATURE_F_Done))
+                {
+                    L_PCB_TEMP_procedure();
+                }
+                if ((lora_process)&&(!LORA_F_Done))
+                {
+                    L_Lora_procedure();
+                }
+                if ((eeprom_process)&&(!EEPROM_F_Done))
+                {
+                    L_EEPROM_procedure();
+                }
+                if ((ble_process) && (!BLE_F_Done))
+                {
+                    L_BLE_F_procedure();
+                }
                 P_STATUS = !P_STATUS;
             }
         }

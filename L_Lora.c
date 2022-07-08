@@ -2,13 +2,13 @@
 // #include "r_cg_userdefine.h"
 
 extern uint8_t lora_process=LORA_PROCESS_START;
-extern uint8_t lora_process_timeout_counter=0;
+extern uint8_t lora_process_timeout_counter=LORA_PROCESS_TIMEOUT;
 uint16_t Record_Data1 = 0;
 void prepareDataToLora(void);
 void L_Lora_procedure(void)
 {
-    lora_process_timeout_counter++;
-    if (lora_process_timeout_counter > LORA_PROCESS_TIMEOUT)
+    lora_process_timeout_counter--;
+    if (!lora_process_timeout_counter)
     {
        lora_process = LORA_PROCESS_END;
     }
@@ -38,14 +38,22 @@ void L_Lora_procedure(void)
         if (LORA_STA) // LORA_STA Turn High means Lora got
         {
             lora_process--;
-            // if(mode==factory_mode){
-            //     LORA_F_Done = 1;
-            // }
         }
         break;
     case LORA_PROCESS_END:
+        if (mode == factory_mode)
+        {
+                if(lora_process_timeout_counter)
+                {
+                    LORA_F_Done = 1;
+                }
+                else
+                {
+                    LORA_F_Done = 0;
+                }
+        }
         L_LORA_STOP();
-        lora_process_timeout_counter = 0;
+        lora_process_timeout_counter=LORA_PROCESS_TIMEOUT;
         lora_process--;
         break;  
     default:

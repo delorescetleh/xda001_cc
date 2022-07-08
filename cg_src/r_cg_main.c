@@ -99,7 +99,7 @@ extern int16_t pcbTemperature=250;
 extern uint32_t Rpt100 = 0;
 // extern float Ipt100=0.001543572;
 extern uint32_t guessIpt100=150000;
-extern uint32_t K=1;
+// extern uint32_t K=1;
 extern uint8_t analogProcessDone = 0;
 extern uint8_t dsadcProcessTimeOutCounter = 0;
 extern uint8_t adcProcessTimeOutCounter = 0;
@@ -150,6 +150,7 @@ void main(void)
     } 
     mode = factory_test_mode;
     // mode =  lora_programming_mode;
+    mode = factory_mode;
 
     processMode();
     /* End user code. Do not edit comment generated here */
@@ -312,13 +313,13 @@ void PT100_procedure(void){
         if ((dsadc_ready)&(!adcProcess))
         {
             dsadc_ready = 0;
-            get_pt100_result(&DSADC_Temperature);
+            // get_pt100_result(&DSADC_Temperature);
             dsadcProcess--;
         }
         break;
     case 12:
         L_PGA_STOP();
-        Record_Temperature = DSADC_Temperature + boardOffset(&board[F_DSADC_TEMPERATURE_SENSOR_OFFSET]);
+        // Record_Temperature = DSADC_Temperature + boardOffset(&board[F_DSADC_TEMPERATURE_SENSOR_OFFSET]);
         // Record_Data = (uint16_t)((Record_Temperature) / 5 + 100); // Record Temperature as 0~999 (as -50degC to 450 degC)
         // if (Record_Data >= 1000)
         // {
@@ -371,7 +372,7 @@ void F_PT100_procedure(void){
         if ((dsadc_ready)&(!adcProcess))
         {
             dsadc_ready = 0;
-            get_pt100_result(&DSADC_Temperature);
+            // get_pt100_result(&DSADC_Temperature);
             dsadcProcess--;
         }
         break;
@@ -385,7 +386,7 @@ void F_PT100_procedure(void){
         if ((dsadc_ready)&(!adcProcess))
         {
             dsadc_ready = 0;
-            get_pt100_result(&DSADC_Temperature);
+            // get_pt100_result(&DSADC_Temperature);
             dsadcProcess--;
         }
         break;
@@ -436,57 +437,57 @@ void F_PT100_procedure(void){
 
 
 void LoRa_procedure(void){
-    loraProcessTimeOutCounter++;
-    if (loraProcessTimeOutCounter > 25)
-    {
-        loraProcess = 1;
-    }
-    switch (loraProcess)
-    {
-    case 15:
-        L_LORA_INIT();
-        loraProcess--;
-        break;
-    case 14:
-        if (checkLoraMessage())
-        {
-            LORA_READY = PIN_LEVEL_AS_LOW;
-            loraProcess--;
-        }
-        break;
-    case 13:
-        LORA_READY = PIN_LEVEL_AS_LOW;    
-        loraProcess--;
-    case 12:
-        LORA_READY = PIN_LEVEL_AS_LOW;
-        // doSendLoraData(Record_Data, (uint16_t)pcbTemperature);
-        loraProcess--;
-        break;
-    case 11:
-        if (LORA_STA) // LORA_STA Turn High means Lora got
-        {
-            loraProcess--;
-            if(mode==factory_mode){
-              //  LORA_F_Done = 1;
-            }
-        }
-        break;
-    // case 4: // stop lora process
-    //     loraProcess=1;
+    // loraProcessTimeOutCounter++;
+    // if (loraProcessTimeOutCounter > 25)
+    // {
+    //     loraProcess = 1;
+    // }
+    // switch (loraProcess)
+    // {
+    // case 15:
+    //     L_LORA_INIT();
+    //     loraProcess--;
     //     break;
-    case 1:
-        L_LORA_STOP();
-        analogProcessDone = 0;
-        loraProcessTimeOutCounter = 0;
-        loraProcess--;
-        break;
-    default:
-        if (loraProcess)
-        {
-            loraProcess--;
-        }
-        break;
-    }
+    // case 14:
+    //     if (checkLoraMessage())
+    //     {
+    //         LORA_READY = PIN_LEVEL_AS_LOW;
+    //         loraProcess--;
+    //     }
+    //     break;
+    // case 13:
+    //     LORA_READY = PIN_LEVEL_AS_LOW;    
+    //     loraProcess--;
+    // case 12:
+    //     LORA_READY = PIN_LEVEL_AS_LOW;
+    //     // doSendLoraData(Record_Data, (uint16_t)pcbTemperature);
+    //     loraProcess--;
+    //     break;
+    // case 11:
+    //     if (LORA_STA) // LORA_STA Turn High means Lora got
+    //     {
+    //         loraProcess--;
+    //         if(mode==factory_mode){
+    //           //  LORA_F_Done = 1;
+    //         }
+    //     }
+    //     break;
+    // // case 4: // stop lora process
+    // //     loraProcess=1;
+    // //     break;
+    // case 1:
+    //     L_LORA_STOP();
+    //     analogProcessDone = 0;
+    //     loraProcessTimeOutCounter = 0;
+    //     loraProcess--;
+    //     break;
+    // default:
+    //     if (loraProcess)
+    //     {
+    //         loraProcess--;
+    //     }
+    //     break;
+    // }
 }
 
 void BLE_procedure(void)
@@ -654,7 +655,7 @@ void processMode(void)
     }
 }
 
-void DataFlashWrite(void){
+extern void DataFlashWrite(void){
     dataFlashStart();
     dataFlashWrite((pfdl_u08 *)&board[0], 0);
     dataFlashEnd();

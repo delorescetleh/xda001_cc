@@ -91,17 +91,7 @@ static void r_rtc_callback_constperiod(void)
         switch (mode)
         {
         case factory_mode:
-            // // dsadcProcess = 15;
-            // // adcProcess = 10;
-            // // dsadcProcessTimeOutCounter = 0;
-            // // bleShutDownProcess = 0;
-            // rtc_counter = RTC_TIME_SPEED;
-            // bleProcess = 15;
-            // if(!lora_rtc_counter){
-            //     lora_rtc_counter = board[F_LORA_INTV];
-            //     lora_process = 12;
-            //     loraProcessTimeOutCounter = 0;
-            // }
+            factory_mode_init_setting();
             break;        
         case normal_mode:
             // rtc_counter = RTC_TIME_SPEED;
@@ -143,6 +133,19 @@ void factory_test_mode_init_setting(void){
     pt100_process = PT100_PROCESS_START;
     pcb_temperature_process = PCB_TEMPERATURE_PROCESS_START;
     eeprom_process = EEPROM_PROCESS_START;
+    if (!lora_rtc_counter)
+    {
+        lora_rtc_counter = board[F_LORA_INTV];
+        lora_process = LORA_PROCESS_START;
+        lora_process_timeout_counter=LORA_PROCESS_TIMEOUT;;
+    }
+}
+void factory_mode_init_setting(void){
+    rtc_counter = RTC_TIME_SPEED / 3;
+    pt100_process = PT100_PROCESS_START;
+    pcb_temperature_process = PCB_TEMPERATURE_PROCESS_START;
+    eeprom_process = EEPROM_PROCESS_START;
+    ble_process = BLE_PROCESS_START;
     if (!lora_rtc_counter)
     {
         lora_rtc_counter = board[F_LORA_INTV];

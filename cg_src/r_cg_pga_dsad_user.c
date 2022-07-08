@@ -101,16 +101,15 @@ double Ipt100=0;
 
 uint32_t fetchCounter = 0;
 int16_t temperatureOffset;
-// float r0_r1[DSADC_RESULT_BUF_SIZE];
-// float b0_r1[DSADC_RESULT_BUF_SIZE];
-// float i1[DSADC_RESULT_BUF_SIZE];
-// float r100[DSADC_RESULT_BUF_SIZE];
+double Vpt100 = 0;
 
 void parseDifferential_DSADC_Result(uint32_t BufferH, uint32_t BufferL, uint32_t *result);
 void parseSingle_DSADC_Result(uint32_t BufferH, uint32_t BufferL, uint32_t *result);
-void calibrationIpt100(void);
 double getIpt(void);
+uint16_t getK(void);
+void setK(void);
 uint16_t buffer_[4] = {0};
+extern uint16_t K = 10000;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -215,9 +214,68 @@ void L_PGA_STOP(void){
     R_PGA_DSAD_Stop();
 }
 
-void L_get_pt100_result(int *result){
 
-    double Vpt100 = 0;
+
+void L_get_pt100_result(int *result){
+    get_pt100_result();
+    switch (mode)
+    {
+    case factory_mode:
+        K =((Vpt100* 10000/getIpt())/ IDEA_TEST_R) ;
+        setK();
+        break;
+    case factory_test_mode:
+        K = 10000;
+        break;
+    default:
+        K = getK();
+        break;
+    }
+    Rpt100 = (Vpt100*10000/getIpt())/K;
+    *result = ((int)Rpt100 - PT100_BASE) / PT100_TEMPERATURE_RATE ;
+}
+
+
+void setK(void){
+    board[F_TEMPERATURE_SENSOR_K_VALUE + 1] = K>>8;
+    board[F_TEMPERATURE_SENSOR_K_VALUE] = K&(0x00FF);
+}
+uint16_t getK(void)
+{
+    return (uint16_t)(((uint16_t) board[F_TEMPERATURE_SENSOR_K_VALUE+1]<<8)|board[F_TEMPERATURE_SENSOR_K_VALUE]);
+}
+
+double getIpt(void)
+{
+    if (pcb_temperature>500)
+    {
+        Ipt100 = ((pcb_temperature - PCBtemp50)/1000) * Rate_50 + IPT100_50;
+    }
+    else
+    {
+        if (pcb_temperature > 400)
+        {
+            Ipt100 = ((pcb_temperature - PCBtemp40)/1000) * Rate_40 + IPT100_40;
+        }
+        else
+        {
+            if (pcb_temperature > 100)
+            {
+                Ipt100 = ((pcb_temperature - PCBtemp30)/1000) * Rate_30 + IPT100_30;
+            }
+            else
+            {
+                Ipt100 = 1.543572;
+            }
+        }
+    }
+    Ipt100 = 1.543572;
+    return Ipt100;
+}
+
+void get_pt100_result(void)
+{
+    
     uint16_t i = 0;
     Vm0 = 0;
     Vm1 = 0;
@@ -241,81 +299,6 @@ void L_get_pt100_result(int *result){
     Vm2 = ((((((Vm2) / DSADC_RESULT_BUF_SIZE)*125)>>0)>>13)*625+20000000)/100;//uV
     Vm3 = ((((((Vm3 *125) / DSADC_RESULT_BUF_SIZE))>>2)>>13)*625)/100;//uV
     Vpt100 = (Vm3-Vm0*2); //mV
-    Rpt100 = (Vpt100/getIpt());
-    *result = ((int)Rpt100 - PT100_BASE) / PT100_TEMPERATURE_RATE ;
-}
-
-double getIpt(void)
-{
-
-    if (pcb_temperature>500)
-    {
-        Ipt100 = ((pcb_temperature - PCBtemp50)/1000) * Rate_50 + IPT100_50;
-    }
-    else
-    {
-        if (pcb_temperature > 400)
-        {
-            Ipt100 = ((pcb_temperature - PCBtemp40)/1000) * Rate_40 + IPT100_40;
-        }
-        else
-        {
-            if (pcb_temperature > 100)
-            {
-                Ipt100 = ((pcb_temperature - PCBtemp30)/1000) * Rate_30 + IPT100_30;
-            }
-            else
-            {
-                Ipt100 = 1.543572;
-            }
-        }
-    }
-    return Ipt100;
-}
-
-double get_pt100_result(int *result){
-    uint16_t _DSADCRC,BufferH,BufferL;
-    uint32_t *result0 = &ds_adc_result0[0];
-    uint32_t *result3 = &ds_adc_result3[0];
-    uint32_t pt100 = 0;
-    uint16_t i = 0;
-
-    Rpt100 = 0;
-    for (i = 0; i <(DSADC_BUF_SIZE/2);i++){
-        BufferH=dsadc_buf[i * 2];
-        BufferL=dsadc_buf[i * 2+1];
-        _DSADCRC = (uint8_t)(BufferL & 0x00F8);
-        switch (_DSADCRC)
-        {
-        case 0x20:
-            parseDifferential_DSADC_Result(BufferH, BufferL, result0);
-            result0++;
-            break;
-        case 0x80:
-            parseDifferential_DSADC_Result(BufferH, BufferL, result3);
-            result3++;
-            break;
-        }
-    }
-    for (i = 0; i < DSADC_RESULT_BUF_SIZE;i++){
-        // r0_r1[i] = ds_adc_result0[i]*0.00149012; //uV
-        // b0_r1[i] = ds_adc_result3[i]*0.023842; //uV
-        // r100[i]=(b0_r1[i]-r0_r1[i]*2)/1000000/0.00154155;//ohm
-        // pt100 += r100[i];
-        /*
-        ds_adc_result0[i] = (float)ds_adc_result0[i]*0.00149012; //  0.00149012 uV = (1.6 V /64)*(1/2^24)*1000*1000
-        ds_adc_result3[i] = (float)ds_adc_result3[i]*0.023842; //    0.023842 uV   =(1.6 V/4)*(1/2^24)*1000*1000
-        */
-        // pt100 += (((ds_adc_result3[i]<<4)-(ds_adc_result0[i]<<1))>>12)*DSADC_DIFF_PGA_GAIN_64*SHIFT_12Bit_BASE_1M_ERROR/Ipt100;//ohm
-        pt100 += (((ds_adc_result3[i] << 4) - (ds_adc_result0[i] << 1)) >> 16);
-    }
-
-    //guessIpt100=(uint32_t)((pt100 / DSADC_RESULT_BUF_SIZE )*(DSADC_DIFF_PGA_GAIN_64/SHIFT_16Bit_BASE_1M_ERROR/0.001011));//mA
-    calibrationIpt100();
-    Rpt100 = ((pt100 / DSADC_RESULT_BUF_SIZE )*(DSADC_DIFF_PGA_GAIN_64/SHIFT_16Bit_BASE_1M_ERROR/Ipt100));//mOhm ;
-    // pt100=pt100*DSADC_DIFF_PGA_GAIN_64/SHIFT_12Bit_BASE_1M_ERROR/Ipt100;//ohm
-    *result = ((int)Rpt100 - PT100_BASE) / PT100_TEMPERATURE_RATE ;
-    return (pt100 / DSADC_RESULT_BUF_SIZE) * (DSADC_DIFF_PGA_GAIN_64);
 }
 
 
@@ -346,7 +329,5 @@ void calibrationIpt100(void){
 // void resetDSADC(uint8_t *temperature){
 //     temperatureOffset = (int16_t)(((int16_t) board[F_DSADC_TEMPERATURE_SENSOR_OFFSET+1]<<8)|board[F_DSADC_TEMPERATURE_SENSOR_OFFSET]);
 // }
-int16_t boardOffset(uint8_t *temperature){
-    return (int16_t)(((int16_t) board[F_DSADC_TEMPERATURE_SENSOR_OFFSET+1]<<8)|board[F_DSADC_TEMPERATURE_SENSOR_OFFSET]);
-}
+
 /* End user code. Do not edit comment generated here */

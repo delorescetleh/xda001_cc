@@ -4,12 +4,12 @@
 extern uint16_t Record_Data;
 extern int eeprom=0;
 extern uint8_t eeprom_process=EEPROM_PROCESS_START;
-extern uint8_t eeprom_process_timeout_counter=0;
+extern uint8_t eeprom_process_timeout_counter=EEPROM_PROCESS_TIMEOUT;
 
 void L_EEPROM_procedure(void)
 {
-    eeprom_process_timeout_counter++;
-    if (eeprom_process_timeout_counter > EEPROM_PROCESS_TIMEOUT)
+    eeprom_process_timeout_counter--;
+    if (!eeprom_process_timeout_counter)
     {
        eeprom_process = EEPROM_PROCESS_END;
     }
@@ -20,6 +20,17 @@ void L_EEPROM_procedure(void)
             eeprom_process--;
             break;
         case EEPROM_PROCESS_END:
+            if (mode == factory_mode)
+            {
+                if(eeprom_process_timeout_counter)
+                {
+                    EEPROM_F_Done = 1;
+                }
+                else
+                {
+                    EEPROM_F_Done = 0;
+                }
+            }
             L_EEPROM_STOP();
             eeprom_process_timeout_counter = 0;
             eeprom_process--;
