@@ -1,26 +1,5 @@
 #include "L_useful.h"
-
-// uint32_t timeOutBaseLine = 0;
-
-// uint8_t PCB_Temperature_when_in_Factory = 0;
-
-// uint8_t getPCB_Temperature_when_in_Factory(void){
-//     return PCB_Temperature_when_in_Factory;
-// }
-
-void getFactroySetting(uint8_t *hardWareSetting_ptr, uint8_t *factorySetting_ptr, uint8_t *dubReadBuffer_ptr){
-    // dataFlashStart();
-    // dataFlashRead(dubReadBuffer_ptr,0);
-    // *hardWareSetting_ptr = *(dubReadBuffer_ptr + F_HAREWARE_SETTING_BYTE);
-    // *factorySetting_ptr = *(dubReadBuffer_ptr + F_FACTORY_SETTING_BYTE);
-    // if( *hardWareSetting_ptr==0xff){
-    //     *hardWareSetting_ptr = 0;
-    //     *factorySetting_ptr = 0; 
-    // }
-    // // value of PCB_Temperature_when_in_Factory, from 20 degC to 40 degC encoded by 0-255
-    // // PCB_Temperature_when_in_Factory=(uint16_t)(((*(dubReadBuffer_ptr + F_PCB_TEMPERATURE_BYTE))*0.7843+200));
-    // dataFlashEnd();
-}
+extern uint8_t board[DATA_FLASH_SIZE] = {0};
 
 void r_pfdl_samFdlEnd( void )
 {
@@ -292,13 +271,8 @@ extern void memclr(uint8_t *target,uint8_t clearLength){
         *(target+clearLength) = 0;
     }
 }
-// void setTimeOut(uint32_t userSetTimeOutBase){
-//     timeOutBaseLine = userSetTimeOutBase;
-// }
-
-// uint8_t timeOut(uint32_t timeOutMSeconds){
-//   //  if( (millis()-timeOutBaseLine)>timeOutMSeconds){
-//   //      return 1;
-//   //  }
-//    return 0;
-// }
+extern void DataFlashWrite(void){
+    dataFlashStart();
+    dataFlashWrite((pfdl_u08 *)&board[0], 0);
+    dataFlashEnd();
+}

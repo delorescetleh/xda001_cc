@@ -111,6 +111,7 @@ void factory_process(void){
                                 R_RTC_Stop();
                                 board[LORA_INTV] = 0x03;
                                 board[HARDWARE] = 0B00001111;
+				P_STATUS = 0;
                                 DataFlashWrite();
                                 F_Done = 1;
                                 P_STATUS = 1;

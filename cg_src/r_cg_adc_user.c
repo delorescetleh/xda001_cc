@@ -41,8 +41,6 @@ Pragma directive
 ***********************************************************************************************************************/
 #pragma interrupt r_adc_interrupt(vect=INTAD)
 /* Start user code for pragma. Do not edit comment generated here */
-// #pragma address (adc_buf = 0xFF900U)
-// #pragma address (ads_buf = 0xFFa00U)
 #define SENSOR_REF_TEMP_SCALED (250)
 #define INT_REF_V_SCALED (145000L)
 #define INT_REF_TEMP_SCALED (105000L)

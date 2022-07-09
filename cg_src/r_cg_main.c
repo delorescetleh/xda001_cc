@@ -49,59 +49,15 @@ Includes
 Pragma directive
 ***********************************************************************************************************************/
 /* Start user code for pragma. Do not edit comment generated here */
-#pragma address (dataFlash =0xF1F00U)
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
-// volatile unsigned char EVENTS;
-volatile unsigned char dataFlash;
-
-int different;
-int DSADC_Temperature;
-int Record_Temperature;
-uint8_t lora_data_ready = 0;
-uint8_t data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-
-void turnOffAll(void);
 void processMode(void);
-// void PCB_TEMP_procedure(void);
-// void F_PT100_procedure(void);
-// void PT100_procedure(void);
-// void LoRa_procedure(void);
-// void BLE_procedure(void);
-// void BLE_ShutDown_procedure(void);
-// void USER_Calibrartion_DSADC_procedure(void);
-
-// void DataFlashWrite(void);
-
-
-// uint8_t DSADC_temperature_calibration_process = 2;
-
-extern uint8_t board[DATA_FLASH_SIZE] = {0};
-extern int16_t temperatureCalibrationOffset[3] = {0};
 extern uint8_t mode=0;
-extern uint16_t Record_Data=0;
-// extern int16_t pcbTemperature=250;
-
-// extern float Ipt100=0.001543572;
-// extern uint32_t guessIpt100=150000;
-// extern uint32_t K=1;
-// extern uint8_t analogProcessDone = 0;
-// extern uint8_t dsadcProcessTimeOutCounter = 0;
-// extern uint8_t adcProcessTimeOutCounter = 0;
-// extern uint8_t loraProcessTimeOutCounter = 0;
-// extern uint8_t lora_start_time_delay_count = 0;
-// extern uint8_t bleShutDownProcess = 0;
-// extern uint8_t bleProcess=0;
-// extern uint8_t adcProcess=10;
-// extern uint8_t dsadcProcess=15;
-// extern uint8_t loraProcess = 0;
 extern uint8_t events=0;
-extern uint8_t USER_DSADC_temperature_calibration_process = 0;
-extern uint8_t countToEnableLoraProcess = 0;
 extern void goToSleep(void);
 /* End user code. Do not edit comment generated here */
 
@@ -136,10 +92,10 @@ void main(void)
             mode = normal_mode;
         }
     } 
-    mode = factory_test_mode;
+    // mode = factory_test_mode;
     // mode =  lora_programming_mode;
-    mode = factory_mode;
-    mode = normal_mode;
+    //mode = factory_mode;
+     mode = normal_mode;
 
     processMode();
     /* End user code. Do not edit comment generated here */
@@ -158,8 +114,6 @@ static void R_MAIN_UserInit(void)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-
-
 void goToSleep(void){
     R_IT8Bit0_Channel0_Stop();
     if(P_TEST)
@@ -171,7 +125,6 @@ void goToSleep(void){
         STOP();
     }
 }
-
 void processMode(void)
 {
     switch (mode)
@@ -192,11 +145,5 @@ void processMode(void)
         normal_process();
         break;
     }
-}
-
-extern void DataFlashWrite(void){
-    dataFlashStart();
-    dataFlashWrite((pfdl_u08 *)&board[0], 0);
-    dataFlashEnd();
 }
 /* End user code. Do not edit comment generated here */

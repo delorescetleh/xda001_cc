@@ -1,7 +1,5 @@
 #include "L_EEPROM.h"
-// #include "r_cg_userdefine.h"
-
-extern uint16_t Record_Data;
+extern uint16_t Record_Data=0;
 extern int eeprom=0;
 extern uint8_t eeprom_process=EEPROM_PROCESS_START;
 extern uint8_t eeprom_process_timeout_counter=EEPROM_PROCESS_TIMEOUT;

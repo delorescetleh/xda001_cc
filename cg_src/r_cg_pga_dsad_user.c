@@ -206,7 +206,6 @@ static void __near r_pga_dsad_scan_interrupt(void)
 
 /* Start user code for adding. Do not edit comment generated here */
 void L_PGA_STOP(void){
-    //stop PGA , DSADC for powersaving
     PGAPON = 0U; /* power off PGA and DS A/D */
     PGAEN = 0U;  /* disable input clock supply */
     AFEPWS = 0U; /* power off AFE */

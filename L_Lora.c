@@ -1,9 +1,7 @@
 #include "L_Lora.h"
-// #include "r_cg_userdefine.h"
 extern uint8_t sendToLora[20]={0};
 extern uint8_t lora_process=LORA_PROCESS_START;
 extern uint8_t lora_process_timeout_counter=LORA_PROCESS_TIMEOUT;
-uint16_t Record_Data1 = 0;
 void prepareDataToLora(void);
 void L_Lora_procedure(void)
 {
