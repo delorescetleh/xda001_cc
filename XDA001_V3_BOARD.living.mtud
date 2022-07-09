@@ -250,7 +250,7 @@
       <EventFunction-EventCondition2-Software-BreakAddress-Symbol>_processMode</EventFunction-EventCondition2-Software-BreakAddress-Symbol>
       <EventFunction-EventCondition2-Software-BreakAddress-Offset>17</EventFunction-EventCondition2-Software-BreakAddress-Offset>
       <EventFunction-EventCondition2-Software-EffectiveBreakAddress-LocationType>Address</EventFunction-EventCondition2-Software-EffectiveBreakAddress-LocationType>
-      <EventFunction-EventCondition2-Software-EffectiveBreakAddress-Address>8499</EventFunction-EventCondition2-Software-EffectiveBreakAddress-Address>
+      <EventFunction-EventCondition2-Software-EffectiveBreakAddress-Address>8513</EventFunction-EventCondition2-Software-EffectiveBreakAddress-Address>
       <EventFunction-EventCondition2-Software-ProcessorElementNumber>1</EventFunction-EventCondition2-Software-ProcessorElementNumber>
       <EventFunction-EventCondition2-Software-IsUseEventInformation>False</EventFunction-EventCondition2-Software-IsUseEventInformation>
       <EventFunction-EventCondition3-Software-Name>RQB2AGUAbgB0ACAAQwBvAG4AZABpAHQAaQBvAG4AIAAxADEA</EventFunction-EventCondition3-Software-Name>
@@ -310,7 +310,7 @@
       <EventFunction-EventCondition6-Software-BreakAddress-Symbol>_L_BLE_F_procedure</EventFunction-EventCondition6-Software-BreakAddress-Symbol>
       <EventFunction-EventCondition6-Software-BreakAddress-Offset>93</EventFunction-EventCondition6-Software-BreakAddress-Offset>
       <EventFunction-EventCondition6-Software-EffectiveBreakAddress-LocationType>Address</EventFunction-EventCondition6-Software-EffectiveBreakAddress-LocationType>
-      <EventFunction-EventCondition6-Software-EffectiveBreakAddress-Address>15713</EventFunction-EventCondition6-Software-EffectiveBreakAddress-Address>
+      <EventFunction-EventCondition6-Software-EffectiveBreakAddress-Address>15856</EventFunction-EventCondition6-Software-EffectiveBreakAddress-Address>
       <EventFunction-EventCondition6-Software-ProcessorElementNumber>1</EventFunction-EventCondition6-Software-ProcessorElementNumber>
       <EventFunction-EventCondition6-Software-IsUseEventInformation>False</EventFunction-EventCondition6-Software-IsUseEventInformation>
       <EventFunction-EventCondition7-Software-Name>RQB2AGUAbgB0ACAAQwBvAG4AZABpAHQAaQBvAG4AIAAzAA==</EventFunction-EventCondition7-Software-Name>
@@ -340,7 +340,7 @@
       <EventFunction-EventCondition8-Software-BreakAddress-Symbol>_normal_process</EventFunction-EventCondition8-Software-BreakAddress-Symbol>
       <EventFunction-EventCondition8-Software-BreakAddress-Offset>12</EventFunction-EventCondition8-Software-BreakAddress-Offset>
       <EventFunction-EventCondition8-Software-EffectiveBreakAddress-LocationType>Address</EventFunction-EventCondition8-Software-EffectiveBreakAddress-LocationType>
-      <EventFunction-EventCondition8-Software-EffectiveBreakAddress-Address>14675</EventFunction-EventCondition8-Software-EffectiveBreakAddress-Address>
+      <EventFunction-EventCondition8-Software-EffectiveBreakAddress-Address>14818</EventFunction-EventCondition8-Software-EffectiveBreakAddress-Address>
       <EventFunction-EventCondition8-Software-ProcessorElementNumber>1</EventFunction-EventCondition8-Software-ProcessorElementNumber>
       <EventFunction-EventCondition8-Software-IsUseEventInformation>False</EventFunction-EventCondition8-Software-IsUseEventInformation>
       <EventFunction-EventCondition9-Software-Name>RQB2AGUAbgB0ACAAQwBvAG4AZABpAHQAaQBvAG4AIAA1AA==</EventFunction-EventCondition9-Software-Name>
@@ -353,9 +353,9 @@
       <EventFunction-EventCondition9-Software-BreakAddress-File>r_cg_sau_user.c</EventFunction-EventCondition9-Software-BreakAddress-File>
       <EventFunction-EventCondition9-Software-BreakAddress-Directory>C:\Users\living\OneDrive\document\code\renesas\CC\XDA001_V3_Board\cg_src\</EventFunction-EventCondition9-Software-BreakAddress-Directory>
       <EventFunction-EventCondition9-Software-BreakAddress-Symbol>_checkAppCommand</EventFunction-EventCondition9-Software-BreakAddress-Symbol>
-      <EventFunction-EventCondition9-Software-BreakAddress-Offset>166</EventFunction-EventCondition9-Software-BreakAddress-Offset>
+      <EventFunction-EventCondition9-Software-BreakAddress-Offset>165</EventFunction-EventCondition9-Software-BreakAddress-Offset>
       <EventFunction-EventCondition9-Software-EffectiveBreakAddress-LocationType>Address</EventFunction-EventCondition9-Software-EffectiveBreakAddress-LocationType>
-      <EventFunction-EventCondition9-Software-EffectiveBreakAddress-Address>11876</EventFunction-EventCondition9-Software-EffectiveBreakAddress-Address>
+      <EventFunction-EventCondition9-Software-EffectiveBreakAddress-Address>11889</EventFunction-EventCondition9-Software-EffectiveBreakAddress-Address>
       <EventFunction-EventCondition9-Software-ProcessorElementNumber>1</EventFunction-EventCondition9-Software-ProcessorElementNumber>
       <EventFunction-EventCondition9-Software-IsUseEventInformation>False</EventFunction-EventCondition9-Software-IsUseEventInformation>
       <EventFunction-EventCondition10-Software-Name>RQB2AGUAbgB0ACAAQwBvAG4AZABpAHQAaQBvAG4AIAA2AA==</EventFunction-EventCondition10-Software-Name>
@@ -370,7 +370,7 @@
       <EventFunction-EventCondition10-Software-BreakAddress-Symbol>_main</EventFunction-EventCondition10-Software-BreakAddress-Symbol>
       <EventFunction-EventCondition10-Software-BreakAddress-Offset>34</EventFunction-EventCondition10-Software-BreakAddress-Offset>
       <EventFunction-EventCondition10-Software-EffectiveBreakAddress-LocationType>Address</EventFunction-EventCondition10-Software-EffectiveBreakAddress-LocationType>
-      <EventFunction-EventCondition10-Software-EffectiveBreakAddress-Address>8461</EventFunction-EventCondition10-Software-EffectiveBreakAddress-Address>
+      <EventFunction-EventCondition10-Software-EffectiveBreakAddress-Address>8475</EventFunction-EventCondition10-Software-EffectiveBreakAddress-Address>
       <EventFunction-EventCondition10-Software-ProcessorElementNumber>1</EventFunction-EventCondition10-Software-ProcessorElementNumber>
       <EventFunction-EventCondition10-Software-IsUseEventInformation>False</EventFunction-EventCondition10-Software-IsUseEventInformation>
       <EventFunction-EventCondition11-Software-Name>RQB2AGUAbgB0ACAAQwBvAG4AZABpAHQAaQBvAG4AIAA3AA==</EventFunction-EventCondition11-Software-Name>
@@ -400,7 +400,7 @@
       <EventFunction-EventCondition12-Software-BreakAddress-Symbol>_L_PT100_Procedure</EventFunction-EventCondition12-Software-BreakAddress-Symbol>
       <EventFunction-EventCondition12-Software-BreakAddress-Offset>1</EventFunction-EventCondition12-Software-BreakAddress-Offset>
       <EventFunction-EventCondition12-Software-EffectiveBreakAddress-LocationType>Address</EventFunction-EventCondition12-Software-EffectiveBreakAddress-LocationType>
-      <EventFunction-EventCondition12-Software-EffectiveBreakAddress-Address>14820</EventFunction-EventCondition12-Software-EffectiveBreakAddress-Address>
+      <EventFunction-EventCondition12-Software-EffectiveBreakAddress-Address>14963</EventFunction-EventCondition12-Software-EffectiveBreakAddress-Address>
       <EventFunction-EventCondition12-Software-ProcessorElementNumber>1</EventFunction-EventCondition12-Software-ProcessorElementNumber>
       <EventFunction-EventCondition12-Software-IsUseEventInformation>False</EventFunction-EventCondition12-Software-IsUseEventInformation>
       <EventFunction-EventCondition13-Software-Name>RQB2AGUAbgB0ACAAQwBvAG4AZABpAHQAaQBvAG4AIAA5AA==</EventFunction-EventCondition13-Software-Name>
@@ -415,7 +415,7 @@
       <EventFunction-EventCondition13-Software-BreakAddress-Symbol>_processMode</EventFunction-EventCondition13-Software-BreakAddress-Symbol>
       <EventFunction-EventCondition13-Software-BreakAddress-Offset>21</EventFunction-EventCondition13-Software-BreakAddress-Offset>
       <EventFunction-EventCondition13-Software-EffectiveBreakAddress-LocationType>Address</EventFunction-EventCondition13-Software-EffectiveBreakAddress-LocationType>
-      <EventFunction-EventCondition13-Software-EffectiveBreakAddress-Address>8503</EventFunction-EventCondition13-Software-EffectiveBreakAddress-Address>
+      <EventFunction-EventCondition13-Software-EffectiveBreakAddress-Address>8517</EventFunction-EventCondition13-Software-EffectiveBreakAddress-Address>
       <EventFunction-EventCondition13-Software-ProcessorElementNumber>1</EventFunction-EventCondition13-Software-ProcessorElementNumber>
       <EventFunction-EventCondition13-Software-IsUseEventInformation>False</EventFunction-EventCondition13-Software-IsUseEventInformation>
       <EventFunction-SaveEventConditionItemHardwareNumber>0</EventFunction-SaveEventConditionItemHardwareNumber>
@@ -547,7 +547,7 @@
       <Notation2>Auto</Notation2>
       <WatchId3>3</WatchId3>
       <ParentId3>-1</ParentId3>
-      <WatchStatement3>pt100_process</WatchStatement3>
+      <WatchStatement3>Rpt100</WatchStatement3>
       <WatchType3>WatchItem</WatchType3>
       <Memo3 />
       <BitWidth3>8</BitWidth3>
@@ -557,7 +557,7 @@
       <Notation3>Auto</Notation3>
       <WatchId4>4</WatchId4>
       <ParentId4>-1</ParentId4>
-      <WatchStatement4>ble_connect_process</WatchStatement4>
+      <WatchStatement4>pcb_temperature</WatchStatement4>
       <WatchType4>WatchItem</WatchType4>
       <Memo4 />
       <BitWidth4>8</BitWidth4>
@@ -567,7 +567,7 @@
       <Notation4>Auto</Notation4>
       <WatchId5>5</WatchId5>
       <ParentId5>-1</ParentId5>
-      <WatchStatement5>ble_process_timeout_counter</WatchStatement5>
+      <WatchStatement5>Record_Data</WatchStatement5>
       <WatchType5>WatchItem</WatchType5>
       <Memo5 />
       <BitWidth5>8</BitWidth5>
@@ -577,7 +577,7 @@
       <Notation5>Auto</Notation5>
       <WatchId6>6</WatchId6>
       <ParentId6>-1</ParentId6>
-      <WatchStatement6>ble_connect_process_timeout_counter</WatchStatement6>
+      <WatchStatement6>dsadc_temperature</WatchStatement6>
       <WatchType6>WatchItem</WatchType6>
       <Memo6 />
       <BitWidth6>8</BitWidth6>
@@ -585,76 +585,6 @@
       <WithHexadecimal6>True</WithHexadecimal6>
       <Expanded6>False</Expanded6>
       <Notation6>Auto</Notation6>
-      <WatchId7>7</WatchId7>
-      <ParentId7>-1</ParentId7>
-      <WatchStatement7>events</WatchStatement7>
-      <WatchType7>WatchItem</WatchType7>
-      <Memo7 />
-      <BitWidth7>8</BitWidth7>
-      <Encode7>20127</Encode7>
-      <WithHexadecimal7>True</WithHexadecimal7>
-      <Expanded7>False</Expanded7>
-      <Notation7>Auto</Notation7>
-      <WatchId8>8</WatchId8>
-      <ParentId8>-1</ParentId8>
-      <WatchStatement8>ble_shutdown_process</WatchStatement8>
-      <WatchType8>WatchItem</WatchType8>
-      <Memo8 />
-      <BitWidth8>8</BitWidth8>
-      <Encode8>20127</Encode8>
-      <WithHexadecimal8>True</WithHexadecimal8>
-      <Expanded8>False</Expanded8>
-      <Notation8>Auto</Notation8>
-      <WatchId9>9</WatchId9>
-      <ParentId9>-1</ParentId9>
-      <WatchStatement9>ble_connect_process</WatchStatement9>
-      <WatchType9>WatchItem</WatchType9>
-      <Memo9 />
-      <BitWidth9>8</BitWidth9>
-      <Encode9>20127</Encode9>
-      <WithHexadecimal9>True</WithHexadecimal9>
-      <Expanded9>False</Expanded9>
-      <Notation9>Auto</Notation9>
-      <WatchId10>10</WatchId10>
-      <ParentId10>-1</ParentId10>
-      <WatchStatement10>Rpt100</WatchStatement10>
-      <WatchType10>WatchItem</WatchType10>
-      <Memo10 />
-      <BitWidth10>8</BitWidth10>
-      <Encode10>20127</Encode10>
-      <WithHexadecimal10>True</WithHexadecimal10>
-      <Expanded10>False</Expanded10>
-      <Notation10>Auto</Notation10>
-      <WatchId11>11</WatchId11>
-      <ParentId11>-1</ParentId11>
-      <WatchStatement11>pcb_temperature</WatchStatement11>
-      <WatchType11>WatchItem</WatchType11>
-      <Memo11 />
-      <BitWidth11>8</BitWidth11>
-      <Encode11>20127</Encode11>
-      <WithHexadecimal11>True</WithHexadecimal11>
-      <Expanded11>False</Expanded11>
-      <Notation11>Auto</Notation11>
-      <WatchId12>12</WatchId12>
-      <ParentId12>-1</ParentId12>
-      <WatchStatement12>Record_Data</WatchStatement12>
-      <WatchType12>WatchItem</WatchType12>
-      <Memo12 />
-      <BitWidth12>8</BitWidth12>
-      <Encode12>20127</Encode12>
-      <WithHexadecimal12>True</WithHexadecimal12>
-      <Expanded12>False</Expanded12>
-      <Notation12>Auto</Notation12>
-      <WatchId13>13</WatchId13>
-      <ParentId13>-1</ParentId13>
-      <WatchStatement13>dsadc_temperature</WatchStatement13>
-      <WatchType13>WatchItem</WatchType13>
-      <Memo13 />
-      <BitWidth13>8</BitWidth13>
-      <Encode13>20127</Encode13>
-      <WithHexadecimal13>True</WithHexadecimal13>
-      <Expanded13>False</Expanded13>
-      <Notation13>Auto</Notation13>
     </Instance>
     <Instance Guid="3e85fe22-38a0-44af-bbc8-8b0507ddb643">
       <Name>PanelWatch2</Name>

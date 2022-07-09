@@ -28,6 +28,40 @@ What is old version function
 4. Temperature Sensor : H1D Internal Temperature sensor / DSADC PGA Block unit for PT100 / K type sensor
 5. System Power: 2.7 V  from Torex DCDC XCL206
 
+## BLE APP FUNCTION
+1. SET LORA INTERVAL TIME : A1 02 mm 00
+2. READ EEPROM DATA : A2 02 00 00
+3. TURN BLE OFF : A3 02 00 00
+4. SET TEMPERATURE FOR OFFSET : A4 02 TT tt
+5. ECHO : A5 02 ec ho
+6. AUTO TEMPERATURE CALIBRATION : A6 02 00 00
+
+### SET LORA INTERVAL TIME : A1 02 mm 00
+Device use "mm" value as minutes unit to set interval time. 
+"mm" value range: 1~254 minutes 
+ACK : A1 02 01 00
+### READ EEPROM DATA : A2 02 00 00
+Device return the record data from now to oldest data sequently.
+ACK : A2 mm nn DD DD DD DD...
+mm nn : Data Length 
+### TURN BLE OFF : A3 02 00 00
+Device turn off after receive this comment in 4 sec.
+ACK : A3 02 00 00
+### SET TEMPERATURE FOR OFFSET : A4 02 TT tt
+Device base on the target temperature(TT tt) set the offset temperature. 
+TT: Hex integer of Celsius 
+tt : 2 digital of decimal point 
+example: 
+31.02 degC => TT: 0x1F , tt:0x02
+ACK : A4 02 00 00
+### ECHO : A5 02 XX xx
+Device will return XX xx back to app
+ACK: A5 02 XX xx  
+### AUTO TEMPERATURE CALIBRATION : A6 02 00 00
+Device will use internal temperature sensor value as the target temperature to make the temperature offset. 
+ACK: A6 02 00 00
+Auction : internal temperature may have +-3 degC gap between outside environment temperature. 
+
 ### Version Log
 1. ver 0.0.1: first release@20220608 
 2. ver 0.0.1.a: H/W Pin assignment setting finish (I2C, UART0, UART1, GPIO, PGA) and keep in 0.2mA
@@ -43,4 +77,5 @@ What is old version function
 12. ver 0.0.1.k: sleep mode 0.2mA, BLE off 0.15mA, Battery workable in 3V. BLE function "A1,A2,A3,A5" Done.
 13. ver 0.0.1.l: sleep mode 150uA, BLE off 86uA, BLE function "A1,A2,A3,A5" Done.
 14. ver 0.0.1.m: sleep mode 150uA, BLE function "A1,A2,A3,A4,A5" Done.
+15. ver 0.0.1.n: sleep mode 150uA, BLE function "A1,A2,A3,A4,A5,A6" Done.
    

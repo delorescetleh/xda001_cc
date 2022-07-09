@@ -76,6 +76,7 @@ uint8_t APP_READ_EEPROM[] = {0xA2,0x02};
 uint8_t APP_SHUT_DOWN_BLE[] = {0xA3,0x02};
 uint8_t APP_SET_TEMP_CALIBRARTION[] = {0xA4,0x02};
 uint8_t APP_GET_ECHO[] = {0xA5,0x02};
+uint8_t APP_CALIBRATION_TEMPERATURE[] = {0xA6,0x02};
 uint8_t *appParam;
 /* End user code. Do not edit comment generated here */
 
@@ -330,14 +331,13 @@ uint8_t L_LORA_INIT(void){
 }
 
 static void doBleTask_SetTemperatureOffset(void){
+    uint8_t bleAck[3] = {0xa4, 0x01, 0x55};// ble ack to app
     uint16_t user_Temperature = (*appParam)*10 + *(appParam+1);
     int16_t diff = user_Temperature - dsadc_temperature;
     board[DSADC_TEMPERATURE_SENSOR_OFFSET + 1] = diff >> 8;
     board[DSADC_TEMPERATURE_SENSOR_OFFSET] = diff;
     DataFlashWrite();
-    sendToBle[0] = 0xA4;
-    sendToBle[1] = 0x01;
-    sendToBle[2] = 0x55;
+    memcpy(sendToBle, bleAck, 3);
     R_UART1_Send(sendToBle,(uint8_t) 3);
     ble_connect_process_timeout_counter = BLE_CONNECT_PROCESS_TIMEOUT;
 }
@@ -350,25 +350,36 @@ static void doBleTask_AppGetEcho(void){
     ble_connect_process_timeout_counter = BLE_CONNECT_PROCESS_TIMEOUT;
 }
 
+static void doBleTask_Calibration(void){
+    uint8_t bleAck[3] = {0xa6, 0x01, 0x55};// ble ack to app
+    int16_t diff = pcb_temperature - dsadc_temperature;
+    board[DSADC_TEMPERATURE_SENSOR_OFFSET + 1] = diff >> 8;
+    board[DSADC_TEMPERATURE_SENSOR_OFFSET] = diff;
+    DataFlashWrite();
+    memcpy(sendToBle, bleAck, 3);
+    R_UART1_Send(sendToBle,(uint8_t) 3);
+    ble_connect_process_timeout_counter = BLE_CONNECT_PROCESS_TIMEOUT;
+}
+
+
 static void doBleTask_SetLoraInterval(void){
+    uint8_t bleAck[3] = {0xa1, 0x01, 0x55};// ble ack to app
+    memcpy(sendToBle, bleAck, 4);
+    R_UART1_Send(sendToBle, 4);
     if ((*appParam>0)&&(*appParam<254)){
         board[LORA_INTV] = *appParam;
         DataFlashWrite();
     }
-    //set ble ack to app
-    sendToBle[0] = 0xA1;
-    sendToBle[1] = 0x01;
-    sendToBle[2] = 0x55;
+    memcpy(sendToBle, bleAck, 3);
     R_UART1_Send(sendToBle,(uint8_t) 3);
     ble_connect_process_timeout_counter = BLE_CONNECT_PROCESS_TIMEOUT;
 }
 
 static void doBleTask_ShutDownBle(void){
+    uint8_t bleAck[4] = {0xa3, 0x02, 0x00, 0x00};// ble ack to app
     R_INTC1_Stop();
     ble_shutdown_process= BLE_SHUTDOWN_START;// count down to shut down BLE
-    sendToBle[0] = 0xA3;
-    sendToBle[1] = 0x01;
-    sendToBle[2] = 0x00;
+    memcpy(sendToBle, bleAck, 4);
     R_UART1_Send(sendToBle,(uint8_t) 3);
     ble_connect_process_timeout_counter = BLE_CONNECT_PROCESS_TIMEOUT;
 }
@@ -411,6 +422,14 @@ void checkAppCommand(void) {
         if (offset<158){
             appParam = receivedFromBle + offset + 1;
             doBleTask_AppGetEcho();
+        }
+        memclr(receivedFromBle, 160);
+        reset_DTC10();
+    }else if (offset=memcmp(receivedFromBle,APP_CALIBRATION_TEMPERATURE,2,160))
+    {
+        if (offset<158){
+            appParam = receivedFromBle + offset + 1;
+            doBleTask_Calibration();
         }
         memclr(receivedFromBle, 160);
         reset_DTC10();
