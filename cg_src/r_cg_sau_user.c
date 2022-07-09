@@ -330,8 +330,11 @@ uint8_t L_LORA_INIT(void){
 }
 
 static void doBleTask_SetTemperatureOffset(void){
-    user_Temperature = (*appParam)*10 + *(appParam+1);
-    USER_DSADC_temperature_calibration_process = 10;
+    uint16_t user_Temperature = (*appParam)*10 + *(appParam+1);
+    int16_t diff = user_Temperature - dsadc_temperature;
+    board[DSADC_TEMPERATURE_SENSOR_OFFSET + 1] = diff >> 8;
+    board[DSADC_TEMPERATURE_SENSOR_OFFSET] = diff;
+    DataFlashWrite();
     sendToBle[0] = 0xA4;
     sendToBle[1] = 0x01;
     sendToBle[2] = 0x55;
@@ -348,7 +351,10 @@ static void doBleTask_AppGetEcho(void){
 }
 
 static void doBleTask_SetLoraInterval(void){
-    setLoraIntervalTime(*appParam);
+    if ((*appParam>0)&&(*appParam<254)){
+        board[LORA_INTV] = *appParam;
+        DataFlashWrite();
+    }
     //set ble ack to app
     sendToBle[0] = 0xA1;
     sendToBle[1] = 0x01;

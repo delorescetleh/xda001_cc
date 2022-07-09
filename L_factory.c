@@ -34,7 +34,7 @@ void lora_programming_process(void){
 }
 
 void factory_test_process(void){
-    board[F_LORA_INTV] = 1;
+    board[LORA_INTV] = 1;
     L_BLE_STOP();
     R_RTC_Start();
     R_IT8Bit0_Channel0_Start();
@@ -83,10 +83,10 @@ void prepareDataToLora_factory_test(void)
     sendToLora[7] = '}';
 }
 void factory_process(void){
-    board[F_DSADC_TEMPERATURE_SENSOR_OFFSET] = 0;
+    board[DSADC_TEMPERATURE_SENSOR_OFFSET] = 0;
     board[TESTED] = 0;
     board[HARDWARE] = 0;
-    board[F_LORA_INTV] = 1;
+    board[LORA_INTV] = 1;
     R_RTC_Start();
     while (1)
     {
@@ -109,7 +109,7 @@ void factory_process(void){
                                 board[TESTED] |= F_DSADC_READY;
                                 R_IT8Bit0_Channel0_Stop();
                                 R_RTC_Stop();
-                                board[F_LORA_INTV] = 0x03;
+                                board[LORA_INTV] = 0x03;
                                 board[HARDWARE] = 0B00001111;
                                 DataFlashWrite();
                                 F_Done = 1;

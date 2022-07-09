@@ -129,7 +129,7 @@ void factory_test_mode_init_setting(void){
     eeprom_process = EEPROM_PROCESS_START;
     if (!lora_rtc_counter)
     {
-        lora_rtc_counter = board[F_LORA_INTV];
+        lora_rtc_counter = board[LORA_INTV];
         lora_process = LORA_PROCESS_START;
         lora_process_timeout_counter=LORA_PROCESS_TIMEOUT;;
     }
@@ -142,7 +142,7 @@ void factory_mode_init_setting(void){
     ble_process = BLE_PROCESS_START;
     if (!lora_rtc_counter)
     {
-        lora_rtc_counter = board[F_LORA_INTV];
+        lora_rtc_counter = board[LORA_INTV];
         lora_process = LORA_PROCESS_START;
         lora_process_timeout_counter = 0;
     }
@@ -154,7 +154,7 @@ void normal_mode_init_setting(void){
     eeprom_process = EEPROM_PROCESS_START;
     if (!lora_rtc_counter)
     {
-        lora_rtc_counter = board[F_LORA_INTV];
+        lora_rtc_counter = board[LORA_INTV];
     }
 }
 

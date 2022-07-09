@@ -42,4 +42,5 @@ What is old version function
 11. ver 0.0.1.j: ble function work fine in A102,A202, command, sleep mode , 0.2mA, fix dsadc and pcb temp bug 
 12. ver 0.0.1.k: sleep mode 0.2mA, BLE off 0.15mA, Battery workable in 3V. BLE function "A1,A2,A3,A5" Done.
 13. ver 0.0.1.l: sleep mode 150uA, BLE off 86uA, BLE function "A1,A2,A3,A5" Done.
+14. ver 0.0.1.m: sleep mode 150uA, BLE function "A1,A2,A3,A4,A5" Done.
    

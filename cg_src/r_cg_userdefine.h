@@ -159,7 +159,7 @@ User definitions
 /* Basic data */
 #define DATA_FLASH_BLOCK_SIZE   0x400l  /* Standard block size                     */
 #define DATA_FLASH_TARGET_BLOCK 0       /* Writing start block (0x0:F1000H)        */
-#define DATA_FLASH_SIZE   5      /* Write data size                         */
+#define DATA_FLASH_SIZE   10      /* Write data size                         */
 #define DATA_FLASH_DREAD_OFSET  0x1000  /* Direct reading offset address           */
 
 /* PFDL initial settings */
@@ -200,9 +200,9 @@ User definitions
 
 #define   TESTED 0
 #define   HARDWARE 1
-#define   F_LORA_INTV 2
-#define   F_TEMPERATURE_SENSOR_K_VALUE 3
-#define   F_DSADC_TEMPERATURE_SENSOR_OFFSET 5 
+#define   LORA_INTV 2
+#define   TEMPERATURE_SENSOR_K_VALUE 3
+#define   DSADC_TEMPERATURE_SENSOR_OFFSET 5 
 
 #define BLE_TOTAL_FACTORY_SETTING_COMMAND_NUMBER 7
 #define BLE_FACTORY_SETTING_FINISH 0xFF
@@ -242,7 +242,7 @@ extern int16_t pcbTemperature;
 
 extern uint8_t USER_DSADC_temperature_calibration_process;
 extern int16_t user_Temperature;
-extern uint8_t board[10];
+extern uint8_t board[DATA_FLASH_SIZE];
 extern uint16_t Record_Data;
 extern void DataFlashWrite(void);
 extern void goToSleep(void);

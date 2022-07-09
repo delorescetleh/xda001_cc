@@ -80,11 +80,10 @@ void processMode(void);
 
 // uint8_t DSADC_temperature_calibration_process = 2;
 
-extern uint8_t board[10] = {0};
+extern uint8_t board[DATA_FLASH_SIZE] = {0};
 extern int16_t temperatureCalibrationOffset[3] = {0};
 extern uint8_t mode=0;
 extern uint16_t Record_Data=0;
-extern int16_t user_Temperature=0;
 // extern int16_t pcbTemperature=250;
 
 // extern float Ipt100=0.001543572;
@@ -173,38 +172,6 @@ void goToSleep(void){
     }
 }
 
-
-void BLE_ShutDown_procedure(void)
-{
-    // switch (bleShutDownProcess)
-    // {
-    // case 200:
-    //     R_INTC1_Stop();
-    //     L_BLE_STOP();
-    //     bleShutDownProcess--;
-    //     break;
-    // case 190:
-    //     BLE_RESET_MODE = PIN_MODE_AS_OUTPUT;
-    //     BLE_RESET = PIN_LEVEL_AS_LOW;
-    //     BLE_POW_CNT = POWER_OFF;
-    //     delayInMs(2);
-    //     BLE_RESET_MODE = PIN_MODE_AS_INPUT;
-    //     BLE_UART_RXD_IND_MODE = PIN_MODE_AS_INPUT;
-    //     delayInMs(30);
-    //     bleShutDown = 1;
-    //     bleShutDownProcess=1;
-    //     break;
-    
-    // default:
-    //     if(bleShutDownProcess){
-    //     bleShutDownProcess--;
-    //     }
-
-    //     break;
-    // }
-}
-
-
 void processMode(void)
 {
     switch (mode)
@@ -231,31 +198,5 @@ extern void DataFlashWrite(void){
     dataFlashStart();
     dataFlashWrite((pfdl_u08 *)&board[0], 0);
     dataFlashEnd();
-}
-extern void setLoraIntervalTime(uint8_t lora_intv){
-    board[F_LORA_INTV] = lora_intv;
-    resetLoRaCounter(lora_intv);
-    DataFlashWrite();
-}
-extern void USER_Calibrartion_DSADC_procedure(void){
-    switch (USER_DSADC_temperature_calibration_process)
-    {
-    case 10:
-        if(!pt100_process)
-        {
-            board[F_DSADC_TEMPERATURE_SENSOR_OFFSET] = user_Temperature - DSADC_Temperature;
-            USER_DSADC_temperature_calibration_process--;
-        }
-        break;
-    case 9:
-        DataFlashWrite();
-        USER_DSADC_temperature_calibration_process = 0;
-        break;
-    case 1:
-        /* code */
-        break;
-    default:
-        break;
-    }
 }
 /* End user code. Do not edit comment generated here */

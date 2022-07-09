@@ -237,12 +237,12 @@ void L_get_pt100_result(int *result){
 
 
 void setK(void){
-    board[F_TEMPERATURE_SENSOR_K_VALUE + 1] = K>>8;
-    board[F_TEMPERATURE_SENSOR_K_VALUE] = K&(0x00FF);
+    board[TEMPERATURE_SENSOR_K_VALUE + 1] = K>>8;
+    board[TEMPERATURE_SENSOR_K_VALUE] = K&(0x00FF);
 }
 uint16_t getK(void)
 {
-    return (uint16_t)(((uint16_t) board[F_TEMPERATURE_SENSOR_K_VALUE+1]<<8)|board[F_TEMPERATURE_SENSOR_K_VALUE]);
+    return (uint16_t)(((uint16_t) board[TEMPERATURE_SENSOR_K_VALUE+1]<<8)|board[TEMPERATURE_SENSOR_K_VALUE]);
 }
 
 double getIpt(void)
@@ -317,17 +317,4 @@ void parseSingle_DSADC_Result(uint32_t BufferH,uint32_t BufferL,uint32_t *result
 void clr_dsadc_buf(void){
     memclr((uint8_t *)&dsadc_buf[0], DSADC_BUF_SIZE*2);
 }
-// void calibrationIpt100(void){
-//     if (pcbTemperature>500){
-//         Ipt100 = ((pcbTemperature - PCBtemp50)/1000) * Rate_50 + IPT100_50;
-//     }else if(pcbTemperature>400){
-//         Ipt100 = ((pcbTemperature - PCBtemp40)/1000) * Rate_40 + IPT100_40;
-//     }else{
-//         Ipt100 = ((pcbTemperature - PCBtemp30)/1000) * Rate_30 + IPT100_30;
-//     }
-// }
-// void resetDSADC(uint8_t *temperature){
-//     temperatureOffset = (int16_t)(((int16_t) board[F_DSADC_TEMPERATURE_SENSOR_OFFSET+1]<<8)|board[F_DSADC_TEMPERATURE_SENSOR_OFFSET]);
-// }
-
 /* End user code. Do not edit comment generated here */
