@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file includes user definition.
-* Creation Date: 2022/7/8
+* Creation Date: 2022/7/11
 ***********************************************************************************************************************/
 #ifndef _USER_DEF_H
 #define _USER_DEF_H
@@ -201,7 +201,7 @@ User definitions
 #define   TESTED 0
 #define   HARDWARE 1
 #define   LORA_INTV 2
-#define   TEMPERATURE_SENSOR_K_VALUE 3
+#define   PT100_R_LINE 3
 #define   DSADC_TEMPERATURE_SENSOR_OFFSET 5 
 
 #define BLE_TOTAL_FACTORY_SETTING_COMMAND_NUMBER 7
@@ -259,5 +259,9 @@ extern uint8_t PCB_TEMPERATURE_F_Done;
 extern uint8_t BLE_F_Done;
 extern uint8_t setBleDeviceNameCommand[];
 extern uint16_t K;
+
+extern uint16_t Ipt100_PT100_TEMPERATURE;
+extern uint16_t IPT100_PT100_TEMPERATURE;
+extern uint16_t IPT100_BASE_R_LINE_PT100_PT100_TEMPERATURE;
 /* End user code. Do not edit comment generated here */
 #endif

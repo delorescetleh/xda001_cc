@@ -18,19 +18,19 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : r_cg_elc_user.c
+* File Name    : r_cg_dac_user.c
 * Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
-* Description  : This file implements device driver for ELC module.
-* Creation Date: 2022/7/11
+* Description  : This file implements device driver for DAC module.
+* Creation Date: 2022/7/10
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "r_cg_elc.h"
+#include "r_cg_dac.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"

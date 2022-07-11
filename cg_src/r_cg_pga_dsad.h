@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for PGIA module.
-* Creation Date: 2022/7/8
+* Creation Date: 2022/7/11
 ***********************************************************************************************************************/
 #ifndef PGIA_H
 #define PGIA_H
@@ -217,6 +217,10 @@ void get_pt100_result(void);
 void L_get_pt100_result(int *result);
 void clr_dsadc_buf(void);
 void L_calibration_pt100(void);
+uint16_t getV_Rref(void);
+uint16_t getRref(void);
+uint16_t getR_Line(void);
+void getRL(void);
 //void resetDSADC(uint8_t *temperature);
 // int16_t boardOffset(uint8_t *temperature);
 /* End user code. Do not edit comment generated here */

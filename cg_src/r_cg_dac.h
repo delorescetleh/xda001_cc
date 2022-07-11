@@ -18,35 +18,57 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : r_cg_elc_user.c
+* File Name    : r_cg_dac.h
 * Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
-* Description  : This file implements device driver for ELC module.
-* Creation Date: 2022/7/11
+* Description  : This file implements device driver for DAC module.
+* Creation Date: 2022/7/10
+***********************************************************************************************************************/
+#ifndef DAC_H
+#define DAC_H
+
+/***********************************************************************************************************************
+Macro definitions (Register bit)
+***********************************************************************************************************************/
+/*
+    D/A Converter Mode Register 0 (DACM0) 
+*/
+/* D/A converter operation mode selection (DAMD0) */
+#define _00_DA0_NORMAL_MODE                 (0x00U) /* normal mode */
+#define _01_DA0_TIME_OUTPUT_MODE            (0x01U) /* real-time output mode */
+/* D/A converter operation mode selection (DAMD1) */
+#define _00_DA1_NORMAL_MODE                 (0x00U) /* normal mode */
+#define _02_DA1_TIME_OUTPUT_MODE            (0x02U) /* real-time output mode */
+/* D/A conversion data format selection (DPSEL) */
+#define _00_DA1_FLUSH_RIGHT_FORMAT          (0x00U) /* flush-right */
+#define _80_DA1_FLUSH_LEFT_FORMAT           (0x80U) /* flush-left */
+
+/*
+    D/A Converter Mode Register 1 (DACM1) 
+*/
+/* D/A converter reference voltage source selection (DAVR1) */
+#define _00_DA1_REFERENCE_AVDD              (0x00U) /* AVDD */
+#define _02_DA1_REFERENCE_SBIAS             (0x02U) /* SBIAS output */
+
+
+/***********************************************************************************************************************
+Macro definitions
+***********************************************************************************************************************/
+#define DA1_WAITTIME                        (0x78U) /* set the waiting time */
+#define _0400_DA1_COUVERSION_VALUE          (0x0400U) /* set the analog voltage value */
+
+/***********************************************************************************************************************
+Typedef definitions
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-Includes
+Global functions
 ***********************************************************************************************************************/
-#include "r_cg_macrodriver.h"
-#include "r_cg_elc.h"
-/* Start user code for include. Do not edit comment generated here */
+void R_DAC_Create(void);
+void R_DAC1_Start(void);
+void R_DAC1_Stop(void);
+void R_DAC1_Set_ConversionValue(uint8_t regvalue);
+/* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
-#include "r_cg_userdefine.h"
-
-/***********************************************************************************************************************
-Pragma directive
-***********************************************************************************************************************/
-/* Start user code for pragma. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
-
-/***********************************************************************************************************************
-Global variables and functions
-***********************************************************************************************************************/
-/* Start user code for global. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
-
-
-/* Start user code for adding. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
+#endif

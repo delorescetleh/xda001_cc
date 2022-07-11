@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for IT8Bit module.
-* Creation Date: 2022/7/8
+* Creation Date: 2022/7/11
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -73,5 +73,6 @@ static void __near r_it8bit0_channel1_interrupt(void)
     events |= BLE_TIMER_PERIODIC_EVENT;
     /* End user code. Do not edit comment generated here */
 }
+
 /* Start user code for adding. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */

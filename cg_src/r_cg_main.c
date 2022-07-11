@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2022/7/8
+* Creation Date: 2022/7/11
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -40,6 +40,7 @@ Includes
 #include "r_cg_sau.h"
 #include "r_cg_iica.h"
 #include "r_cg_dtc.h"
+#include "r_cg_elc.h"
 #include "r_cg_intp.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
@@ -92,10 +93,10 @@ void main(void)
             mode = normal_mode;
         }
     } 
-    // mode = factory_test_mode;
+    //  mode = factory_test_mode;
     // mode =  lora_programming_mode;
-    //mode = factory_mode;
-     mode = normal_mode;
+   //mode = factory_mode;
+      mode = normal_mode;
 
     processMode();
     /* End user code. Do not edit comment generated here */

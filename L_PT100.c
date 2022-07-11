@@ -22,6 +22,10 @@ void L_PT100_Procedure(void)
             clr_dsadc_buf();
             L_EEPROM_INIT();
             R_PGA_DSAD_Create();
+            R_AMP_Create();
+            R_AMP1_Start();
+            R_AMP2_Start();
+            R_AMP_Set_PowerOn();
             pt100_process--;
             break;
         case 14:
@@ -50,12 +54,8 @@ void L_PT100_Procedure(void)
         case 10:
             prepareDataToLora();
             L_PGA_STOP();
-        //     Record_Temperature = DSADC_Temperature + boardOffset(&board[DSADC_TEMPERATURE_SENSOR_OFFSET]);
-        //     Record_Data = (uint16_t)((Record_Temperature) / 5 + 100); // Record Temperature as 0~999 (as -50degC to 450 degC)
-        //     if (Record_Data >= 1000)
-        //     {
-        //         Record_Data = 0; // means record value will become 0, send to Lora "000" mean ERR
-        //     }
+            R_AMP1_Stop();
+            R_AMP2_Stop();
             pt100_process=PT100_PROCESS_END;
             break;
         case PT100_PROCESS_END:

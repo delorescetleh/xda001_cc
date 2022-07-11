@@ -18,28 +18,26 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : r_cg_rtc_user.c
+* File Name    : r_cg_dac.c
 * Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
-* Description  : This file implements device driver for RTC module.
-* Creation Date: 2022/7/11
+* Description  : This file implements device driver for DAC module.
+* Creation Date: 2022/7/10
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "r_cg_rtc.h"
+#include "r_cg_dac.h"
 /* Start user code for include. Do not edit comment generated here */
-#include "r_cg_adc.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
 /***********************************************************************************************************************
 Pragma directive
 ***********************************************************************************************************************/
-#pragma interrupt r_rtc_interrupt(vect=INTRTC)
 /* Start user code for pragma. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -47,115 +45,79 @@ Pragma directive
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
-uint16_t rtc_counter = 0;
-uint8_t lora_rtc_counter = 0;
-uint8_t lora_intv_time = 0;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: r_rtc_interrupt
-* Description  : None
+* Function Name: R_DAC_Create
+* Description  : This function initializes the DA converter.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-static void __near r_rtc_interrupt(void)
+void R_DAC_Create(void)
 {
-    if (1U == WAFG)
+    AFEEN = 1U;     /* enables input clock supply */
+    AFEPON = 1U;    /* power on AFE */
+
+    while (0U == AFESTAT)
     {
-        RTCWEN = 1U;
-        RTCC1 &= (uint8_t)~_10_RTC_ALARM_MATCH;        /* clear WAFG */
-        RTCWEN = 0U;
-        r_rtc_callback_alarm();
+        ;/* Wait until AFE stabilize  */
     }
 
-    if (1U == RIFG)
-    {
-        RTCWEN = 1U;
-        RTCC1 &= (uint8_t)~_08_RTC_INTC_GENERATE_FLAG;    /* clear RIFG */
-        RTCWEN = 0U;
-        r_rtc_callback_constperiod();
-    }
+    DACEN = 1U;     /* enables input clock supply */
+    DACM0 |= _00_DA1_FLUSH_RIGHT_FORMAT | _00_DA1_NORMAL_MODE;
+    DACM1 = _02_DA1_REFERENCE_SBIAS;
+    DAC1DR = _0400_DA1_COUVERSION_VALUE;
+
 }
 /***********************************************************************************************************************
-* Function Name: r_rtc_callback_constperiod
-* Description  : This function is real-time clock constant-period interrupt service handler.
+* Function Name: R_DAC1_Start
+* Description  : This function enables the DA converter channel1.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-static void r_rtc_callback_constperiod(void)
+void R_DAC1_Start(void)
 {
-    /* Start user code. Do not edit comment generated here */
-    if (!rtc_counter)
+    volatile uint16_t w_count;
+
+    DAC1PON = 1U;   /* enables D/A conversion operation */
+
+    /* Change the waiting time according to the system */
+    for (w_count = 0U; w_count <= DA1_WAITTIME; w_count++)
     {
-        R_IT8Bit0_Channel0_Start();
-        switch (mode)
-        {
-        case factory_mode:
-            factory_mode_init_setting();
-            break;        
-        case normal_mode:
-            normal_mode_init_setting();
-            break;
-        case factory_test_mode:
-            factory_test_mode_init_setting();
-            break;
-        }
-        lora_rtc_counter--;
+        NOP();
     }
-    rtc_counter--;
-    /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************
-* Function Name: r_rtc_callback_alarm
-* Description  : This function is alarm interrupt service handler.
+* Function Name: R_DAC1_Stop
+* Description  : This function stops the DA converter channel1.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-static void r_rtc_callback_alarm(void)
+void R_DAC1_Stop(void)
 {
-    /* Start user code. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
+    DAC1PON = 0U;   /* stops D/A conversion operation */
+}
+/***********************************************************************************************************************
+* Function Name: R_DAC1_Set_ConversionValue
+* Description  : This function sets the DA converter channel1 value.
+* Arguments    : reg_value -
+*                    value of conversion
+* Return Value : None
+***********************************************************************************************************************/
+void R_DAC1_Set_ConversionValue(uint8_t regvalue)
+{
+    DAC1DR = regvalue;
+}
+/***********************************************************************************************************************
+* Function Name: R_DAC_Set_PowerOff
+* Description  : This function stops supply of input clock and reset all SFR.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_DAC_Set_PowerOff(void)
+{
+    DACEN = 0U;     /* stops input clock supply */
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-void resetLoRaCounter(uint8_t times){
-    lora_rtc_counter = 0;
-    lora_intv_time = times;
-}
-void factory_test_mode_init_setting(void){
-    rtc_counter = RTC_TIME_SPEED / 10;
-    pt100_process = PT100_PROCESS_START;
-    pcb_temperature_process = PCB_TEMPERATURE_PROCESS_START;
-    eeprom_process = EEPROM_PROCESS_START;
-    if (!lora_rtc_counter)
-    {
-        lora_rtc_counter = board[LORA_INTV];
-        lora_process = LORA_PROCESS_START;
-        lora_process_timeout_counter=LORA_PROCESS_TIMEOUT;;
-    }
-}
-void factory_mode_init_setting(void){
-    rtc_counter = RTC_TIME_SPEED / 3;
-    pt100_process = PT100_PROCESS_START;
-    pcb_temperature_process = PCB_TEMPERATURE_PROCESS_START;
-    eeprom_process = EEPROM_PROCESS_START;
-    ble_process = BLE_PROCESS_START;
-    if (!lora_rtc_counter)
-    {
-        lora_rtc_counter = board[LORA_INTV];
-        lora_process = LORA_PROCESS_START;
-        lora_process_timeout_counter = 0;
-    }
-}
-void normal_mode_init_setting(void){
-    rtc_counter = RTC_TIME_SPEED;
-    pt100_process = PT100_PROCESS_START;
-    pcb_temperature_process = PCB_TEMPERATURE_PROCESS_START;
-    eeprom_process = EEPROM_PROCESS_START;
-    if (!lora_rtc_counter)
-    {
-        lora_rtc_counter = board[LORA_INTV];
-    }
-}
-
 /* End user code. Do not edit comment generated here */

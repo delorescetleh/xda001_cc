@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for ELC module.
-* Creation Date: 2022/6/28
+* Creation Date: 2022/7/11
 ***********************************************************************************************************************/
 #ifndef ELC_H
 #define ELC_H

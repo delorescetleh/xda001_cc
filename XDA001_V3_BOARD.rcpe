@@ -48,6 +48,9 @@
         <Path>cg_src\r_cg_it8bit.c</Path>
         <Path>cg_src\r_cg_it8bit_user.c</Path>
         <Path>cg_src\r_cg_it8bit.h</Path>
+        <Path>cg_src\r_cg_elc.c</Path>
+        <Path>cg_src\r_cg_elc_user.c</Path>
+        <Path>cg_src\r_cg_elc.h</Path>
       </Category>
       <Path>L_useful.c</Path>
       <Path>L_useful.h</Path>
@@ -114,6 +117,8 @@
           <Path>DefaultBuild\L_Lora.obj</Path>
           <Path>DefaultBuild\L_EEPROM.obj</Path>
           <Path>DefaultBuild\L_BLE.obj</Path>
+          <Path>DefaultBuild\r_cg_elc.obj</Path>
+          <Path>DefaultBuild\r_cg_elc_user.obj</Path>
           <Path>FDL\CCRL_100\lib\pfdl.lib</Path>
         </LinkOrder>
         <CommonOptions>
@@ -183,11 +188,15 @@
     <Extension_CodePart2>
       <CodeGeneratorData0>&lt;DataSign&gt;&lt;SerializableData&gt;
   &lt;SerializableData name="39a9d609-9774-41fe-9e4e-5c50dfa1451e"&gt;
+    &lt;DataElement key="pior35_macroname" value=""&gt;
+    &lt;/DataElement&gt;
     &lt;DataElement key="pior14_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior34_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior16_macroname" value=""&gt;
+    &lt;/DataElement&gt;
+    &lt;DataElement key="pior25_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior22_macroname" value=""&gt;
     &lt;/DataElement&gt;
@@ -207,13 +216,9 @@
     &lt;/DataElement&gt;
     &lt;DataElement key="pior30_macroname" value=""&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior33" value="0"&gt;
-    &lt;/DataElement&gt;
     &lt;DataElement key="pior01_macroname" value=""&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior01" value="0"&gt;
-    &lt;/DataElement&gt;
-    &lt;DataElement key="pior11_macroname" value=""&gt;
+    &lt;DataElement key="pior35" value="0"&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior04_macroname" value=""&gt;
     &lt;/DataElement&gt;
@@ -231,7 +236,7 @@
     &lt;/DataElement&gt;
     &lt;DataElement key="pior31" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior25_macroname" value=""&gt;
+    &lt;DataElement key="pior01" value="0"&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior11" value="0"&gt;
     &lt;/DataElement&gt;
@@ -265,7 +270,7 @@
     &lt;/DataElement&gt;
     &lt;DataElement key="pior23" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior35_macroname" value=""&gt;
+    &lt;DataElement key="pior33" value="0"&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior03" value="0"&gt;
     &lt;/DataElement&gt;
@@ -279,7 +284,7 @@
     &lt;/DataElement&gt;
     &lt;DataElement key="pior25" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior35" value="0"&gt;
+    &lt;DataElement key="pior11_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior05" value="0"&gt;
     &lt;/DataElement&gt;
@@ -2595,7 +2600,7 @@
       &lt;SerializableData name="AMP"&gt;
         &lt;DataElement key="visible" value="True"&gt;
         &lt;/DataElement&gt;
-        &lt;DataElement key="error" value="NeedUpdate"&gt;
+        &lt;DataElement key="error" value="NoError"&gt;
         &lt;/DataElement&gt;
         &lt;DataElement key="inuse" value="Used"&gt;
         &lt;/DataElement&gt;
@@ -2618,7 +2623,7 @@
         &lt;SerializableData name="CAMPC1"&gt;
           &lt;DataElement key="visible" value="True"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="error" value="NeedUpdate"&gt;
+          &lt;DataElement key="error" value="NoError"&gt;
           &lt;/DataElement&gt;
           &lt;DataElement key="inuse" value="Used"&gt;
           &lt;/DataElement&gt;
@@ -2626,7 +2631,7 @@
         &lt;SerializableData name="CAMPC2"&gt;
           &lt;DataElement key="visible" value="True"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="error" value="NeedUpdate"&gt;
+          &lt;DataElement key="error" value="NoError"&gt;
           &lt;/DataElement&gt;
           &lt;DataElement key="inuse" value="Used"&gt;
           &lt;/DataElement&gt;
@@ -2781,7 +2786,7 @@
         &lt;/DataElement&gt;
         &lt;DataElement key="error" value="NoError"&gt;
         &lt;/DataElement&gt;
-        &lt;DataElement key="inuse" value="Unused"&gt;
+        &lt;DataElement key="inuse" value="Used"&gt;
         &lt;/DataElement&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="Intp"&gt;
@@ -6389,21 +6394,21 @@
       &lt;SerializableData name="ELC"&gt;
         &lt;DataElement key="visible" value="True"&gt;
         &lt;/DataElement&gt;
-        &lt;DataElement key="inuse" value="Unused"&gt;
+        &lt;DataElement key="inuse" value="Locked"&gt;
         &lt;/DataElement&gt;
         &lt;SerializableData name="r_cg_elc_c"&gt;
           &lt;DataElement key="visible" value="True"&gt;
           &lt;/DataElement&gt;
           &lt;DataElement key="text" value="r_cg_elc.c"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="inuse" value="Unused"&gt;
+          &lt;DataElement key="inuse" value="Locked"&gt;
           &lt;/DataElement&gt;
           &lt;SerializableData name="R_ELC_Create"&gt;
             &lt;DataElement key="visible" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="text" value="R_ELC_Create"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="inuse" value="Unused"&gt;
+            &lt;DataElement key="inuse" value="Locked"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="R_ELC_Stop"&gt;
@@ -6411,7 +6416,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="text" value="R_ELC_Stop"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="inuse" value="Unused"&gt;
+            &lt;DataElement key="inuse" value="Locked"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
         &lt;/SerializableData&gt;
@@ -6420,7 +6425,7 @@
           &lt;/DataElement&gt;
           &lt;DataElement key="text" value="r_cg_elc_user.c"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="inuse" value="Unused"&gt;
+          &lt;DataElement key="inuse" value="Locked"&gt;
           &lt;/DataElement&gt;
           &lt;SerializableData name="R_ELC_Create_UserInit"&gt;
             &lt;DataElement key="visible" value="True"&gt;
@@ -6436,7 +6441,7 @@
           &lt;/DataElement&gt;
           &lt;DataElement key="text" value="r_cg_elc.h"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="inuse" value="Unused"&gt;
+          &lt;DataElement key="inuse" value="Locked"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
       &lt;/SerializableData&gt;
@@ -37080,7 +37085,7 @@
         &lt;SerializableData name="PGA_DSAD_SBIAS_VOLTAGE"&gt;
           &lt;DataElement key="ContentItemCount" value="18"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="SelectedContentItem" value="1.7"&gt;
+          &lt;DataElement key="SelectedContentItem" value="1.5"&gt;
           &lt;/DataElement&gt;
           &lt;SerializableData name="ContentItem1"&gt;
             &lt;DataElement key="Pin" value=""&gt;
@@ -37941,7 +37946,7 @@
           &lt;SerializableData name="PGA_DSAD_DATA_RATE"&gt;
             &lt;DataElement key="ContentItemCount" value="6"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="SelectedContentItem" value="512"&gt;
+            &lt;DataElement key="SelectedContentItem" value="256"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="ContentItem1"&gt;
               &lt;DataElement key="Pin" value=""&gt;
@@ -38077,7 +38082,7 @@
             &lt;/SerializableData&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="txtDataRate"&gt;
-            &lt;DataElement key="Text" value="1953.125"&gt;
+            &lt;DataElement key="Text" value="3906.250"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="PGA_DSAD_COUNT_MODE"&gt;
@@ -38213,7 +38218,7 @@
           &lt;SerializableData name="PGA_DSAD_AVERAGING_UNIT"&gt;
             &lt;DataElement key="ContentItemCount" value="4"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="SelectedContentItem" value="16"&gt;
+            &lt;DataElement key="SelectedContentItem" value="64"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="ContentItem1"&gt;
               &lt;DataElement key="Pin" value=""&gt;
@@ -38527,7 +38532,7 @@
           &lt;SerializableData name="PGA_DSAD_DATA_RATE"&gt;
             &lt;DataElement key="ContentItemCount" value="6"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="SelectedContentItem" value="64"&gt;
+            &lt;DataElement key="SelectedContentItem" value="2048"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="ContentItem1"&gt;
               &lt;DataElement key="Pin" value=""&gt;
@@ -38663,7 +38668,7 @@
             &lt;/SerializableData&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="txtDataRate"&gt;
-            &lt;DataElement key="Text" value="15625.000"&gt;
+            &lt;DataElement key="Text" value="488.281"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="PGA_DSAD_COUNT_MODE"&gt;
@@ -38799,7 +38804,7 @@
           &lt;SerializableData name="PGA_DSAD_AVERAGING_UNIT"&gt;
             &lt;DataElement key="ContentItemCount" value="4"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="SelectedContentItem" value="8"&gt;
+            &lt;DataElement key="SelectedContentItem" value="16"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="ContentItem1"&gt;
               &lt;DataElement key="Pin" value=""&gt;
@@ -39113,7 +39118,7 @@
           &lt;SerializableData name="PGA_DSAD_DATA_RATE"&gt;
             &lt;DataElement key="ContentItemCount" value="6"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="SelectedContentItem" value="64"&gt;
+            &lt;DataElement key="SelectedContentItem" value="2048"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="ContentItem1"&gt;
               &lt;DataElement key="Pin" value=""&gt;
@@ -39249,7 +39254,7 @@
             &lt;/SerializableData&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="txtDataRate"&gt;
-            &lt;DataElement key="Text" value="15625.000"&gt;
+            &lt;DataElement key="Text" value="488.281"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="PGA_DSAD_COUNT_MODE"&gt;
@@ -39385,7 +39390,7 @@
           &lt;SerializableData name="PGA_DSAD_AVERAGING_UNIT"&gt;
             &lt;DataElement key="ContentItemCount" value="4"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="SelectedContentItem" value="8"&gt;
+            &lt;DataElement key="SelectedContentItem" value="16"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="ContentItem1"&gt;
               &lt;DataElement key="Pin" value=""&gt;
@@ -39699,7 +39704,7 @@
           &lt;SerializableData name="PGA_DSAD_DATA_RATE"&gt;
             &lt;DataElement key="ContentItemCount" value="6"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="SelectedContentItem" value="512"&gt;
+            &lt;DataElement key="SelectedContentItem" value="256"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="ContentItem1"&gt;
               &lt;DataElement key="Pin" value=""&gt;
@@ -39835,7 +39840,7 @@
             &lt;/SerializableData&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="txtDataRate"&gt;
-            &lt;DataElement key="Text" value="1953.125"&gt;
+            &lt;DataElement key="Text" value="3906.250"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="PGA_DSAD_COUNT_MODE"&gt;
@@ -39971,7 +39976,7 @@
           &lt;SerializableData name="PGA_DSAD_AVERAGING_UNIT"&gt;
             &lt;DataElement key="ContentItemCount" value="4"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="SelectedContentItem" value="16"&gt;
+            &lt;DataElement key="SelectedContentItem" value="64"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="ContentItem1"&gt;
               &lt;DataElement key="Pin" value=""&gt;
@@ -61290,7 +61295,7 @@
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="AMP_ELC0"&gt;
-          &lt;DataElement key="Checked" value="True"&gt;
+          &lt;DataElement key="Checked" value="False"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="AMP_ELC1"&gt;
@@ -61298,7 +61303,7 @@
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="AMP_ELC2"&gt;
-          &lt;DataElement key="Checked" value="False"&gt;
+          &lt;DataElement key="Checked" value="True"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="rbAMPELC0"&gt;
@@ -63561,7 +63566,7 @@
         &lt;/SerializableData&gt;
         &lt;SerializableData name="ELSELR3"&gt;
           &lt;SerializableData name="OPERATION"&gt;
-            &lt;DataElement key="Checked" value="False"&gt;
+            &lt;DataElement key="Checked" value="True"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="cmbElSource"&gt;
@@ -68906,7 +68911,7 @@
       &lt;/DataElement&gt;
     &lt;/SerializableData&gt;
     &lt;SerializableData name="DataKey_VBIAS"&gt;
-      &lt;DataElement key="DataValue" value="1.7"&gt;
+      &lt;DataElement key="DataValue" value="1.5"&gt;
       &lt;/DataElement&gt;
     &lt;/SerializableData&gt;
     &lt;SerializableData name="DataKey_PGA00P_USED"&gt;
@@ -68950,7 +68955,7 @@
       &lt;/DataElement&gt;
     &lt;/SerializableData&gt;
     &lt;SerializableData name="DataKey_ELC_AMP0"&gt;
-      &lt;DataElement key="DataValue" value="false"&gt;
+      &lt;DataElement key="DataValue" value="true"&gt;
       &lt;/DataElement&gt;
     &lt;/SerializableData&gt;
     &lt;SerializableData name="DataKey_ELC_AMP1"&gt;
@@ -69126,7 +69131,7 @@
       &lt;/SerializableData&gt;
       &lt;SerializableData name="AMP"&gt;
         &lt;SerializableData name="ELC_AMP0"&gt;
-          &lt;DataElement key="DataValue" value="false"&gt;
+          &lt;DataElement key="DataValue" value="true"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="ELC_AMP1"&gt;
@@ -69150,7 +69155,7 @@
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="VBIAS_USED"&gt;
-          &lt;DataElement key="DataValue" value="false"&gt;
+          &lt;DataElement key="DataValue" value="true"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="DA1_USED"&gt;
@@ -69176,7 +69181,7 @@
       &lt;/SerializableData&gt;
       &lt;SerializableData name="AMP22"&gt;
         &lt;SerializableData name="VBIAS_USED"&gt;
-          &lt;DataElement key="DataValue" value="false"&gt;
+          &lt;DataElement key="DataValue" value="true"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="DA1_USED"&gt;
@@ -69190,7 +69195,7 @@
       &lt;/SerializableData&gt;
       &lt;SerializableData name="AMP33"&gt;
         &lt;SerializableData name="VBIAS_USED"&gt;
-          &lt;DataElement key="DataValue" value="false"&gt;
+          &lt;DataElement key="DataValue" value="true"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="DA1_USED"&gt;
