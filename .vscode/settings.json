@@ -1,0 +1,7 @@
+{
+  "files.associations": {
+    "r_cg_userdefine.h": "c",
+    "l_pcb_temp.h": "c",
+    "l_ble.h": "c"
+  }
+}

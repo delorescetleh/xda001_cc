@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file includes user definition.
-* Creation Date: 2022/7/11
+* Creation Date: 2022/7/13
 ***********************************************************************************************************************/
 #ifndef _USER_DEF_H
 #define _USER_DEF_H
@@ -70,25 +70,22 @@ User definitions
 // #define RTC_NOTIFICATION_EVENT                      0x40
 // #define MINUTES_EVENT                               0x80
 
+// DATA FLASH REGISTER 
+#define   TESTED                          0   // 1 BYTE  , SHOW H/W TESTED 
+#define   HARDWARE                        1   // 1 BYTE  , SUPPORTED HW
+#define   LORA_INTV                       2   // 1 BYTE
+#define   PT100_R_LINE                    3   // 2 BYTE 
+#define   DSADC_TEMPERATURE_SENSOR_OFFSET 5   // 2 BYTE 
+#define   FW_VERSION                      7   // 1 BYTE  
+
+
+
+
 #define BLE_CONNECTED               0x01
 #define BLE_DISCONNECTED            0x00
 
 #define EEPROM_SLAVE_ADDR_B0           0xa0
 #define EEPROM_SLAVE_ADDR_B1           0xa2
-
-#define IIC_STA_ERROR               0x01
-#define IIC_STA_RECEIVED            0x02
-#define IIC_STA_SENDEND             0x04
-
-#define IIC_NO_TASK                0x00
-#define IIC_W_INTV                 0x01
-#define IIC_R_INTV                 0x02
-#define IIC_W_TEMP                 0x04
-#define IIC_R_TEMP                 0x08
-#define IIC_W_ING_INTV             0x10
-#define IIC_R_ING_INTV             0x20
-#define IIC_W_ING_TEMP             0x40
-#define IIC_R_ING_TEMP             0x80
 
 #define BLE_UART_RXD_IND      P5_bit.no3
 #define BLE_UART_RXD_IND_MODE         PM5_bit.no3
@@ -113,10 +110,9 @@ User definitions
 #define LORA_RESET  P3_bit.no5//P3_bit.no5
 #define LORA_RESET_MODE   PM3_bit.no5
 #define LORA_STA    P7_bit.no0
-// #define LORA_STA_MODE   PM7_bit.no0
+#define LORA_STA_MODE   PM7_bit.no0
 #define LORA_POW_CNT    P7_bit.no1
 
-#define MAX_LORA_RECEIVE 6
 #define MAX_ADC_BUF 8
 
 #define PIN_MODE_AS_INPUT 1U
@@ -132,7 +128,6 @@ User definitions
 #define P_TEST       P0_bit.no1//P0_bit.no1
 
 
-#define LoRA_POWER_OFF  1
 #define POWER_OFF  1
 #define POWER_ON  0
 
@@ -174,7 +169,7 @@ User definitions
 #define BLE_CMD_LENGTH 2
 /*factory setting value*/
 #define F_READY           0x01 
-#define F_ADC_READY  0x02
+#define F_ADC_READY       0x02
 #define F_BLE_READY       0x04
 #define F_DSADC_READY     0x08
 #define F_EEPROM_READY    0x10
@@ -198,11 +193,7 @@ User definitions
 #define FCNT_START 121
 #define MAX_LORA_SENDING_PROCESS_TIMES 3
 
-#define   TESTED 0
-#define   HARDWARE 1
-#define   LORA_INTV 2
-#define   PT100_R_LINE 3
-#define   DSADC_TEMPERATURE_SENSOR_OFFSET 5 
+
 
 #define BLE_TOTAL_FACTORY_SETTING_COMMAND_NUMBER 7
 #define BLE_FACTORY_SETTING_FINISH 0xFF
@@ -223,22 +214,9 @@ extern uint8_t sendToLora[20];
 
 extern uint8_t mode;
 extern uint32_t Rpt100;
-// extern float Ipt100;
 extern uint8_t events;
-extern uint8_t countToEnableLoraProcess;
-extern uint8_t adcProcess;
-extern uint8_t dsadcProcess;
 extern uint8_t dsadc_ready;
-extern uint8_t loraProcess;
-extern uint8_t bleProcess;
-extern uint8_t lora_rtc_counter;
-extern uint8_t dsadcProcessTimeOutCounter;
-extern uint8_t adcProcessTimeOutCounter;
-extern uint8_t loraProcessTimeOutCounter;
-extern uint8_t bleShutDownProcess;
-extern uint8_t lora_start_time_delay_count;
-extern uint32_t guessIpt100;
-extern int16_t pcbTemperature;
+extern int dsadc_temperature;
 
 extern uint8_t USER_DSADC_temperature_calibration_process;
 extern int16_t user_Temperature;
@@ -247,10 +225,10 @@ extern uint16_t Record_Data;
 extern void DataFlashWrite(void);
 extern void goToSleep(void);
 extern void setLoraIntervalTime(uint8_t lora_intv);
-extern uint32_t Vm0 ;
-extern uint32_t Vm1 ;
-extern uint32_t Vm2 ;
-extern uint32_t Vm3 ;
+extern double Vm0 ;
+extern double Vm1 ;
+extern double Vm2 ;
+extern double Vm3 ;
 extern uint8_t F_Done;
 extern uint8_t LORA_F_Done;
 extern uint8_t EEPROM_F_Done;
@@ -259,9 +237,5 @@ extern uint8_t PCB_TEMPERATURE_F_Done;
 extern uint8_t BLE_F_Done;
 extern uint8_t setBleDeviceNameCommand[];
 extern uint16_t K;
-
-extern uint16_t Ipt100_PT100_TEMPERATURE;
-extern uint16_t IPT100_PT100_TEMPERATURE;
-extern uint16_t IPT100_BASE_R_LINE_PT100_PT100_TEMPERATURE;
 /* End user code. Do not edit comment generated here */
 #endif

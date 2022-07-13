@@ -5,9 +5,12 @@ void normal_process(void){
     dataFlashStart();
     dataFlashRead((pfdl_u08 *)&board,0);
     dataFlashEnd();
+
     R_INTC1_Start();
-    R_UART1_Start();
+    // R_IT8Bit0_Channel1_Start();
     L_BLE_INIT();
+    ble_shutdown_process = 0;
+
     R_RTC_Start();
     while (1)
     {
@@ -31,11 +34,6 @@ void normal_process(void){
                 if (pt100_process)
                 {
                     L_PT100_Procedure();
-                    if (pt100_process==PT100_PROCESS_END)
-                    {
-                        lora_process = LORA_PROCESS_START;
-                        lora_process_timeout_counter = 0;
-                    }
                 }
                 if (pcb_temperature_process)
                 {
@@ -51,11 +49,17 @@ void normal_process(void){
                 }
             }
         }
-        if ((!pt100_process) && (!pcb_temperature_process) && (!lora_process)&& (!eeprom_process)&&(!ble_connect_process)&&(!ble_shutdown_process))
+        if ( (!pt100_process) && (!pcb_temperature_process) && (!lora_process)&& (!eeprom_process)&&(!ble_connect_process)&&(!ble_shutdown_process))
         {
-          
+            if((!ble_connect_process)&&(!ble_shutdown_process))
+            {
+                R_IT8Bit0_Channel1_Stop();
+            }
+            if((!pt100_process) && (!pcb_temperature_process) && (!lora_process))
+            {
+                R_IT8Bit0_Channel0_Stop();
+            }
             goToSleep();
-          
         }
     }
 }

@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for SAU module.
-* Creation Date: 2022/7/11
+* Creation Date: 2022/7/13
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -62,7 +62,6 @@ extern volatile uint16_t  g_uart1_rx_count;            /* uart1 receive data num
 extern volatile uint16_t  g_uart1_rx_length;           /* uart1 receive data length */
 /* Start user code for global. Do not edit comment generated here */
 uint8_t portP3Status=0;
-uint8_t receivedFromLora[MAX_LORA_RECEIVE];
 uint8_t LoraReceivedEnd;
 // uint8_t maxLoraReceiveLength=6;
 
@@ -305,25 +304,26 @@ uint8_t doSendLoraData(void)
 }
 void L_LORA_STOP(void){
     R_UART0_Stop();
-    // LORA_STA_MODE_PULL_UP = PIN_LEVEL_AS_LOW;
     LORA_READY_MODE = PIN_MODE_AS_INPUT;
     UART0_TXD_MODE = PIN_MODE_AS_INPUT;
-    //LORA_RESET = PIN_LEVEL_AS_LOW;
+    LORA_RESET = PIN_LEVEL_AS_LOW;
     delayInMs(10);
-    //LORA_POW_CNT = POWER_OFF;
-    delayInMs(10);
+    LORA_POW_CNT = POWER_OFF;
+    // delayInMs(10);
+    // LORA_RESET = PIN_LEVEL_AS_HIGH;
 }
 uint8_t L_LORA_INIT(void){
     memclr(receivedFromLora, MAX_LORA_RECEIVE);
 
+    LORA_READY_MODE = PIN_MODE_AS_OUTPUT;
+    LORA_READY = PIN_LEVEL_AS_HIGH;
+    delayInMs(10);
+    LORA_RESET = PIN_LEVEL_AS_LOW;
     R_UART0_Create();
     R_UART0_Start();
     R_UART0_Receive(receivedFromLora, (uint16_t)MAX_LORA_RECEIVE);
-    LORA_READY_MODE = PIN_MODE_AS_OUTPUT;
-    LORA_READY = PIN_LEVEL_AS_HIGH;
-    LORA_RESET = PIN_LEVEL_AS_LOW;
     delayInMs(10);
-    LORA_POW_CNT = PIN_LEVEL_AS_LOW;
+    LORA_POW_CNT = POWER_ON;
     delayInMs(10);
     LORA_RESET = PIN_LEVEL_AS_HIGH;
     delayInMs(10);
@@ -339,7 +339,8 @@ static void doBleTask_SetTemperatureOffset(void){
     DataFlashWrite();
     memcpy(sendToBle, bleAck, 3);
     R_UART1_Send(sendToBle,(uint8_t) 3);
-    ble_connect_process_timeout_counter = BLE_CONNECT_PROCESS_TIMEOUT;
+    reset_ble_connect_process_timeout_counter();
+
 }
 static void doBleTask_AppGetEcho(void){
     uint8_t bleAck[4] = {0xa5, 0x02, 0x00, 0x00};// ble ack to app
@@ -347,7 +348,7 @@ static void doBleTask_AppGetEcho(void){
     bleAck[3] = *(appParam+1);
     memcpy(sendToBle, bleAck, 4);
     R_UART1_Send(sendToBle, 4);
-    ble_connect_process_timeout_counter = BLE_CONNECT_PROCESS_TIMEOUT;
+    reset_ble_connect_process_timeout_counter();
 }
 
 static void doBleTask_Calibration(void){
@@ -358,7 +359,7 @@ static void doBleTask_Calibration(void){
     DataFlashWrite();
     memcpy(sendToBle, bleAck, 3);
     R_UART1_Send(sendToBle,(uint8_t) 3);
-    ble_connect_process_timeout_counter = BLE_CONNECT_PROCESS_TIMEOUT;
+    reset_ble_connect_process_timeout_counter();
 }
 
 
@@ -366,22 +367,23 @@ static void doBleTask_SetLoraInterval(void){
     uint8_t bleAck[3] = {0xa1, 0x01, 0x55};// ble ack to app
     memcpy(sendToBle, bleAck, 4);
     R_UART1_Send(sendToBle, 4);
-    if ((*appParam>0)&&(*appParam<254)){
+    if (*appParam){
         board[LORA_INTV] = *appParam;
         DataFlashWrite();
     }
     memcpy(sendToBle, bleAck, 3);
     R_UART1_Send(sendToBle,(uint8_t) 3);
-    ble_connect_process_timeout_counter = BLE_CONNECT_PROCESS_TIMEOUT;
+    resetLoRaCounter();
+    reset_ble_connect_process_timeout_counter();
 }
 
 static void doBleTask_ShutDownBle(void){
     uint8_t bleAck[4] = {0xa3, 0x02, 0x00, 0x00};// ble ack to app
     R_INTC1_Stop();
-    ble_shutdown_process= BLE_SHUTDOWN_START;// count down to shut down BLE
+    L_BLE_shutdown_procedure_init(); // count down to shut down BLE
     memcpy(sendToBle, bleAck, 4);
     R_UART1_Send(sendToBle,(uint8_t) 3);
-    ble_connect_process_timeout_counter = BLE_CONNECT_PROCESS_TIMEOUT;
+    reset_ble_connect_process_timeout_counter();
 }
 
 void checkAppCommand(void) {
@@ -449,7 +451,6 @@ uint8_t L_BLE_INIT(void){
     BLE_POW_CNT = POWER_ON;
     delayInMs(2);
     BLE_RESET = PIN_LEVEL_AS_HIGH;
-
     delayInMs(500);
     return memcmp(receivedFromBle, (uint8_t *)("%REBOOT%"),(uint8_t) 8, MAX_BLE_DATA_LENGTH);
 }
@@ -470,29 +471,29 @@ uint8_t L_BLE_SEND_COMMAND(char *command,uint8_t comandLength,char *expectAck,ui
     return memcmp(receivedFromBle, (uint8_t *)expectAck, ackLength, MAX_BLE_DATA_LENGTH);
 }
 
-uint8_t L_BLE_FACTORY_MODE_SETTING(void){
-    if (L_BLE_SEND_COMMAND("$$$", 3, "CMD>", 4))
-    {
-        if (L_BLE_SEND_COMMAND("SS,40\r", 6, "AOK", 3))
-        {
-            if (L_BLE_SEND_COMMAND((char *)setBleDeviceNameCommand, 12, "AOK", 3))
-            {
-                if (L_BLE_SEND_COMMAND("SW,0B,07\r", 9, "AOK", 3))
-                {
-                    if (L_BLE_SEND_COMMAND("SW,0A,04\r", 9, "AOK", 3))
-                    {
-                        if (L_BLE_SEND_COMMAND("SO,1\r", 5, "AOK", 3))
-                        {
-                            if (L_BLE_SEND_COMMAND("R,1\r", 4, "Rebooting", 9))
-                            {
-                                return 1;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    return 0;
-}
+// uint8_t L_BLE_FACTORY_MODE_SETTING(void){
+//     if (L_BLE_SEND_COMMAND("$$$", 3, "CMD>", 4))
+//     {
+//         if (L_BLE_SEND_COMMAND("SS,40\r", 6, "AOK", 3))
+//         {
+//             if (L_BLE_SEND_COMMAND((char *)setBleDeviceNameCommand, 12, "AOK", 3))
+//             {
+//                 if (L_BLE_SEND_COMMAND("SW,0B,07\r", 9, "AOK", 3))
+//                 {
+//                     if (L_BLE_SEND_COMMAND("SW,0A,04\r", 9, "AOK", 3))
+//                     {
+//                         if (L_BLE_SEND_COMMAND("SO,1\r", 5, "AOK", 3))
+//                         {
+//                             if (L_BLE_SEND_COMMAND("R,1\r", 4, "Rebooting", 9))
+//                             {
+//                                 return 1;
+//                             }
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+//     return 0;
+// }
 /* End user code. Do not edit comment generated here */

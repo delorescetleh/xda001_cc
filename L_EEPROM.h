@@ -4,6 +4,5 @@
 #define EEPROM_PROCESS_TIMEOUT 10
 
 extern uint8_t eeprom_process;
-extern uint8_t eeprom_process_timeout_counter;
-extern int eeprom;
-extern void L_EEPROM_procedure(void);
+void L_EEPROM_procedure(void);
+void L_EEPROM_procedure_init(void);

@@ -2,8 +2,13 @@
 // #include "r_cg_userdefine.h"
 
 extern int pcb_temperature=0;
-extern uint8_t pcb_temperature_process=PCB_TEMPERATURE_PROCESS_START;
+extern uint8_t pcb_temperature_process=0;
 extern uint8_t pcb_temperature_process_timeout_counter= PCB_TEMPERATURE_PROCESS_TIMEOUT;
+
+void L_PCB_TEMP_procedure_init(void){
+    pcb_temperature_process = PCB_TEMPERATURE_PROCESS_START;
+    pcb_temperature_process_timeout_counter = PCB_TEMPERATURE_PROCESS_TIMEOUT;
+}
 
 void L_PCB_TEMP_procedure(void)
 {

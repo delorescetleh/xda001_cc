@@ -1,8 +1,14 @@
 #include "L_EEPROM.h"
 extern uint16_t Record_Data=0;
 extern int eeprom=0;
-extern uint8_t eeprom_process=EEPROM_PROCESS_START;
+extern uint8_t eeprom_process=0;
 extern uint8_t eeprom_process_timeout_counter=EEPROM_PROCESS_TIMEOUT;
+
+
+void L_EEPROM_procedure_init(void){
+    eeprom_process = EEPROM_PROCESS_START;
+    eeprom_process_timeout_counter = EEPROM_PROCESS_TIMEOUT;
+}
 
 void L_EEPROM_procedure(void)
 {

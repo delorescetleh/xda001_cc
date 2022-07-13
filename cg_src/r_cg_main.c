@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2022/7/11
+* Creation Date: 2022/7/13
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -35,12 +35,10 @@ Includes
 #include "r_cg_it8bit.h"
 #include "r_cg_rtc.h"
 #include "r_cg_pga_dsad.h"
-#include "r_cg_amp.h"
 #include "r_cg_adc.h"
 #include "r_cg_sau.h"
 #include "r_cg_iica.h"
 #include "r_cg_dtc.h"
-#include "r_cg_elc.h"
 #include "r_cg_intp.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
@@ -93,10 +91,10 @@ void main(void)
             mode = normal_mode;
         }
     } 
-    //  mode = factory_test_mode;
-    // mode =  lora_programming_mode;
-   //mode = factory_mode;
-      mode = normal_mode;
+    //   mode = factory_test_mode;
+ //mode =  lora_programming_mode;
+   // mode = factory_mode;
+    mode = normal_mode;
 
     processMode();
     /* End user code. Do not edit comment generated here */
@@ -116,7 +114,7 @@ static void R_MAIN_UserInit(void)
 
 /* Start user code for adding. Do not edit comment generated here */
 void goToSleep(void){
-    R_IT8Bit0_Channel0_Stop();
+
     if(P_TEST)
     {
         HALT();

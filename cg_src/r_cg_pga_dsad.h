@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for PGIA module.
-* Creation Date: 2022/7/11
+* Creation Date: 2022/7/13
 ***********************************************************************************************************************/
 #ifndef PGIA_H
 #define PGIA_H
@@ -194,8 +194,6 @@ Macro definitions (Register bit)
 Macro definitions
 ***********************************************************************************************************************/
 #define _01_PGA_MULTIPLEXER0_SAMPLE_COUNT                   (0x01U) /* sample count per autoscan cycle */
-#define _01_PGA_MULTIPLEXER1_SAMPLE_COUNT                   (0x01U) /* sample count per autoscan cycle */
-#define _01_PGA_MULTIPLEXER2_SAMPLE_COUNT                   (0x01U) /* sample count per autoscan cycle */
 #define _01_PGA_MULTIPLEXER3_SAMPLE_COUNT                   (0x01U) /* sample count per autoscan cycle */
 
 /***********************************************************************************************************************
@@ -213,15 +211,10 @@ void R_PGA_DSAD_Get_AverageResult(uint16_t * const bufferH, uint16_t * const buf
 /* Start user code for function. Do not edit comment generated here */
 void L_PGA_STOP(void);
 void get_dsadc_result(void);
-void get_pt100_result(void);
+
 void L_get_pt100_result(int *result);
 void clr_dsadc_buf(void);
 void L_calibration_pt100(void);
-uint16_t getV_Rref(void);
-uint16_t getRref(void);
-uint16_t getR_Line(void);
-void getRL(void);
-//void resetDSADC(uint8_t *temperature);
-// int16_t boardOffset(uint8_t *temperature);
+void L_pt100_calibration(int *result);
 /* End user code. Do not edit comment generated here */
 #endif

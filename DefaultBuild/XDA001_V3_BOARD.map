@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (W3.03.00 )             11-Jul-2022 19:58:12
+Renesas Optimizing Linker (W3.03.00 )             13-Jul-2022 20:10:33
 
 *** Options ***
 
@@ -23,8 +23,6 @@ Renesas Optimizing Linker (W3.03.00 )             11-Jul-2022 19:58:12
 -Input=DefaultBuild\r_cg_iica_user.obj
 -Input=DefaultBuild\r_cg_dtc.obj
 -Input=DefaultBuild\r_cg_dtc_user.obj
--Input=DefaultBuild\r_cg_amp.obj
--Input=DefaultBuild\r_cg_amp_user.obj
 -Input=DefaultBuild\L_useful.obj
 -Input=DefaultBuild\r_cg_intp.obj
 -Input=DefaultBuild\r_cg_intp_user.obj
@@ -37,8 +35,6 @@ Renesas Optimizing Linker (W3.03.00 )             11-Jul-2022 19:58:12
 -Input=DefaultBuild\L_Lora.obj
 -Input=DefaultBuild\L_EEPROM.obj
 -Input=DefaultBuild\L_BLE.obj
--Input=DefaultBuild\r_cg_elc.obj
--Input=DefaultBuild\r_cg_elc_user.obj
 -LIBrary=FDL\CCRL_100\lib\pfdl.lib
 -SECURITY_ID=00000000000000000000
 -DEVICE=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11NGG.DVF
@@ -81,23 +77,23 @@ SECTION                            START      END         SIZE   ALIGN
 .monitor1
                                   000000ce  000000d7         a   1
 .data
-                                  000000d8  00000443       36c   2
+                                  000000d8  00000333       25c   2
 .text
-                                  00000444  00000753       310   1
+                                  00000334  00000638       305   1
 PFDL_COD
-                                  00000754  000007e1        8e   2
+                                  0000063a  000006c7        8e   2
 .RLIB
-                                  000007e2  00000cf8       517   1
+                                  000006c8  00000bde       517   1
 .const
-                                  00002000  000020b4        b5   2
+                                  00002000  00002066        67   2
 .textf
-                                  000020b5  00003fae      1efa   1
+                                  00002067  00003df3      1d8d   1
 .monitor2
                                   0001fe00  0001ffff       200   1
 .bss
-                                  000fe900  000fe9b9        ba   2
+                                  000fe900  000fe949        4a   2
 .dataR
-                                  000fe9ba  000fed25       36c   2
+                                  000fe94a  000feba5       25c   2
 .bss_ATFFC00
                                   000ffc00  000ffc9f        a0   1
 .bss_ATFFD00

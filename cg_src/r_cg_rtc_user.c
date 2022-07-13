@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for RTC module.
-* Creation Date: 2022/7/11
+* Creation Date: 2022/7/13
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -48,8 +48,6 @@ Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
 uint16_t rtc_counter = 0;
-uint8_t lora_rtc_counter = 0;
-uint8_t lora_intv_time = 0;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -100,7 +98,6 @@ static void r_rtc_callback_constperiod(void)
             factory_test_mode_init_setting();
             break;
         }
-        lora_rtc_counter--;
     }
     rtc_counter--;
     /* End user code. Do not edit comment generated here */
@@ -118,43 +115,28 @@ static void r_rtc_callback_alarm(void)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-void resetLoRaCounter(uint8_t times){
-    lora_rtc_counter = 0;
-    lora_intv_time = times;
-}
+
 void factory_test_mode_init_setting(void){
     rtc_counter = RTC_TIME_SPEED / 10;
-    pt100_process = PT100_PROCESS_START;
-    pcb_temperature_process = PCB_TEMPERATURE_PROCESS_START;
-    eeprom_process = EEPROM_PROCESS_START;
-    if (!lora_rtc_counter)
+    L_EEPROM_procedure_init();
+    L_PCB_TEMP_procedure_init();
+    L_PT100_Procedure_init();
+    if (countDownLoRaCounter()==0)
     {
-        lora_rtc_counter = board[LORA_INTV];
-        lora_process = LORA_PROCESS_START;
-        lora_process_timeout_counter=LORA_PROCESS_TIMEOUT;;
+        L_Lora_procedure_init();
     }
 }
 void factory_mode_init_setting(void){
-    rtc_counter = RTC_TIME_SPEED / 3;
-    pt100_process = PT100_PROCESS_START;
-    pcb_temperature_process = PCB_TEMPERATURE_PROCESS_START;
-    eeprom_process = EEPROM_PROCESS_START;
-    ble_process = BLE_PROCESS_START;
-    if (!lora_rtc_counter)
-    {
-        lora_rtc_counter = board[LORA_INTV];
-        lora_process = LORA_PROCESS_START;
-        lora_process_timeout_counter = 0;
-    }
+    // rtc_counter = RTC_TIME_SPEED / 3;
 }
 void normal_mode_init_setting(void){
     rtc_counter = RTC_TIME_SPEED;
-    pt100_process = PT100_PROCESS_START;
-    pcb_temperature_process = PCB_TEMPERATURE_PROCESS_START;
-    eeprom_process = EEPROM_PROCESS_START;
-    if (!lora_rtc_counter)
+    L_EEPROM_procedure_init();
+    L_PCB_TEMP_procedure_init();
+    L_PT100_Procedure_init();
+    if (countDownLoRaCounter()==0)
     {
-        lora_rtc_counter = board[LORA_INTV];
+        L_Lora_procedure_init();
     }
 }
 

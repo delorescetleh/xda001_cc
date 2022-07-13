@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for AMP module.
-* Creation Date: 2022/7/11
+* Creation Date: 2022/7/12
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -66,7 +66,7 @@ void R_AMP_Create(void)
     AMPEN = 1U;     /* enables input clock supply */
     AMPC = 0U; /* stop all AMP units */
     AMPPON = 0U;    /* power-off (default) */
-    AMPMC = _00_AMP_CH2_3_LOWPOWER;
+    AMPMC = _80_AMP_CH2_3_HIGHSPEED;
     AMPTRS = _03_AMP_ELC_TRIGGER_SOURCE_2;
     AMPTRM = _00_AMP2_TRIGGER_SOFTWARE | _00_AMP1_TRIGGER_SOFTWARE;
     AMP1S = _80_AMP1_AMP1_FED | _01_AMP1_AMP1P_INPUT5;

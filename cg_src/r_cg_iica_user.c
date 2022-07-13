@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for IICA module.
-* Creation Date: 2022/7/11
+* Creation Date: 2022/7/13
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -288,7 +288,7 @@ extern void doEepromReadRecords(void){
         if (!eepromRandomReadSuccess){
             break;
         }
-        ble_connect_process_timeout_counter = BLE_CONNECT_PROCESS_TIMEOUT;
+        reset_ble_connect_process_timeout_counter();
     }
     L_EEPROM_STOP();
     delayInMs(10);

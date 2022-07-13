@@ -1,6 +1,4 @@
 #include "L_factory.h"
-// #include "L_PT100.h"
-// #include "L_PCB_TEMP.h"
 
 extern uint8_t F_Done = 0;
 extern uint8_t LORA_F_Done = 0;
@@ -8,11 +6,8 @@ extern uint8_t EEPROM_F_Done = 0;
 extern uint8_t PT100_F_Done = 0;
 extern uint8_t PCB_TEMPERATURE_F_Done = 0;
 extern uint8_t BLE_F_Done = 0;
-
-
-extern uint8_t pcb_temperature_process;
-extern uint8_t pt100_process;
 void prepareDataToLora_factory_test(void);
+
 void lora_programming_process(void){
     R_INTC1_Stop();
     L_BLE_STOP();
@@ -34,7 +29,10 @@ void lora_programming_process(void){
 }
 
 void factory_test_process(void){
-    board[LORA_INTV] = 1;
+    dataFlashStart();
+    dataFlashRead((pfdl_u08 *)&board,0);
+    dataFlashEnd();
+
     L_BLE_STOP();
     R_RTC_Start();
     R_IT8Bit0_Channel0_Start();
@@ -87,7 +85,14 @@ void factory_process(void){
     board[TESTED] = 0;
     board[HARDWARE] = 0;
     board[LORA_INTV] = 1;
-    R_RTC_Start();
+
+    L_EEPROM_procedure_init();
+    L_PCB_TEMP_procedure_init();
+    L_BLE_F_procedure_init();
+    L_Lora_procedure_init();
+    L_PT100_Calibration_Procedure_init();
+
+    R_IT8Bit0_Channel0_Start();
     while (1)
     {
         if (!F_Done)
@@ -111,7 +116,7 @@ void factory_process(void){
                                 R_RTC_Stop();
                                 board[LORA_INTV] = 0x03;
                                 board[HARDWARE] = 0B00001111;
-				P_STATUS = 0;
+				                P_STATUS = 0;
                                 DataFlashWrite();
                                 F_Done = 1;
                                 P_STATUS = 1;
@@ -130,9 +135,9 @@ void factory_process(void){
             if(events & TIMER_PERIODIC_EVENT)//R_IT8Bit0_Channel0 , 200mS
             {
                 events &= ~TIMER_PERIODIC_EVENT;
-                if ((pt100_process)&&(!PT100_F_Done))
+                if ((pt100_calibration_process)&&(!PT100_F_Done))
                 {
-                    L_PT100_Procedure();
+                    L_PT100_Calibration_Procedure();
                 }
                 if ((pcb_temperature_process)&&(!PCB_TEMPERATURE_F_Done))
                 {
@@ -146,7 +151,7 @@ void factory_process(void){
                 {
                     L_EEPROM_procedure();
                 }
-                if ((ble_process) && (!BLE_F_Done))
+                if ((ble_F_process) && (!BLE_F_Done))
                 {
                     L_BLE_F_procedure();
                 }

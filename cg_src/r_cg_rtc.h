@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for RTC module.
-* Creation Date: 2022/7/11
+* Creation Date: 2022/7/13
 ***********************************************************************************************************************/
 #ifndef RTC_H
 #define RTC_H
@@ -140,7 +140,6 @@ void R_RTC_Set_ConstPeriodInterruptOff(void);
 static void r_rtc_callback_constperiod(void);
 static void r_rtc_callback_alarm(void);
 /* Start user code for function. Do not edit comment generated here */
-void resetLoRaCounter(uint8_t times);
 void modeInit(uint8_t mode);
 void factory_test_mode_init_setting(void);
 void factory_mode_init_setting(void);
