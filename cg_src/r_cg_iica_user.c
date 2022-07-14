@@ -220,6 +220,12 @@ static void r_iica0_callback_master_sendend(void)
 
 /* Start user code for adding. Do not edit comment generated here */
 
+void reset_eeprom_index(void){
+    storeIndex = TOTAL_RECORD_QTY;
+    storeCounter = 0;
+}
+
+
 uint8_t eepromRandomRead(uint8_t adr, uint8_t * const buf, uint16_t num, uint8_t wait){
     uint16_t c = 0;
     R_IICA0_Master_Send(adr,buf, 2, wait);

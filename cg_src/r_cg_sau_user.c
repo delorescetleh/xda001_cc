@@ -332,15 +332,14 @@ uint8_t L_LORA_INIT(void){
 
 static void doBleTask_SetTemperatureOffset(void){
     uint8_t bleAck[3] = {0xa4, 0x01, 0x55};// ble ack to app
-    uint16_t user_Temperature = (*appParam)*10 + *(appParam+1);
-    int16_t diff = user_Temperature - dsadc_temperature;
+    int16_t user_Temperature = (*appParam)*10 + *(appParam+1);
+    int16_t diff =  user_Temperature-dsadc_temperature;
     board[DSADC_TEMPERATURE_SENSOR_OFFSET + 1] = diff >> 8;
     board[DSADC_TEMPERATURE_SENSOR_OFFSET] = diff;
     DataFlashWrite();
     memcpy(sendToBle, bleAck, 3);
     R_UART1_Send(sendToBle,(uint8_t) 3);
     reset_ble_connect_process_timeout_counter();
-
 }
 static void doBleTask_AppGetEcho(void){
     uint8_t bleAck[4] = {0xa5, 0x02, 0x00, 0x00};// ble ack to app
@@ -350,7 +349,6 @@ static void doBleTask_AppGetEcho(void){
     R_UART1_Send(sendToBle, 4);
     reset_ble_connect_process_timeout_counter();
 }
-
 static void doBleTask_Calibration(void){
     uint8_t bleAck[3] = {0xa6, 0x01, 0x55};// ble ack to app
     int16_t diff = pcb_temperature - dsadc_temperature;
@@ -374,6 +372,7 @@ static void doBleTask_SetLoraInterval(void){
     memcpy(sendToBle, bleAck, 3);
     R_UART1_Send(sendToBle,(uint8_t) 3);
     resetLoRaCounter();
+    reset_eeprom_index();
     reset_ble_connect_process_timeout_counter();
 }
 

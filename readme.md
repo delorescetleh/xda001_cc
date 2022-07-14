@@ -78,4 +78,5 @@ Auction : internal temperature may have +-3 degC gap between outside environment
 13. ver 0.0.1.l: sleep mode 150uA, BLE off 86uA, BLE function "A1,A2,A3,A5" Done.
 14. ver 0.0.1.m: sleep mode 150uA, BLE function "A1,A2,A3,A4,A5" Done.
 15. ver 0.0.1.n: sleep mode 150uA, BLE function "A1,A2,A3,A4,A5,A6" Done.
+16. ver 0.0.3.a: sleep mode tested 85uA, need remove R85. "A1,A2,A3,A4,A5,A6" Done. "PT100 under test"
    

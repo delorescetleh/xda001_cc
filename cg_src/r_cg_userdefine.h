@@ -140,12 +140,6 @@ User definitions
 #define TRUE 1
 #define FALSE 0
 
-
-#define IDEA_TEST_R 100100
-#define IDEAL_CONSTAND_CURRENT 15
-#define PCB_TEMPERATURE_CORRECTION_GAIN 19
-#define PCB_BOARD_TEMPERAUTRE_ENABLE 0
-
 /* Data flash Definitions for process switching */
 #define R_PFDL_SAM_TARGET_ERASE TRUE    /* Pre-erase setting (executed for TRUE)       */
 #define R_PFDL_SAM_DIRECT_READ  TRUE    /* Setting for direct reading of data flash    */

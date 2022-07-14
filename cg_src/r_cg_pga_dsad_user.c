@@ -163,7 +163,8 @@ void L_get_pt100_result(int *result){
     Ipt100 = (Vm0 * 1000) / RL;
     Rpt100 = Vpt100 * RL / Vm0 ;
     temperatureOffset = ((board[DSADC_TEMPERATURE_SENSOR_OFFSET + 1] << 8) | board[DSADC_TEMPERATURE_SENSOR_OFFSET]);
-    *result = ((Rpt100 - PT100_BASE) * 10) / PT100_TEMPERATURE_RATE + temperatureOffset;
+    dsadc_temperature = ((Rpt100 - PT100_BASE) * 10) / PT100_TEMPERATURE_RATE;
+    *result = dsadc_temperature + temperatureOffset;
 }
 
 void calculate_dsadc_result(void)

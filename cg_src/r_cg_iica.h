@@ -162,5 +162,6 @@ void setEepromAccessAddress(uint32_t i2cAccessIndex);
 
 uint16_t getStoreIndexFromEEPROM(void);
 void clearEeprom(void);
+void reset_eeprom_index(void);
 /* End user code. Do not edit comment generated here */
 #endif

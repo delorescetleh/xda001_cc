@@ -5,13 +5,9 @@ void normal_process(void){
     dataFlashStart();
     dataFlashRead((pfdl_u08 *)&board,0);
     dataFlashEnd();
-
-
-    // R_IT8Bit0_Channel1_Start();
     L_BLE_INIT();
-        R_INTC1_Start();
+    R_INTC1_Start();
     ble_shutdown_process = 0;
-
     R_RTC_Start();
     while (1)
     {

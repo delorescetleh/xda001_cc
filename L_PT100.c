@@ -56,7 +56,7 @@ void L_PT100_Procedure(void)
             }
             break;
         case 11:
-            L_get_pt100_result(&dsadc_temperature);
+            L_get_pt100_result(&dsadc_temperature_with_offset);
             Record_Data = convertTemperatureFormat();
             pt100_process--;
             break;
@@ -170,5 +170,5 @@ void L_PT100_Calibration_Procedure(void)
 
 uint16_t convertTemperatureFormat(void)
 {
-    return (dsadc_temperature/5+100);
+    return (dsadc_temperature_with_offset/5+100);
 }
