@@ -65,10 +65,16 @@ uint32_t VM1 = 0; // value
 uint32_t VM2 = 0; // value
 uint32_t VM3 = 0; // value 
 
-extern double Vm0 = 0; // uV
-extern double Vm1 = 0; // uV
-extern double Vm2 = 0; // uV
-extern double Vm3 = 0; // uV
+extern int32_t Vm0 = 0; // uV
+extern int32_t Vm1 = 0; // uV
+extern int32_t Vm2 = 0; // uV
+extern int32_t Vm3 = 0; // uV
+
+
+// extern double Vm0 = 0; // uV
+// extern double Vm1 = 0; // uV
+// extern double Vm2 = 0; // uV
+// extern double Vm3 = 0; // uV
 int32_t ipt100_by_target_temperature_Vpt100 = 0;
 int32_t rpt100_by_target_temperature = 0;
 int16_t new_Temperature = 0;
@@ -150,7 +156,7 @@ void L_pt100_calibration(int *result)
 {
     getR_Line_Base_On(pcb_temperature);
     Ipt100 = (Vm0 * 1000) / RL;        // uA
-    Rpt100 = Vpt100 * 1000 / Ipt100; // mohm
+    Rpt100 = Vpt100 / Vm0 * RL; // mohm
     new_Temperature = ((Rpt100 - PT100_BASE) * 10) / PT100_TEMPERATURE_RATE;
     temperatureOffset = pcb_temperature - new_Temperature;
     board[DSADC_TEMPERATURE_SENSOR_OFFSET + 1] = temperatureOffset >> 8;
@@ -161,7 +167,7 @@ void L_pt100_calibration(int *result)
 void L_get_pt100_result(int *result){
     RL = ((board[PT100_R_LINE + 1] << 8) | board[PT100_R_LINE]);
     Ipt100 = (Vm0 * 1000) / RL;
-    Rpt100 = Vpt100 * RL / Vm0 ;
+    Rpt100 = Vpt100/10*(RL)/ Vm0*10  ;
     temperatureOffset = ((board[DSADC_TEMPERATURE_SENSOR_OFFSET + 1] << 8) | board[DSADC_TEMPERATURE_SENSOR_OFFSET]);
     dsadc_temperature = ((Rpt100 - PT100_BASE) * 10) / PT100_TEMPERATURE_RATE;
     *result = dsadc_temperature + temperatureOffset;
@@ -172,7 +178,7 @@ void calculate_dsadc_result(void)
     Vm0 = ((((VM0 *125)>>6)>>13)*625)/100;//uV
     // Vm1 = ((((((VM1) / DSADC_RESULT_BUF_SIZE)*125)>>0)>>13)*625+20000000)/100;//uV
     // Vm2 = ((((((VM2) / DSADC_RESULT_BUF_SIZE)*125)>>0)>>13)*625+20000000)/100;//uV
-    Vm3 = ((((VM3 *125)>>2)>>13)*625)/100;//uV
+    Vm3 = ((((VM3 *125))>>13)*625)/100;//uV
     Vpt100 = (Vm3-Vm0*2); //mV
 }
 

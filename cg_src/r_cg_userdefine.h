@@ -219,10 +219,14 @@ extern uint16_t Record_Data;
 extern void DataFlashWrite(void);
 extern void goToSleep(void);
 extern void setLoraIntervalTime(uint8_t lora_intv);
-extern double Vm0 ;
-extern double Vm1 ;
-extern double Vm2 ;
-extern double Vm3 ;
+extern int32_t Vm0; // uV
+extern int32_t Vm1; // uV
+extern int32_t Vm2; // uV
+extern int32_t Vm3; // uV
+// extern double Vm0 ;
+// extern double Vm1 ;
+// extern double Vm2 ;
+// extern double Vm3 ;
 extern uint8_t F_Done;
 extern uint8_t LORA_F_Done;
 extern uint8_t EEPROM_F_Done;

@@ -93,8 +93,8 @@ void main(void)
     } 
     //   mode = factory_test_mode;
  //mode =  lora_programming_mode;
-    //mode = factory_mode;
-   mode = normal_mode;
+   mode = factory_mode;
+  // mode = normal_mode;
 
     processMode();
     /* End user code. Do not edit comment generated here */

@@ -130,7 +130,7 @@ void factory_mode_init_setting(void){
     // rtc_counter = RTC_TIME_SPEED / 3;
 }
 void normal_mode_init_setting(void){
-    rtc_counter = RTC_TIME_SPEED;
+    rtc_counter = RTC_TIME_SPEED/3;
     L_EEPROM_procedure_init();
     L_PCB_TEMP_procedure_init();
     L_PT100_Procedure_init();
