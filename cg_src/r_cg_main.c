@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2022/7/13
+* Creation Date: 2022/7/14
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -93,8 +93,8 @@ void main(void)
     } 
     //   mode = factory_test_mode;
  //mode =  lora_programming_mode;
-   // mode = factory_mode;
-    mode = normal_mode;
+    //mode = factory_mode;
+   mode = normal_mode;
 
     processMode();
     /* End user code. Do not edit comment generated here */

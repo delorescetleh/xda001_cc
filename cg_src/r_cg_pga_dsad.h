@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for PGIA module.
-* Creation Date: 2022/7/13
+* Creation Date: 2022/7/14
 ***********************************************************************************************************************/
 #ifndef PGIA_H
 #define PGIA_H

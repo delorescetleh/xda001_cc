@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for SAU module.
-* Creation Date: 2022/7/13
+* Creation Date: 2022/7/14
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -309,8 +309,8 @@ void L_LORA_STOP(void){
     LORA_RESET = PIN_LEVEL_AS_LOW;
     delayInMs(10);
     LORA_POW_CNT = POWER_OFF;
-    // delayInMs(10);
-    // LORA_RESET = PIN_LEVEL_AS_HIGH;
+    delayInMs(10);
+    LORA_RESET = PIN_LEVEL_AS_HIGH;
 }
 uint8_t L_LORA_INIT(void){
     memclr(receivedFromLora, MAX_LORA_RECEIVE);
