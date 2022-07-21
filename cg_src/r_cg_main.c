@@ -78,10 +78,7 @@ void main(void)
     EPROM_POW_CNT = POWER_OFF;/* Take Max 30mA */
 
     delayInMs(1000);
-    if(IS_LORA_PROGRAMMING)
-    {
-        mode = lora_programming_mode;
-    }else{
+
         if(P_TEST)
         {
             mode = factory_mode;
@@ -90,14 +87,14 @@ void main(void)
         {
             mode = normal_mode;
         }
-    } 
-    //   mode = factory_test_mode;
- //mode =  lora_programming_mode;
-   mode = factory_mode;
-  // mode = normal_mode;
 
-    processMode();
-    /* End user code. Do not edit comment generated here */
+        // mode = factory_test_mode;
+        // mode = lora_programming_mode;
+        // mode = factory_mode;
+        // mode = normal_mode;
+
+        processMode();
+        /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************
 * Function Name: R_MAIN_UserInit
@@ -121,7 +118,12 @@ void goToSleep(void){
     }
     else
     {
-        STOP();
+        // E1 TESTING
+        //HALT();
+        //
+        // NORMAL
+         STOP();
+        //
     }
 }
 void processMode(void)
@@ -140,9 +142,6 @@ void processMode(void)
     case factory_test_mode:
         factory_test_process();
         break;                    
-    default:
-        normal_process();
-        break;
     }
 }
 /* End user code. Do not edit comment generated here */

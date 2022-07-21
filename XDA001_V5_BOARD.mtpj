@@ -2059,7 +2059,7 @@ cg_src
       <DebuggerProperty-DownloadProperty-DebugInformation-DownloadFiles-DownloadItem0-DebuggerGuid />
       <DebuggerProperty-DownloadProperty-DebugInformation-DownloadFiles-DownloadItem0-IsDefaultItem>True</DebuggerProperty-DownloadProperty-DebugInformation-DownloadFiles-DownloadItem0-IsDefaultItem>
       <DebuggerProperty-DownloadProperty-DebugInformation-DownloadFiles-DownloadItem0-DefaultItemProjectGuid>f5e1a804-eaf4-4aee-a654-f1c2e25fcb48</DebuggerProperty-DownloadProperty-DebugInformation-DownloadFiles-DownloadItem0-DefaultItemProjectGuid>
-      <DebuggerProperty-DownloadProperty-DebugInformation-DownloadFiles-DownloadItem0-FileName>DefaultBuild\XDA001_V3_BOARD.abs</DebuggerProperty-DownloadProperty-DebugInformation-DownloadFiles-DownloadItem0-FileName>
+      <DebuggerProperty-DownloadProperty-DebugInformation-DownloadFiles-DownloadItem0-FileName>DefaultBuild\XDA001_V5_BOARD.abs</DebuggerProperty-DownloadProperty-DebugInformation-DownloadFiles-DownloadItem0-FileName>
       <DebuggerProperty-DownloadProperty-DebugInformation-DownloadFiles-DownloadItem0-FileType>LoadModuleFile</DebuggerProperty-DownloadProperty-DebugInformation-DownloadFiles-DownloadItem0-FileType>
       <DebuggerProperty-DownloadProperty-DebugInformation-DownloadFiles-DownloadItem0-CompilerType>Auto</DebuggerProperty-DownloadProperty-DebugInformation-DownloadFiles-DownloadItem0-CompilerType>
       <DebuggerProperty-DownloadProperty-DebugInformation-DownloadFiles-DownloadItem0-Offset>0</DebuggerProperty-DownloadProperty-DebugInformation-DownloadFiles-DownloadItem0-Offset>
@@ -2123,11 +2123,15 @@ cg_src
     <Instance Guid="18ae40a2-ced0-4b3c-8ee8-890cea9e5a20">
       <CodeGeneratorData0>&lt;DataSign&gt;&lt;SerializableData&gt;
   &lt;SerializableData name="39a9d609-9774-41fe-9e4e-5c50dfa1451e"&gt;
+    &lt;DataElement key="pior35_macroname" value=""&gt;
+    &lt;/DataElement&gt;
     &lt;DataElement key="pior14_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior34_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior16_macroname" value=""&gt;
+    &lt;/DataElement&gt;
+    &lt;DataElement key="pior25_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior22_macroname" value=""&gt;
     &lt;/DataElement&gt;
@@ -2143,17 +2147,15 @@ cg_src
     &lt;/DataElement&gt;
     &lt;DataElement key="pior10_macroname" value=""&gt;
     &lt;/DataElement&gt;
+    &lt;DataElement key="pior27_macroname" value=""&gt;
+    &lt;/DataElement&gt;
     &lt;DataElement key="pior27" value="0"&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior30_macroname" value=""&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior33" value="0"&gt;
-    &lt;/DataElement&gt;
     &lt;DataElement key="pior01_macroname" value=""&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior01" value="0"&gt;
-    &lt;/DataElement&gt;
-    &lt;DataElement key="pior11_macroname" value=""&gt;
+    &lt;DataElement key="pior35" value="0"&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior04_macroname" value=""&gt;
     &lt;/DataElement&gt;
@@ -2171,7 +2173,7 @@ cg_src
     &lt;/DataElement&gt;
     &lt;DataElement key="pior31" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior24_macroname" value=""&gt;
+    &lt;DataElement key="pior01" value="0"&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior11" value="0"&gt;
     &lt;/DataElement&gt;
@@ -2189,8 +2191,6 @@ cg_src
     &lt;/DataElement&gt;
     &lt;DataElement key="pior14" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior02_macroname" value=""&gt;
-    &lt;/DataElement&gt;
     &lt;DataElement key="pior12_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior20_macroname" value=""&gt;
@@ -2205,11 +2205,11 @@ cg_src
     &lt;/DataElement&gt;
     &lt;DataElement key="pior23" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior35_macroname" value=""&gt;
+    &lt;DataElement key="pior33" value="0"&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior03" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior25_macroname" value=""&gt;
+    &lt;DataElement key="pior24_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior26" value="0"&gt;
     &lt;/DataElement&gt;
@@ -2219,7 +2219,7 @@ cg_src
     &lt;/DataElement&gt;
     &lt;DataElement key="pior25" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior35" value="0"&gt;
+    &lt;DataElement key="pior11_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior05" value="0"&gt;
     &lt;/DataElement&gt;
@@ -2229,7 +2229,7 @@ cg_src
     &lt;/DataElement&gt;
     &lt;DataElement key="pior33_macroname" value=""&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior27_macroname" value=""&gt;
+    &lt;DataElement key="pior02_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior05_macroname" value=""&gt;
     &lt;/DataElement&gt;
@@ -46388,7 +46388,7 @@ cg_src
               &lt;/DataElement&gt;
             &lt;/SerializableData&gt;
             &lt;SerializableData name="ContentItem3"&gt;
-              &lt;DataElement key="Pin" value=""&gt;
+              &lt;DataElement key="Pin" value="SCK20,SI20,SO20"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Int" value=""&gt;
               &lt;/DataElement&gt;
@@ -46402,7 +46402,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="CSI"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;DataElement key="MutexType" value="PinMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="True"&gt;
               &lt;/DataElement&gt;
@@ -46424,7 +46424,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="IIC"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="True"&gt;
               &lt;/DataElement&gt;
@@ -46516,7 +46516,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="CSI_R"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="False"&gt;
               &lt;/DataElement&gt;
@@ -46538,7 +46538,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="CSI_T"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="False"&gt;
               &lt;/DataElement&gt;
@@ -46560,7 +46560,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="CSI_TR"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="False"&gt;
               &lt;/DataElement&gt;

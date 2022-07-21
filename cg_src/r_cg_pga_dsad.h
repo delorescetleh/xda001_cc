@@ -216,5 +216,6 @@ void L_get_pt100_result(int *result);
 void clr_dsadc_buf(void);
 void L_calibration_pt100(void);
 void L_pt100_calibration(int *result);
+void getR_Line_Base_On_100100_RPT100(void);
 /* End user code. Do not edit comment generated here */
 #endif

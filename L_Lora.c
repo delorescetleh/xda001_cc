@@ -1,5 +1,5 @@
 #include "L_Lora.h"
-uint8_t lora_rtc_counter=0;
+uint8_t lora_rtc_counter=1;
 extern uint8_t receivedFromLora[MAX_LORA_RECEIVE]={0};
 extern uint8_t sendToLora[20]={0};
 extern uint8_t lora_process=0;

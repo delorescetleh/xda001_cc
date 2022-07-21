@@ -47,16 +47,16 @@ Pragma directive
 # define DSADC_RESULT_BUF_SIZE 1
 # define PT100_TEMPERATURE_RATE (double) 385
 # define PT100_BASE (double) 100000 // mOhm 
-# define TYPE_IPT100 1263 // uA
-# define TYPE_R_LINE_PT100 1788 // mohm
+# define TYPICAL_IPT100 1263 // uA
+# define TYPICAL_R_LINE_PT100 1000 // mohm
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
-uint16_t RL = TYPE_R_LINE_PT100;// k ohm 
-int32_t Ipt100=TYPE_IPT100; // uA
+uint16_t RL = TYPICAL_R_LINE_PT100;// k ohm 
+int32_t Ipt100=TYPICAL_IPT100; // uA
 int32_t Vpt100 = 0; // uV
 int16_t temperatureOffset=0; // degC
 
@@ -147,16 +147,31 @@ void getR_Line_Base_On(int32_t target_temperature)
     //rpt100_by_target_temperature = target_temperature * PT100_TEMPERATURE_RATE / 10 + PT100_BASE; // mohm
     //ipt100_by_target_temperature_Vpt100 = Vpt100*1000 /rpt100_by_target_temperature ;  // uV *1000 / mOhm = uA
     // RL = Vm0 *1000 / ipt100_by_target_temperature_Vpt100; // uV / uA =  mohm
-    RL = Vm0*target_temperature/10*PT100_TEMPERATURE_RATE/Vpt100 + Vm0*(PT100_BASE/10)/(Vpt100/10); // uV / uA =  mohm
+    RL =(uint16_t) (Vm0*target_temperature/10*PT100_TEMPERATURE_RATE/Vpt100 + Vm0*(PT100_BASE/10)/(Vpt100/10)); // uV / uA =  mohm
     board[PT100_R_LINE + 1] = RL >> 8;
     board[PT100_R_LINE] = RL & (0x00FF);
 }
 
+void getR_Line_Base_On_100100_RPT100(void)
+{
+    // R = R0(1+aT)    Rpt100 =PT100_R0_BASE(1+PT100_TEMPERATURE_RATE*Temperature)
+    // rpt100_by_target_temperature = PT100_R0_BASE * (1 + PT100_TEMPERATURE_RATE / 100000 * target_temperature/10);
+    //rpt100_by_target_temperature = PT100_BASE * (1 + PT100_TEMPERATURE_RATE * ((double)(target_temperature)) / 1000000); // mohm
+    //rpt100_by_target_temperature = target_temperature * PT100_TEMPERATURE_RATE / 10 + PT100_BASE; // mohm
+    //ipt100_by_target_temperature_Vpt100 = Vpt100*1000 /rpt100_by_target_temperature ;  // uV *1000 / mOhm = uA
+    // RL = Vm0 *1000 / ipt100_by_target_temperature_Vpt100; // uV*1000 / uA =  mohm
+    Ipt100=(Vm3 - Vm0) / 100100;
+    RL =(uint16_t) (Vm0*1000/Ipt100); // uV / uA =  mohm
+    board[PT100_R_LINE + 1] = RL >> 8;
+    board[PT100_R_LINE] = RL & (0x00FF);
+}
+
+
 void L_pt100_calibration(int *result)
 {
     getR_Line_Base_On(pcb_temperature);
-    Ipt100 = (Vm0 * 1000) / RL;        // uA
-    Rpt100 = Vpt100 / Vm0 * RL; // mohm
+    Ipt100 = Vm0 * 1000 / RL;        // uA
+    Rpt100 = Vpt100 * RL / Vm0; // mohm
     new_Temperature = ((Rpt100 - PT100_BASE) * 10) / PT100_TEMPERATURE_RATE;
     temperatureOffset = pcb_temperature - new_Temperature;
     board[DSADC_TEMPERATURE_SENSOR_OFFSET + 1] = temperatureOffset >> 8;

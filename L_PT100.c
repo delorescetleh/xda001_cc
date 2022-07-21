@@ -170,5 +170,14 @@ void L_PT100_Calibration_Procedure(void)
 
 uint16_t convertTemperatureFormat(void)
 {
-    return (dsadc_temperature_with_offset/5+100);
+    if (dsadc_temperature_with_offset > 4500){
+        return 999;
+    }else {
+        if (dsadc_temperature_with_offset < -500)
+        {
+            return 999;
+        }else{
+            return (dsadc_temperature_with_offset / 5 + 100);
+        }
+    }
 }

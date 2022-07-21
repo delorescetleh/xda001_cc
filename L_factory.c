@@ -114,7 +114,7 @@ void factory_process(void){
                                 board[TESTED] |= F_DSADC_READY;
                                 R_IT8Bit0_Channel0_Stop();
                                 R_RTC_Stop();
-                                board[LORA_INTV] = 0x01;
+                                board[LORA_INTV] = 0x03;
                                 board[HARDWARE] = 0B00001111;
 				                P_STATUS = 0;
                                 DataFlashWrite();
