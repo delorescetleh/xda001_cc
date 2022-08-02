@@ -470,29 +470,29 @@ uint8_t L_BLE_SEND_COMMAND(char *command,uint8_t comandLength,char *expectAck,ui
     return memcmp(receivedFromBle, (uint8_t *)expectAck, ackLength, MAX_BLE_DATA_LENGTH);
 }
 
-// uint8_t L_BLE_FACTORY_MODE_SETTING(void){
-//     if (L_BLE_SEND_COMMAND("$$$", 3, "CMD>", 4))
-//     {
-//         if (L_BLE_SEND_COMMAND("SS,40\r", 6, "AOK", 3))
-//         {
-//             if (L_BLE_SEND_COMMAND((char *)setBleDeviceNameCommand, 12, "AOK", 3))
-//             {
-//                 if (L_BLE_SEND_COMMAND("SW,0B,07\r", 9, "AOK", 3))
-//                 {
-//                     if (L_BLE_SEND_COMMAND("SW,0A,04\r", 9, "AOK", 3))
-//                     {
-//                         if (L_BLE_SEND_COMMAND("SO,1\r", 5, "AOK", 3))
-//                         {
-//                             if (L_BLE_SEND_COMMAND("R,1\r", 4, "Rebooting", 9))
-//                             {
-//                                 return 1;
-//                             }
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     }
-//     return 0;
-// }
+uint8_t L_BLE_FACTORY_MODE_SETTING(void){
+    if (L_BLE_SEND_COMMAND("$$$", 3, "CMD>", 4))
+    {
+        if (L_BLE_SEND_COMMAND("SS,40\r", 6, "AOK", 3))
+        {
+            if (L_BLE_SEND_COMMAND((char *)setBleDeviceNameCommand, 12, "AOK", 3))
+            {
+                if (L_BLE_SEND_COMMAND("SW,0B,07\r", 9, "AOK", 3))
+                {
+                    if (L_BLE_SEND_COMMAND("SW,0A,04\r", 9, "AOK", 3))
+                    {
+                        if (L_BLE_SEND_COMMAND("SO,1\r", 5, "AOK", 3))
+                        {
+                            if (L_BLE_SEND_COMMAND("R,1\r", 4, "Rebooting", 9))
+                            {
+                                return 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return 0;
+}
 /* End user code. Do not edit comment generated here */

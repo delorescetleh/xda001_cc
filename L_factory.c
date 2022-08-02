@@ -122,6 +122,8 @@ void factory_process(void){
                                 P_STATUS = 1;
                                 while (1)
                                 {
+                                    P_STATUS = !P_STATUS;
+                                    delayInMs(1000);
                                 }
                             }
                         }
