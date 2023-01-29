@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_userdefine.h
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file includes user definition.
-* Creation Date: 2022/7/14
+* Creation Date: 2023/1/23
 ***********************************************************************************************************************/
 #ifndef _USER_DEF_H
 #define _USER_DEF_H
@@ -47,13 +47,13 @@ User definitions
 #include "r_cg_intp.h"
 
 # include "L_useful.h"
-# include "L_factory.h"
-# include "L_EEPROM.h"
-#include "L_PT100.h"
-#include "L_BLE.h"
-#include "L_PCB_TEMP.h"
-#include "L_Lora.h"
-# include "L_normal.h"
+// # include "L_factory.h"
+// # include "L_EEPROM.h"
+// #include "L_PT100.h"
+// #include "L_BLE.h"
+// #include "L_PCB_TEMP.h"
+// #include "L_Lora.h"
+// # include "L_normal.h"
 // SHOULD SET TIMER LET TIME_SPEED * BASE_TIME = 1 MIN
 #define TEST_FACTORY_MODE_NOW           0x00
 #define RTC_TIME_SPEED 60
@@ -63,11 +63,11 @@ User definitions
 //########################################################################
 #define TIMER_PERIODIC_EVENT                        0x01 // should not use in V4 version , change to OVER_TIME_EVENT 
 // #define DSADC_NOTIFICATION_EVENT                    0x02
-#define BLE_TIMER_PERIODIC_EVENT                    0x04
+// #define BLE_TIMER_PERIODIC_EVENT                    0x04
 // #define LoRA_NOTIFICATION_EVENT                     0x08
 // #define EEPROM_NOTIFICATION_EVENT                   0x10
 // #define ADC_NOTIFICATION_EVENT                      0x20
-// #define RTC_NOTIFICATION_EVENT                      0x40
+#define RTC_CONSTPERIOD_EVENT                      0x40
 // #define MINUTES_EVENT                               0x80
 
 // DATA FLASH REGISTER 
@@ -100,9 +100,9 @@ User definitions
 
 #define UART1_TXD_MODE         PM5_bit.no0
 #define UART0_TXD_MODE         PM3_bit.no7
+#define UART1_TXD             P5_bit.no0
 
-
-#define IS_LORA_PROGRAMMING  !(P0_bit.no7)// P3_bit.no2
+#define IS_LORA_PROGRAMMING  (P0_bit.no7)
 #define IN_FACTORY  !(P0_bit.no6)// P3_bit.no2
 
 #define LORA_READY  P3_bit.no2// P3_bit.no2
@@ -131,10 +131,14 @@ User definitions
 #define POWER_OFF  1
 #define POWER_ON  0
 
+#define BLE_POW_BYPASS_MODE  PM5_bit.no2
+#define BLE_POW_BYPASS     P5_bit.no2
+#define BLE_POW_CNT_MODE  PM0_bit.no4
+#define BLE_POW_CNT     P0_bit.no4
+
 
 //#define LORA_POW_CNT    P0_bit.no6 //v2
-#define BLE_POW_CNT_MODE  PM0_bit.no5
-#define BLE_POW_CNT     P0_bit.no5//P0_bit.no5
+
 #define EPROM_POW_CNT   P0_bit.no4//P0_bit.no4
 
 #define TRUE 1
@@ -219,10 +223,10 @@ extern uint16_t Record_Data;
 extern void DataFlashWrite(void);
 extern void goToSleep(void);
 extern void setLoraIntervalTime(uint8_t lora_intv);
-extern int32_t Vm0; // uV
-extern int32_t Vm1; // uV
-extern int32_t Vm2; // uV
-extern int32_t Vm3; // uV
+extern int32_t VM0; // uV
+extern int32_t VM1; // uV
+extern int32_t VM2; // uV
+extern int32_t VM3; // uV
 // extern double Vm0 ;
 // extern double Vm1 ;
 // extern double Vm2 ;
@@ -235,5 +239,6 @@ extern uint8_t PCB_TEMPERATURE_F_Done;
 extern uint8_t BLE_F_Done;
 extern uint8_t setBleDeviceNameCommand[];
 extern uint16_t K;
+extern uint8_t low_power;
 /* End user code. Do not edit comment generated here */
 #endif

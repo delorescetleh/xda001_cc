@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_dac.h
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for DAC module.
-* Creation Date: 2022/7/10
+* Creation Date: 2023/1/23
 ***********************************************************************************************************************/
 #ifndef DAC_H
 #define DAC_H
@@ -55,8 +55,8 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define DA1_WAITTIME                        (0x78U) /* set the waiting time */
-#define _0400_DA1_COUVERSION_VALUE          (0x0400U) /* set the analog voltage value */
+#define DA0_WAITTIME                        (0x0CU) /* set the waiting time */
+#define _0B_DA0_COUVERSION_VALUE            (0x0BU) /* set the analog voltage value */
 
 /***********************************************************************************************************************
 Typedef definitions
@@ -66,9 +66,9 @@ Typedef definitions
 Global functions
 ***********************************************************************************************************************/
 void R_DAC_Create(void);
-void R_DAC1_Start(void);
-void R_DAC1_Stop(void);
-void R_DAC1_Set_ConversionValue(uint8_t regvalue);
+void R_DAC0_Start(void);
+void R_DAC0_Stop(void);
+void R_DAC0_Set_ConversionValue(uint8_t regvalue);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif

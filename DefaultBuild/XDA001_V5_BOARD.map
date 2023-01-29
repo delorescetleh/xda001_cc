@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (W3.03.00 )             02-Aug-2022 14:04:50
+Renesas Optimizing Linker (W3.04.00 )             19-Aug-2022 07:04:00
 
 *** Options ***
 
@@ -35,6 +35,8 @@ Renesas Optimizing Linker (W3.03.00 )             02-Aug-2022 14:04:50
 -Input=DefaultBuild\L_Lora.obj
 -Input=DefaultBuild\L_EEPROM.obj
 -Input=DefaultBuild\L_BLE.obj
+-Input=DefaultBuild\r_cg_lvd.obj
+-Input=DefaultBuild\r_cg_lvd_user.obj
 -LIBrary=FDL\CCRL_100\lib\pfdl.lib
 -SECURITY_ID=00000000000000000000
 -DEVICE=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11NGG.DVF
@@ -42,12 +44,12 @@ Renesas Optimizing Linker (W3.03.00 )             02-Aug-2022 14:04:50
 -NOCOmpress
 -NOOPtimize
 -OUtput=DefaultBuild\XDA001_V5_BOARD.abs
--LIBrary=C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.10.00\lib\rl78em4s.lib
--LIBrary=C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.10.00\lib\malloc_n.lib
--LIBrary=C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.10.00\lib\rl78em4r.lib
+-LIBrary=C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.11.00\lib\rl78em4s.lib
+-LIBrary=C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.11.00\lib\malloc_n.lib
+-LIBrary=C:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.11.00\lib\rl78em4r.lib
 -OCDBG=84
 -DEBUG_MONITOR=1FE00-1FFFF
--USER_OPT_BYTE=EF5FE9
+-USER_OPT_BYTE=EF5DE9
 -LISt=DefaultBuild\XDA001_V5_BOARD.map
 -AUTO_SECTION_LAYOUT
 -ROm=.data=.dataR
@@ -77,23 +79,23 @@ SECTION                            START      END         SIZE   ALIGN
 .monitor1
                                   000000ce  000000d7         a   1
 .data
-                                  000000d8  00000333       25c   2
+                                  000000d8  00000334       25d   2
 .text
-                                  00000334  00000638       305   1
+                                  00000335  00000649       315   1
 PFDL_COD
-                                  0000063a  000006c7        8e   2
+                                  0000064a  000006d7        8e   2
 .RLIB
-                                  000006c8  00000bde       517   1
+                                  000006d8  00000bee       517   1
 .const
-                                  00002000  00002066        67   2
+                                  00002000  000020d8        d9   2
 .textf
-                                  00002067  00003e9a      1e34   1
+                                  000020d9  00003dfd      1d25   1
 .monitor2
                                   0001fe00  0001ffff       200   1
 .bss
                                   000fe900  000fe949        4a   2
 .dataR
-                                  000fe94a  000feba5       25c   2
+                                  000fe94a  000feba6       25d   2
 .bss_ATFFC00
                                   000ffc00  000ffc9f        a0   1
 .bss_ATFFD00

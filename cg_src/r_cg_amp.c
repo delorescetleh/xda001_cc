@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_amp.c
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for AMP module.
-* Creation Date: 2022/7/12
+* Creation Date: 2023/1/23
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -66,31 +66,31 @@ void R_AMP_Create(void)
     AMPEN = 1U;     /* enables input clock supply */
     AMPC = 0U; /* stop all AMP units */
     AMPPON = 0U;    /* power-off (default) */
-    AMPMC = _80_AMP_CH2_3_HIGHSPEED;
+    AMPMC = _80_AMP_CH2_3_HIGHSPEED | _00_AMP_CH1_LOWPOWER;
     AMPTRS = _03_AMP_ELC_TRIGGER_SOURCE_2;
-    AMPTRM = _00_AMP2_TRIGGER_SOFTWARE | _00_AMP1_TRIGGER_SOFTWARE;
-    AMP1S = _80_AMP1_AMP1_FED | _01_AMP1_AMP1P_INPUT5;
+    AMPTRM = _00_AMP2_TRIGGER_SOFTWARE | _00_AMP0_TRIGGER_SOFTWARE;
+    AMP0S = _40_AMP0_AMP0N_INPUT4 | _10_AMP0_DAC0;
     AMP2S = _80_AMP2_AMP2_FED | _01_AMP2_AMP2P_INPUT6;
 }
 /***********************************************************************************************************************
-* Function Name: R_AMP1_Start
-* Description  : This function starts the AMP1.
+* Function Name: R_AMP0_Start
+* Description  : This function starts the AMP0.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_AMP1_Start(void)
+void R_AMP0_Start(void)
 {
-    AMPE2 = 1U;     /* enables comparator operation */
+    AMPE1 = 1U;     /* enables comparator operation */
 }
 /***********************************************************************************************************************
-* Function Name: R_AMP1_Stop
-* Description  : This function stops the AMP1.
+* Function Name: R_AMP0_Stop
+* Description  : This function stops the AMP0.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_AMP1_Stop(void)
+void R_AMP0_Stop(void)
 {
-    AMPE2 = 0U;     /* disable comparator operation */
+    AMPE1 = 0U;     /* disable comparator operation */
 }
 /***********************************************************************************************************************
 * Function Name: R_AMP2_Start
@@ -124,4 +124,23 @@ void R_AMP_Set_PowerOn(void)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
+void L_AMP_CREATE_FOR_RLINE_I_REF(void)
+{
+    AFEEN = 1U;     /* enables input clock supply */
+    AFEPON = 1U;    /* power on AFE */
+
+    while (0U == AFESTAT)
+    {
+        ;/* Wait until AFE stabilize */
+    }
+    
+    AMPEN = 1U;     /* enables input clock supply */
+    AMPC = 0U; /* stop all AMP units */
+    AMPPON = 0U;    /* power-off (default) */
+    AMPMC = _80_AMP_CH2_3_HIGHSPEED | _00_AMP_CH1_LOWPOWER;
+    AMPTRS = _03_AMP_ELC_TRIGGER_SOURCE_2;
+    AMPTRM = _00_AMP2_TRIGGER_SOFTWARE | _00_AMP0_TRIGGER_SOFTWARE;
+    AMP0S = _40_AMP0_AMP0N_INPUT4 | _10_AMP0_DAC0;
+    AMP2S = _80_AMP2_AMP2_FED | _01_AMP2_AMP2P_INPUT6;
+}
 /* End user code. Do not edit comment generated here */

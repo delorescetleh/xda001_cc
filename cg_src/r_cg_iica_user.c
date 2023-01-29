@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_iica_user.c
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for IICA module.
-* Creation Date: 2022/7/14
+* Creation Date: 2023/1/22
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -90,14 +90,14 @@ static void __near r_iica0_interrupt(void)
 ***********************************************************************************************************************/
 static void iica0_masterhandler(void)
 {
-    /* Control for communication */
+    /* Detection of stop condition handling */
     if ((0U == IICBSY0) && (g_iica0_tx_cnt != 0U))
     {
         r_iica0_callback_master_error(MD_SPT);
     }
-    /* Control for sended address */
     else
     {
+        /* Control for sended address */
         if (0U == (g_iica0_master_status_flag & _80_IICA_ADDRESS_COMPLETE))
         {
             if (1U == ACKD0)

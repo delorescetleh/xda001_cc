@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_cgc.c
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for CGC module.
-* Creation Date: 2022/7/14
+* Creation Date: 2023/1/23
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -56,9 +56,9 @@ Global variables and functions
 void R_CGC_Create(void)
 {
     /* Set fSUB */
-    OSMC = _00_CGC_CLK_ENABLE | _00_CGC_RTC_IT_CLK_SUBSYSTEM_CLK;
-    CMC = _00_CGC_HISYS_PORT | _30_CGC_SUB_EXT | _00_CGC_LOW_OSCILLATION | _00_CGC_SYSOSC_UNDER10M;
-    XTSTOP = 0U;    /* XT1 oscillator/external clock operating */
+    OSMC = _10_CGC_RTC_IT_CLK_FIL;
+    CMC = _00_CGC_HISYS_PORT | _00_CGC_SUB_PORT | _00_CGC_LOW_OSCILLATION | _00_CGC_SYSOSC_UNDER10M;
+    XTSTOP = 1U;    /* XT1 oscillator/external clock stopped */
     /* Set fCLK */
     CSS = 0U;       /* main system clock (fMAIN) */
     /* Set fMAIN */

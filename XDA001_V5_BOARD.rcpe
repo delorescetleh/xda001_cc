@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <MicomToolCommonProjectFile Version="1.00">
-  <CreatorType Name="CubeSuite+" Version="V8.06.00  [03 Jun 2021]" />
+  <CreatorType Name="CubeSuite+" Version="V8.08.00  [10 Jun 2022]" />
   <Placeholders>
     <PlaceholderPrefix>%</PlaceholderPrefix>
     <PlaceholderPostfix>%</PlaceholderPostfix>
@@ -45,6 +45,9 @@
         <Path>cg_src\r_cg_it8bit.c</Path>
         <Path>cg_src\r_cg_it8bit_user.c</Path>
         <Path>cg_src\r_cg_it8bit.h</Path>
+        <Path>cg_src\r_cg_lvd.c</Path>
+        <Path>cg_src\r_cg_lvd_user.c</Path>
+        <Path>cg_src\r_cg_lvd.h</Path>
       </Category>
       <Path>L_useful.c</Path>
       <Path>L_useful.h</Path>
@@ -74,7 +77,7 @@
       <DebugToolSettings />
     </DebugOptions>
     <Device Series="RL78">R5F11NGG</Device>
-    <BuildOptions Name="CC-RL" Version="V1.10.00">
+    <BuildOptions Name="CC-RL" Version="V1.11.00">
       <BuildMode Name="DefaultBuild" Active="True">
         <LinkOrder>
           <Path>DefaultBuild\cstart.obj</Path>
@@ -109,6 +112,8 @@
           <Path>DefaultBuild\L_Lora.obj</Path>
           <Path>DefaultBuild\L_EEPROM.obj</Path>
           <Path>DefaultBuild\L_BLE.obj</Path>
+          <Path>DefaultBuild\r_cg_lvd.obj</Path>
+          <Path>DefaultBuild\r_cg_lvd_user.obj</Path>
           <Path>FDL\CCRL_100\lib\pfdl.lib</Path>
         </LinkOrder>
         <CommonOptions>
@@ -146,12 +151,12 @@
           <Option>-NOCOmpress</Option>
           <Option>-NOOPtimize</Option>
           <Option>-OUtput=%BuildModeName%\%ProjectName%.abs</Option>
-          <Option>-LIBrary=%MicomToolPath%\CC-RL\V1.10.00\lib\rl78em4s.lib</Option>
-          <Option>-LIBrary=%MicomToolPath%\CC-RL\V1.10.00\lib\malloc_n.lib</Option>
-          <Option>-LIBrary=%MicomToolPath%\CC-RL\V1.10.00\lib\rl78em4r.lib</Option>
+          <Option>-LIBrary=%MicomToolPath%\CC-RL\V1.11.00\lib\rl78em4s.lib</Option>
+          <Option>-LIBrary=%MicomToolPath%\CC-RL\V1.11.00\lib\malloc_n.lib</Option>
+          <Option>-LIBrary=%MicomToolPath%\CC-RL\V1.11.00\lib\rl78em4r.lib</Option>
           <Option>-OCDBG=84</Option>
           <Option>-DEBUG_MONITOR=1FE00-1FFFF</Option>
-          <Option>-USER_OPT_BYTE=EF5FE9</Option>
+          <Option>-USER_OPT_BYTE=EF5DE9</Option>
           <Option>-LISt=%BuildModeName%\%ProjectName%.map</Option>
           <Option>-AUTO_SECTION_LAYOUT</Option>
           <Option>-ROm=.data=.dataR</Option>
@@ -178,11 +183,15 @@
     <Extension_CodePart2>
       <CodeGeneratorData0>&lt;DataSign&gt;&lt;SerializableData&gt;
   &lt;SerializableData name="39a9d609-9774-41fe-9e4e-5c50dfa1451e"&gt;
+    &lt;DataElement key="pior35_macroname" value=""&gt;
+    &lt;/DataElement&gt;
     &lt;DataElement key="pior14_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior34_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior16_macroname" value=""&gt;
+    &lt;/DataElement&gt;
+    &lt;DataElement key="pior24_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior22_macroname" value=""&gt;
     &lt;/DataElement&gt;
@@ -198,17 +207,15 @@
     &lt;/DataElement&gt;
     &lt;DataElement key="pior10_macroname" value=""&gt;
     &lt;/DataElement&gt;
+    &lt;DataElement key="pior27_macroname" value=""&gt;
+    &lt;/DataElement&gt;
     &lt;DataElement key="pior27" value="0"&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior30_macroname" value=""&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior33" value="0"&gt;
-    &lt;/DataElement&gt;
     &lt;DataElement key="pior01_macroname" value=""&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior01" value="0"&gt;
-    &lt;/DataElement&gt;
-    &lt;DataElement key="pior11_macroname" value=""&gt;
+    &lt;DataElement key="pior35" value="0"&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior04_macroname" value=""&gt;
     &lt;/DataElement&gt;
@@ -226,7 +233,7 @@
     &lt;/DataElement&gt;
     &lt;DataElement key="pior31" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior25_macroname" value=""&gt;
+    &lt;DataElement key="pior01" value="0"&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior11" value="0"&gt;
     &lt;/DataElement&gt;
@@ -250,8 +257,6 @@
     &lt;/DataElement&gt;
     &lt;DataElement key="pior32_macroname" value=""&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior03" value="0"&gt;
-    &lt;/DataElement&gt;
     &lt;DataElement key="pior22" value="0"&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior15_macroname" value=""&gt;
@@ -260,11 +265,11 @@
     &lt;/DataElement&gt;
     &lt;DataElement key="pior23" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior35_macroname" value=""&gt;
+    &lt;DataElement key="pior33" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior27_macroname" value=""&gt;
+    &lt;DataElement key="pior03" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior24_macroname" value=""&gt;
+    &lt;DataElement key="pior25_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior26" value="0"&gt;
     &lt;/DataElement&gt;
@@ -274,7 +279,7 @@
     &lt;/DataElement&gt;
     &lt;DataElement key="pior25" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior35" value="0"&gt;
+    &lt;DataElement key="pior11_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior05" value="0"&gt;
     &lt;/DataElement&gt;
@@ -298,7 +303,7 @@
         &lt;/DataElement&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="Interrput_1"&gt;
-        &lt;DataElement key="InusedAs" value=""&gt;
+        &lt;DataElement key="InusedAs" value="INTLVI"&gt;
         &lt;/DataElement&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="Interrput_2"&gt;
@@ -622,7 +627,7 @@
         &lt;/DataElement&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="PinNumber_6"&gt;
-        &lt;DataElement key="InusedAs" value="CGC##EXCLKS"&gt;
+        &lt;DataElement key="InusedAs" value=""&gt;
         &lt;/DataElement&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="PinNumber_7"&gt;
@@ -738,7 +743,7 @@
         &lt;/DataElement&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="PinNumber_35"&gt;
-        &lt;DataElement key="InusedAs" value=""&gt;
+        &lt;DataElement key="InusedAs" value="Port0##P07"&gt;
         &lt;/DataElement&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="PinNumber_36"&gt;
@@ -1450,7 +1455,7 @@
         &lt;/DataElement&gt;
         &lt;DataElement key="NoiseFilterFunction" value="False"&gt;
         &lt;/DataElement&gt;
-        &lt;DataElement key="PinInOut" value="IO"&gt;
+        &lt;DataElement key="PinInOut" value="O"&gt;
         &lt;/DataElement&gt;
         &lt;DataElement key="PullUp" value="False"&gt;
         &lt;/DataElement&gt;
@@ -2254,7 +2259,7 @@
   &lt;SerializableData name="b2f404bc-b927-426a-a492-76c7c09fd006"&gt;
     &lt;DataElement key="RunEnvironment" value="CubeSuite"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="ProductVersion" value="2.10.06.01"&gt;
+    &lt;DataElement key="ProductVersion" value="2.10.07.02"&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="GIValue" value="00000000000000000000"&gt;
     &lt;/DataElement&gt;
@@ -2268,7 +2273,7 @@
     &lt;/DataElement&gt;
     &lt;DataElement key="GB" value="True"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="GBValue" value="EF5FE9"&gt;
+    &lt;DataElement key="GBValue" value="EF5DE9"&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="GTrace" value="No"&gt;
     &lt;/DataElement&gt;
@@ -3696,7 +3701,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="text" value="R_RTC_Get_CounterValue"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="inuse" value="Locked"&gt;
+            &lt;DataElement key="inuse" value="Unused"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="R_RTC_Set_CounterValue"&gt;
@@ -3704,7 +3709,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="text" value="R_RTC_Set_CounterValue"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="inuse" value="Locked"&gt;
+            &lt;DataElement key="inuse" value="Unused"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="R_RTC_Set_AlarmOn"&gt;
@@ -3712,7 +3717,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="text" value="R_RTC_Set_AlarmOn"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="inuse" value="Locked"&gt;
+            &lt;DataElement key="inuse" value="Unused"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="R_RTC_Set_AlarmOff"&gt;
@@ -3720,7 +3725,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="text" value="R_RTC_Set_AlarmOff"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="inuse" value="Locked"&gt;
+            &lt;DataElement key="inuse" value="Unused"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="R_RTC_Set_AlarmValue"&gt;
@@ -3728,7 +3733,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="text" value="R_RTC_Set_AlarmValue"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="inuse" value="Locked"&gt;
+            &lt;DataElement key="inuse" value="Unused"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="R_RTC_Get_AlarmValue"&gt;
@@ -3736,7 +3741,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="text" value="R_RTC_Get_AlarmValue"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="inuse" value="Locked"&gt;
+            &lt;DataElement key="inuse" value="Unused"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="R_RTC_Set_ConstPeriodInterruptOn"&gt;
@@ -3816,7 +3821,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="text" value="r_rtc_callback_alarm"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="inuse" value="Locked"&gt;
+            &lt;DataElement key="inuse" value="Unused"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
         &lt;/SerializableData&gt;
@@ -6652,21 +6657,21 @@
       &lt;SerializableData name="LVD"&gt;
         &lt;DataElement key="visible" value="True"&gt;
         &lt;/DataElement&gt;
-        &lt;DataElement key="inuse" value="Unused"&gt;
+        &lt;DataElement key="inuse" value="Locked"&gt;
         &lt;/DataElement&gt;
         &lt;SerializableData name="r_cg_lvd_c"&gt;
           &lt;DataElement key="visible" value="True"&gt;
           &lt;/DataElement&gt;
           &lt;DataElement key="text" value="r_cg_lvd.c"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="inuse" value="Unused"&gt;
+          &lt;DataElement key="inuse" value="Locked"&gt;
           &lt;/DataElement&gt;
           &lt;SerializableData name="R_LVD_Create"&gt;
             &lt;DataElement key="visible" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="text" value="R_LVD_Create"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="inuse" value="Unused"&gt;
+            &lt;DataElement key="inuse" value="Locked"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="R_LVD_InterruptMode_Start"&gt;
@@ -6674,7 +6679,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="text" value="R_LVD_InterruptMode_Start"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="inuse" value="Unused"&gt;
+            &lt;DataElement key="inuse" value="Locked"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
         &lt;/SerializableData&gt;
@@ -6683,7 +6688,7 @@
           &lt;/DataElement&gt;
           &lt;DataElement key="text" value="r_cg_lvd_user.c"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="inuse" value="Unused"&gt;
+          &lt;DataElement key="inuse" value="Locked"&gt;
           &lt;/DataElement&gt;
           &lt;SerializableData name="R_LVD_Create_UserInit"&gt;
             &lt;DataElement key="visible" value="True"&gt;
@@ -6698,7 +6703,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="text" value="r_lvd_interrupt"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="inuse" value="Unused"&gt;
+            &lt;DataElement key="inuse" value="Locked"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
         &lt;/SerializableData&gt;
@@ -6707,7 +6712,7 @@
           &lt;/DataElement&gt;
           &lt;DataElement key="text" value="r_cg_lvd.h"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="inuse" value="Unused"&gt;
+          &lt;DataElement key="inuse" value="Locked"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
       &lt;/SerializableData&gt;
@@ -6856,7 +6861,7 @@
           &lt;SerializableData name="ClassContent"&gt;
             &lt;DataElement key="FunctionName" value="P07"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="InUse" value="False"&gt;
+            &lt;DataElement key="InUse" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="FunctionIO" value="I"&gt;
             &lt;/DataElement&gt;
@@ -6864,6 +6869,12 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="FunctionNote" value=""&gt;
             &lt;/DataElement&gt;
+            &lt;SerializableData name="InUsePins"&gt;
+              &lt;SerializableData name="CG"&gt;
+                &lt;DataElement key="0" value="35"&gt;
+                &lt;/DataElement&gt;
+              &lt;/SerializableData&gt;
+            &lt;/SerializableData&gt;
           &lt;/SerializableData&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="P10"&gt;
@@ -7344,7 +7355,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="InUse" value="False"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="FunctionIO" value="None"&gt;
+            &lt;DataElement key="FunctionIO" value="O"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="FunctionState" value="0"&gt;
             &lt;/DataElement&gt;
@@ -10942,7 +10953,7 @@
           &lt;SerializableData name="ClassContent"&gt;
             &lt;DataElement key="FunctionName" value="EXCLKS"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="InUse" value="True"&gt;
+            &lt;DataElement key="InUse" value="False"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="FunctionIO" value="I"&gt;
             &lt;/DataElement&gt;
@@ -10950,12 +10961,6 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="FunctionNote" value=""&gt;
             &lt;/DataElement&gt;
-            &lt;SerializableData name="InUsePins"&gt;
-              &lt;SerializableData name="CG"&gt;
-                &lt;DataElement key="0" value="6"&gt;
-                &lt;/DataElement&gt;
-              &lt;/SerializableData&gt;
-            &lt;/SerializableData&gt;
           &lt;/SerializableData&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="TOOLRxD"&gt;
@@ -11404,7 +11409,7 @@
           &lt;SerializableData name="ClassContent"&gt;
             &lt;DataElement key="PinNumber" value="6"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="InUse" value="True"&gt;
+            &lt;DataElement key="InUse" value="False"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="PinNote" value=""&gt;
             &lt;/DataElement&gt;
@@ -11418,10 +11423,6 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="PinDlvDirty" value="False"&gt;
             &lt;/DataElement&gt;
-            &lt;SerializableData name="InUseFunctions"&gt;
-              &lt;DataElement key="0" value="EXCLKS"&gt;
-              &lt;/DataElement&gt;
-            &lt;/SerializableData&gt;
           &lt;/SerializableData&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="7"&gt;
@@ -11928,7 +11929,7 @@
           &lt;SerializableData name="ClassContent"&gt;
             &lt;DataElement key="PinNumber" value="35"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="InUse" value="False"&gt;
+            &lt;DataElement key="InUse" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="PinNote" value=""&gt;
             &lt;/DataElement&gt;
@@ -11942,6 +11943,10 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="PinDlvDirty" value="False"&gt;
             &lt;/DataElement&gt;
+            &lt;SerializableData name="InUseFunctions"&gt;
+              &lt;DataElement key="0" value="P07"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
           &lt;/SerializableData&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="36"&gt;
@@ -12763,7 +12768,7 @@
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="chkfSUB"&gt;
-          &lt;DataElement key="Checked" value="True"&gt;
+          &lt;DataElement key="Checked" value="False"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="rdoXT1"&gt;
@@ -12957,7 +12962,7 @@
         &lt;SerializableData name="cmbRTCclock"&gt;
           &lt;DataElement key="ContentItemCount" value="2"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="SelectedContentItem" value="fSUB"&gt;
+          &lt;DataElement key="SelectedContentItem" value="fIL"&gt;
           &lt;/DataElement&gt;
           &lt;SerializableData name="ContentItem1"&gt;
             &lt;DataElement key="Pin" value=""&gt;
@@ -12976,7 +12981,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="True"&gt;
+            &lt;DataElement key="Visible" value="False"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -12998,14 +13003,14 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="False"&gt;
+            &lt;DataElement key="Visible" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="txtRTCclock"&gt;
-          &lt;DataElement key="Text" value="32.768"&gt;
+          &lt;DataElement key="Text" value="15"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="cmb11RRTCclock"&gt;
@@ -13128,7 +13133,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="True"&gt;
+            &lt;DataElement key="Visible" value="False"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -13581,7 +13586,7 @@
               &lt;/DataElement&gt;
             &lt;/SerializableData&gt;
             &lt;SerializableData name="ContentItem12"&gt;
-              &lt;DataElement key="Pin" value=""&gt;
+              &lt;DataElement key="Pin" value="TO01,TO02,TO03,TO04,TO05,TO06,TO07"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Int" value=""&gt;
               &lt;/DataElement&gt;
@@ -13595,7 +13600,7 @@
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="TauMultiPwmMaster"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="True"&gt;
               &lt;/DataElement&gt;
@@ -21973,7 +21978,7 @@
               &lt;/DataElement&gt;
             &lt;/SerializableData&gt;
             &lt;SerializableData name="ContentItem12"&gt;
-              &lt;DataElement key="Pin" value=""&gt;
+              &lt;DataElement key="Pin" value="TO03,TO04,TO05,TO06,TO07"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Int" value=""&gt;
               &lt;/DataElement&gt;
@@ -21987,7 +21992,7 @@
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="TauMultiPwmMaster"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="True"&gt;
               &lt;/DataElement&gt;
@@ -28445,7 +28450,7 @@
               &lt;/DataElement&gt;
             &lt;/SerializableData&gt;
             &lt;SerializableData name="ContentItem12"&gt;
-              &lt;DataElement key="Pin" value=""&gt;
+              &lt;DataElement key="Pin" value="TO05,TO06,TO07"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Int" value=""&gt;
               &lt;/DataElement&gt;
@@ -28459,7 +28464,7 @@
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="TauMultiPwmMaster"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="True"&gt;
               &lt;/DataElement&gt;
@@ -32409,7 +32414,7 @@
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="TauSquare"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="True"&gt;
               &lt;/DataElement&gt;
@@ -32431,7 +32436,7 @@
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="TauExtCount"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="True"&gt;
               &lt;/DataElement&gt;
@@ -32453,7 +32458,7 @@
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="TauFreDivider"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="False"&gt;
               &lt;/DataElement&gt;
@@ -32475,7 +32480,7 @@
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="TauIntervalMeasure"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="True"&gt;
               &lt;/DataElement&gt;
@@ -32497,7 +32502,7 @@
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="TauLowHighMeasure"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="True"&gt;
               &lt;/DataElement&gt;
@@ -32519,7 +32524,7 @@
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="TauDelayCount"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="True"&gt;
               &lt;/DataElement&gt;
@@ -32673,7 +32678,7 @@
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="TauOneShotSlave"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex, CustomerMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex, PinMutex, CustomerMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="True"&gt;
               &lt;/DataElement&gt;
@@ -32695,7 +32700,7 @@
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="TauPwmSlave"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex, CustomerMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex, PinMutex, CustomerMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="True"&gt;
               &lt;/DataElement&gt;
@@ -32717,7 +32722,7 @@
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="TauMultiPwmSlave"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex, CustomerMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex, PinMutex, CustomerMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="True"&gt;
               &lt;/DataElement&gt;
@@ -32739,7 +32744,7 @@
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="TauInputOneShotSlave"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex, CustomerMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex, PinMutex, CustomerMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="False"&gt;
               &lt;/DataElement&gt;
@@ -36344,7 +36349,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="True"&gt;
+            &lt;DataElement key="Visible" value="False"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -36366,7 +36371,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="True"&gt;
+            &lt;DataElement key="Visible" value="False"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -36388,7 +36393,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="True"&gt;
+            &lt;DataElement key="Visible" value="False"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -36410,7 +36415,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="True"&gt;
+            &lt;DataElement key="Visible" value="False"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -36432,7 +36437,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="True"&gt;
+            &lt;DataElement key="Visible" value="False"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -36454,7 +36459,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="True"&gt;
+            &lt;DataElement key="Visible" value="False"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -36476,7 +36481,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="True"&gt;
+            &lt;DataElement key="Visible" value="False"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -36498,7 +36503,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="True"&gt;
+            &lt;DataElement key="Visible" value="False"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -36720,7 +36725,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="True"&gt;
+            &lt;DataElement key="Visible" value="False"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -36742,7 +36747,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="True"&gt;
+            &lt;DataElement key="Visible" value="False"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -36764,7 +36769,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="True"&gt;
+            &lt;DataElement key="Visible" value="False"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -36786,7 +36791,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="True"&gt;
+            &lt;DataElement key="Visible" value="False"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -36808,7 +36813,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="True"&gt;
+            &lt;DataElement key="Visible" value="False"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -36830,7 +36835,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="True"&gt;
+            &lt;DataElement key="Visible" value="False"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -36852,7 +36857,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="True"&gt;
+            &lt;DataElement key="Visible" value="False"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -36874,7 +36879,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="True"&gt;
+            &lt;DataElement key="Visible" value="False"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -44505,7 +44510,7 @@
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="UART_R"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="False"&gt;
               &lt;/DataElement&gt;
@@ -44549,7 +44554,7 @@
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="UART_TR"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="False"&gt;
               &lt;/DataElement&gt;
@@ -44737,7 +44742,7 @@
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="UART_R"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="False"&gt;
               &lt;/DataElement&gt;
@@ -44781,7 +44786,7 @@
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="UART_TR"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="False"&gt;
               &lt;/DataElement&gt;
@@ -58962,11 +58967,11 @@
         &lt;/SerializableData&gt;
         &lt;SerializableData name="P07"&gt;
           &lt;SerializableData name="MODULE_UNUSED"&gt;
-            &lt;DataElement key="Checked" value="True"&gt;
+            &lt;DataElement key="Checked" value="False"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="INPUT_MODE"&gt;
-            &lt;DataElement key="Checked" value="False"&gt;
+            &lt;DataElement key="Checked" value="True"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="OUTPUT_MODE"&gt;
@@ -66573,7 +66578,7 @@
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="LVD_MODE_RESET"&gt;
-          &lt;DataElement key="Checked" value="True"&gt;
+          &lt;DataElement key="Checked" value="False"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="LVD_MODE_INTERRUPT_RESET"&gt;
@@ -66675,13 +66680,13 @@
           &lt;/SerializableData&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="LVD_MODE_INTERRUPT"&gt;
-          &lt;DataElement key="Checked" value="False"&gt;
+          &lt;DataElement key="Checked" value="True"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="LVD_INTERRUPT_PRIOIRY_INTERRUPT"&gt;
           &lt;DataElement key="ContentItemCount" value="4"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="SelectedContentItem" value="Low"&gt;
+          &lt;DataElement key="SelectedContentItem" value="High"&gt;
           &lt;/DataElement&gt;
           &lt;SerializableData name="ContentItem1"&gt;
             &lt;DataElement key="Pin" value=""&gt;
@@ -67605,7 +67610,7 @@
       &lt;/DataElement&gt;
     &lt;/SerializableData&gt;
     &lt;SerializableData name="DataKey_fRTC"&gt;
-      &lt;DataElement key="DataValue" value="32.768"&gt;
+      &lt;DataElement key="DataValue" value="15"&gt;
       &lt;/DataElement&gt;
     &lt;/SerializableData&gt;
     &lt;SerializableData name="DataKey_fIL"&gt;
@@ -67621,7 +67626,7 @@
       &lt;/DataElement&gt;
     &lt;/SerializableData&gt;
     &lt;SerializableData name="DataKey_fSUB"&gt;
-      &lt;DataElement key="DataValue" value="32.768"&gt;
+      &lt;DataElement key="DataValue" value="0"&gt;
       &lt;/DataElement&gt;
     &lt;/SerializableData&gt;
     &lt;SerializableData name="DataKey_fIH"&gt;
@@ -67777,7 +67782,7 @@
       &lt;/SerializableData&gt;
       &lt;SerializableData name="RTC"&gt;
         &lt;SerializableData name="fRTC"&gt;
-          &lt;DataElement key="DataValue" value="32.768"&gt;
+          &lt;DataElement key="DataValue" value="15"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
       &lt;/SerializableData&gt;
@@ -67897,7 +67902,7 @@
       &lt;/SerializableData&gt;
       &lt;SerializableData name="IT8bit0"&gt;
         &lt;SerializableData name="fRTC"&gt;
-          &lt;DataElement key="DataValue" value="32.768"&gt;
+          &lt;DataElement key="DataValue" value="15"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
       &lt;/SerializableData&gt;

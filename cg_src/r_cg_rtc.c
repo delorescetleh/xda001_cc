@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_rtc.c
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for RTC module.
-* Creation Date: 2022/7/14
+* Creation Date: 2023/1/22
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -64,9 +64,6 @@ void R_RTC_Create(void)
     RTCPR0 = 1U;
     /* Set register RTCC0 */
     RTCC0 = _00_RTC_COUNTER_STOP | _00_RTC_RTC1HZ_DISABLE | _00_RTC_12HOUR_SYSTEM | _02_RTC_INTRTC_CLOCK_1;
-    /* Set alarm function */
-    WALE = 0U;      /* match operation is invalid */
-    WALIE = 1U;     /* generates interrupt on matching of alarm */
     /* Disenable input clock */
     RTCWEN = 0U;    /* stops input clock supply */
 }
@@ -114,234 +111,6 @@ void R_RTC_Stop(void)
         NOP();
     }
 
-    RTCWEN = 0U;    /* stops input clock supply */
-}
-/***********************************************************************************************************************
-* Function Name: R_RTC_Get_CounterValue
-* Description  : This function reads the results of real-time clock and store them in the variables.
-* Arguments    : counter_read_val -
-*                    the current real-time clock value(BCD code)
-* Return Value : status -
-*                    MD_OK, MD_BUSY1 or MD_BUSY2
-***********************************************************************************************************************/
-MD_STATUS R_RTC_Get_CounterValue(rtc_counter_value_t * const counter_read_val)
-{
-    MD_STATUS status = MD_OK;
-    volatile uint16_t  w_count;
-    
-    RTCWEN = 1U;    /* enables input clock supply */
-    RTCC1 |= _01_RTC_COUNTER_PAUSE;
-
-    /* Change the waiting time according to the system */
-    for (w_count = 0U; w_count < RTC_WAITTIME_2FRTC; w_count++)
-    {
-        NOP();
-    }
-
-    if (0U == RWST)
-    {
-        status = MD_BUSY1;
-    }
-    else
-    {
-        counter_read_val->sec = SEC;
-        counter_read_val->min = MIN;
-        counter_read_val->hour = HOUR;
-        counter_read_val->week = WEEK;
-        counter_read_val->day = DAY;
-        counter_read_val->month = MONTH;
-        counter_read_val->year = YEAR;
-
-        RTCC1 &= (uint8_t)~_01_RTC_COUNTER_PAUSE;
-
-        /* Change the waiting time according to the system */
-        for (w_count = 0U; w_count < RTC_WAITTIME_2FRTC; w_count++)
-        {
-            NOP();
-        }
-
-        if (1U == RWST)
-        {
-            status = MD_BUSY2;
-        }
-    }
-
-    RTCWEN = 0U;    /* stops input clock supply */
-
-    return (status);
-}
-/***********************************************************************************************************************
-* Function Name: R_RTC_Set_CounterValue
-* Description  : This function changes the real-time clock value.
-* Arguments    : counter_write_val -
-*                    the expected real-time clock value(BCD code)
-* Return Value : status -
-*                    MD_OK, MD_BUSY1 or MD_BUSY2
-***********************************************************************************************************************/
-MD_STATUS R_RTC_Set_CounterValue(rtc_counter_value_t counter_write_val)
-{
-    MD_STATUS status = MD_OK;
-    volatile uint16_t  w_count;
-    
-    RTCWEN = 1U;    /* enables input clock supply */
-    
-    RTCC1 |= _01_RTC_COUNTER_PAUSE;
-
-    /* Change the waiting time according to the system */
-    for (w_count = 0U; w_count < RTC_WAITTIME_2FRTC; w_count++)
-    {
-        NOP();
-    }
-
-    if (0U == RWST)
-    {
-        status = MD_BUSY1;
-    }
-    else
-    {
-        if ((1U == RTCE) && (0U == RTCMK))
-        {
-            RTCMK = 1U;     /* disable INTRTC interrupt */
-            SEC = counter_write_val.sec;
-            MIN = counter_write_val.min;
-            HOUR = counter_write_val.hour;
-            WEEK = counter_write_val.week;
-            DAY = counter_write_val.day;
-            MONTH = counter_write_val.month;
-            YEAR = counter_write_val.year;
-            WAFG = 0U;      /* alarm mismatch */
-            RIFG = 0U;      /* constant-period interrupt is not generated */
-            RTCIF = 0U;     /* clear INTRTC interrupt flag */
-            RTCMK = 0U;     /* enable INTRTC interrupt */
-        }
-        else
-        {
-            SEC = counter_write_val.sec;
-            MIN = counter_write_val.min;
-            HOUR = counter_write_val.hour;
-            WEEK = counter_write_val.week;
-            DAY = counter_write_val.day;
-            MONTH = counter_write_val.month;
-            YEAR = counter_write_val.year;
-        }
-        
-        RTCC1 &= (uint8_t)~_01_RTC_COUNTER_PAUSE;
-        
-        /* Change the waiting time according to the system */
-        for (w_count = 0U; w_count < RTC_WAITTIME_2FRTC; w_count++)
-        {
-            NOP();
-        }
-
-        if (1U == RWST)
-        {
-            status = MD_BUSY2;
-        }
-    }
-
-    RTCWEN = 0U;    /* stops input clock supply */
-
-    return (status);
-}
-/***********************************************************************************************************************
-* Function Name: R_RTC_Set_AlarmOn
-* Description  : This function starts the alarm operation.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_RTC_Set_AlarmOn(void)
-{
-    volatile uint16_t w_count;
-
-    RTCWEN = 1U;    /* enables input clock supply */
-    RTCMK = 1U;     /* disable INTRTC interrupt */
-    RTCC1 |= _80_RTC_ALARM_ENABLE;
-
-    /* Change the waiting time according to the system */
-    for (w_count = 0U; w_count < RTC_WAITTIME_2FRTC; w_count++)
-    {
-        NOP();
-    }
- 
-    RTCC1 &= (uint8_t)~_10_RTC_ALARM_MATCH;
-    RTCIF = 0U;     /* clear INTRTC interrupt flag */
-    RTCMK = 0U;     /* enable INTRTC interrupt */
-    RTCWEN = 0U;    /* stops input clock supply */
-}
-/***********************************************************************************************************************
-* Function Name: R_RTC_Set_AlarmOff
-* Description  : This function stops the alarm operation.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_RTC_Set_AlarmOff(void)
-{
-    RTCWEN = 1U;    /* enables input clock supply */
-    RTCMK = 1U;     /* disable INTRTC interrupt */
-    RTCC1 &= (uint8_t)~_80_RTC_ALARM_ENABLE;
-    RTCC1 &= (uint8_t)~_10_RTC_ALARM_MATCH;
-    RTCIF = 0U;     /* clear INTRTC interrupt flag */
-    RTCWEN = 0U;    /* stops input clock supply */
-}
-/***********************************************************************************************************************
-* Function Name: R_RTC_Set_AlarmValue
-* Description  : This function sets alarm value.
-* Arguments    : alarm_val -
-*                    the expected alarm value(BCD code)
-* Return Value : None
-***********************************************************************************************************************/
-void R_RTC_Set_AlarmValue(rtc_alarm_value_t alarm_val)
-{
-    volatile uint16_t w_count;
-
-    RTCWEN = 1U;    /* enables input clock supply */
-    RTCMK = 1U;     /* disable INTRTC interrupt */
-    RTCC1 &= (uint8_t)~_80_RTC_ALARM_ENABLE;
-    RTCC1 |= _40_RTC_ALARM_INT_ENABLE;
-    ALARMWM = alarm_val.alarmwm;
-    ALARMWH = alarm_val.alarmwh;
-    ALARMWW = alarm_val.alarmww;
-    RTCC1 |= _80_RTC_ALARM_ENABLE;
-
-    /* Change the waiting time according to the system */
-    for (w_count = 0U; w_count < RTC_WAITTIME_2FRTC; w_count++)
-    {
-        NOP();
-    }
-
-    RTCC1 &= (uint8_t)~_10_RTC_ALARM_MATCH;
-    RTCIF = 0U;     /* clear INTRTC interrupt flag */
-    RTCMK = 0U;     /* enable INTRTC interrupt */
-    RTCWEN = 0U;    /* stops input clock supply */
-}
-/***********************************************************************************************************************
-* Function Name: R_RTC_Get_AlarmValue
-* Description  : This function gets alarm value.
-* Arguments    : alarm_val -
-*                    the address to save alarm value(BCD code)
-* Return Value : None
-***********************************************************************************************************************/
-void R_RTC_Get_AlarmValue(rtc_alarm_value_t * const alarm_val)
-{
-    volatile uint16_t w_count;
-
-    RTCWEN = 1U;    /* enables input clock supply */
-    RTCMK = 1U;     /* disable INTRTC interrupt */
-    RTCC1 &= (uint8_t)~_80_RTC_ALARM_ENABLE;
-    alarm_val->alarmwm = ALARMWM;
-    alarm_val->alarmwh = ALARMWH;
-    alarm_val->alarmww = ALARMWW;
-    RTCC1 |= _80_RTC_ALARM_ENABLE;
-
-    /* Change the waiting time according to the system */
-    for (w_count = 0U; w_count < RTC_WAITTIME_2FRTC; w_count++)
-    {
-        NOP();
-    }
-
-    RTCC1 &= (uint8_t)~_10_RTC_ALARM_MATCH;
-    RTCIF = 0U;     /* clear INTRTC interrupt flag */
-    RTCMK = 0U;     /* enable INTRTC interrupt */
     RTCWEN = 0U;    /* stops input clock supply */
 }
 /***********************************************************************************************************************

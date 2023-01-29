@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_sau_user.c
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for SAU module.
-* Creation Date: 2022/7/14
+* Creation Date: 2023/1/22
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -270,6 +270,7 @@ static void r_uart1_callback_softwareoverrun(uint16_t rx_data)
 static void r_uart1_callback_sendend(void)
 {
     /* Start user code. Do not edit comment generated here */
+    UART1_TXD_MODE = PIN_MODE_AS_INPUT;
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************
@@ -448,11 +449,16 @@ uint8_t L_BLE_INIT(void){
     R_UART1_Start();
     BLE_RESET = PIN_LEVEL_AS_LOW;
     BLE_POW_CNT = POWER_ON;
-    delayInMs(2);
+    delayInMs(10);
     BLE_RESET = PIN_LEVEL_AS_HIGH;
-    delayInMs(500);
+    delayInMs(1000);
     return memcmp(receivedFromBle, (uint8_t *)("%REBOOT%"),(uint8_t) 8, MAX_BLE_DATA_LENGTH);
 }
+
+void clrBleBuffer(void){
+    memclr(receivedFromBle, MAX_BLE_DATA_LENGTH);
+}
+
 
 
 void L_BLE_RESTART_FROM_STOP_MODE(void){
@@ -463,14 +469,30 @@ void L_BLE_RESTART_FROM_STOP_MODE(void){
 }
 
 uint8_t L_BLE_SEND_COMMAND(char *command,uint8_t comandLength,char *expectAck,uint8_t ackLength ){
+    UART1_TXD_MODE = PIN_MODE_AS_OUTPUT;
     memclr(receivedFromBle, reset_DTC10());
     R_UART1_Receive(receivedFromBle,ackLength);
     R_UART1_Send((uint8_t *)command, comandLength);
-    delayInMs(500);
+    delayInMs(1000);
     return memcmp(receivedFromBle, (uint8_t *)expectAck, ackLength, MAX_BLE_DATA_LENGTH);
 }
 
 uint8_t L_BLE_FACTORY_MODE_SETTING(void){
+
+    L_BLE_SEND_COMMAND("$$$", 3, "CMD>", 4);
+    L_BLE_SEND_COMMAND("SF,1\r", 5, "REBOOT", 6);
+    L_BLE_SEND_COMMAND("$$$", 3, "CMD>", 4);
+    if(L_BLE_SEND_COMMAND("SS,40\r", 6, "AOK", 3)==0){
+        L_BLE_RESET_TO_FACTORY_SETTING();
+    }
+    L_BLE_SEND_COMMAND((char *)setBleDeviceNameCommand, 12, "AOK", 3);
+    L_BLE_SEND_COMMAND("SW,0B,07\r", 9, "AOK", 3);
+    L_BLE_SEND_COMMAND("SW,0A,04\r", 9, "AOK", 3);
+    L_BLE_SEND_COMMAND("SO,1\r", 5, "AOK", 3);
+                                //                                     L_BLE_RESET_TO_FACTORY_SETTING();
+                                // delayInMs(1000);
+    L_BLE_SEND_COMMAND("R,1\r", 4, "Rebooting", 9);
+    return 1;
     if (L_BLE_SEND_COMMAND("$$$", 3, "CMD>", 4))
     {
         if (L_BLE_SEND_COMMAND("SS,40\r", 6, "AOK", 3))
@@ -493,6 +515,12 @@ uint8_t L_BLE_FACTORY_MODE_SETTING(void){
             }
         }
     }
+    L_BLE_SEND_COMMAND("R,1\r", 4, "Rebooting", 9);
     return 0;
+}
+void L_BLE_RESET_TO_FACTORY_SETTING(void){
+    uint8_t RESET_TO_FACTORY_SETTING[] = {'S','F',',','2','\r'};
+    L_BLE_SEND_COMMAND("$$$", 3, "CMD>", 4);
+    R_UART1_Send(&RESET_TO_FACTORY_SETTING[0], 5);
 }
 /* End user code. Do not edit comment generated here */

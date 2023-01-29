@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_rtc.h
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for RTC module.
-* Creation Date: 2022/7/14
+* Creation Date: 2023/1/22
 ***********************************************************************************************************************/
 #ifndef RTC_H
 #define RTC_H
@@ -129,16 +129,9 @@ Global functions
 void R_RTC_Create(void);
 void R_RTC_Start(void);
 void R_RTC_Stop(void);
-MD_STATUS R_RTC_Get_CounterValue(rtc_counter_value_t * const counter_read_val);
-MD_STATUS R_RTC_Set_CounterValue(rtc_counter_value_t counter_write_val);
-void R_RTC_Set_AlarmOn(void);
-void R_RTC_Set_AlarmOff(void);
-void R_RTC_Set_AlarmValue(rtc_alarm_value_t alarm_val);
-void R_RTC_Get_AlarmValue(rtc_alarm_value_t * const alarm_val);
 MD_STATUS R_RTC_Set_ConstPeriodInterruptOn(rtc_int_period_t period);
 void R_RTC_Set_ConstPeriodInterruptOff(void);
 static void r_rtc_callback_constperiod(void);
-static void r_rtc_callback_alarm(void);
 /* Start user code for function. Do not edit comment generated here */
 void modeInit(uint8_t mode);
 void factory_test_mode_init_setting(void);

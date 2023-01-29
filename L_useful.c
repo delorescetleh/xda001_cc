@@ -239,7 +239,7 @@ extern void memcpy(uint8_t *target, uint8_t *source, uint8_t length)
 
 extern void delayInMs(uint32_t ms){
     const uint16_t ONE_MS_BASE = 800;
-    ms = ms * ONE_MS_BASE;
+     ms = ms * ONE_MS_BASE;
     while(ms--);
 }
 // Success : final compare offset , Fail: 0

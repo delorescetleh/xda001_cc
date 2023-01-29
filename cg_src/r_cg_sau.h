@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_sau.h
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for SAU module.
-* Creation Date: 2022/7/14
+* Creation Date: 2023/1/22
 ***********************************************************************************************************************/
 #ifndef SAU_H
 #define SAU_H
@@ -312,7 +312,7 @@ uint8_t checkLoraMessage(void);
 void L_LORA_STOP(void);
 uint8_t L_LORA_INIT(void);
 uint8_t doSendLoraData(void);
-
+void clrBleBuffer(void);
 void L_BLE_RESTART_FROM_STOP_MODE(void);
 uint8_t L_BLE_POWER_ON_AND_CHECK_GET_REBOOT(void);
 void L_BLE_POW_OFF(void);
@@ -345,5 +345,6 @@ void set_TXD1_as_Input_Mode(void);
 void gotoSleepBLE(void);
 void wakeUpBLE(void);
 void F_BLE_procedure(void);
+void L_BLE_RESET_TO_FACTORY_SETTING(void);
 /* End user code. Do not edit comment generated here */
 #endif

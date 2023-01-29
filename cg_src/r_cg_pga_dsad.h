@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_pga_dsad.h
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for PGIA module.
-* Creation Date: 2022/7/14
+* Creation Date: 2023/1/23
 ***********************************************************************************************************************/
 #ifndef PGIA_H
 #define PGIA_H
@@ -194,6 +194,7 @@ Macro definitions (Register bit)
 Macro definitions
 ***********************************************************************************************************************/
 #define _01_PGA_MULTIPLEXER0_SAMPLE_COUNT                   (0x01U) /* sample count per autoscan cycle */
+#define _01_PGA_MULTIPLEXER2_SAMPLE_COUNT                   (0x01U) /* sample count per autoscan cycle */
 #define _01_PGA_MULTIPLEXER3_SAMPLE_COUNT                   (0x01U) /* sample count per autoscan cycle */
 
 /***********************************************************************************************************************
@@ -217,5 +218,11 @@ void clr_dsadc_buf(void);
 void L_calibration_pt100(void);
 void L_pt100_calibration(int *result);
 void getR_Line_Base_On_100100_RPT100(void);
+
+void L_DSADC_CREATE_FOR_R_LINE_I_REF(void);
+
+uint8_t Gtotal0(uint8_t channel);
+int32_t convert_signal_end_value_as_uv(int32_t value, uint8_t multiplex_channel);
+int32_t convert_differential_value_as_uv(int32_t value, uint8_t multiplex_channel);
 /* End user code. Do not edit comment generated here */
 #endif

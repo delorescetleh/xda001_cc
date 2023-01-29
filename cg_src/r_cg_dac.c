@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_dac.c
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for DAC module.
-* Creation Date: 2022/7/10
+* Creation Date: 2023/1/23
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -64,49 +64,48 @@ void R_DAC_Create(void)
     }
 
     DACEN = 1U;     /* enables input clock supply */
-    DACM0 |= _00_DA1_FLUSH_RIGHT_FORMAT | _00_DA1_NORMAL_MODE;
-    DACM1 = _02_DA1_REFERENCE_SBIAS;
-    DAC1DR = _0400_DA1_COUVERSION_VALUE;
+    DACM0 |= _00_DA0_NORMAL_MODE;
+    DAC0DR = _0B_DA0_COUVERSION_VALUE;
 
 }
 /***********************************************************************************************************************
-* Function Name: R_DAC1_Start
-* Description  : This function enables the DA converter channel1.
+* Function Name: R_DAC0_Start
+* Description  : This function enables the DA converter channel0.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_DAC1_Start(void)
+void R_DAC0_Start(void)
 {
     volatile uint16_t w_count;
 
-    DAC1PON = 1U;   /* enables D/A conversion operation */
+    DAC0PON = 1U;   /* enables D/A conversion operation */
 
     /* Change the waiting time according to the system */
-    for (w_count = 0U; w_count <= DA1_WAITTIME; w_count++)
+    for (w_count = 0U; w_count <= DA0_WAITTIME; w_count++)
     {
         NOP();
     }
 }
 /***********************************************************************************************************************
-* Function Name: R_DAC1_Stop
-* Description  : This function stops the DA converter channel1.
+* Function Name: R_DAC0_Stop
+* Description  : This function stops the DA converter channel0.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_DAC1_Stop(void)
+void R_DAC0_Stop(void)
 {
-    DAC1PON = 0U;   /* stops D/A conversion operation */
+    DAC0PON = 0U;   /* stops D/A conversion operation */
 }
 /***********************************************************************************************************************
-* Function Name: R_DAC1_Set_ConversionValue
-* Description  : This function sets the DA converter channel1 value.
+* Function Name: R_DAC0_Set_ConversionValue
+* Description  : This function sets the DA converter channel0 value.
 * Arguments    : reg_value -
 *                    value of conversion
 * Return Value : None
 ***********************************************************************************************************************/
-void R_DAC1_Set_ConversionValue(uint8_t regvalue)
+void R_DAC0_Set_ConversionValue(uint8_t regvalue)
 {
-    DAC1DR = regvalue;
+    DAC0DR = regvalue;
 }
 /***********************************************************************************************************************
 * Function Name: R_DAC_Set_PowerOff
