@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_rtc_user.c
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for RTC module.
-* Creation Date: 2022/7/14
+* Creation Date: 2023/2/14
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -83,23 +83,25 @@ static void __near r_rtc_interrupt(void)
 static void r_rtc_callback_constperiod(void)
 {
     /* Start user code. Do not edit comment generated here */
-    if (!rtc_counter)
-    {
-        R_IT8Bit0_Channel0_Start();
-        switch (mode)
-        {
-        case factory_mode:
-            factory_mode_init_setting();
-            break;        
-        case normal_mode:
-            normal_mode_init_setting();
-            break;
-        case factory_test_mode:
-            factory_test_mode_init_setting();
-            break;
-        }
-    }
-    rtc_counter--;
+    events |= RTC_NOTIFICATION_EVENT;
+
+    // if (!rtc_counter)
+    // {
+    //     R_IT8Bit0_Channel0_Start();
+    //     switch (mode)
+    //     {
+    //     case factory_mode:
+    //         factory_mode_init_setting();
+    //         break;        
+    //     case normal_mode:
+    //         normal_mode_init_setting();
+    //         break;
+    //     case factory_test_mode:
+    //         factory_test_mode_init_setting();
+    //         break;
+    //     }
+    // }
+    // rtc_counter--;
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************
@@ -116,28 +118,28 @@ static void r_rtc_callback_alarm(void)
 
 /* Start user code for adding. Do not edit comment generated here */
 
-void factory_test_mode_init_setting(void){
-    rtc_counter = RTC_TIME_SPEED / 10;
-    L_EEPROM_procedure_init();
-    L_PCB_TEMP_procedure_init();
-    L_PT100_Procedure_init();
-    if (countDownLoRaCounter()==0)
-    {
-        L_Lora_procedure_init();
-    }
-}
-void factory_mode_init_setting(void){
-    // rtc_counter = RTC_TIME_SPEED / 3;
-}
-void normal_mode_init_setting(void){
-    rtc_counter = RTC_TIME_SPEED;
-    L_EEPROM_procedure_init();
-    L_PCB_TEMP_procedure_init();
-    L_PT100_Procedure_init();
-    if (countDownLoRaCounter()==0)
-    {
-        L_Lora_procedure_init();
-    }
-}
+// void factory_test_mode_init_setting(void){
+//     rtc_counter = RTC_TIME_SPEED / 10;
+//     L_EEPROM_procedure_init();
+//     L_PCB_TEMP_procedure_init();
+//     L_PT100_Procedure_init();
+//     if (countDownLoRaCounter()==0)
+//     {
+//         L_Lora_procedure_init();
+//     }
+// }
+// void factory_mode_init_setting(void){
+//     // rtc_counter = RTC_TIME_SPEED / 3;
+// }
+// void normal_mode_init_setting(void){
+//     rtc_counter = RTC_TIME_SPEED;
+//     L_EEPROM_procedure_init();
+//     L_PCB_TEMP_procedure_init();
+//     L_PT100_Procedure_init();
+//     if (countDownLoRaCounter()==0)
+//     {
+//         L_Lora_procedure_init();
+//     }
+// }
 
 /* End user code. Do not edit comment generated here */

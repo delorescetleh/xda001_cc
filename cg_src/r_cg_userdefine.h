@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_userdefine.h
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file includes user definition.
-* Creation Date: 2022/7/14
+* Creation Date: 2023/2/14
 ***********************************************************************************************************************/
 #ifndef _USER_DEF_H
 #define _USER_DEF_H
@@ -45,6 +45,7 @@ User definitions
 #include "r_cg_iica.h"
 #include "r_cg_dtc.h"
 #include "r_cg_intp.h"
+# include "r_cg_tau.h"
 
 # include "L_useful.h"
 # include "L_factory.h"
@@ -53,7 +54,72 @@ User definitions
 #include "L_BLE.h"
 #include "L_PCB_TEMP.h"
 #include "L_Lora.h"
-# include "L_normal.h"
+#include "L_normal.h"
+#include "L_BAT.h"
+
+/*BOARD SUPPORT AREA START*/
+#define BLE_POW_CNT_MODE              PM0_bit.no5
+#define BLE_POW_CNT                   P0_bit.no5
+#define BLE_UART_RXD_IND              P5_bit.no3
+#define BLE_UART_RXD_IND_MODE         PM5_bit.no3
+#define BLE_STATUS_1                  P12_bit.no1
+#define BLE_NO_CONNECT                P12_bit.no1
+#define BLE_NO_CONNECT_MODE           PM12_bit.no1
+#define BLE_NO_CONNECT_MODE_PULL_UP   PU12_bit.no1
+#define BLE_RESET                     P5_bit.no2
+#define BLE_RESET_MODE                PM5_bit.no2//PM5_bit.no2
+
+#define UART1_TXD                     P5_bit.no0
+#define UART1_TXD_MODE                PM5_bit.no0
+#define UART1_RXD                     P5_bit.no1
+#define UART1_RXD_MODE                PM5_bit.no1
+
+#define LORA_POW_CNT                  P7_bit.no1
+#define LORA_POW_CNT_MODE             PM7_bit.no1
+#define LORA_STA                      P7_bit.no0
+#define LORA_STA_MODE                 PM7_bit.no0
+#define LORA_READY                    P3_bit.no2
+#define LORA_READY_MODE               PM3_bit.no2
+#define LORA_RESET                    P3_bit.no5
+#define LORA_RESET_MODE               PM3_bit.no5
+
+#define UART0_TXD                     P3_bit.no7
+#define UART0_TXD_MODE                PM3_bit.no7
+#define UART0_RXD                     P3_bit.no6
+#define UART0_RXD_MODE                PM3_bit.no6
+
+#define BAT_ADC_ON                    P0_bit.no1
+
+/*BOARD SUPPORT AREA END*/
+
+
+#define BLE_FACTORY_SETTING_FINISH 0xFF
+#define BLE_SHUT_DOWN 0xA5
+enum POWER_MODE
+{
+    POWER_SAVING,
+    POWER_NORMAL,
+    POWER_STOP_CHARGING,
+};
+extern enum POWER_MODE power_mode;
+enum ADC_MODE
+{
+    BATTERY_VOLTAGE_FETCH,
+    ADC_STANDBY
+};
+extern enum ADC_MODE adc_mode;
+enum battery_process_t
+{
+    BATTERY_PROCESS_END                     ,
+    BATTERY_PROCESS_START                   ,
+    POWER_OFF_BATTERY_FETCH                 ,
+    SAVE_BAT_DATA                           ,
+} ;
+extern enum battery_process_t battery_process;
+
+
+#define	VBAT_ADC_RAW_CONVERTION_RATE					 	0.01886809269; // ((ADCvalue/255) * 1.45) * ((R5+R6)/R6)
+extern uint32_t adc10_mean;
 // SHOULD SET TIMER LET TIME_SPEED * BASE_TIME = 1 MIN
 #define TEST_FACTORY_MODE_NOW           0x00
 #define RTC_TIME_SPEED 60
@@ -62,13 +128,11 @@ User definitions
 
 //########################################################################
 #define TIMER_PERIODIC_EVENT                        0x01 // should not use in V4 version , change to OVER_TIME_EVENT 
-// #define DSADC_NOTIFICATION_EVENT                    0x02
+#define DSADC_NOTIFICATION_EVENT                    0x02
 #define BLE_TIMER_PERIODIC_EVENT                    0x04
-// #define LoRA_NOTIFICATION_EVENT                     0x08
-// #define EEPROM_NOTIFICATION_EVENT                   0x10
-// #define ADC_NOTIFICATION_EVENT                      0x20
-// #define RTC_NOTIFICATION_EVENT                      0x40
-// #define MINUTES_EVENT                               0x80
+#define ADC8_NOTIFICATION_EVENT                     0x08
+#define ADC10_NOTIFICATION_EVENT                    0x10
+#define RTC_NOTIFICATION_EVENT                      0x40
 
 // DATA FLASH REGISTER 
 #define   TESTED                          0   // 1 BYTE  , SHOW H/W TESTED 
@@ -87,31 +151,7 @@ User definitions
 #define EEPROM_SLAVE_ADDR_B0           0xa0
 #define EEPROM_SLAVE_ADDR_B1           0xa2
 
-#define BLE_UART_RXD_IND      P5_bit.no3
-#define BLE_UART_RXD_IND_MODE         PM5_bit.no3
 
-#define BLE_STATUS_1          P12_bit.no1
-#define BLE_NO_CONNECT        P12_bit.no1
-#define BLE_NO_CONNECT_MODE   PM12_bit.no1
-#define BLE_NO_CONNECT_MODE_PULL_UP PU12_bit.no1
-
-#define BLE_RESET         P5_bit.no2
-#define BLE_RESET_MODE         PM5_bit.no2//PM5_bit.no2
-
-#define UART1_TXD_MODE         PM5_bit.no0
-#define UART0_TXD_MODE         PM3_bit.no7
-
-
-#define IS_LORA_PROGRAMMING  !(P0_bit.no7)// P3_bit.no2
-#define IN_FACTORY  !(P0_bit.no6)// P3_bit.no2
-
-#define LORA_READY  P3_bit.no2// P3_bit.no2
-#define LORA_READY_MODE   PM3_bit.no2
-#define LORA_RESET  P3_bit.no5//P3_bit.no5
-#define LORA_RESET_MODE   PM3_bit.no5
-#define LORA_STA    P7_bit.no0
-#define LORA_STA_MODE   PM7_bit.no0
-#define LORA_POW_CNT    P7_bit.no1
 
 #define MAX_ADC_BUF 8
 
@@ -120,22 +160,14 @@ User definitions
 #define PIN_LEVEL_AS_LOW 0
 #define PIN_LEVEL_AS_HIGH 1
 
-#define P_STATUS     P0_bit.no2//P0_bit.no2
-#define P_STATUS_MODE   PM0_bit.no2
 
-#define SWITCH_LORA  P0_bit.no6//P0_bit.no6
-
-#define P_TEST       P0_bit.no1//P0_bit.no1
 
 
 #define POWER_OFF  1
 #define POWER_ON  0
 
 
-//#define LORA_POW_CNT    P0_bit.no6 //v2
-#define BLE_POW_CNT_MODE  PM0_bit.no5
-#define BLE_POW_CNT     P0_bit.no5//P0_bit.no5
-#define EPROM_POW_CNT   P0_bit.no4//P0_bit.no4
+
 
 #define TRUE 1
 #define FALSE 0
@@ -235,5 +267,7 @@ extern uint8_t PCB_TEMPERATURE_F_Done;
 extern uint8_t BLE_F_Done;
 extern uint8_t setBleDeviceNameCommand[];
 extern uint16_t K;
+extern uint8_t ADC8;
+extern uint8_t ADC10;
 /* End user code. Do not edit comment generated here */
 #endif

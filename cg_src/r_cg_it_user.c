@@ -58,8 +58,7 @@ Global variables and functions
 static void __near r_it_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
-    // *timer_100ms_counter_ptr++;
-    // events |=TIMER_PERIODIC_EVENT;
+    events |=TIMER_PERIODIC_EVENT;
     /* End user code. Do not edit comment generated here */
 }
 

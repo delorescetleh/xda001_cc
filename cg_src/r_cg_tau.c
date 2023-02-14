@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_tau.c
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for TAU module.
-* Creation Date: 2022/6/22
+* Creation Date: 2023/2/14
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -82,39 +82,42 @@ void R_TAU0_Create(void)
     TMIF06 = 0U;    /* clear INTTM06 interrupt flag */
     TMMK07 = 1U;    /* disable INTTM07 interrupt */
     TMIF07 = 0U;    /* clear INTTM07 interrupt flag */
-    /* Set INTTM00 low priority */
-    TMPR100 = 1U;
-    TMPR000 = 1U;
-    /* Channel 0 used as interval timer */
-    TMR00 = _0000_TAU_CLOCK_SELECT_CKM0 | _0000_TAU_CLOCK_MODE_CKS | _0000_TAU_TRIGGER_SOFTWARE | 
-            _0000_TAU_TIMN_EDGE_FALLING | _0000_TAU_MODE_INTERVAL_TIMER | _0000_TAU_START_INT_UNUSED;
-    TDR00 = _063F_TAU_TDR00_VALUE;
-    TO0 &= (uint16_t)~_0001_TAU_CH0_OUTPUT_VALUE_1;
-    TOE0 &= (uint16_t)~_0001_TAU_CH0_OUTPUT_ENABLE;
+    /* Set INTTM01 low priority */
+    TMPR101 = 1U;
+    TMPR001 = 1U;
+    /* Channel 1 used as interval timer */
+    TMR01 = _0000_TAU_CLOCK_SELECT_CKM0 | _0000_TAU_CLOCK_MODE_CKS | _0000_TAU_16BITS_MODE | 
+            _0000_TAU_TRIGGER_SOFTWARE | _0000_TAU_TIMN_EDGE_FALLING | _0000_TAU_MODE_INTERVAL_TIMER | 
+            _0000_TAU_START_INT_UNUSED;
+    TDR01 = _031F_TAU_TDR01_VALUE;
+    TOM0 &= (uint16_t)~_0002_TAU_CH1_SLAVE_OUTPUT;
+    TOL0 &= (uint16_t)~_0002_TAU_CH1_OUTPUT_LEVEL_L;
+    TO0 &= (uint16_t)~_0002_TAU_CH1_OUTPUT_VALUE_1;
+    TOE0 &= (uint16_t)~_0002_TAU_CH1_OUTPUT_ENABLE;
 }
 /***********************************************************************************************************************
-* Function Name: R_TAU0_Channel0_Start
-* Description  : This function starts TAU0 channel 0 counter.
+* Function Name: R_TAU0_Channel1_Start
+* Description  : This function starts TAU0 channel 1 counter.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_TAU0_Channel0_Start(void)
+void R_TAU0_Channel1_Start(void)
 {
-    TMIF00 = 0U;    /* clear INTTM00 interrupt flag */
-    TMMK00 = 0U;    /* enable INTTM00 interrupt */
-    TS0 |= _0001_TAU_CH0_START_TRG_ON;
+    TMIF01 = 0U;    /* clear INTTM01 interrupt flag */
+    TMMK01 = 0U;    /* enable INTTM01 interrupt */
+    TS0 |= _0002_TAU_CH1_START_TRG_ON;
 }
 /***********************************************************************************************************************
-* Function Name: R_TAU0_Channel0_Stop
-* Description  : This function stops TAU0 channel 0 counter.
+* Function Name: R_TAU0_Channel1_Stop
+* Description  : This function stops TAU0 channel 1 counter.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_TAU0_Channel0_Stop(void)
+void R_TAU0_Channel1_Stop(void)
 {
-    TT0 |= _0001_TAU_CH0_STOP_TRG_ON;
-    TMMK00 = 1U;    /* disable INTTM00 interrupt */
-    TMIF00 = 0U;    /* clear INTTM00 interrupt flag */
+    TT0 |= _0002_TAU_CH1_STOP_TRG_ON;
+    TMMK01 = 1U;    /* disable INTTM01 interrupt */
+    TMIF01 = 0U;    /* clear INTTM01 interrupt flag */
 }
 
 /* Start user code for adding. Do not edit comment generated here */

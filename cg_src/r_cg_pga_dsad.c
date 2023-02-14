@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_pga_dsad.c
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for PGIA module.
-* Creation Date: 2022/7/14
+* Creation Date: 2023/2/14
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -86,16 +86,20 @@ void R_PGA_DSAD_Create(void)
     DSADSPR0 = 1U;
     DSADMR |= _00_PGA_DSAD_TRIGGER_SOFTWARE;
     DSADCTL = _00_DSAD_CONVERSION_STOP | _00_DSAD_STABILIZATION_TIME_3T | _00_DSAD_SCAN_MODE_CONTINUOUS | 
-              _00_DSAD_INPUT3_ENABLE | _04_DSAD_INPUT2_DISABLE | _02_DSAD_INPUT1_DISABLE | 
-              _00_DSAD_INPUT0_ENABLE;
-    PGA0CTL0 = _40_PGA_MULTIPLEXERn_SAMPLE_RATIO_256 | _10_PGA_MULTIPLEXERn_GSET01_8 | _03_PGA_MULTIPLEXERn_GSET02_8;
-    PGA3CTL0 = _40_PGA_MULTIPLEXERn_SAMPLE_RATIO_256 | _00_PGA_MULTIPLEXERn_GSET01_1 | _00_PGA_MULTIPLEXERn_GSET02_1;
+              _00_DSAD_INPUT3_ENABLE | _00_DSAD_INPUT2_ENABLE | _02_DSAD_INPUT1_DISABLE | _00_DSAD_INPUT0_ENABLE;
+    PGA0CTL0 = _60_PGA_MULTIPLEXERn_SAMPLE_RATIO_512 | _10_PGA_MULTIPLEXERn_GSET01_8 | _03_PGA_MULTIPLEXERn_GSET02_8;
+    PGA2CTL0 = _60_PGA_MULTIPLEXERn_SAMPLE_RATIO_512 | _00_PGA_MULTIPLEXERn_GSET01_1 | _00_PGA_MULTIPLEXERn_GSET02_1;
+    PGA3CTL0 = _60_PGA_MULTIPLEXERn_SAMPLE_RATIO_512 | _0C_PGA_MULTIPLEXERn_GSET01_4 | _02_PGA_MULTIPLEXERn_GSET02_4;
     PGA0CTL1 = _00_PGA_MULTIPLEXER0_DIFFERENTIAL | _10_PGA_MULTIPLEXERn_OFFSET_16;
+    PGA2CTL1 = _10_PGA_MULTIPLEXERn_OFFSET_16;
     PGA3CTL1 = _40_PGA_MULTIPLEXER3_EXTERNAL_DIFFERENTIAL | _10_PGA_MULTIPLEXERn_OFFSET_16;
     PGA0CTL2 = _01_PGA_MULTIPLEXER0_SAMPLE_COUNT;
+    PGA2CTL2 = _01_PGA_MULTIPLEXER2_SAMPLE_COUNT;
     PGA3CTL2 = _01_PGA_MULTIPLEXER3_SAMPLE_COUNT;
     PGA0CTL3 = _80_PGA_MULTIPLEXERn_MUMBER_MODE_255 | _0C_PGA_MULTIPLEXERn_AVG_MEAM_VALUE | 
                _03_PGA_MULTIPLEXERn_AVG_UNIT_64;
+    PGA2CTL3 = _00_PGA_MULTIPLEXERn_MUMBER_MODE_8032 | _08_PGA_MULTIPLEXERn_AVG_CONVERSION_OCCURS | 
+               _02_PGA_MULTIPLEXERn_AVG_UNIT_32;
     PGA3CTL3 = _80_PGA_MULTIPLEXERn_MUMBER_MODE_255 | _0C_PGA_MULTIPLEXERn_AVG_MEAM_VALUE | 
                _03_PGA_MULTIPLEXERn_AVG_UNIT_64;
     PGABOD = _00_DSAD_DISCONNECTION_DETECTION_UNUSED;

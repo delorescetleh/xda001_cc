@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_adc_user.c
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for ADC module.
-* Creation Date: 2022/7/14
+* Creation Date: 2023/2/14
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -41,23 +41,16 @@ Pragma directive
 ***********************************************************************************************************************/
 #pragma interrupt r_adc_interrupt(vect=INTAD)
 /* Start user code for pragma. Do not edit comment generated here */
-#define SENSOR_REF_TEMP_SCALED (250)
-#define INT_REF_V_SCALED (145000L)
-#define INT_REF_TEMP_SCALED (105000L)
-#define TEMP_SENSOR_GAIN_SCALED (36)
+
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
-volatile uint16_t volt_buf[MAX_ADC_BUF];
-volatile uint16_t temp_buf[MAX_ADC_BUF];
-uint16_t ADCtemp=0,ADCvolt=0;
-int16_t g_tempv_int;
-int16_t voltIndex=MAX_ADC_BUF;
-int16_t tempIndex=MAX_ADC_BUF;
-// uint8_t adc_counter = 0;
+uint8_t ADC10 = 0;
+uint8_t ADC8 = 0;
+uint32_t adc10_mean = 0;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -71,44 +64,19 @@ static void __near r_adc_interrupt(void)
     /* Start user code. Do not edit comment generated here */
     switch (ADS)
     {
-    case _80_AD_INPUT_TEMPERSENSOR:
-        R_ADC_Get_Result(&ADCtemp);
-        temp_buf[tempIndex] = ADCtemp;
-        ADS = _81_AD_INPUT_INTERREFVOLT;
-        tempIndex--;
-        if (!tempIndex){
-            tempIndex = MAX_ADC_BUF;
-        }
+    case _08_AD_INPUT_CHANNEL_8:
+        events |= ADC8_NOTIFICATION_EVENT;
+        R_ADC_Get_Result_8bit(&ADC8);
         break;
-    case _81_AD_INPUT_INTERREFVOLT:
-        R_ADC_Get_Result(&ADCvolt);
-        volt_buf[voltIndex] = ADCvolt;
-        ADS = _80_AD_INPUT_TEMPERSENSOR;
-        voltIndex--;
-        if (!voltIndex){
-            voltIndex = MAX_ADC_BUF;
-        }
+    case _0A_AD_INPUT_CHANNEL_10:
+        events |= ADC10_NOTIFICATION_EVENT;
+        R_ADC_Get_Result_8bit(&ADC10);
         break;
     }
+    R_ADC_Start();
     /* End user code. Do not edit comment generated here */
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-void init_pcb_temperature(void){
-    memclr((uint8_t *)&temp_buf[0], MAX_ADC_BUF*2);
-    memclr((uint8_t *)&volt_buf[0], MAX_ADC_BUF*2);
-}
-void get_pcb_temperature(int *pcbTemperature){
-    int i;
-    int16_t temp = 0;
-    for (i = 1; i < MAX_ADC_BUF;i++){
-        g_tempv_int = (int16_t)(((INT_REF_V_SCALED)*temp_buf[i] /
-                                volt_buf[i]) -
-                                (INT_REF_TEMP_SCALED));
 
-        temp += (int16_t)(-(g_tempv_int / (TEMP_SENSOR_GAIN_SCALED)) +
-                                    SENSOR_REF_TEMP_SCALED);
-    }
-    *pcbTemperature = temp / (MAX_ADC_BUF-1);
-}
 /* End user code. Do not edit comment generated here */

@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_it8bit.c
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for IT8Bit module.
-* Creation Date: 2022/7/14
+* Creation Date: 2023/2/14
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -63,8 +63,8 @@ void R_IT8Bit0_Channel0_Create(void)
     ITPR100 = 1U;
     ITPR000 = 1U;
     TRTCR0 |= _00_IT8BIT_8BIT_COUNT_MODE;
-    TRTMD0 |= _06_IT8BIT_CLOCK0_64;
-    TRTCMP00 = _CC_IT8BIT_CMP00_VALUE;
+    TRTMD0 |= _02_IT8BIT_CLOCK0_4;
+    TRTCMP00 = _F5_IT8BIT_CMP00_VALUE;
 }
 /***********************************************************************************************************************
 * Function Name: R_IT8Bit0_Channel0_Start

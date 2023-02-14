@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_adc.h
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for ADC module.
-* Creation Date: 2022/7/14
+* Creation Date: 2023/2/14
 ***********************************************************************************************************************/
 #ifndef ADC_H
 #define ADC_H
@@ -116,6 +116,7 @@ Macro definitions
 ***********************************************************************************************************************/
 #define _FF_AD_ADUL_VALUE                       (0xFFU) 
 #define _00_AD_ADLL_VALUE                       (0x00U) 
+#define AD_WAITTIME                             (0x0AU)
 
 /***********************************************************************************************************************
 Typedef definitions
@@ -148,7 +149,7 @@ void R_ADC_Start(void);
 void R_ADC_Stop(void);
 void R_ADC_Set_OperationOn(void);
 void R_ADC_Set_OperationOff(void);
-void R_ADC_Get_Result(uint16_t * const buffer);
+void R_ADC_Get_Result_8bit(uint8_t * const buffer);
 /* Start user code for function. Do not edit comment generated here */
 void init_pcb_temperature(void);
 void get_pcb_temperature(int *pcb_temperature);

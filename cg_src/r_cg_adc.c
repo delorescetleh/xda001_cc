@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_adc.c
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for ADC module.
-* Creation Date: 2022/7/14
+* Creation Date: 2023/2/14
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -55,6 +55,8 @@ Global variables and functions
 ***********************************************************************************************************************/
 void R_ADC_Create(void)
 {
+    volatile uint16_t w_count;
+
     ADCEN = 1U;     /* enables input clock supply */
     ADM0 = 0x00U;  /* disable AD conversion and clear ADM0 register */
     ADMK = 1U;      /* disable INTAD interrupt */
@@ -62,16 +64,23 @@ void R_ADC_Create(void)
     /* Set INTAD low priority */
     ADPR1 = 1U;
     ADPR0 = 1U;
-    /* Set ANI8 pin */
-    PMC0 |= 0x08U;
-    PM0 |= 0x08U;
+    /* Set ANI10 pin */
+    PMC0 |= 0x20U;
+    PM0 |= 0x20U;
     /* Set ADC registers */
-    ADM0 = _08_AD_CONVERSION_CLOCK_32 | _00_AD_TIME_MODE_NORMAL_1;
-    ADM1 = _00_AD_TRIGGER_SOFTWARE | _00_AD_CONVMODE_CONSELECT;
-    ADM2 = _00_AD_POSITIVE_VDD | _00_AD_AREA_MODE_1 | _00_AD_RESOLUTION_10BIT;
+    ADM0 = _10_AD_CONVERSION_CLOCK_16 | _04_AD_TIME_MODE_LOWVOLTAGE_1;
+    ADM1 = _C0_AD_TRIGGER_HARDWARE_WAIT | _20_AD_CONVMODE_ONESELECT | _00_AD_TRIGGER_INTTM01;
+    ADM2 = _80_AD_POSITIVE_INTERVOLT | _00_AD_AREA_MODE_1 | _01_AD_RESOLUTION_8BIT;
     ADUL = _FF_AD_ADUL_VALUE;
     ADLL = _00_AD_ADLL_VALUE;
-    ADS = _80_AD_INPUT_TEMPERSENSOR;
+    ADS = _0A_AD_INPUT_CHANNEL_10;
+
+    /* Change the waitting time according to the system */
+    for (w_count = 0U; w_count < AD_WAITTIME; w_count++)
+    {
+        NOP();  
+    }
+
     ADCE = 1U;      /* enables A/D voltage comparator operation */
 }
 /***********************************************************************************************************************
@@ -84,7 +93,6 @@ void R_ADC_Start(void)
 {
     ADIF = 0U;      /* clear INTAD interrupt flag */
     ADMK = 0U;      /* enable INTAD interrupt */
-    ADCS = 1U;      /* enables conversion operation */
 }
 /***********************************************************************************************************************
 * Function Name: R_ADC_Stop
@@ -119,15 +127,15 @@ void R_ADC_Set_OperationOff(void)
     ADCE = 0U;      /* stops A/D voltage comparator operation */
 }
 /***********************************************************************************************************************
-* Function Name: R_ADC_Get_Result
-* Description  : This function returns the conversion result in the buffer.
+* Function Name: R_ADC_Get_Result_8bit
+* Description  : This function returns the higher 8 bits conversion result.
 * Arguments    : buffer -
 *                    the address where to write the conversion result
 * Return Value : None
 ***********************************************************************************************************************/
-void R_ADC_Get_Result(uint16_t * const buffer)
+void R_ADC_Get_Result_8bit(uint8_t * const buffer)
 {
-    *buffer = (uint16_t) (ADCR >> 6U);
+    *buffer = ADCRH;
 }
 
 /* Start user code for adding. Do not edit comment generated here */

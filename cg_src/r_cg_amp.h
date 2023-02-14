@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_amp.h
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for AMP module.
-* Creation Date: 2022/7/12
+* Creation Date: 2023/2/14
 ***********************************************************************************************************************/
 #ifndef AMP_H
 #define AMP_H
@@ -167,8 +167,8 @@ Typedef definitions
 Global functions
 ***********************************************************************************************************************/
 void R_AMP_Create(void);
-void R_AMP1_Start(void);
-void R_AMP1_Stop(void);
+void R_AMP0_Start(void);
+void R_AMP0_Stop(void);
 void R_AMP2_Start(void);
 void R_AMP2_Stop(void);
 void R_AMP_Set_PowerOn(void);

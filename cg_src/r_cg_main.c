@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_main.c
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2022/7/14
+* Creation Date: 2023/2/14
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -32,14 +32,13 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "r_cg_cgc.h"
 #include "r_cg_port.h"
+#include "r_cg_tau.h"
 #include "r_cg_it8bit.h"
 #include "r_cg_rtc.h"
 #include "r_cg_pga_dsad.h"
+#include "r_cg_amp.h"
+#include "r_cg_dac.h"
 #include "r_cg_adc.h"
-#include "r_cg_sau.h"
-#include "r_cg_iica.h"
-#include "r_cg_dtc.h"
-#include "r_cg_intp.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -48,16 +47,28 @@ Includes
 Pragma directive
 ***********************************************************************************************************************/
 /* Start user code for pragma. Do not edit comment generated here */
+#define RECORD_COUNTDOWN_SEC                20
+#define BATTERY_COUNTDOWN_SEC               10
+#define TEMPERATURE_COUNTDOWN_SEC           RECORD_COUNTDOWN_SEC
+#define DUST_COUNTDOWN_SEC                  RECORD_COUNTDOWN_SEC
+#define LORA_COUNTDOWN_SEC                  RECORD_COUNTDOWN_SEC
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
+uint16_t record_rtc_counter = RECORD_COUNTDOWN_SEC;
+uint16_t battery_rtc_counter = BATTERY_COUNTDOWN_SEC;
+uint16_t temperature_rtc_counter = TEMPERATURE_COUNTDOWN_SEC;
+uint16_t dust_rtc_counter = DUST_COUNTDOWN_SEC;
+uint16_t lora_rtc_counter = DUST_COUNTDOWN_SEC;
 void processMode(void);
 extern uint8_t mode=0;
 extern uint8_t events=0;
 extern void goToSleep(void);
+extern float vbat;
+struct battery_struct battery_data;
 /* End user code. Do not edit comment generated here */
 
 static void R_MAIN_UserInit(void);
@@ -71,30 +82,34 @@ void main(void)
 {
     R_MAIN_UserInit();
     /* Start user code. Do not edit comment generated here */
-    LORA_RESET = PIN_LEVEL_AS_LOW;
-    BLE_RESET = PIN_LEVEL_AS_LOW;
-    LORA_POW_CNT = POWER_OFF; /* LORA_RESET Should be output mode and set to low make sure lora module no working when system start*/ 
-    BLE_POW_CNT = POWER_OFF; /* Take Max 300mA */ 
-    EPROM_POW_CNT = POWER_OFF;/* Take Max 30mA */
-
-    delayInMs(1000);
-
-        if(P_TEST)
+    while (1)
+    {
+        if(events)
         {
-            mode = factory_mode;
+            if(events & ADC10_NOTIFICATION_EVENT)
+            {
+                events &= ~ADC10_NOTIFICATION_EVENT;
+                BATTERY_PROCESS();
+            }
+            if(events & RTC_NOTIFICATION_EVENT)
+            {
+                events &= ~RTC_NOTIFICATION_EVENT;
+                if (battery_rtc_counter>=BATTERY_COUNTDOWN_SEC)
+                {
+                    battery_rtc_counter = 0;
+                    battery_procedure_init(&battery_data);
+                    R_IT8Bit0_Channel0_Start();
+                }
+                battery_rtc_counter++;
+            }
+            if(events&TIMER_PERIODIC_EVENT)
+            {
+                events &= ~TIMER_PERIODIC_EVENT;           
+                battery_procedure();     
+            }  
         }
-        else
-        {
-            mode = normal_mode;
-        }
-
-        // mode = factory_test_mode;
-        // mode = lora_programming_mode;
-        // mode = factory_mode;
-        // mode = normal_mode;
-
-        processMode();
-        /* End user code. Do not edit comment generated here */
+    }
+    /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************
 * Function Name: R_MAIN_UserInit
@@ -106,42 +121,10 @@ static void R_MAIN_UserInit(void)
 {
     /* Start user code. Do not edit comment generated here */
     EI();
+    R_RTC_Start();
     /* End user code. Do not edit comment generated here */
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-void goToSleep(void){
 
-    if(P_TEST)
-    {
-        HALT();
-    }
-    else
-    {
-        // E1 TESTING
-        //HALT();
-        //
-        // NORMAL
-         STOP();
-        //
-    }
-}
-void processMode(void)
-{
-    switch (mode)
-    {
-    case normal_mode:
-        normal_process();
-        break;
-    case factory_mode:
-        factory_process();
-        break;
-    case lora_programming_mode:
-        lora_programming_process();
-        break;
-    case factory_test_mode:
-        factory_test_process();
-        break;                    
-    }
-}
 /* End user code. Do not edit comment generated here */

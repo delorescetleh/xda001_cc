@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_it8bit.h
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for IT8Bit module.
-* Creation Date: 2022/7/14
+* Creation Date: 2023/2/14
 ***********************************************************************************************************************/
 #ifndef IT8BIT_H
 #define IT8BIT_H
@@ -73,7 +73,7 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define _CC_IT8BIT_CMP00_VALUE                (0xCCU) /* 8-bit interval timer compare register 00 */
+#define _F5_IT8BIT_CMP00_VALUE                (0xF5U) /* 8-bit interval timer compare register 00 */
 #define _CC_IT8BIT_CMP01_VALUE                (0xCCU) /* 8-bit interval timer compare register 01 */
 
 /***********************************************************************************************************************
