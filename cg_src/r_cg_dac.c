@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for DAC module.
-* Creation Date: 2023/2/14
+* Creation Date: 2023/2/15
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -65,10 +65,7 @@ void R_DAC_Create(void)
 
     DACEN = 1U;     /* enables input clock supply */
     DACM0 |= _00_DA0_NORMAL_MODE;
-    DACM0 |= _00_DA1_FLUSH_RIGHT_FORMAT | _00_DA1_NORMAL_MODE;
-    DACM1 = _00_DA1_REFERENCE_AVDD;
-    DAC0DR = _0A_DA0_COUVERSION_VALUE;
-    DAC1DR = _0000_DA1_COUVERSION_VALUE;
+    DAC0DR = _0D_DA0_COUVERSION_VALUE;
 
 }
 /***********************************************************************************************************************
@@ -90,24 +87,6 @@ void R_DAC0_Start(void)
     }
 }
 /***********************************************************************************************************************
-* Function Name: R_DAC1_Start
-* Description  : This function enables the DA converter channel1.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_DAC1_Start(void)
-{
-    volatile uint16_t w_count;
-
-    DAC1PON = 1U;   /* enables D/A conversion operation */
-
-    /* Change the waiting time according to the system */
-    for (w_count = 0U; w_count <= DA1_WAITTIME; w_count++)
-    {
-        NOP();
-    }
-}
-/***********************************************************************************************************************
 * Function Name: R_DAC0_Stop
 * Description  : This function stops the DA converter channel0.
 * Arguments    : None
@@ -116,16 +95,6 @@ void R_DAC1_Start(void)
 void R_DAC0_Stop(void)
 {
     DAC0PON = 0U;   /* stops D/A conversion operation */
-}
-/***********************************************************************************************************************
-* Function Name: R_DAC1_Stop
-* Description  : This function stops the DA converter channel1.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_DAC1_Stop(void)
-{
-    DAC1PON = 0U;   /* stops D/A conversion operation */
 }
 /***********************************************************************************************************************
 * Function Name: R_DAC0_Set_ConversionValue
@@ -137,17 +106,6 @@ void R_DAC1_Stop(void)
 void R_DAC0_Set_ConversionValue(uint8_t regvalue)
 {
     DAC0DR = regvalue;
-}
-/***********************************************************************************************************************
-* Function Name: R_DAC1_Set_ConversionValue
-* Description  : This function sets the DA converter channel1 value.
-* Arguments    : reg_value -
-*                    value of conversion
-* Return Value : None
-***********************************************************************************************************************/
-void R_DAC1_Set_ConversionValue(uint8_t regvalue)
-{
-    DAC1DR = regvalue;
 }
 /***********************************************************************************************************************
 * Function Name: R_DAC_Set_PowerOff

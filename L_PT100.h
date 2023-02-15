@@ -1,19 +1,17 @@
 #include "r_cg_userdefine.h"
-#define PT100_PROCESS_START 15
-#define PT100_PROCESS_END 1
-#define PT100_PROCESS_TIMEOUT 20
+#ifndef _DSADC_DEF_H
+#define _DSADC_DEF_H
+typedef struct dsadc_struct
+{
+    uint8_t fetch_finish;
+    float pt100_temperature;
+    float pcb_temperature;
+} dsadc_data_t;
+void _convert_differential_value_as_uv_G64(int32_t *value);
+void _convert_signal_end_value_as_uv(int32_t *value);
+void _convert_differential_value_as_uv(int32_t *value, uint8_t g);
+void DSADC_PROCESS(void);
+void dsadc_procedure_init(struct dsadc_struct *_dsadc);
+void dsadc_procedure(void);
 
-#define PT100_CALIBRATION_PROCESS_START 15
-#define PT100_CALIBRATION_PROCESS_END 1
-#define PT100_CALIBRATION_PROCESS_TIMEOUT 20
-
-extern uint8_t pt100_process;
-extern uint8_t pt100_process_timeout_counter;
-
-extern uint8_t pt100_calibration_process;
-extern uint8_t pt100_calibration_process_timeout_counter;
-
-extern void L_PT100_Procedure(void);
-extern void L_PT100_Calibration_Procedure(void);
-void L_PT100_Calibration_Procedure_init(void);
-void L_PT100_Procedure_init(void);
+#endif

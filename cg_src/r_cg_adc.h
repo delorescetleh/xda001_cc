@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for ADC module.
-* Creation Date: 2023/2/14
+* Creation Date: 2023/2/15
 ***********************************************************************************************************************/
 #ifndef ADC_H
 #define ADC_H

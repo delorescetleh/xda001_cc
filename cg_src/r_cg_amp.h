@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for AMP module.
-* Creation Date: 2023/2/14
+* Creation Date: 2023/2/15
 ***********************************************************************************************************************/
 #ifndef AMP_H
 #define AMP_H
@@ -173,5 +173,6 @@ void R_AMP2_Start(void);
 void R_AMP2_Stop(void);
 void R_AMP_Set_PowerOn(void);
 /* Start user code for function. Do not edit comment generated here */
+void R_AMP_Set_PowerOff(void);
 /* End user code. Do not edit comment generated here */
 #endif

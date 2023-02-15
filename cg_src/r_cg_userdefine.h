@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file includes user definition.
-* Creation Date: 2023/2/14
+* Creation Date: 2023/2/15
 ***********************************************************************************************************************/
 #ifndef _USER_DEF_H
 #define _USER_DEF_H
@@ -46,13 +46,13 @@ User definitions
 #include "r_cg_dtc.h"
 #include "r_cg_intp.h"
 # include "r_cg_tau.h"
+# include "r_cg_dac.h"
 
 # include "L_useful.h"
 # include "L_factory.h"
 # include "L_EEPROM.h"
 #include "L_PT100.h"
 #include "L_BLE.h"
-#include "L_PCB_TEMP.h"
 #include "L_Lora.h"
 #include "L_normal.h"
 #include "L_BAT.h"
@@ -88,8 +88,8 @@ User definitions
 #define UART0_RXD                     P3_bit.no6
 #define UART0_RXD_MODE                PM3_bit.no6
 
-#define BAT_ADC_ON                    P0_bit.no1
-
+#define BAT_ADC_ON                    P0_bit.no1 // v7 only
+#define BUZ0                          P0_bit.no2 // v7 only
 /*BOARD SUPPORT AREA END*/
 
 
@@ -117,6 +117,15 @@ enum battery_process_t
 } ;
 extern enum battery_process_t battery_process;
 
+enum dsadc_process_t
+{
+    DSADC_PROCESS_END                     ,
+    DSADC_PROCESS_START                   ,
+    DSADC_PROCESS_WAIT_FETCH_FINISH       ,    
+    POWER_OFF_DSADC_FETCH                 ,
+    SAVE_DSADC_DATA                       ,
+} ;
+extern enum dsadc_process_t dsadc_process;
 
 #define	VBAT_ADC_RAW_CONVERTION_RATE					 	0.01886809269; // ((ADCvalue/255) * 1.45) * ((R5+R6)/R6)
 extern uint32_t adc10_mean;
@@ -133,6 +142,7 @@ extern uint32_t adc10_mean;
 #define ADC8_NOTIFICATION_EVENT                     0x08
 #define ADC10_NOTIFICATION_EVENT                    0x10
 #define RTC_NOTIFICATION_EVENT                      0x40
+
 
 // DATA FLASH REGISTER 
 #define   TESTED                          0   // 1 BYTE  , SHOW H/W TESTED 
@@ -239,7 +249,7 @@ extern uint32_t adc10_mean;
 extern uint8_t sendToLora[20];
 
 extern uint8_t mode;
-extern uint32_t Rpt100;
+extern float Rpt100;
 extern uint8_t events;
 extern uint8_t dsadc_ready;
 extern int dsadc_temperature;

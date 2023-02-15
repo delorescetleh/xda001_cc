@@ -238,9 +238,16 @@ extern void memcpy(uint8_t *target, uint8_t *source, uint8_t length)
 }
 
 extern void delayInMs(uint32_t ms){
-    const uint16_t ONE_MS_BASE = 800;
-    ms = ms * ONE_MS_BASE;
-    while(ms--);
+	const int16_t ONE_MS_BASE = 3000;
+    int16_t one_ms = ONE_MS_BASE;
+		while(ms!=0){
+		while(one_ms!=0)
+		{
+				one_ms--;
+		}
+		one_ms = ONE_MS_BASE;
+		ms--;
+		}
 }
 // Success : final compare offset , Fail: 0
 extern uint8_t memcmp(uint8_t *target,uint8_t *source,uint8_t length,uint8_t maxLength){

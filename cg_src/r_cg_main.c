@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2023/2/14
+* Creation Date: 2023/2/15
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -47,10 +47,9 @@ Includes
 Pragma directive
 ***********************************************************************************************************************/
 /* Start user code for pragma. Do not edit comment generated here */
-#define RECORD_COUNTDOWN_SEC                20
+#define RECORD_COUNTDOWN_SEC                5
 #define BATTERY_COUNTDOWN_SEC               10
-#define TEMPERATURE_COUNTDOWN_SEC           RECORD_COUNTDOWN_SEC
-#define DUST_COUNTDOWN_SEC                  RECORD_COUNTDOWN_SEC
+#define DSADC_COUNTDOWN_SEC                 RECORD_COUNTDOWN_SEC
 #define LORA_COUNTDOWN_SEC                  RECORD_COUNTDOWN_SEC
 /* End user code. Do not edit comment generated here */
 
@@ -60,15 +59,16 @@ Global variables and functions
 /* Start user code for global. Do not edit comment generated here */
 uint16_t record_rtc_counter = RECORD_COUNTDOWN_SEC;
 uint16_t battery_rtc_counter = BATTERY_COUNTDOWN_SEC;
-uint16_t temperature_rtc_counter = TEMPERATURE_COUNTDOWN_SEC;
-uint16_t dust_rtc_counter = DUST_COUNTDOWN_SEC;
-uint16_t lora_rtc_counter = DUST_COUNTDOWN_SEC;
+uint16_t dsadc_rtc_counter = DSADC_COUNTDOWN_SEC;
+uint16_t lora_rtc_counter = LORA_COUNTDOWN_SEC;
+uint8_t c = 0;
 void processMode(void);
 extern uint8_t mode=0;
 extern uint8_t events=0;
 extern void goToSleep(void);
 extern float vbat;
 struct battery_struct battery_data;
+struct dsadc_struct dsadc_data;
 /* End user code. Do not edit comment generated here */
 
 static void R_MAIN_UserInit(void);
@@ -86,6 +86,11 @@ void main(void)
     {
         if(events)
         {
+            if(events & DSADC_NOTIFICATION_EVENT)
+            {
+                events &= ~DSADC_NOTIFICATION_EVENT;
+                DSADC_PROCESS();
+            }
             if(events & ADC10_NOTIFICATION_EVENT)
             {
                 events &= ~ADC10_NOTIFICATION_EVENT;
@@ -101,11 +106,19 @@ void main(void)
                     R_IT8Bit0_Channel0_Start();
                 }
                 battery_rtc_counter++;
+                if (dsadc_rtc_counter>=DSADC_COUNTDOWN_SEC)
+                {
+                    dsadc_rtc_counter = 0;
+                    dsadc_procedure_init(&dsadc_data);
+                    R_IT8Bit0_Channel0_Start();
+                }
+                dsadc_rtc_counter++;
             }
             if(events&TIMER_PERIODIC_EVENT)
             {
                 events &= ~TIMER_PERIODIC_EVENT;           
-                battery_procedure();     
+                battery_procedure();
+                dsadc_procedure();
             }  
         }
     }
@@ -122,6 +135,17 @@ static void R_MAIN_UserInit(void)
     /* Start user code. Do not edit comment generated here */
     EI();
     R_RTC_Start();
+    R_TAU0_Channel6_Start();
+
+
+    // R_DAC0_Start();
+    // R_AMP0_Start();
+    // R_AMP2_Start();
+    // R_AMP_Set_PowerOn();
+    // R_PGA_DSAD_Start();
+    // while(1){
+
+    // }
     /* End user code. Do not edit comment generated here */
 }
 

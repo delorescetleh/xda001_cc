@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for PGIA module.
-* Creation Date: 2023/2/14
+* Creation Date: 2023/2/15
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -60,31 +60,34 @@ int32_t Ipt100=TYPICAL_IPT100; // uA
 int32_t Vpt100 = 0; // uV
 int16_t temperatureOffset=0; // degC
 
-uint32_t VM0 = 0; // value
-uint32_t VM1 = 0; // value
-uint32_t VM2 = 0; // value
-uint32_t VM3 = 0; // value 
+int32_t Vm0 = 0; // value
+int32_t Vm1 = 0; // value
+int32_t Vm2 = 0; // value
+int32_t Vm3 = 0; // value 
 
-extern int32_t Vm0 = 0; // uV
-extern int32_t Vm1 = 0; // uV
-extern int32_t Vm2 = 0; // uV
-extern int32_t Vm3 = 0; // uV
+union 
+{
+    uint32_t whole;
+    struct {
+        uint16_t b0, b1;
+    } byte;
+} vm0,vm1,vm2,vm3;
 
 
 // extern double Vm0 = 0; // uV
 // extern double Vm1 = 0; // uV
 // extern double Vm2 = 0; // uV
 // extern double Vm3 = 0; // uV
-int32_t ipt100_by_target_temperature_Vpt100 = 0;
-int32_t rpt100_by_target_temperature = 0;
-int16_t new_Temperature = 0;
-void parseDifferential_DSADC_Result(uint32_t BufferH, uint32_t BufferL, uint32_t *result);
-void parseSingle_DSADC_Result(uint32_t BufferH, uint32_t BufferL, uint32_t *result);
-void calculate_dsadc_result(void);
-void getIpt(void);
-void getRL(void);
-void getRPT100(void);
-void getR_Line_Base_On(int32_t target_temperature);
+// int32_t ipt100_by_target_temperature_Vpt100 = 0;
+// int32_t rpt100_by_target_temperature = 0;
+// int16_t new_Temperature = 0;
+// void parseDifferential_DSADC_Result(uint32_t BufferH, uint32_t BufferL, uint32_t *result);
+// void parseSingle_DSADC_Result(uint32_t BufferH, uint32_t BufferL, uint32_t *result);
+// void calculate_dsadc_result(void);
+// void getIpt(void);
+// void getRL(void);
+// void getRPT100(void);
+// void getR_Line_Base_On(int32_t target_temperature);
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -96,22 +99,25 @@ void getR_Line_Base_On(int32_t target_temperature);
 static void __near r_pga_dsad_conversion_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
-    // uint8_t index = dsadc_counter * 2;
-    // switch (DSADMVC)
-    // {
-    //     case 0x20:
-    //         parseDifferential_DSADC_Result(DSADMV1,DSADMV0,&VM0);
-    //         break;
-    //     case 0x40:
-    //         parseSingle_DSADC_Result(DSADMV1,DSADMV0,&VM1);
-    //         break;
-    //     case 0x60:
-    //         parseSingle_DSADC_Result(DSADMV1,DSADMV0,&VM2);
-    //         break;
-    //     case 0x80:
-    //         parseDifferential_DSADC_Result(DSADMV1,DSADMV0,&VM3);
-    //         break;
-    // }
+    switch (DSADMVC)
+    {
+    case 0x20:
+        vm0.byte.b0 = DSADMV0;
+        vm0.byte.b1 = DSADMV1;
+        break;
+    case 0x40:
+        vm1.byte.b0 = DSADMV0;
+        vm1.byte.b1 = DSADMV1;
+        break;
+    case 0x60:
+        vm2.byte.b0 = DSADMV0;
+        vm2.byte.b1 = DSADMV1;
+        break;
+    case 0x80:
+        vm3.byte.b0 = DSADMV0;
+        vm3.byte.b1 = DSADMV1;
+        break;
+    }
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************
@@ -123,9 +129,15 @@ static void __near r_pga_dsad_conversion_interrupt(void)
 static void __near r_pga_dsad_scan_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
-    // dsadc_ready = 1;
-    // R_PGA_DSAD_Stop();
-    // calculate_dsadc_result();
+    R_PGA_DSAD_Stop();
+    BUZ0 = !BUZ0;
+    events |= DSADC_NOTIFICATION_EVENT;
+    vm0.whole =vm0.whole>>8; 
+    vm2.whole =vm2.whole>>8;
+    vm3.whole =vm3.whole>>8;
+    Vm0 =vm0.whole; 
+    Vm2 =vm2.whole;
+    Vm3 =vm3.whole;
     /* End user code. Do not edit comment generated here */
 }
 

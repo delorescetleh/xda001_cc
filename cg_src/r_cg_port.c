@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for Port module.
-* Creation Date: 2023/2/14
+* Creation Date: 2023/2/15
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -57,12 +57,12 @@ void R_PORT_Create(void)
 {
     PMC0 = _C7_PMC0_DEFAULT_VALUE | _20_PMCn5_DI_ON | _10_PMCn4_DI_ON | _08_PMCn3_DI_ON;
     P0 = _00_Pn7_OUTPUT_0 | _00_Pn6_OUTPUT_0 | _00_Pn5_OUTPUT_0 | _00_Pn4_OUTPUT_0 | _00_Pn3_OUTPUT_0 | 
-         _00_Pn2_OUTPUT_0 | _02_Pn1_OUTPUT_1;
+         _04_Pn2_OUTPUT_1 | _02_Pn1_OUTPUT_1;
     PU7 = _00_PUn7_PULLUP_OFF | _00_PUn6_PULLUP_OFF | _02_PUn1_PULLUP_ON | _00_PUn0_PULLUP_OFF;
-    POM0 = _00_POMn7_NCH_OFF | _00_POMn6_NCH_OFF | _00_POMn4_NCH_OFF | _00_POMn3_NCH_OFF | _04_POMn2_NCH_ON;
+    POM0 = _00_POMn7_NCH_OFF | _00_POMn6_NCH_OFF | _00_POMn4_NCH_OFF | _00_POMn3_NCH_OFF | _00_POMn2_NCH_OFF;
     POM3 = _00_POMn7_NCH_OFF | _00_POMn6_NCH_OFF | _20_POMn5_NCH_ON;
     PM0 = _01_PM0_DEFAULT_VALUE | _80_PMn7_MODE_INPUT | _40_PMn6_MODE_INPUT | _20_PMn5_MODE_INPUT | 
-          _10_PMn4_MODE_INPUT | _08_PMn3_MODE_INPUT | _04_PMn2_MODE_INPUT | _00_PMn1_MODE_OUTPUT;
+          _10_PMn4_MODE_INPUT | _08_PMn3_MODE_INPUT | _00_PMn2_MODE_OUTPUT | _00_PMn1_MODE_OUTPUT;
 }
 
 /* Start user code for adding. Do not edit comment generated here */

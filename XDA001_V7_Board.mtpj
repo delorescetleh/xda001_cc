@@ -92,6 +92,20 @@
       <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
       <ParentItem>81ad9a81-1fbe-4649-932f-c133eef24a10</ParentItem>
     </Instance>
+    <Instance Guid="817c40d7-7814-479e-beb5-d1fc9555199b">
+      <Name>L_PT100.c</Name>
+      <Type>File</Type>
+      <RelativePath>L_PT100.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>81ad9a81-1fbe-4649-932f-c133eef24a10</ParentItem>
+    </Instance>
+    <Instance Guid="a5a4ccc3-644e-4650-8625-0cd4f1b73d62">
+      <Name>L_PT100.h</Name>
+      <Type>File</Type>
+      <RelativePath>L_PT100.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>81ad9a81-1fbe-4649-932f-c133eef24a10</ParentItem>
+    </Instance>
     <Instance Guid="77875f6f-a7bc-48ba-b723-a620262e3b27">
       <Name>r_cg_main.c</Name>
       <Type>File</Type>
@@ -361,51 +375,53 @@
       <SourceItemType1>AsmSource</SourceItemType1>
       <SourceItemGuid2>87730161-1fae-4f33-8fa2-5eb625a9c1ef</SourceItemGuid2>
       <SourceItemType2>LibrarySource</SourceItemType2>
-      <SourceItemGuid3>77875f6f-a7bc-48ba-b723-a620262e3b27</SourceItemGuid3>
+      <SourceItemGuid3>ab18e637-3808-46ad-8b23-a176e80a8557</SourceItemGuid3>
       <SourceItemType3>CSource</SourceItemType3>
-      <SourceItemGuid4>7a9d07e1-0c4f-4a3e-be39-39c1d1fbd591</SourceItemGuid4>
+      <SourceItemGuid4>2b05e212-2ec7-44c4-a625-a80d270534e8</SourceItemGuid4>
       <SourceItemType4>CSource</SourceItemType4>
-      <SourceItemGuid5>510c332e-ff54-4260-bfa1-06abc9fcfe02</SourceItemGuid5>
+      <SourceItemGuid5>817c40d7-7814-479e-beb5-d1fc9555199b</SourceItemGuid5>
       <SourceItemType5>CSource</SourceItemType5>
-      <SourceItemGuid6>f5aa2524-d586-4afa-b587-3dac075936a4</SourceItemGuid6>
+      <SourceItemGuid6>77875f6f-a7bc-48ba-b723-a620262e3b27</SourceItemGuid6>
       <SourceItemType6>CSource</SourceItemType6>
-      <SourceItemGuid7>8dcda874-b8d8-44dd-a11a-2861d2fac0d5</SourceItemGuid7>
+      <SourceItemGuid7>7a9d07e1-0c4f-4a3e-be39-39c1d1fbd591</SourceItemGuid7>
       <SourceItemType7>CSource</SourceItemType7>
-      <SourceItemGuid8>f6ae928f-4142-4777-a3a3-05f5af575267</SourceItemGuid8>
+      <SourceItemGuid8>510c332e-ff54-4260-bfa1-06abc9fcfe02</SourceItemGuid8>
       <SourceItemType8>CSource</SourceItemType8>
-      <SourceItemGuid9>74cf8580-d109-42fa-89a6-39892af35e56</SourceItemGuid9>
+      <SourceItemGuid9>f5aa2524-d586-4afa-b587-3dac075936a4</SourceItemGuid9>
       <SourceItemType9>CSource</SourceItemType9>
-      <SourceItemGuid10>d3ad751d-440b-4057-aa9a-e049820a50ac</SourceItemGuid10>
+      <SourceItemGuid10>8dcda874-b8d8-44dd-a11a-2861d2fac0d5</SourceItemGuid10>
       <SourceItemType10>CSource</SourceItemType10>
-      <SourceItemGuid11>0aaa8d71-be1d-46c5-8508-c61731c0f789</SourceItemGuid11>
+      <SourceItemGuid11>f6ae928f-4142-4777-a3a3-05f5af575267</SourceItemGuid11>
       <SourceItemType11>CSource</SourceItemType11>
-      <SourceItemGuid12>c1607c29-b17a-4e6f-8e84-58d24794d6eb</SourceItemGuid12>
+      <SourceItemGuid12>74cf8580-d109-42fa-89a6-39892af35e56</SourceItemGuid12>
       <SourceItemType12>CSource</SourceItemType12>
-      <SourceItemGuid13>ca51806a-9222-4c59-b519-e63d57fcb8bc</SourceItemGuid13>
+      <SourceItemGuid13>d3ad751d-440b-4057-aa9a-e049820a50ac</SourceItemGuid13>
       <SourceItemType13>CSource</SourceItemType13>
-      <SourceItemGuid14>b55e8633-f6de-4a7e-9c59-835d2254255e</SourceItemGuid14>
+      <SourceItemGuid14>0aaa8d71-be1d-46c5-8508-c61731c0f789</SourceItemGuid14>
       <SourceItemType14>CSource</SourceItemType14>
-      <SourceItemGuid15>c12aede1-2ba1-4170-b6c1-4b76791767dc</SourceItemGuid15>
+      <SourceItemGuid15>c1607c29-b17a-4e6f-8e84-58d24794d6eb</SourceItemGuid15>
       <SourceItemType15>CSource</SourceItemType15>
-      <SourceItemGuid16>e5c743b1-6dd4-4d98-b20a-d721a789701a</SourceItemGuid16>
+      <SourceItemGuid16>ca51806a-9222-4c59-b519-e63d57fcb8bc</SourceItemGuid16>
       <SourceItemType16>CSource</SourceItemType16>
-      <SourceItemGuid17>83503cfd-14e4-4ce1-9b88-f962fb3e9959</SourceItemGuid17>
+      <SourceItemGuid17>b55e8633-f6de-4a7e-9c59-835d2254255e</SourceItemGuid17>
       <SourceItemType17>CSource</SourceItemType17>
-      <SourceItemGuid18>ad2a62cf-a57e-4a00-84fa-64cafc49b57c</SourceItemGuid18>
+      <SourceItemGuid18>c12aede1-2ba1-4170-b6c1-4b76791767dc</SourceItemGuid18>
       <SourceItemType18>CSource</SourceItemType18>
-      <SourceItemGuid19>ab18e637-3808-46ad-8b23-a176e80a8557</SourceItemGuid19>
+      <SourceItemGuid19>e5c743b1-6dd4-4d98-b20a-d721a789701a</SourceItemGuid19>
       <SourceItemType19>CSource</SourceItemType19>
-      <SourceItemGuid20>2b05e212-2ec7-44c4-a625-a80d270534e8</SourceItemGuid20>
+      <SourceItemGuid20>83503cfd-14e4-4ce1-9b88-f962fb3e9959</SourceItemGuid20>
       <SourceItemType20>CSource</SourceItemType20>
-      <SourceItemGuid21>1756151c-e003-4b16-b533-18c24c2ffeee</SourceItemGuid21>
+      <SourceItemGuid21>ad2a62cf-a57e-4a00-84fa-64cafc49b57c</SourceItemGuid21>
       <SourceItemType21>CSource</SourceItemType21>
-      <SourceItemGuid22>53e45230-17ce-4d97-bdde-3a5e7524f57d</SourceItemGuid22>
+      <SourceItemGuid22>1756151c-e003-4b16-b533-18c24c2ffeee</SourceItemGuid22>
       <SourceItemType22>CSource</SourceItemType22>
-      <SourceItemGuid23>e50701e7-56b2-4349-8ba3-4f86a7872b59</SourceItemGuid23>
+      <SourceItemGuid23>53e45230-17ce-4d97-bdde-3a5e7524f57d</SourceItemGuid23>
       <SourceItemType23>CSource</SourceItemType23>
-      <SourceItemGuid24>0a68e023-b676-4f49-9311-8f55e0df3c99</SourceItemGuid24>
+      <SourceItemGuid24>e50701e7-56b2-4349-8ba3-4f86a7872b59</SourceItemGuid24>
       <SourceItemType24>CSource</SourceItemType24>
-      <SourceItemCount>25</SourceItemCount>
+      <SourceItemGuid25>0a68e023-b676-4f49-9311-8f55e0df3c99</SourceItemGuid25>
+      <SourceItemType25>CSource</SourceItemType25>
+      <SourceItemCount>26</SourceItemCount>
       <LastDeviceChangedCounter>0</LastDeviceChangedCounter>
       <LastDeviceNameOnPG>R5F11NGG</LastDeviceNameOnPG>
       <LastDeviceChangedCounterOnPG>0</LastDeviceChangedCounterOnPG>
@@ -837,7 +853,7 @@ cg_src
       <LinkOptionShowCFI-DefaultValue>False</LinkOptionShowCFI-DefaultValue>
       <LinkOptionRrmValue-DefaultValue />
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8585272491023689873</TimeTagModified--0>
+      <TimeTagModified--0>-8585252472642975776</TimeTagModified--0>
       <LinkOptionAutoSectionLayout-0>True</LinkOptionAutoSectionLayout-0>
       <LinkOptionCpu-0>False</LinkOptionCpu-0>
       <LinkOptionDebug-0>Debug</LinkOptionDebug-0>
@@ -1033,7 +1049,7 @@ cg_src
       <LibOptionChangeMessageError-DefaultValue>None</LibOptionChangeMessageError-DefaultValue>
       <LibOptionChangeMessageErrorNumber-DefaultValue />
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8585272491023699862</TimeTagModified--0>
+      <TimeTagModified--0>-8585252472642975776</TimeTagModified--0>
       <LibOptionDebug-0>Debug</LibOptionDebug-0>
       <LibOptionForm-0>LibraryU</LibOptionForm-0>
       <LibOptionInput-0 />
@@ -1267,6 +1283,14 @@ cg_src
       <ItemAddTime>638119778736175416</ItemAddTime>
       <ItemAddTimeCount>2</ItemAddTimeCount>
     </Instance>
+    <Instance Guid="a5a4ccc3-644e-4650-8625-0cd4f1b73d62">
+      <ItemAddTime>638119886675262063</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="817c40d7-7814-479e-beb5-d1fc9555199b">
+      <ItemAddTime>638119886533603335</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
     <Instance Guid="0b7e78c3-aadd-45ee-9f9d-ffac6141eeb2">
       <TimeTagModified-SourceItem0--0>-8585468735465562039</TimeTagModified-SourceItem0--0>
       <SourceItem0-IsLockedByUser>False</SourceItem0-IsLockedByUser>
@@ -1287,15 +1311,15 @@ cg_src
       <SourceItem2-IsLockedByUser>False</SourceItem2-IsLockedByUser>
     </Instance>
     <Instance Guid="f782db2c-1c42-4ca1-af6a-53a3a5067217">
-      <TimeTagModified-SourceItem3--0>-8585468734438670286</TimeTagModified-SourceItem3--0>
+      <TimeTagModified-SourceItem3--0>-8585252604273524014</TimeTagModified-SourceItem3--0>
       <SourceItem3-IsLockedByUser>False</SourceItem3-IsLockedByUser>
       <SourceItem3-BuildingTarget-0>True</SourceItem3-BuildingTarget-0>
       <SourceItem3-IndividualCompileOption-0>False</SourceItem3-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem4--0>-8585468734438670286</TimeTagModified-SourceItem4--0>
+      <TimeTagModified-SourceItem4--0>-8585252595023367985</TimeTagModified-SourceItem4--0>
       <SourceItem4-IsLockedByUser>False</SourceItem4-IsLockedByUser>
       <SourceItem4-BuildingTarget-0>True</SourceItem4-BuildingTarget-0>
       <SourceItem4-IndividualCompileOption-0>False</SourceItem4-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem5--0>-8585468734438670286</TimeTagModified-SourceItem5--0>
+      <TimeTagModified-SourceItem5--0>-8585252438321172473</TimeTagModified-SourceItem5--0>
       <SourceItem5-IsLockedByUser>False</SourceItem5-IsLockedByUser>
       <SourceItem5-BuildingTarget-0>True</SourceItem5-BuildingTarget-0>
       <SourceItem5-IndividualCompileOption-0>False</SourceItem5-IndividualCompileOption-0>
@@ -1303,63 +1327,63 @@ cg_src
       <SourceItem6-IsLockedByUser>False</SourceItem6-IsLockedByUser>
       <SourceItem6-BuildingTarget-0>True</SourceItem6-BuildingTarget-0>
       <SourceItem6-IndividualCompileOption-0>False</SourceItem6-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem7--0>-8585468720584525277</TimeTagModified-SourceItem7--0>
+      <TimeTagModified-SourceItem7--0>-8585468734438670286</TimeTagModified-SourceItem7--0>
       <SourceItem7-IsLockedByUser>False</SourceItem7-IsLockedByUser>
       <SourceItem7-BuildingTarget-0>True</SourceItem7-BuildingTarget-0>
       <SourceItem7-IndividualCompileOption-0>False</SourceItem7-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem8--0>-8585468720584525277</TimeTagModified-SourceItem8--0>
+      <TimeTagModified-SourceItem8--0>-8585468734438670286</TimeTagModified-SourceItem8--0>
       <SourceItem8-IsLockedByUser>False</SourceItem8-IsLockedByUser>
       <SourceItem8-BuildingTarget-0>True</SourceItem8-BuildingTarget-0>
       <SourceItem8-IndividualCompileOption-0>False</SourceItem8-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem9--0>-8585468320710981476</TimeTagModified-SourceItem9--0>
+      <TimeTagModified-SourceItem9--0>-8585468734438670286</TimeTagModified-SourceItem9--0>
       <SourceItem9-IsLockedByUser>False</SourceItem9-IsLockedByUser>
       <SourceItem9-BuildingTarget-0>True</SourceItem9-BuildingTarget-0>
       <SourceItem9-IndividualCompileOption-0>False</SourceItem9-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem10--0>-8585468320710981476</TimeTagModified-SourceItem10--0>
+      <TimeTagModified-SourceItem10--0>-8585468720584525277</TimeTagModified-SourceItem10--0>
       <SourceItem10-IsLockedByUser>False</SourceItem10-IsLockedByUser>
       <SourceItem10-BuildingTarget-0>True</SourceItem10-BuildingTarget-0>
       <SourceItem10-IndividualCompileOption-0>False</SourceItem10-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem11--0>-8585462347874949175</TimeTagModified-SourceItem11--0>
+      <TimeTagModified-SourceItem11--0>-8585468720584525277</TimeTagModified-SourceItem11--0>
       <SourceItem11-IsLockedByUser>False</SourceItem11-IsLockedByUser>
       <SourceItem11-BuildingTarget-0>True</SourceItem11-BuildingTarget-0>
       <SourceItem11-IndividualCompileOption-0>False</SourceItem11-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem12--0>-8585462347874949175</TimeTagModified-SourceItem12--0>
+      <TimeTagModified-SourceItem12--0>-8585468320710981476</TimeTagModified-SourceItem12--0>
       <SourceItem12-IsLockedByUser>False</SourceItem12-IsLockedByUser>
       <SourceItem12-BuildingTarget-0>True</SourceItem12-BuildingTarget-0>
       <SourceItem12-IndividualCompileOption-0>False</SourceItem12-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem13--0>-8585272503952762342</TimeTagModified-SourceItem13--0>
+      <TimeTagModified-SourceItem13--0>-8585468320710981476</TimeTagModified-SourceItem13--0>
       <SourceItem13-IsLockedByUser>False</SourceItem13-IsLockedByUser>
       <SourceItem13-BuildingTarget-0>True</SourceItem13-BuildingTarget-0>
       <SourceItem13-IndividualCompileOption-0>False</SourceItem13-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem14--0>-8585272503952762342</TimeTagModified-SourceItem14--0>
+      <TimeTagModified-SourceItem14--0>-8585462347874949175</TimeTagModified-SourceItem14--0>
       <SourceItem14-IsLockedByUser>False</SourceItem14-IsLockedByUser>
       <SourceItem14-BuildingTarget-0>True</SourceItem14-BuildingTarget-0>
       <SourceItem14-IndividualCompileOption-0>False</SourceItem14-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem15--0>-8585272420798913476</TimeTagModified-SourceItem15--0>
+      <TimeTagModified-SourceItem15--0>-8585462347874949175</TimeTagModified-SourceItem15--0>
       <SourceItem15-IsLockedByUser>False</SourceItem15-IsLockedByUser>
       <SourceItem15-BuildingTarget-0>True</SourceItem15-BuildingTarget-0>
       <SourceItem15-IndividualCompileOption-0>False</SourceItem15-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem16--0>-8585272420798913476</TimeTagModified-SourceItem16--0>
+      <TimeTagModified-SourceItem16--0>-8585272503952762342</TimeTagModified-SourceItem16--0>
       <SourceItem16-IsLockedByUser>False</SourceItem16-IsLockedByUser>
       <SourceItem16-BuildingTarget-0>True</SourceItem16-BuildingTarget-0>
       <SourceItem16-IndividualCompileOption-0>False</SourceItem16-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem17--0>-8585252616045159626</TimeTagModified-SourceItem17--0>
+      <TimeTagModified-SourceItem17--0>-8585272503952762342</TimeTagModified-SourceItem17--0>
       <SourceItem17-IsLockedByUser>False</SourceItem17-IsLockedByUser>
       <SourceItem17-BuildingTarget-0>True</SourceItem17-BuildingTarget-0>
       <SourceItem17-IndividualCompileOption-0>False</SourceItem17-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem18--0>-8585252616045149630</TimeTagModified-SourceItem18--0>
+      <TimeTagModified-SourceItem18--0>-8585272420798913476</TimeTagModified-SourceItem18--0>
       <SourceItem18-IsLockedByUser>False</SourceItem18-IsLockedByUser>
       <SourceItem18-BuildingTarget-0>True</SourceItem18-BuildingTarget-0>
       <SourceItem18-IndividualCompileOption-0>False</SourceItem18-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem19--0>-8585252604273524014</TimeTagModified-SourceItem19--0>
+      <TimeTagModified-SourceItem19--0>-8585272420798913476</TimeTagModified-SourceItem19--0>
       <SourceItem19-IsLockedByUser>False</SourceItem19-IsLockedByUser>
       <SourceItem19-BuildingTarget-0>True</SourceItem19-BuildingTarget-0>
       <SourceItem19-IndividualCompileOption-0>False</SourceItem19-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem20--0>-8585252595023367985</TimeTagModified-SourceItem20--0>
+      <TimeTagModified-SourceItem20--0>-8585252616045159626</TimeTagModified-SourceItem20--0>
       <SourceItem20-IsLockedByUser>False</SourceItem20-IsLockedByUser>
       <SourceItem20-BuildingTarget-0>True</SourceItem20-BuildingTarget-0>
       <SourceItem20-IndividualCompileOption-0>False</SourceItem20-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem21--0>-8585252548835076210</TimeTagModified-SourceItem21--0>
+      <TimeTagModified-SourceItem21--0>-8585252616045149630</TimeTagModified-SourceItem21--0>
       <SourceItem21-IsLockedByUser>False</SourceItem21-IsLockedByUser>
       <SourceItem21-BuildingTarget-0>True</SourceItem21-BuildingTarget-0>
       <SourceItem21-IndividualCompileOption-0>False</SourceItem21-IndividualCompileOption-0>
@@ -1367,7 +1391,7 @@ cg_src
       <SourceItem22-IsLockedByUser>False</SourceItem22-IsLockedByUser>
       <SourceItem22-BuildingTarget-0>True</SourceItem22-BuildingTarget-0>
       <SourceItem22-IndividualCompileOption-0>False</SourceItem22-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem23--0>-8585252546118600392</TimeTagModified-SourceItem23--0>
+      <TimeTagModified-SourceItem23--0>-8585252548835076210</TimeTagModified-SourceItem23--0>
       <SourceItem23-IsLockedByUser>False</SourceItem23-IsLockedByUser>
       <SourceItem23-BuildingTarget-0>True</SourceItem23-BuildingTarget-0>
       <SourceItem23-IndividualCompileOption-0>False</SourceItem23-IndividualCompileOption-0>
@@ -1375,6 +1399,10 @@ cg_src
       <SourceItem24-IsLockedByUser>False</SourceItem24-IsLockedByUser>
       <SourceItem24-BuildingTarget-0>True</SourceItem24-BuildingTarget-0>
       <SourceItem24-IndividualCompileOption-0>False</SourceItem24-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem25--0>-8585252546118600392</TimeTagModified-SourceItem25--0>
+      <SourceItem25-IsLockedByUser>False</SourceItem25-IsLockedByUser>
+      <SourceItem25-BuildingTarget-0>True</SourceItem25-BuildingTarget-0>
+      <SourceItem25-IndividualCompileOption-0>False</SourceItem25-IndividualCompileOption-0>
     </Instance>
   </Class>
   <Class Guid="44fa27c9-0aa0-4297-bd3b-2c5c5bdb8881">
@@ -2008,7 +2036,7 @@ cg_src
     &lt;/DataElement&gt;
     &lt;DataElement key="pior31" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior24_macroname" value=""&gt;
+    &lt;DataElement key="pior25_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior11" value="0"&gt;
     &lt;/DataElement&gt;
@@ -2026,13 +2054,13 @@ cg_src
     &lt;/DataElement&gt;
     &lt;DataElement key="pior14" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior02_macroname" value=""&gt;
-    &lt;/DataElement&gt;
     &lt;DataElement key="pior12_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior20_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior32_macroname" value=""&gt;
+    &lt;/DataElement&gt;
+    &lt;DataElement key="pior03" value="0"&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior22" value="0"&gt;
     &lt;/DataElement&gt;
@@ -2044,9 +2072,9 @@ cg_src
     &lt;/DataElement&gt;
     &lt;DataElement key="pior35_macroname" value=""&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior03" value="0"&gt;
+    &lt;DataElement key="pior27_macroname" value=""&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior25_macroname" value=""&gt;
+    &lt;DataElement key="pior24_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior26" value="0"&gt;
     &lt;/DataElement&gt;
@@ -2066,7 +2094,7 @@ cg_src
     &lt;/DataElement&gt;
     &lt;DataElement key="pior33_macroname" value=""&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior27_macroname" value=""&gt;
+    &lt;DataElement key="pior02_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior05_macroname" value=""&gt;
     &lt;/DataElement&gt;
@@ -2192,11 +2220,11 @@ cg_src
         &lt;/DataElement&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="Interrput_32"&gt;
-        &lt;DataElement key="InusedAs" value=""&gt;
+        &lt;DataElement key="InusedAs" value="INTTM06"&gt;
         &lt;/DataElement&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="Interrput_33"&gt;
-        &lt;DataElement key="InusedAs" value=""&gt;
+        &lt;DataElement key="InusedAs" value="INTTM07"&gt;
         &lt;/DataElement&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="Interrput_34"&gt;
@@ -2396,7 +2424,7 @@ cg_src
         &lt;/DataElement&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="PinNumber_3"&gt;
-        &lt;DataElement key="InusedAs" value="DAC1##AVDD,DAC0##AVDD,ADC##AVDD"&gt;
+        &lt;DataElement key="InusedAs" value="DAC0##AVDD,ADC##AVDD"&gt;
         &lt;/DataElement&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="PinNumber_4"&gt;
@@ -2468,7 +2496,7 @@ cg_src
         &lt;/DataElement&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="PinNumber_21"&gt;
-        &lt;DataElement key="InusedAs" value=""&gt;
+        &lt;DataElement key="InusedAs" value="TAU0##TO07"&gt;
         &lt;/DataElement&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="PinNumber_22"&gt;
@@ -2504,7 +2532,7 @@ cg_src
         &lt;/DataElement&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="PinNumber_30"&gt;
-        &lt;DataElement key="InusedAs" value=""&gt;
+        &lt;DataElement key="InusedAs" value="Port0##P02"&gt;
         &lt;/DataElement&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="PinNumber_31"&gt;
@@ -3448,7 +3476,7 @@ cg_src
         &lt;/DataElement&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="P02"&gt;
-        &lt;DataElement key="NChannelOpenDrain" value="True"&gt;
+        &lt;DataElement key="NChannelOpenDrain" value="False"&gt;
         &lt;/DataElement&gt;
         &lt;DataElement key="NoiseFilterFunction" value="False"&gt;
         &lt;/DataElement&gt;
@@ -4245,7 +4273,7 @@ cg_src
           &lt;/DataElement&gt;
           &lt;DataElement key="error" value="NoError"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="inuse" value="Unused"&gt;
+          &lt;DataElement key="inuse" value="Used"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="Channel7"&gt;
@@ -4253,7 +4281,7 @@ cg_src
           &lt;/DataElement&gt;
           &lt;DataElement key="error" value="NoError"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="inuse" value="Unused"&gt;
+          &lt;DataElement key="inuse" value="Used"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
       &lt;/SerializableData&gt;
@@ -4429,7 +4457,7 @@ cg_src
           &lt;/DataElement&gt;
           &lt;DataElement key="error" value="NoError"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="inuse" value="Used"&gt;
+          &lt;DataElement key="inuse" value="Unused"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
       &lt;/SerializableData&gt;
@@ -5056,14 +5084,14 @@ cg_src
           &lt;SerializableData name="Channel6"&gt;
             &lt;DataElement key="visible" value="True"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="inuse" value="Unused"&gt;
+            &lt;DataElement key="inuse" value="Locked"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="R_TAU0_Channel6_Start"&gt;
               &lt;DataElement key="visible" value="True"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="text" value="R_TAU0_Channel6_Start"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="inuse" value="Unused"&gt;
+              &lt;DataElement key="inuse" value="Locked"&gt;
               &lt;/DataElement&gt;
             &lt;/SerializableData&gt;
             &lt;SerializableData name="R_TAU0_Channel6_Stop"&gt;
@@ -5071,7 +5099,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="text" value="R_TAU0_Channel6_Stop"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="inuse" value="Unused"&gt;
+              &lt;DataElement key="inuse" value="Locked"&gt;
               &lt;/DataElement&gt;
             &lt;/SerializableData&gt;
             &lt;SerializableData name="R_TAU0_Channel6_Get_PulseWidth"&gt;
@@ -5240,28 +5268,28 @@ cg_src
           &lt;SerializableData name="Channel6"&gt;
             &lt;DataElement key="visible" value="True"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="inuse" value="Unused"&gt;
+            &lt;DataElement key="inuse" value="Locked"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="r_tau0_channel6_interrupt"&gt;
               &lt;DataElement key="visible" value="True"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="text" value="r_tau0_channel6_interrupt"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="inuse" value="Unused"&gt;
+              &lt;DataElement key="inuse" value="Locked"&gt;
               &lt;/DataElement&gt;
             &lt;/SerializableData&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="Channel7"&gt;
             &lt;DataElement key="visible" value="True"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="inuse" value="Unused"&gt;
+            &lt;DataElement key="inuse" value="Locked"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="r_tau0_channel7_interrupt"&gt;
               &lt;DataElement key="visible" value="True"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="text" value="r_tau0_channel7_interrupt"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="inuse" value="Unused"&gt;
+              &lt;DataElement key="inuse" value="Locked"&gt;
               &lt;/DataElement&gt;
             &lt;/SerializableData&gt;
           &lt;/SerializableData&gt;
@@ -6158,14 +6186,14 @@ cg_src
           &lt;SerializableData name="DAC1"&gt;
             &lt;DataElement key="visible" value="True"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="inuse" value="Locked"&gt;
+            &lt;DataElement key="inuse" value="Unused"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="R_DAC1_Start"&gt;
               &lt;DataElement key="visible" value="True"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="text" value="R_DAC1_Start"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="inuse" value="Locked"&gt;
+              &lt;DataElement key="inuse" value="Unused"&gt;
               &lt;/DataElement&gt;
             &lt;/SerializableData&gt;
             &lt;SerializableData name="R_DAC1_Stop"&gt;
@@ -6173,7 +6201,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="text" value="R_DAC1_Stop"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="inuse" value="Locked"&gt;
+              &lt;DataElement key="inuse" value="Unused"&gt;
               &lt;/DataElement&gt;
             &lt;/SerializableData&gt;
             &lt;SerializableData name="R_DAC1_Set_ConversionValue"&gt;
@@ -6181,7 +6209,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="text" value="R_DAC1_Set_ConversionValue"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="inuse" value="Locked"&gt;
+              &lt;DataElement key="inuse" value="Unused"&gt;
               &lt;/DataElement&gt;
             &lt;/SerializableData&gt;
           &lt;/SerializableData&gt;
@@ -8530,7 +8558,7 @@ cg_src
           &lt;SerializableData name="ClassContent"&gt;
             &lt;DataElement key="FunctionName" value="P02"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="InUse" value="False"&gt;
+            &lt;DataElement key="InUse" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="FunctionIO" value="O"&gt;
             &lt;/DataElement&gt;
@@ -8538,6 +8566,12 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="FunctionNote" value=""&gt;
             &lt;/DataElement&gt;
+            &lt;SerializableData name="InUsePins"&gt;
+              &lt;SerializableData name="CG"&gt;
+                &lt;DataElement key="0" value="30"&gt;
+                &lt;/DataElement&gt;
+              &lt;/SerializableData&gt;
+            &lt;/SerializableData&gt;
           &lt;/SerializableData&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="P03"&gt;
@@ -10770,7 +10804,7 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="InUse" value="False"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="FunctionIO" value="None"&gt;
+            &lt;DataElement key="FunctionIO" value="I"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="FunctionState" value="0"&gt;
             &lt;/DataElement&gt;
@@ -10806,7 +10840,7 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="InUse" value="False"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="FunctionIO" value="None"&gt;
+            &lt;DataElement key="FunctionIO" value="I"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="FunctionState" value="0"&gt;
             &lt;/DataElement&gt;
@@ -10824,7 +10858,7 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="InUse" value="False"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="FunctionIO" value="None"&gt;
+            &lt;DataElement key="FunctionIO" value="O"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="FunctionState" value="0"&gt;
             &lt;/DataElement&gt;
@@ -12538,14 +12572,20 @@ cg_src
           &lt;SerializableData name="ClassContent"&gt;
             &lt;DataElement key="FunctionName" value="TO07"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="InUse" value="False"&gt;
+            &lt;DataElement key="InUse" value="True"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="FunctionIO" value="None"&gt;
+            &lt;DataElement key="FunctionIO" value="O"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="FunctionState" value="0"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="FunctionNote" value=""&gt;
             &lt;/DataElement&gt;
+            &lt;SerializableData name="InUsePins"&gt;
+              &lt;SerializableData name="CG"&gt;
+                &lt;DataElement key="0" value="21"&gt;
+                &lt;/DataElement&gt;
+              &lt;/SerializableData&gt;
+            &lt;/SerializableData&gt;
           &lt;/SerializableData&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="X1"&gt;
@@ -12908,7 +12948,7 @@ cg_src
           &lt;SerializableData name="ClassContent"&gt;
             &lt;DataElement key="PinNumber" value="30"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="InUse" value="False"&gt;
+            &lt;DataElement key="InUse" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="PinNote" value=""&gt;
             &lt;/DataElement&gt;
@@ -12922,6 +12962,10 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="PinDlvDirty" value="False"&gt;
             &lt;/DataElement&gt;
+            &lt;SerializableData name="InUseFunctions"&gt;
+              &lt;DataElement key="0" value="P02"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
           &lt;/SerializableData&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="31"&gt;
@@ -13396,7 +13440,7 @@ cg_src
           &lt;SerializableData name="ClassContent"&gt;
             &lt;DataElement key="PinNumber" value="21"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="InUse" value="False"&gt;
+            &lt;DataElement key="InUse" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="PinNote" value=""&gt;
             &lt;/DataElement&gt;
@@ -13410,6 +13454,10 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="PinDlvDirty" value="False"&gt;
             &lt;/DataElement&gt;
+            &lt;SerializableData name="InUseFunctions"&gt;
+              &lt;DataElement key="0" value="TO07"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
           &lt;/SerializableData&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="24"&gt;
@@ -34850,7 +34898,7 @@ cg_src
           &lt;SerializableData name="cmbChnlFun"&gt;
             &lt;DataElement key="ContentItemCount" value="18"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="SelectedContentItem" value="TauUnused"&gt;
+            &lt;DataElement key="SelectedContentItem" value="TauPwmMaster"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="ContentItem1"&gt;
               &lt;DataElement key="Pin" value=""&gt;
@@ -35252,13 +35300,13 @@ cg_src
           &lt;SerializableData name="TauPwmMaster6"&gt;
             &lt;SerializableData name="PWMMaster6"&gt;
               &lt;SerializableData name="PWM cycle"&gt;
-                &lt;DataElement key="Text" value="100"&gt;
+                &lt;DataElement key="Text" value="3000"&gt;
                 &lt;/DataElement&gt;
               &lt;/SerializableData&gt;
               &lt;SerializableData name="ValueScale"&gt;
                 &lt;DataElement key="ContentItemCount" value="3"&gt;
                 &lt;/DataElement&gt;
-                &lt;DataElement key="SelectedContentItem" value="us"&gt;
+                &lt;DataElement key="SelectedContentItem" value="ms"&gt;
                 &lt;/DataElement&gt;
                 &lt;SerializableData name="ContentItem1"&gt;
                   &lt;DataElement key="Pin" value=""&gt;
@@ -35428,7 +35476,7 @@ cg_src
             &lt;/SerializableData&gt;
             &lt;SerializableData name="PWMSlave7"&gt;
               &lt;SerializableData name="PWM duty"&gt;
-                &lt;DataElement key="Text" value="50"&gt;
+                &lt;DataElement key="Text" value="1"&gt;
                 &lt;/DataElement&gt;
               &lt;/SerializableData&gt;
               &lt;SerializableData name="OuputValue"&gt;
@@ -36691,12 +36739,458 @@ cg_src
               &lt;/SerializableData&gt;
             &lt;/SerializableData&gt;
           &lt;/SerializableData&gt;
+          &lt;SerializableData name="TauInterval6"&gt;
+            &lt;SerializableData name="16bits"&gt;
+              &lt;DataElement key="Checked" value="True"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="High8bits"&gt;
+              &lt;DataElement key="Checked" value="False"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="Low8bits"&gt;
+              &lt;DataElement key="Checked" value="False"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="Both8bits"&gt;
+              &lt;DataElement key="Checked" value="False"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="IntervalValue"&gt;
+              &lt;DataElement key="Text" value="100"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="ValueScale"&gt;
+              &lt;DataElement key="ContentItemCount" value="3"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="SelectedContentItem" value="us"&gt;
+              &lt;/DataElement&gt;
+              &lt;SerializableData name="ContentItem1"&gt;
+                &lt;DataElement key="Pin" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Int" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Fun" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Tag" value="ms"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Text" value="ms"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomInValidMessage" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Attach" value="ms"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="MutexType" value="NoMutex"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Visible" value="True"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomValid" value="Valid"&gt;
+                &lt;/DataElement&gt;
+              &lt;/SerializableData&gt;
+              &lt;SerializableData name="ContentItem2"&gt;
+                &lt;DataElement key="Pin" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Int" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Fun" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Tag" value="µs"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Text" value="µs"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomInValidMessage" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Attach" value="us"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="MutexType" value="NoMutex"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Visible" value="True"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomValid" value="Valid"&gt;
+                &lt;/DataElement&gt;
+              &lt;/SerializableData&gt;
+              &lt;SerializableData name="ContentItem3"&gt;
+                &lt;DataElement key="Pin" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Int" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Fun" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Tag" value="ns"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Text" value="ns"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomInValidMessage" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Attach" value="ns"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="MutexType" value="NoMutex"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Visible" value="True"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomValid" value="Valid"&gt;
+                &lt;/DataElement&gt;
+              &lt;/SerializableData&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="Intervalvalue_High8bits"&gt;
+              &lt;DataElement key="Text" value="100"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="Intervalvalue_High8bits_Scale"&gt;
+              &lt;DataElement key="ContentItemCount" value="3"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="SelectedContentItem" value="high_us"&gt;
+              &lt;/DataElement&gt;
+              &lt;SerializableData name="ContentItem1"&gt;
+                &lt;DataElement key="Pin" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Int" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Fun" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Tag" value="high_ms"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Text" value="ms"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomInValidMessage" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Attach" value="high_ms"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="MutexType" value="NoMutex"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Visible" value="True"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomValid" value="Valid"&gt;
+                &lt;/DataElement&gt;
+              &lt;/SerializableData&gt;
+              &lt;SerializableData name="ContentItem2"&gt;
+                &lt;DataElement key="Pin" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Int" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Fun" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Tag" value="high_µs"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Text" value="µs"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomInValidMessage" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Attach" value="high_us"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="MutexType" value="NoMutex"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Visible" value="True"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomValid" value="Valid"&gt;
+                &lt;/DataElement&gt;
+              &lt;/SerializableData&gt;
+              &lt;SerializableData name="ContentItem3"&gt;
+                &lt;DataElement key="Pin" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Int" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Fun" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Tag" value="high_ns"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Text" value="ns"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomInValidMessage" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Attach" value="high_ns"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="MutexType" value="NoMutex"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Visible" value="True"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomValid" value="Valid"&gt;
+                &lt;/DataElement&gt;
+              &lt;/SerializableData&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="Intervalvalue_Low8bits"&gt;
+              &lt;DataElement key="Text" value="100"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="Intervalvalue_Low8bits_Scale"&gt;
+              &lt;DataElement key="ContentItemCount" value="3"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="SelectedContentItem" value="low_us"&gt;
+              &lt;/DataElement&gt;
+              &lt;SerializableData name="ContentItem1"&gt;
+                &lt;DataElement key="Pin" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Int" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Fun" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Tag" value="low_ms"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Text" value="ms"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomInValidMessage" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Attach" value="low_ms"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="MutexType" value="NoMutex"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Visible" value="True"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomValid" value="Valid"&gt;
+                &lt;/DataElement&gt;
+              &lt;/SerializableData&gt;
+              &lt;SerializableData name="ContentItem2"&gt;
+                &lt;DataElement key="Pin" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Int" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Fun" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Tag" value="low_µs"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Text" value="µs"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomInValidMessage" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Attach" value="low_us"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="MutexType" value="NoMutex"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Visible" value="True"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomValid" value="Valid"&gt;
+                &lt;/DataElement&gt;
+              &lt;/SerializableData&gt;
+              &lt;SerializableData name="ContentItem3"&gt;
+                &lt;DataElement key="Pin" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Int" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Fun" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Tag" value="low_ns"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Text" value="ns"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomInValidMessage" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Attach" value="low_ns"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="MutexType" value="NoMutex"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Visible" value="True"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomValid" value="Valid"&gt;
+                &lt;/DataElement&gt;
+              &lt;/SerializableData&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="GenerateInterrupt"&gt;
+              &lt;DataElement key="Checked" value="False"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="Interrupt"&gt;
+              &lt;DataElement key="Checked" value="True"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="Interrupt priority"&gt;
+              &lt;DataElement key="ContentItemCount" value="4"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="SelectedContentItem" value="low"&gt;
+              &lt;/DataElement&gt;
+              &lt;SerializableData name="ContentItem1"&gt;
+                &lt;DataElement key="Pin" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Int" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Fun" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Tag" value="TAU_INTTM0_PRIORITY=High"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Text" value="High"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomInValidMessage" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Attach" value="High"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="MutexType" value="NoMutex"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Visible" value="True"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomValid" value="Valid"&gt;
+                &lt;/DataElement&gt;
+              &lt;/SerializableData&gt;
+              &lt;SerializableData name="ContentItem2"&gt;
+                &lt;DataElement key="Pin" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Int" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Fun" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Tag" value="TAU_INTTM0_PRIORITY=Level1"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Text" value="Level 1"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomInValidMessage" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Attach" value="Level1"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="MutexType" value="NoMutex"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Visible" value="True"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomValid" value="Valid"&gt;
+                &lt;/DataElement&gt;
+              &lt;/SerializableData&gt;
+              &lt;SerializableData name="ContentItem3"&gt;
+                &lt;DataElement key="Pin" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Int" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Fun" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Tag" value="TAU_INTTM0_PRIORITY=Level2"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Text" value="Level 2"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomInValidMessage" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Attach" value="Level2"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="MutexType" value="NoMutex"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Visible" value="True"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomValid" value="Valid"&gt;
+                &lt;/DataElement&gt;
+              &lt;/SerializableData&gt;
+              &lt;SerializableData name="ContentItem4"&gt;
+                &lt;DataElement key="Pin" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Int" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Fun" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Tag" value="TAU_INTTM0_PRIORITY=Low"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Text" value="Low"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomInValidMessage" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Attach" value="low"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="MutexType" value="NoMutex"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Visible" value="True"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomValid" value="Valid"&gt;
+                &lt;/DataElement&gt;
+              &lt;/SerializableData&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="InterruptH8"&gt;
+              &lt;DataElement key="Checked" value="True"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="InterruptH priority"&gt;
+              &lt;DataElement key="ContentItemCount" value="4"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="SelectedContentItem" value="Low"&gt;
+              &lt;/DataElement&gt;
+              &lt;SerializableData name="ContentItem1"&gt;
+                &lt;DataElement key="Pin" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Int" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Fun" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Tag" value="TAU_INTTM0H_PRIORITY=High"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Text" value="High"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomInValidMessage" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Attach" value="High"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="MutexType" value="NoMutex"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Visible" value="True"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomValid" value="Valid"&gt;
+                &lt;/DataElement&gt;
+              &lt;/SerializableData&gt;
+              &lt;SerializableData name="ContentItem2"&gt;
+                &lt;DataElement key="Pin" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Int" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Fun" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Tag" value="TAU_INTTM0H_PRIORITY=Level1"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Text" value="Level 1"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomInValidMessage" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Attach" value="Level1"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="MutexType" value="NoMutex"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Visible" value="True"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomValid" value="Valid"&gt;
+                &lt;/DataElement&gt;
+              &lt;/SerializableData&gt;
+              &lt;SerializableData name="ContentItem3"&gt;
+                &lt;DataElement key="Pin" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Int" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Fun" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Tag" value="TAU_INTTM0H_PRIORITY=Level2"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Text" value="Level 2"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomInValidMessage" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Attach" value="Level2"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="MutexType" value="NoMutex"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Visible" value="True"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomValid" value="Valid"&gt;
+                &lt;/DataElement&gt;
+              &lt;/SerializableData&gt;
+              &lt;SerializableData name="ContentItem4"&gt;
+                &lt;DataElement key="Pin" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Int" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Fun" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Tag" value="TAU_INTTM0H_PRIORITY=Low"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Text" value="Low"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomInValidMessage" value=""&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Attach" value="Low"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="MutexType" value="NoMutex"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="Visible" value="True"&gt;
+                &lt;/DataElement&gt;
+                &lt;DataElement key="CustomValid" value="Valid"&gt;
+                &lt;/DataElement&gt;
+              &lt;/SerializableData&gt;
+            &lt;/SerializableData&gt;
+          &lt;/SerializableData&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="Channel7"&gt;
           &lt;SerializableData name="cmbChnlFun"&gt;
             &lt;DataElement key="ContentItemCount" value="18"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="SelectedContentItem" value="TauUnused"&gt;
+            &lt;DataElement key="SelectedContentItem" value="TauPwmSlave"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="ContentItem1"&gt;
               &lt;DataElement key="Pin" value=""&gt;
@@ -37043,7 +37537,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="TauPwmSlave"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex, CustomerMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="True"&gt;
               &lt;/DataElement&gt;
@@ -38442,7 +38936,7 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="False"&gt;
+            &lt;DataElement key="Visible" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -38464,7 +38958,7 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="False"&gt;
+            &lt;DataElement key="Visible" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -38486,7 +38980,7 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="False"&gt;
+            &lt;DataElement key="Visible" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -38508,7 +39002,7 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="False"&gt;
+            &lt;DataElement key="Visible" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -38530,7 +39024,7 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="False"&gt;
+            &lt;DataElement key="Visible" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -38552,7 +39046,7 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="False"&gt;
+            &lt;DataElement key="Visible" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -38574,7 +39068,7 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="False"&gt;
+            &lt;DataElement key="Visible" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -38596,7 +39090,7 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="False"&gt;
+            &lt;DataElement key="Visible" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -38818,7 +39312,7 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="False"&gt;
+            &lt;DataElement key="Visible" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -38840,7 +39334,7 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="False"&gt;
+            &lt;DataElement key="Visible" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -38862,7 +39356,7 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="False"&gt;
+            &lt;DataElement key="Visible" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -38884,7 +39378,7 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="False"&gt;
+            &lt;DataElement key="Visible" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -38906,7 +39400,7 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="False"&gt;
+            &lt;DataElement key="Visible" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -38928,7 +39422,7 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="False"&gt;
+            &lt;DataElement key="Visible" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -38950,7 +39444,7 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="False"&gt;
+            &lt;DataElement key="Visible" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -38972,7 +39466,7 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="False"&gt;
+            &lt;DataElement key="Visible" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -39133,7 +39627,7 @@ cg_src
         &lt;SerializableData name="PGA_DSAD_SBIAS_VOLTAGE"&gt;
           &lt;DataElement key="ContentItemCount" value="18"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="SelectedContentItem" value="1.5"&gt;
+          &lt;DataElement key="SelectedContentItem" value="1.8"&gt;
           &lt;/DataElement&gt;
           &lt;SerializableData name="ContentItem1"&gt;
             &lt;DataElement key="Pin" value=""&gt;
@@ -39561,11 +40055,11 @@ cg_src
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="PGA_DSAD_SCAN_CONTINUOUS"&gt;
-          &lt;DataElement key="Checked" value="True"&gt;
+          &lt;DataElement key="Checked" value="False"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="PGA_DSAD_SCAN_SINGLE"&gt;
-          &lt;DataElement key="Checked" value="False"&gt;
+          &lt;DataElement key="Checked" value="True"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="rdo3T"&gt;
@@ -39776,7 +40270,7 @@ cg_src
           &lt;SerializableData name="cmbGset01"&gt;
             &lt;DataElement key="ContentItemCount" value="5"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="SelectedContentItem" value="8"&gt;
+            &lt;DataElement key="SelectedContentItem" value="4"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="ContentItem1"&gt;
               &lt;DataElement key="Pin" value=""&gt;
@@ -39892,7 +40386,7 @@ cg_src
           &lt;SerializableData name="cmbGset02"&gt;
             &lt;DataElement key="ContentItemCount" value="4"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="SelectedContentItem" value="8"&gt;
+            &lt;DataElement key="SelectedContentItem" value="4"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="ContentItem1"&gt;
               &lt;DataElement key="Pin" value=""&gt;
@@ -40266,7 +40760,7 @@ cg_src
           &lt;SerializableData name="PGA_DSAD_AVERAGING_UNIT"&gt;
             &lt;DataElement key="ContentItemCount" value="4"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="SelectedContentItem" value="64"&gt;
+            &lt;DataElement key="SelectedContentItem" value="32"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="ContentItem1"&gt;
               &lt;DataElement key="Pin" value=""&gt;
@@ -40722,7 +41216,7 @@ cg_src
           &lt;SerializableData name="PGA_DSAD_COUNT_MODE"&gt;
             &lt;DataElement key="ContentItemCount" value="2"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="SelectedContentItem" value="ByFormula"&gt;
+            &lt;DataElement key="SelectedContentItem" value="ByValue"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="ContentItem1"&gt;
               &lt;DataElement key="Pin" value=""&gt;
@@ -40780,7 +41274,7 @@ cg_src
           &lt;SerializableData name="PGA_DSAD_AVERAGING_MODE"&gt;
             &lt;DataElement key="ContentItemCount" value="3"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="SelectedContentItem" value="EnableEachSample"&gt;
+            &lt;DataElement key="SelectedContentItem" value="EnableEachAverage"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="ContentItem1"&gt;
               &lt;DataElement key="Pin" value=""&gt;
@@ -40944,11 +41438,11 @@ cg_src
             &lt;/SerializableData&gt;
           &lt;/SerializableData&gt;
         &lt;/SerializableData&gt;
-        &lt;SerializableData name="PGIAC4"&gt;
+        &lt;SerializableData name="PGIAC3"&gt;
           &lt;SerializableData name="cmbGset01"&gt;
             &lt;DataElement key="ContentItemCount" value="5"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="SelectedContentItem" value="4"&gt;
+            &lt;DataElement key="SelectedContentItem" value="1"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="ContentItem1"&gt;
               &lt;DataElement key="Pin" value=""&gt;
@@ -41064,7 +41558,593 @@ cg_src
           &lt;SerializableData name="cmbGset02"&gt;
             &lt;DataElement key="ContentItemCount" value="4"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="SelectedContentItem" value="4"&gt;
+            &lt;DataElement key="SelectedContentItem" value="1"&gt;
+            &lt;/DataElement&gt;
+            &lt;SerializableData name="ContentItem1"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Int" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Fun" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Tag" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Text" value="1"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomInValidMessage" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Attach" value="1"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Visible" value="True"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomValid" value="Valid"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="ContentItem2"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Int" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Fun" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Tag" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Text" value="2"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomInValidMessage" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Attach" value="2"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Visible" value="True"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomValid" value="Valid"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="ContentItem3"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Int" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Fun" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Tag" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Text" value="4"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomInValidMessage" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Attach" value="4"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Visible" value="True"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomValid" value="Valid"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="ContentItem4"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Int" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Fun" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Tag" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Text" value="8"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomInValidMessage" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Attach" value="8"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Visible" value="True"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomValid" value="Valid"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+          &lt;/SerializableData&gt;
+          &lt;SerializableData name="PGA_DSAD_OFFSET"&gt;
+            &lt;DataElement key="Value" value="16"&gt;
+            &lt;/DataElement&gt;
+          &lt;/SerializableData&gt;
+          &lt;SerializableData name="PGA_DSAD_OFFSET_VALUE"&gt;
+            &lt;DataElement key="Text" value="0"&gt;
+            &lt;/DataElement&gt;
+          &lt;/SerializableData&gt;
+          &lt;SerializableData name="PGA_DSAD_DATA_RATE"&gt;
+            &lt;DataElement key="ContentItemCount" value="6"&gt;
+            &lt;/DataElement&gt;
+            &lt;DataElement key="SelectedContentItem" value="256"&gt;
+            &lt;/DataElement&gt;
+            &lt;SerializableData name="ContentItem1"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Int" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Fun" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Tag" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Text" value="64"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomInValidMessage" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Attach" value="64"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Visible" value="True"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomValid" value="Valid"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="ContentItem2"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Int" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Fun" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Tag" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Text" value="128"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomInValidMessage" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Attach" value="128"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Visible" value="True"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomValid" value="Valid"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="ContentItem3"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Int" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Fun" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Tag" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Text" value="256"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomInValidMessage" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Attach" value="256"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Visible" value="True"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomValid" value="Valid"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="ContentItem4"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Int" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Fun" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Tag" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Text" value="512"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomInValidMessage" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Attach" value="512"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Visible" value="True"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomValid" value="Valid"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="ContentItem5"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Int" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Fun" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Tag" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Text" value="1024"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomInValidMessage" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Attach" value="1024"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Visible" value="True"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomValid" value="Valid"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="ContentItem6"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Int" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Fun" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Tag" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Text" value="2048"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomInValidMessage" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Attach" value="2048"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Visible" value="True"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomValid" value="Valid"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+          &lt;/SerializableData&gt;
+          &lt;SerializableData name="txtDataRate"&gt;
+            &lt;DataElement key="Text" value="3906.250"&gt;
+            &lt;/DataElement&gt;
+          &lt;/SerializableData&gt;
+          &lt;SerializableData name="PGA_DSAD_COUNT_MODE"&gt;
+            &lt;DataElement key="ContentItemCount" value="2"&gt;
+            &lt;/DataElement&gt;
+            &lt;DataElement key="SelectedContentItem" value="ByFormula"&gt;
+            &lt;/DataElement&gt;
+            &lt;SerializableData name="ContentItem1"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Int" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Fun" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Tag" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Text" value="Specify 1 to 8,032 times by using 8 bits"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomInValidMessage" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Attach" value="ByFormula"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Visible" value="True"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomValid" value="Valid"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="ContentItem2"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Int" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Fun" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Tag" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Text" value="Specify 1 to 255 times lineally by using 8 bits"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomInValidMessage" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Attach" value="ByValue"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Visible" value="True"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomValid" value="Valid"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+          &lt;/SerializableData&gt;
+          &lt;SerializableData name="PGA_DSAD_COUNT"&gt;
+            &lt;DataElement key="Value" value="1"&gt;
+            &lt;/DataElement&gt;
+          &lt;/SerializableData&gt;
+          &lt;SerializableData name="txtConvertionCount"&gt;
+            &lt;DataElement key="Text" value="1"&gt;
+            &lt;/DataElement&gt;
+          &lt;/SerializableData&gt;
+          &lt;SerializableData name="PGA_DSAD_AVERAGING_MODE"&gt;
+            &lt;DataElement key="ContentItemCount" value="3"&gt;
+            &lt;/DataElement&gt;
+            &lt;DataElement key="SelectedContentItem" value="EnableEachAverage"&gt;
+            &lt;/DataElement&gt;
+            &lt;SerializableData name="ContentItem1"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Int" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Fun" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Tag" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Text" value="Disable"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomInValidMessage" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Attach" value="Disable"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Visible" value="True"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomValid" value="Valid"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="ContentItem2"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Int" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Fun" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Tag" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Text" value="Enable (generates INTDSAD each time an A/D)"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomInValidMessage" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Attach" value="EnableEachSample"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Visible" value="True"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomValid" value="Valid"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="ContentItem3"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Int" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Fun" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Tag" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Text" value="Enable (generates INTDSAD each time the mean)"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomInValidMessage" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Attach" value="EnableEachAverage"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Visible" value="True"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomValid" value="Valid"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+          &lt;/SerializableData&gt;
+          &lt;SerializableData name="PGA_DSAD_AVERAGING_UNIT"&gt;
+            &lt;DataElement key="ContentItemCount" value="4"&gt;
+            &lt;/DataElement&gt;
+            &lt;DataElement key="SelectedContentItem" value="8"&gt;
+            &lt;/DataElement&gt;
+            &lt;SerializableData name="ContentItem1"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Int" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Fun" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Tag" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Text" value="8"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomInValidMessage" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Attach" value="8"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Visible" value="True"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomValid" value="Valid"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="ContentItem2"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Int" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Fun" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Tag" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Text" value="16"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomInValidMessage" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Attach" value="16"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Visible" value="True"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomValid" value="Valid"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="ContentItem3"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Int" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Fun" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Tag" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Text" value="32"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomInValidMessage" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Attach" value="32"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Visible" value="True"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomValid" value="Valid"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="ContentItem4"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Int" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Fun" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Tag" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Text" value="64"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomInValidMessage" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Attach" value="64"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Visible" value="True"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomValid" value="Valid"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+          &lt;/SerializableData&gt;
+        &lt;/SerializableData&gt;
+        &lt;SerializableData name="PGIAC4"&gt;
+          &lt;SerializableData name="cmbGset01"&gt;
+            &lt;DataElement key="ContentItemCount" value="5"&gt;
+            &lt;/DataElement&gt;
+            &lt;DataElement key="SelectedContentItem" value="1"&gt;
+            &lt;/DataElement&gt;
+            &lt;SerializableData name="ContentItem1"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Int" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Fun" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Tag" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Text" value="1"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomInValidMessage" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Attach" value="1"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Visible" value="True"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomValid" value="Valid"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="ContentItem2"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Int" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Fun" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Tag" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Text" value="2"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomInValidMessage" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Attach" value="2"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Visible" value="True"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomValid" value="Valid"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="ContentItem3"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Int" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Fun" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Tag" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Text" value="3"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomInValidMessage" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Attach" value="3"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Visible" value="True"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomValid" value="Valid"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="ContentItem4"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Int" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Fun" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Tag" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Text" value="4"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomInValidMessage" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Attach" value="4"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Visible" value="True"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomValid" value="Valid"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+            &lt;SerializableData name="ContentItem5"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Int" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Fun" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Tag" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Text" value="8"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomInValidMessage" value=""&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Attach" value="8"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="Visible" value="True"&gt;
+              &lt;/DataElement&gt;
+              &lt;DataElement key="CustomValid" value="Valid"&gt;
+              &lt;/DataElement&gt;
+            &lt;/SerializableData&gt;
+          &lt;/SerializableData&gt;
+          &lt;SerializableData name="cmbGset02"&gt;
+            &lt;DataElement key="ContentItemCount" value="4"&gt;
+            &lt;/DataElement&gt;
+            &lt;DataElement key="SelectedContentItem" value="2"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="ContentItem1"&gt;
               &lt;DataElement key="Pin" value=""&gt;
@@ -41438,7 +42518,7 @@ cg_src
           &lt;SerializableData name="PGA_DSAD_AVERAGING_UNIT"&gt;
             &lt;DataElement key="ContentItemCount" value="4"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="SelectedContentItem" value="64"&gt;
+            &lt;DataElement key="SelectedContentItem" value="32"&gt;
             &lt;/DataElement&gt;
             &lt;SerializableData name="ContentItem1"&gt;
               &lt;DataElement key="Pin" value=""&gt;
@@ -43329,7 +44409,7 @@ cg_src
               &lt;/DataElement&gt;
             &lt;/SerializableData&gt;
             &lt;SerializableData name="ContentItem3"&gt;
-              &lt;DataElement key="Pin" value="SCK00,SI00,SO00"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Int" value=""&gt;
               &lt;/DataElement&gt;
@@ -43343,7 +44423,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="CSI"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="PinMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="True"&gt;
               &lt;/DataElement&gt;
@@ -43365,7 +44445,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="IIC"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="True"&gt;
               &lt;/DataElement&gt;
@@ -43457,7 +44537,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="CSI_R"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="False"&gt;
               &lt;/DataElement&gt;
@@ -43479,7 +44559,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="CSI_T"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="False"&gt;
               &lt;/DataElement&gt;
@@ -43501,7 +44581,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="CSI_TR"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="False"&gt;
               &lt;/DataElement&gt;
@@ -43793,7 +44873,7 @@ cg_src
               &lt;/DataElement&gt;
             &lt;/SerializableData&gt;
             &lt;SerializableData name="ContentItem3"&gt;
-              &lt;DataElement key="Pin" value="SCK10,SI10,SO10"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Int" value=""&gt;
               &lt;/DataElement&gt;
@@ -43807,7 +44887,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="CSI"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="PinMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="True"&gt;
               &lt;/DataElement&gt;
@@ -43829,7 +44909,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="IIC"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="True"&gt;
               &lt;/DataElement&gt;
@@ -43921,7 +45001,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="CSI_R"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="False"&gt;
               &lt;/DataElement&gt;
@@ -43943,7 +45023,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="CSI_T"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="False"&gt;
               &lt;/DataElement&gt;
@@ -43965,7 +45045,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="CSI_TR"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="False"&gt;
               &lt;/DataElement&gt;
@@ -44259,7 +45339,7 @@ cg_src
               &lt;/DataElement&gt;
             &lt;/SerializableData&gt;
             &lt;SerializableData name="ContentItem3"&gt;
-              &lt;DataElement key="Pin" value="SCK20,SI20,SO20"&gt;
+              &lt;DataElement key="Pin" value=""&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Int" value=""&gt;
               &lt;/DataElement&gt;
@@ -44273,7 +45353,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="CSI"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="PinMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="True"&gt;
               &lt;/DataElement&gt;
@@ -44295,7 +45375,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="IIC"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="True"&gt;
               &lt;/DataElement&gt;
@@ -44321,7 +45401,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="UART_R"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="False"&gt;
               &lt;/DataElement&gt;
@@ -44365,7 +45445,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="UART_TR"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="False"&gt;
               &lt;/DataElement&gt;
@@ -44387,7 +45467,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="CSI_R"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="False"&gt;
               &lt;/DataElement&gt;
@@ -44409,7 +45489,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="CSI_T"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="False"&gt;
               &lt;/DataElement&gt;
@@ -44431,7 +45511,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="CSI_TR"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="False"&gt;
               &lt;/DataElement&gt;
@@ -44553,7 +45633,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="UART_R"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="False"&gt;
               &lt;/DataElement&gt;
@@ -44597,7 +45677,7 @@ cg_src
               &lt;/DataElement&gt;
               &lt;DataElement key="Attach" value="UART_TR"&gt;
               &lt;/DataElement&gt;
-              &lt;DataElement key="MutexType" value="NoMutex, PinMutex"&gt;
+              &lt;DataElement key="MutexType" value="NoMutex"&gt;
               &lt;/DataElement&gt;
               &lt;DataElement key="Visible" value="False"&gt;
               &lt;/DataElement&gt;
@@ -58318,7 +59398,7 @@ cg_src
         &lt;/SerializableData&gt;
         &lt;SerializableData name="P02"&gt;
           &lt;SerializableData name="MODULE_UNUSED"&gt;
-            &lt;DataElement key="Checked" value="True"&gt;
+            &lt;DataElement key="Checked" value="False"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="INPUT_MODE"&gt;
@@ -58326,7 +59406,7 @@ cg_src
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="OUTPUT_MODE"&gt;
-            &lt;DataElement key="Checked" value="False"&gt;
+            &lt;DataElement key="Checked" value="True"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="chkPU"&gt;
@@ -58338,11 +59418,11 @@ cg_src
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="NCH_ON"&gt;
-            &lt;DataElement key="Checked" value="True"&gt;
+            &lt;DataElement key="Checked" value="False"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
           &lt;SerializableData name="OUTPUT_1"&gt;
-            &lt;DataElement key="Checked" value="False"&gt;
+            &lt;DataElement key="Checked" value="True"&gt;
             &lt;/DataElement&gt;
           &lt;/SerializableData&gt;
         &lt;/SerializableData&gt;
@@ -59563,11 +60643,11 @@ cg_src
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="AMP_CH1_LOW-POWER"&gt;
-          &lt;DataElement key="Checked" value="True"&gt;
+          &lt;DataElement key="Checked" value="False"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="AMP_CH1_HIGHSPEED"&gt;
-          &lt;DataElement key="Checked" value="False"&gt;
+          &lt;DataElement key="Checked" value="True"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="AMP_CH2CH3_LOW-POWER"&gt;
@@ -60235,21 +61315,21 @@ cg_src
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="DA_CONVERTION_TIME"&gt;
-          &lt;DataElement key="Text" value="10"&gt;
+          &lt;DataElement key="Text" value="13"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="Voltage_TXT"&gt;
-          &lt;DataElement key="Text" value="0.0586"&gt;
+          &lt;DataElement key="Text" value="0.0914"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="DAC1"&gt;
         &lt;SerializableData name="DA_UNUSED"&gt;
-          &lt;DataElement key="Checked" value="False"&gt;
+          &lt;DataElement key="Checked" value="True"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="DA_USED"&gt;
-          &lt;DataElement key="Checked" value="True"&gt;
+          &lt;DataElement key="Checked" value="False"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="DA_NORMAL_MODE"&gt;
@@ -60261,11 +61341,11 @@ cg_src
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="rdoAVDD"&gt;
-          &lt;DataElement key="Checked" value="True"&gt;
+          &lt;DataElement key="Checked" value="False"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="rdoSBIAS"&gt;
-          &lt;DataElement key="Checked" value="False"&gt;
+          &lt;DataElement key="Checked" value="True"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="rdoRight"&gt;
@@ -60277,11 +61357,11 @@ cg_src
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="DA_CONVERTION_TIME"&gt;
-          &lt;DataElement key="Text" value="0"&gt;
+          &lt;DataElement key="Text" value="500"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="Voltage_TXT"&gt;
-          &lt;DataElement key="Text" value="0"&gt;
+          &lt;DataElement key="Text" value="0.2197"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
       &lt;/SerializableData&gt;
@@ -67195,7 +68275,7 @@ cg_src
       &lt;/DataElement&gt;
     &lt;/SerializableData&gt;
     &lt;SerializableData name="DataKey_VBIAS"&gt;
-      &lt;DataElement key="DataValue" value="1.5"&gt;
+      &lt;DataElement key="DataValue" value="1.8"&gt;
       &lt;/DataElement&gt;
     &lt;/SerializableData&gt;
     &lt;SerializableData name="DataKey_PGA00P_USED"&gt;
@@ -67223,7 +68303,7 @@ cg_src
       &lt;/DataElement&gt;
     &lt;/SerializableData&gt;
     &lt;SerializableData name="DataKey_DA1_USED"&gt;
-      &lt;DataElement key="DataValue" value="true"&gt;
+      &lt;DataElement key="DataValue" value="false"&gt;
       &lt;/DataElement&gt;
     &lt;/SerializableData&gt;
     &lt;SerializableData name="DataKey_ELC_AD"&gt;
@@ -67443,7 +68523,7 @@ cg_src
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="DA1_USED"&gt;
-          &lt;DataElement key="DataValue" value="true"&gt;
+          &lt;DataElement key="DataValue" value="false"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
       &lt;/SerializableData&gt;
@@ -67469,7 +68549,7 @@ cg_src
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="DA1_USED"&gt;
-          &lt;DataElement key="DataValue" value="true"&gt;
+          &lt;DataElement key="DataValue" value="false"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="PGIA_USED"&gt;
@@ -67483,7 +68563,7 @@ cg_src
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="DA1_USED"&gt;
-          &lt;DataElement key="DataValue" value="true"&gt;
+          &lt;DataElement key="DataValue" value="false"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="PGIA_USED"&gt;
@@ -67547,7 +68627,7 @@ cg_src
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="VBIAS"&gt;
-          &lt;DataElement key="DataValue" value="1.5"&gt;
+          &lt;DataElement key="DataValue" value="1.8"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
       &lt;/SerializableData&gt;
@@ -67557,7 +68637,7 @@ cg_src
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="VBIAS"&gt;
-          &lt;DataElement key="DataValue" value="1.5"&gt;
+          &lt;DataElement key="DataValue" value="1.8"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
       &lt;/SerializableData&gt;

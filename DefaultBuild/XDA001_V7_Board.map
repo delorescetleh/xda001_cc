@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (W3.04.00 )             14-Feb-2023 13:48:30
+Renesas Optimizing Linker (W3.04.00 )             15-Feb-2023 18:36:14
 
 *** Options ***
 
@@ -27,6 +27,7 @@ Renesas Optimizing Linker (W3.04.00 )             14-Feb-2023 13:48:30
 -Input=DefaultBuild\r_cg_tau_user.obj
 -Input=DefaultBuild\r_cg_rtc.obj
 -Input=DefaultBuild\r_cg_rtc_user.obj
+-Input=DefaultBuild\L_PT100.obj
 -LIBrary=FDL\CCRL_100\lib\pfdl.lib
 -SECURITY_ID=00000000000000000000
 -DEVICE=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11NGG.DVF
@@ -69,23 +70,23 @@ SECTION                            START      END         SIZE   ALIGN
 .monitor1
                                   000000ce  000000d7         a   1
 .data
-                                  000000d8  00000135        5e   2
+                                  000000d8  0000012a        53   2
 .text
-                                  00000136  0000021f        ea   1
+                                  0000012b  000002df       1b5   1
 PFDL_COD
-                                  00000220  000002ad        8e   2
+                                  000002e0  0000036d        8e   2
 .textf
-                                  000002ae  00000cb4       a07   1
+                                  0000036e  000011e3       e76   1
 .RLIB
-                                  00000cb5  00000fcc       318   1
+                                  000011e4  000016a6       4c3   1
 .const
-                                  00002000  00002000         0   2
+                                  00002000  00002af7       af8   2
 .monitor2
                                   0001fe00  0001ffff       200   1
 .bss
-                                  000fe900  000fe908         9   2
+                                  000fe900  000fe925        26   2
 .dataR
-                                  000fe90a  000fe967        5e   2
+                                  000fe926  000fe978        53   2
 .sbss
                                   000ffe20  000ffe20         0   2
 .sdataR

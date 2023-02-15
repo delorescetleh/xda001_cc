@@ -22,6 +22,7 @@
 -Input=DefaultBuild\r_cg_tau_user.obj
 -Input=DefaultBuild\r_cg_rtc.obj
 -Input=DefaultBuild\r_cg_rtc_user.obj
+-Input=DefaultBuild\L_PT100.obj
 -LIBrary=FDL\CCRL_100\lib\pfdl.lib
 -SECURITY_ID=00000000000000000000
 -DEVICE=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11NGG.DVF

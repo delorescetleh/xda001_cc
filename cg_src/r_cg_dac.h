@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for DAC module.
-* Creation Date: 2023/2/14
+* Creation Date: 2023/2/15
 ***********************************************************************************************************************/
 #ifndef DAC_H
 #define DAC_H
@@ -56,9 +56,7 @@ Macro definitions (Register bit)
 Macro definitions
 ***********************************************************************************************************************/
 #define DA0_WAITTIME                        (0x0CU) /* set the waiting time */
-#define _0A_DA0_COUVERSION_VALUE            (0x0AU) /* set the analog voltage value */
-#define DA1_WAITTIME                        (0x78U) /* set the waiting time */
-#define _0000_DA1_COUVERSION_VALUE          (0x0000U) /* set the analog voltage value */
+#define _0D_DA0_COUVERSION_VALUE            (0x0DU) /* set the analog voltage value */
 
 /***********************************************************************************************************************
 Typedef definitions
@@ -71,9 +69,6 @@ void R_DAC_Create(void);
 void R_DAC0_Start(void);
 void R_DAC0_Stop(void);
 void R_DAC0_Set_ConversionValue(uint8_t regvalue);
-void R_DAC1_Start(void);
-void R_DAC1_Stop(void);
-void R_DAC1_Set_ConversionValue(uint8_t regvalue);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif
