@@ -171,6 +171,7 @@ static void r_uart0_callback_softwareoverrun(uint16_t rx_data)
 static void r_uart0_callback_sendend(void)
 {
     /* Start user code. Do not edit comment generated here */
+    R_UART0_Stop();
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************

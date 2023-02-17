@@ -57,7 +57,7 @@ Global variables and functions
 static void __near r_it8bit0_channel0_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
-    events |=TIMER_PERIODIC_EVENT;
+    events |= TIMER_PERIODIC_EVENT;
     /* End user code. Do not edit comment generated here */
 }
 

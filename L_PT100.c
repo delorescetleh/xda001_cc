@@ -30,7 +30,9 @@ void dsadc_procedure(void)
         case DSADC_PROCESS_START:
             R_PGA_DSAD_Create();
             R_PGA_DSAD_Start();
+            R_AMP_Create();
             R_AMP_Set_PowerOn();
+            R_DAC_Create();
             R_DAC0_Start();
             R_AMP0_Start();
             R_AMP2_Start();
@@ -68,10 +70,22 @@ void L_PT100_STOP(void){
                 R_AMP0_Stop();
                 R_AMP2_Stop();
                 R_AMP_Set_PowerOff();
+
+
+    
+                AMPC = 0U; /* stop all AMP units */
+                AMPPON = 0U;    /* power-off (default) */
+                AMPEN = 0U;     /* disables input clock supply */
+
+                DACEN = 1U;     /* disables input clock supply */
+
                 PGAPON = 0U; /* power off PGA and DS A/D */
                 PGAEN = 0U;  /* disable input clock supply */
+                
                 AFEPWS = 0U; /* power off AFE */
                 AFEEN = 0U;  /* disable input clock supply */
+                AFEPON = 0U;    /* power on AFE */
+
 }
 
 

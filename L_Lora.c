@@ -42,7 +42,12 @@ void LORA_PROCESS(void)
 void L_LORA_INIT(void){
     LORA_CTS = PIN_LEVEL_AS_HIGH;
     LORA_CTS_MODE = PIN_MODE_AS_OUTPUT;
-    
+    SAU0EN = 1U;    /* enables input clock supply */
+    NOP();
+    NOP();
+    NOP();
+    NOP();
+    SPS0 = _0030_SAU_CK01_FCLK_3 | _0003_SAU_CK00_FCLK_3;
     R_UART0_Create();
     R_UART0_Start();
     memclr(receivedFromLora, MAX_LORA_RECEIVE);
@@ -66,30 +71,39 @@ void L_LORA_INIT(void){
 
 
 
+#define      LORA_PROCESS_TIMEOUT_COUNT 30
+uint8_t lora_process_timeout_counter = LORA_PROCESS_TIMEOUT_COUNT;
 void lora_procedure(void){
+if(!lora_process_timeout_counter)
+{
+	lora_process_timeout_counter=LORA_PROCESS_TIMEOUT_COUNT;
+    lora_process_rtc_timer_counter = 5;
+    lora_process = LORA_POWER_OFF;
+}
     switch (lora_process)
     {
     case LORA_PROCESS_START:
         L_LORA_INIT();
         lora_process = LORA_INIT_CHECK;
         lora_process_rtc_timer_counter = 2;
+        lora_process_timeout_counter = LORA_PROCESS_TIMEOUT_COUNT;
         BUZ0 = !BUZ0;
-
         break;
     case LORA_INIT_CHECK:
         if((lora_init_success))
         {
             lora_init_success = 0;
             LORA_CTS = PIN_LEVEL_AS_HIGH;
+            lora_process_rtc_timer_counter = 2;
             lora_process = LORA_SEND_MESSAGE;
-        }else{
+             break;
+        }
             if(!lora_process_rtc_timer_counter)
             {
                 lora_process = LORA_PROCESS_START;
-		    L_LORA_STOP();
-
+		        L_LORA_STOP();
             }
-        }
+        
         break;     
     case LORA_SEND_MESSAGE:
         if((!LORA_RTS))
@@ -98,15 +112,22 @@ void lora_procedure(void){
             doSendLoraData();
             lora_process_rtc_timer_counter = 2;
             lora_process = LORA_SEND_MESSAGE2;
+             break;
         }
+        if(!lora_process_rtc_timer_counter)
+            {
+                lora_process = LORA_INIT_CHECK;
+            }
         break;
     case LORA_SEND_MESSAGE2:
         if(!lora_process_rtc_timer_counter)
         {
             lora_process = LORA_SEND_MESSAGE;
+             break;
         }
         if(LORA_RTS)
         {
+            lora_process_rtc_timer_counter = 5;
             lora_process = LORA_POWER_OFF;
         }
         break;     
@@ -114,6 +135,7 @@ void lora_procedure(void){
             if(!lora_process_rtc_timer_counter)
             {
                 L_LORA_STOP();
+		lora_process_timeout_counter=LORA_PROCESS_TIMEOUT_COUNT;
                 lora_process = LORA_PROCESS_END;
             }
         break;    
@@ -148,6 +170,7 @@ void L_LORA_STOP(void){
     R_UART0_Stop();
     LORA_CTS_MODE = PIN_MODE_AS_INPUT;
     UART0_TXD_MODE = PIN_MODE_AS_INPUT;
+    SAU0EN = 0U;    /* disables input clock supply */
     LORA_RESET = PIN_LEVEL_AS_LOW;
     delayInMs(10);
     LORA_POW_CNT = PIN_LEVEL_AS_LOW;

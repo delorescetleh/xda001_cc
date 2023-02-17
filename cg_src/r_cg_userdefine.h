@@ -47,6 +47,7 @@ User definitions
 #include "r_cg_intp.h"
 # include "r_cg_tau.h"
 # include "r_cg_dac.h"
+# include "r_cg_it.h"
 
 # include "L_useful.h"
 # include "L_factory.h"
@@ -276,7 +277,7 @@ extern uint32_t adc10_mean;
 #define    normal_mode 4
 
 extern uint8_t sendToLora[20];
-
+extern uint8_t lora_process_timeout_counter;
 extern uint8_t mode;
 extern float Rpt100;
 extern uint8_t events;

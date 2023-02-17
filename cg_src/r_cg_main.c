@@ -32,15 +32,14 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "r_cg_cgc.h"
 #include "r_cg_port.h"
-#include "r_cg_tau.h"
 #include "r_cg_it8bit.h"
 #include "r_cg_rtc.h"
+#include "r_cg_it.h"
 #include "r_cg_pga_dsad.h"
 #include "r_cg_amp.h"
 #include "r_cg_dac.h"
 #include "r_cg_adc.h"
 #include "r_cg_sau.h"
-#include "r_cg_intp.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -49,7 +48,7 @@ Includes
 Pragma directive
 ***********************************************************************************************************************/
 /* Start user code for pragma. Do not edit comment generated here */
-#define RECORD_COUNTDOWN_SEC                10
+#define RECORD_COUNTDOWN_SEC                60
 #define BATTERY_COUNTDOWN_SEC               RECORD_COUNTDOWN_SEC
 #define DSADC_COUNTDOWN_SEC                 RECORD_COUNTDOWN_SEC
 #define LORA_COUNTDOWN_SEC                  RECORD_COUNTDOWN_SEC
@@ -126,6 +125,10 @@ void main(void)
                 {
                     lora_process_rtc_timer_counter--;
                 }
+                if (lora_process_timeout_counter)
+                {
+                    lora_process_timeout_counter--;
+                }
                 if ((battery_rtc_counter>=BATTERY_COUNTDOWN_SEC)&&(lora_process!=LORA_PROCESS_END))
                 {
                     battery_rtc_counter = 0;
@@ -155,14 +158,18 @@ void main(void)
                 dsadc_procedure();
                 lora_procedure();
             }
-        }
-        if((battery_process==BATTERY_PROCESS_END)&&(dsadc_process==DSADC_PROCESS_END)&&(lora_process==LORA_PROCESS_END))
-        {
-            MAIN_PROCESS_TIMER_STOP();
-            goToSleep();
         }else{
-            //HALT();
+	        if((battery_process==BATTERY_PROCESS_END)&&(dsadc_process==DSADC_PROCESS_END)&&(lora_process==LORA_PROCESS_END))
+            {
+                MAIN_PROCESS_TIMER_STOP();
+                goToSleep();
+                //HALT();
+            }else{
+                //HALT();
+            }
         }
+
+
     }
     /* End user code. Do not edit comment generated here */
 }
@@ -200,27 +207,27 @@ void MAIN_PROCESS_TIMER_STOP(void)
 }
 void goToSleep(void)
 {
-        R_ADC_Stop();
-        R_DAC0_Stop();
-        R_AMP0_Stop();
-        R_AMP2_Stop();
-        R_INTC0_Stop();
-        R_AMP_Set_PowerOff();
-        R_IT8Bit0_Channel0_Stop();
-        R_TAU0_Channel1_Stop();
-        R_TAU0_Channel6_Stop();
-        R_UART1_Stop();
-        R_UART0_Stop();
-        R_INTC0_Stop();
+        // R_ADC_Stop();
+        // R_DAC0_Stop();
+        // R_AMP0_Stop();
+        // R_AMP2_Stop();
+        // R_INTC0_Stop();
+        // R_AMP_Set_PowerOff();
+        // R_IT8Bit0_Channel0_Stop();
+        // R_TAU0_Channel1_Stop();
+        // R_TAU0_Channel6_Stop();
+        // R_UART1_Stop();
+        // R_UART0_Stop();
+        // R_INTC0_Stop();
         
-        //BUZ0 = !BUZ0;
-         BUZ0_MODE=PIN_MODE_AS_INPUT;
+        BUZ0 = !BUZ0;
+        //  BUZ0_MODE=PIN_MODE_AS_INPUT;
         BAT_ADC_ON_MODE=PIN_MODE_AS_INPUT;
         UART1_TXD_MODE = PIN_MODE_AS_INPUT;
         BLE_CTS_MODE = PIN_MODE_AS_INPUT;
         LORA_POW_CNT_MODE=PIN_MODE_AS_INPUT; 
         BLE_POW_CNT_MODE = PIN_MODE_AS_INPUT;
-	STOP();
-        //HALT();
+	//STOP();
+        HALT();
 }
 /* End user code. Do not edit comment generated here */

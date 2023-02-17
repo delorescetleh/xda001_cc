@@ -333,14 +333,8 @@ Macro definitions (Register bit)
 Macro definitions
 ***********************************************************************************************************************/
 #define _3E7F_TAU_TDR01_VALUE                 (0x3E7FU) /* 16-bit timer data register 01 */
-#define _B71A_TAU_TDR06_VALUE                 (0xB71AU) /* 16-bit timer data register 06 */
-#define _01D5_TAU_TDR07_VALUE                 (0x01D5U) /* 16-bit timer data register 07 */
 /* Clock divisor for TAU0 channel 1 */
 #define TAU0_CHANNEL1_DIVISOR                 (1U)      /* fCLK */
-/* Clock divisor for TAU0 channel 6 */
-#define TAU0_CHANNEL6_DIVISOR                 (1024U)   /* fCLK/2^10 */
-/* Clock divisor for TAU0 channel 7 */
-#define TAU0_CHANNEL7_DIVISOR                 (1024U)   /* fCLK/2^10 */
 
 /***********************************************************************************************************************
 Typedef definitions
@@ -352,8 +346,6 @@ Global functions
 void R_TAU0_Create(void);
 void R_TAU0_Channel1_Start(void);
 void R_TAU0_Channel1_Stop(void);
-void R_TAU0_Channel6_Start(void);
-void R_TAU0_Channel6_Stop(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif

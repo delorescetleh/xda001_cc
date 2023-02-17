@@ -32,15 +32,14 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "r_cg_cgc.h"
 #include "r_cg_port.h"
-#include "r_cg_tau.h"
 #include "r_cg_it8bit.h"
 #include "r_cg_rtc.h"
+#include "r_cg_it.h"
 #include "r_cg_pga_dsad.h"
 #include "r_cg_amp.h"
 #include "r_cg_dac.h"
 #include "r_cg_adc.h"
 #include "r_cg_sau.h"
-#include "r_cg_intp.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -73,12 +72,11 @@ void R_Systeminit(void)
     R_CGC_Get_ResetSource();
     R_PORT_Create();
     R_CGC_Create();
-    R_TAU0_Create();
     R_RTC_Create();
+    R_IT_Create();
     R_PGA_DSAD_Create();
     R_AMP_Create();
     R_DAC_Create();
-    R_INTC_Create();
     R_IT8Bit0_Channel0_Create();
     R_ADC_Create();
     R_SAU0_Create();

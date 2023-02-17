@@ -39,8 +39,6 @@ Includes
 Pragma directive
 ***********************************************************************************************************************/
 #pragma interrupt r_tau0_channel1_interrupt(vect=INTTM01)
-#pragma interrupt r_tau0_channel6_interrupt(vect=INTTM06)
-#pragma interrupt r_tau0_channel7_interrupt(vect=INTTM07)
 /* Start user code for pragma. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -60,28 +58,6 @@ static void __near r_tau0_channel1_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
 
-    /* End user code. Do not edit comment generated here */
-}
-/***********************************************************************************************************************
-* Function Name: r_tau0_channel6_interrupt
-* Description  : This function INTTM06 interrupt service routine.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-static void __near r_tau0_channel6_interrupt(void)
-{
-    /* Start user code. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
-}
-/***********************************************************************************************************************
-* Function Name: r_tau0_channel7_interrupt
-* Description  : This function INTTM07 interrupt service routine.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-static void __near r_tau0_channel7_interrupt(void)
-{
-    /* Start user code. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
 }
 

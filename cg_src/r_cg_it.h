@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_it.h
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for IT module.
-* Creation Date: 2022/7/5
+* Creation Date: 2023/2/17
 ***********************************************************************************************************************/
 #ifndef IT_H
 #define IT_H
@@ -42,7 +42,7 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define _0F5B_ITCMP_VALUE                 (0x0F5BU) /* specification of the 12-bit interval timer compare value */
+#define _0020_ITCMP_VALUE                 (0x0020U) /* specification of the 12-bit interval timer compare value */
 
 /***********************************************************************************************************************
 Typedef definitions
