@@ -13,5 +13,5 @@ void _convert_differential_value_as_uv(int32_t *value, uint8_t g);
 void DSADC_PROCESS(void);
 void dsadc_procedure_init(struct dsadc_struct *_dsadc);
 void dsadc_procedure(void);
-
+void L_PT100_STOP(void);
 #endif

@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_dtc.h
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for DTC module.
-* Creation Date: 2022/7/14
+* Creation Date: 2023/2/16
 ***********************************************************************************************************************/
 #ifndef DTC_H
 #define DTC_H
@@ -166,10 +166,10 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define _01_DTCD10_TRANSFER_BLOCKSIZE                (0x01U) /* transfer block size */
-#define _A0_DTCD10_TRANSFER_BYTE                     (0xA0U) /* number of transfers */
-#define _FF46_DTCD10_SRC_ADDRESS                     (0xFF46U) 
-#define _FC00_DTCD10_DEST_ADDRESS                    (0xFC00U) 
+#define _01_DTCD8_TRANSFER_BLOCKSIZE                 (0x01U) /* transfer block size */
+#define _FF_DTCD8_TRANSFER_BYTE                      (0xFFU) /* number of transfers */
+#define _FF12_DTCD8_SRC_ADDRESS                      (0xFF12U) 
+#define _FC00_DTCD8_DEST_ADDRESS                     (0xFC00U) 
 
 /***********************************************************************************************************************
 Typedef definitions
@@ -188,8 +188,8 @@ typedef struct
 Global functions
 ***********************************************************************************************************************/
 void R_DTC_Create(void);
-void R_DTCD10_Start(void);
-void R_DTCD10_Stop(void);
+void R_DTCD8_Start(void);
+void R_DTCD8_Stop(void);
 /* Start user code for function. Do not edit comment generated here */
 uint8_t reset_DTC10(void);
 /* End user code. Do not edit comment generated here */

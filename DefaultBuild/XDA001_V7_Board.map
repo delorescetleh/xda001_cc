@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (W3.04.00 )             15-Feb-2023 18:36:14
+Renesas Optimizing Linker (W3.04.00 )             17-Feb-2023 15:18:00
 
 *** Options ***
 
@@ -23,11 +23,16 @@ Renesas Optimizing Linker (W3.04.00 )             15-Feb-2023 18:36:14
 -Input=DefaultBuild\r_cg_adc_user.obj
 -Input=DefaultBuild\L_useful.obj
 -Input=DefaultBuild\L_BAT.obj
--Input=DefaultBuild\r_cg_tau.obj
--Input=DefaultBuild\r_cg_tau_user.obj
 -Input=DefaultBuild\r_cg_rtc.obj
 -Input=DefaultBuild\r_cg_rtc_user.obj
 -Input=DefaultBuild\L_PT100.obj
+-Input=DefaultBuild\r_cg_sau.obj
+-Input=DefaultBuild\r_cg_sau_user.obj
+-Input=DefaultBuild\L_Lora.obj
+-Input=DefaultBuild\r_cg_tau.obj
+-Input=DefaultBuild\r_cg_tau_user.obj
+-Input=DefaultBuild\r_cg_intp.obj
+-Input=DefaultBuild\r_cg_intp_user.obj
 -LIBrary=FDL\CCRL_100\lib\pfdl.lib
 -SECURITY_ID=00000000000000000000
 -DEVICE=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11NGG.DVF
@@ -70,23 +75,25 @@ SECTION                            START      END         SIZE   ALIGN
 .monitor1
                                   000000ce  000000d7         a   1
 .data
-                                  000000d8  0000012a        53   2
+                                  000000d8  00000209       132   2
 .text
-                                  0000012b  000002df       1b5   1
+                                  0000020a  000004b1       2a8   1
 PFDL_COD
-                                  000002e0  0000036d        8e   2
+                                  000004b2  0000053f        8e   2
 .textf
-                                  0000036e  000011e3       e76   1
+                                  00000540  00001957      1418   1
 .RLIB
-                                  000011e4  000016a6       4c3   1
+                                  00001958  00001ea8       551   1
 .const
                                   00002000  00002af7       af8   2
 .monitor2
                                   0001fe00  0001ffff       200   1
 .bss
-                                  000fe900  000fe925        26   2
+                                  000fe900  000fe9e5        e6   2
 .dataR
-                                  000fe926  000fe978        53   2
+                                  000fe9e6  000feb17       132   2
+.bss_ATFFC00
+                                  000ffc00  000ffc9f        a0   1
 .sbss
                                   000ffe20  000ffe20         0   2
 .sdataR

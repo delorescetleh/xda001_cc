@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file includes user definition.
-* Creation Date: 2023/2/15
+* Creation Date: 2023/2/17
 ***********************************************************************************************************************/
 #ifndef _USER_DEF_H
 #define _USER_DEF_H
@@ -58,17 +58,6 @@ User definitions
 #include "L_BAT.h"
 
 /*BOARD SUPPORT AREA START*/
-#define BLE_POW_CNT_MODE              PM0_bit.no5
-#define BLE_POW_CNT                   P0_bit.no5
-#define BLE_UART_RXD_IND              P5_bit.no3
-#define BLE_UART_RXD_IND_MODE         PM5_bit.no3
-#define BLE_STATUS_1                  P12_bit.no1
-#define BLE_NO_CONNECT                P12_bit.no1
-#define BLE_NO_CONNECT_MODE           PM12_bit.no1
-#define BLE_NO_CONNECT_MODE_PULL_UP   PU12_bit.no1
-#define BLE_RESET                     P5_bit.no2
-#define BLE_RESET_MODE                PM5_bit.no2//PM5_bit.no2
-
 #define UART1_TXD                     P5_bit.no0
 #define UART1_TXD_MODE                PM5_bit.no0
 #define UART1_RXD                     P5_bit.no1
@@ -82,16 +71,33 @@ User definitions
 #define LORA_READY_MODE               PM3_bit.no2
 #define LORA_RESET                    P3_bit.no5
 #define LORA_RESET_MODE               PM3_bit.no5
+#define LORA_GPIO16                   P3_bit.no0 
+#define LORA_GPIO16_MODE              PM3_bit.no0
+
 
 #define UART0_TXD                     P3_bit.no7
 #define UART0_TXD_MODE                PM3_bit.no7
 #define UART0_RXD                     P3_bit.no6
 #define UART0_RXD_MODE                PM3_bit.no6
 
+#define BAT_ADC_ON_MODE               PM0_bit.no1 // v7 only
 #define BAT_ADC_ON                    P0_bit.no1 // v7 only
+#define BUZ0_MODE                       PM0_bit.no2 // v7 only
 #define BUZ0                          P0_bit.no2 // v7 only
+
+#define BLE_POW_CNT_MODE              PM0_bit.no4   // Input , v7 only
+#define BLE_POW_CNT                   P0_bit.no4    // Input , v7 only
+
+#define LORA_CTS_MODE                 LORA_READY_MODE      // Output ,v7 only
+#define BLE_CTS_MODE                  PM7_bit.no6      // Output ,v7 only
+
+#define LORA_RTS                        LORA_STA        // Input , v7 only
+#define LORA_CTS                        LORA_READY      // Output ,v7 only
+#define BLE_RTS                         P13_bit.no7    // Input , v7 only
+#define BLE_CTS                         P7_bit.no6      // Output ,v7 only
 /*BOARD SUPPORT AREA END*/
 
+#define LORA_SLEEP_WAIT_TIME      5
 
 #define BLE_FACTORY_SETTING_FINISH 0xFF
 #define BLE_SHUT_DOWN 0xA5
@@ -108,6 +114,27 @@ enum ADC_MODE
     ADC_STANDBY
 };
 extern enum ADC_MODE adc_mode;
+
+enum PT100_DATA_FETCH_RESULT_TYPE
+{
+    PT100_SUCCESS,
+    PT100_LINE_ERROR,
+    PT100_SENSE_ERROR,
+};
+extern enum PT100_DATA_FETCH_RESULT_TYPE pt100_data_fetch_result_type;
+extern enum ADC_MODE adc_mode;
+
+enum lora_process_t
+{
+    LORA_PROCESS_END                    ,
+    LORA_PROCESS_START                  ,
+    LORA_INIT_CHECK,
+    LORA_SEND_MESSAGE                   ,
+    LORA_SEND_MESSAGE2                   ,
+    LORA_POWER_OFF                      ,
+} ;
+extern enum lora_process_t lora_process;
+
 enum battery_process_t
 {
     BATTERY_PROCESS_END                     ,
@@ -141,7 +168,9 @@ extern uint32_t adc10_mean;
 #define BLE_TIMER_PERIODIC_EVENT                    0x04
 #define ADC8_NOTIFICATION_EVENT                     0x08
 #define ADC10_NOTIFICATION_EVENT                    0x10
+#define UART0_NOTIFICATION_EVENT                    0x20
 #define RTC_NOTIFICATION_EVENT                      0x40
+#define UART1_NOTIFICATION_EVENT                    0x80
 
 
 // DATA FLASH REGISTER 
@@ -279,5 +308,6 @@ extern uint8_t setBleDeviceNameCommand[];
 extern uint16_t K;
 extern uint8_t ADC8;
 extern uint8_t ADC10;
+extern uint8_t lora_process_rtc_timer_counter;
 /* End user code. Do not edit comment generated here */
 #endif

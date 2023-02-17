@@ -8,7 +8,7 @@ typedef struct battery_struct
     uint8_t fetch_finish;
     float Vbat;
 } battery_data_t;
-
+void L_BAT_STOP(void);
 void BATTERY_VOLTAGE_FETCH_START(void);
 void BATTERY_VOLTAGE_FETCH_STOP(void);
 void BATTERY_PROCESS(void);

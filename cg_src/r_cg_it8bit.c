@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for IT8Bit module.
-* Creation Date: 2023/2/15
+* Creation Date: 2023/2/17
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -89,49 +89,6 @@ void R_IT8Bit0_Channel0_Stop(void)
     ITMK00 = 1U;    /* disable INTIT00 interrupt */
     ITIF00 = 0U;    /* clear INTIT00 interrupt flag */
     TSTART00 = 0U;  /* counting stops */
-}
-/***********************************************************************************************************************
-* Function Name: R_IT8Bit0_Channel1_Create
-* Description  : This function initializes the 8 bit interval timer unit0 channel1.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_IT8Bit0_Channel1_Create(void)
-{
-    TRTCR0 |= _10_IT8BIT_CLOCK_SUPPLY;
-    TSTART01 = 0U;  /* counting stops */
-    ITMK01 = 1U;    /* disable INTIT01 interrupt */
-    ITIF01 = 0U;    /* clear INTIT01 interrupt flag */
-    /* Set INTIT01 low priority */
-    ITPR101 = 1U;
-    ITPR001 = 1U;
-    TRTCR0 |= _00_IT8BIT_8BIT_COUNT_MODE;
-    TRTMD0 |= _50_IT8BIT_CLOCK1_32;
-    TRTCMP01 = _CC_IT8BIT_CMP01_VALUE;
-}
-/***********************************************************************************************************************
-* Function Name: R_IT8Bit0_Channel1_Start
-* Description  : This function starts 8 bit interval timer unit0 channel1 operation.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_IT8Bit0_Channel1_Start(void)
-{
-    ITIF01 = 0U;    /* clear INTIT01 interrupt flag */
-    ITMK01 = 0U;    /* enable INTIT01 interrupt */
-    TSTART01 = 1U;  /* counting starts */
-}
-/***********************************************************************************************************************
-* Function Name: R_IT8Bit0_Channel1_Stop
-* Description  : This function stops 8 bit interval timer unit0 channel1 operation.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-void R_IT8Bit0_Channel1_Stop(void)
-{
-    ITMK01 = 1U;    /* disable INTIT01 interrupt */
-    ITIF01 = 0U;    /* clear INTIT01 interrupt flag */
-    TSTART01 = 0U;  /* counting stops */
 }
 
 /* Start user code for adding. Do not edit comment generated here */

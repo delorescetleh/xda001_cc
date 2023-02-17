@@ -4,6 +4,7 @@
     "l_pcb_temp.h": "c",
     "l_ble.h": "c",
     "l_bat.h": "c",
-    "l_pt100.h": "c"
+    "l_pt100.h": "c",
+    "l_lora.h": "c"
   }
 }

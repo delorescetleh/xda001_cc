@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements system initializing function.
-* Creation Date: 2023/2/15
+* Creation Date: 2023/2/17
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -39,6 +39,8 @@ Includes
 #include "r_cg_amp.h"
 #include "r_cg_dac.h"
 #include "r_cg_adc.h"
+#include "r_cg_sau.h"
+#include "r_cg_intp.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -76,9 +78,10 @@ void R_Systeminit(void)
     R_PGA_DSAD_Create();
     R_AMP_Create();
     R_DAC_Create();
+    R_INTC_Create();
     R_IT8Bit0_Channel0_Create();
-    R_IT8Bit0_Channel1_Create();
     R_ADC_Create();
+    R_SAU0_Create();
     IAWCTL = 0x00U;
     /* Start data flash control */
     DFLEN = 1U;

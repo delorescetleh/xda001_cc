@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for RTC module.
-* Creation Date: 2023/2/15
+* Creation Date: 2023/2/17
 ***********************************************************************************************************************/
 #ifndef RTC_H
 #define RTC_H
@@ -138,7 +138,6 @@ void R_RTC_Get_AlarmValue(rtc_alarm_value_t * const alarm_val);
 MD_STATUS R_RTC_Set_ConstPeriodInterruptOn(rtc_int_period_t period);
 void R_RTC_Set_ConstPeriodInterruptOff(void);
 static void r_rtc_callback_constperiod(void);
-static void r_rtc_callback_alarm(void);
 /* Start user code for function. Do not edit comment generated here */
 void modeInit(uint8_t mode);
 void factory_test_mode_init_setting(void);

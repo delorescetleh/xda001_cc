@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for ADC module.
-* Creation Date: 2023/2/15
+* Creation Date: 2023/2/17
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -73,7 +73,7 @@ static void __near r_adc_interrupt(void)
         R_ADC_Get_Result_8bit(&ADC10);
         break;
     }
-    R_ADC_Start();
+    // R_ADC_Start();
     /* End user code. Do not edit comment generated here */
 }
 

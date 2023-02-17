@@ -3,6 +3,7 @@
 dsadc_data_t *dsadc;
 const int32_t ntc_lookup_table[];
 float Rpt100 = 0;
+float Rline = 0;
 uint8_t dsadc_moving_average_times = DSADC_MOVING_AVERAGE_TIMES;
 uint8_t dsadc_fetch_finish = 0;
 double pt100_temperature = 0;
@@ -34,21 +35,20 @@ void dsadc_procedure(void)
             R_AMP0_Start();
             R_AMP2_Start();
             dsadc_moving_average_times = DSADC_MOVING_AVERAGE_TIMES;
+            pt100_data_fetch_result_type = PT100_SUCCESS;
             dsadc_process = POWER_OFF_DSADC_FETCH;
             break;
         case POWER_OFF_DSADC_FETCH:
             if (dsadc_fetch_finish)
             {
                 dsadc_fetch_finish = 0;
-                R_PGA_DSAD_Stop();
-                R_DAC0_Stop();
-                R_AMP0_Stop();
-                R_AMP2_Stop();
-                R_AMP_Set_PowerOff();
-                PGAPON = 0U; /* power off PGA and DS A/D */
-                PGAEN = 0U;  /* disable input clock supply */
-                AFEPWS = 0U; /* power off AFE */
-                AFEEN = 0U;  /* disable input clock supply */
+                if((dsadc->pt100_temperature>450)||(dsadc->pt100_temperature<-50)){
+                    pt100_data_fetch_result_type = PT100_SENSE_ERROR;
+                }
+                if(Rline>10000){
+                    pt100_data_fetch_result_type = PT100_LINE_ERROR;
+                }
+                L_PT100_STOP();
                 dsadc_process = SAVE_DSADC_DATA;
             }
         break;
@@ -62,7 +62,17 @@ void dsadc_procedure(void)
 }
 
 
-
+void L_PT100_STOP(void){
+                R_PGA_DSAD_Stop();
+                R_DAC0_Stop();
+                R_AMP0_Stop();
+                R_AMP2_Stop();
+                R_AMP_Set_PowerOff();
+                PGAPON = 0U; /* power off PGA and DS A/D */
+                PGAEN = 0U;  /* disable input clock supply */
+                AFEPWS = 0U; /* power off AFE */
+                AFEEN = 0U;  /* disable input clock supply */
+}
 
 
 
@@ -71,7 +81,9 @@ void DSADC_PROCESS(void)
     _convert_differential_value_as_uv(&Vm0,16);
     _convert_differential_value_as_uv(&Vm3,2);
     _convert_signal_end_value_as_uv(&Vm2);
+    Rline = Vm0 / 2000;
     Rpt100=(float)(Vm3 - Vm0 * 2) / 2000*10000;
+
     dsadc->pt100_temperature = dsadc->pt100_temperature +pt100_convert(Rpt100);
     dsadc->pt100_temperature = dsadc->pt100_temperature / 2;
     dsadc->pcb_temperature = dsadc->pcb_temperature +ntc_convert(Vm2);
@@ -83,6 +95,7 @@ void DSADC_PROCESS(void)
     }else{
             dsadc_fetch_finish=1;
     }
+
 }
 void _convert_differential_value_as_uv(int32_t *value,uint8_t g)
 {

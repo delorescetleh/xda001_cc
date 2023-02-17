@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for RTC module.
-* Creation Date: 2023/2/15
+* Creation Date: 2023/2/17
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -58,14 +58,6 @@ uint16_t rtc_counter = 0;
 ***********************************************************************************************************************/
 static void __near r_rtc_interrupt(void)
 {
-    if (1U == WAFG)
-    {
-        RTCWEN = 1U;
-        RTCC1 &= (uint8_t)~_10_RTC_ALARM_MATCH;        /* clear WAFG */
-        RTCWEN = 0U;
-        r_rtc_callback_alarm();
-    }
-
     if (1U == RIFG)
     {
         RTCWEN = 1U;
@@ -102,17 +94,6 @@ static void r_rtc_callback_constperiod(void)
     //     }
     // }
     // rtc_counter--;
-    /* End user code. Do not edit comment generated here */
-}
-/***********************************************************************************************************************
-* Function Name: r_rtc_callback_alarm
-* Description  : This function is alarm interrupt service handler.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-static void r_rtc_callback_alarm(void)
-{
-    /* Start user code. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
 }
 

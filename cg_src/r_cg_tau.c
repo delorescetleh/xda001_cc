@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for TAU module.
-* Creation Date: 2023/2/15
+* Creation Date: 2023/2/17
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -94,8 +94,8 @@ void R_TAU0_Create(void)
     /* Channel 1 used as interval timer */
     TMR01 = _0000_TAU_CLOCK_SELECT_CKM0 | _0000_TAU_CLOCK_MODE_CKS | _0000_TAU_16BITS_MODE | 
             _0000_TAU_TRIGGER_SOFTWARE | _0000_TAU_TIMN_EDGE_FALLING | _0000_TAU_MODE_INTERVAL_TIMER | 
-            _0000_TAU_START_INT_UNUSED;
-    TDR01 = _031F_TAU_TDR01_VALUE;
+            _0001_TAU_START_INT_USED;
+    TDR01 = _3E7F_TAU_TDR01_VALUE;
     TOM0 &= (uint16_t)~_0002_TAU_CH1_SLAVE_OUTPUT;
     TOL0 &= (uint16_t)~_0002_TAU_CH1_OUTPUT_LEVEL_L;
     TO0 &= (uint16_t)~_0002_TAU_CH1_OUTPUT_VALUE_1;

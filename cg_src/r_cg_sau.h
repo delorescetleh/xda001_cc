@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_sau.h
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for SAU module.
-* Creation Date: 2022/7/14
+* Creation Date: 2023/2/17
 ***********************************************************************************************************************/
 #ifndef SAU_H
 #define SAU_H
@@ -269,8 +269,8 @@ Macro definitions
 ***********************************************************************************************************************/
 #define _CE00_SAU0_CH0_BAUDRATE_DIVISOR         (0xCE00U) /* transfer clock set by dividing the operating clock */
 #define _CE00_SAU0_CH1_BAUDRATE_DIVISOR         (0xCE00U) /* transfer clock set by dividing the operating clock */
-#define _8800_SAU0_CH2_BAUDRATE_DIVISOR         (0x8800U) /* transfer clock set by dividing the operating clock */
-#define _8800_SAU0_CH3_BAUDRATE_DIVISOR         (0x8800U) /* transfer clock set by dividing the operating clock */
+#define _CE00_SAU0_CH2_BAUDRATE_DIVISOR         (0xCE00U) /* transfer clock set by dividing the operating clock */
+#define _CE00_SAU0_CH3_BAUDRATE_DIVISOR         (0xCE00U) /* transfer clock set by dividing the operating clock */
 #define _0020_SMR00_DEFAULT_VALUE               (0x0020U) /* SMR00 default value */
 #define _0020_SMR01_DEFAULT_VALUE               (0x0020U) /* SMR01 default value */
 #define _0020_SMR02_DEFAULT_VALUE               (0x0020U) /* SMR02 default value */
@@ -310,7 +310,6 @@ static void r_uart1_callback_softwareoverrun(uint16_t rx_data);
 /* Start user code for function. Do not edit comment generated here */
 uint8_t checkLoraMessage(void);
 void L_LORA_STOP(void);
-uint8_t L_LORA_INIT(void);
 uint8_t doSendLoraData(void);
 
 void L_BLE_RESTART_FROM_STOP_MODE(void);

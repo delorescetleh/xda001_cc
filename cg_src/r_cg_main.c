@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2023/2/15
+* Creation Date: 2023/2/17
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -39,6 +39,8 @@ Includes
 #include "r_cg_amp.h"
 #include "r_cg_dac.h"
 #include "r_cg_adc.h"
+#include "r_cg_sau.h"
+#include "r_cg_intp.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -47,28 +49,40 @@ Includes
 Pragma directive
 ***********************************************************************************************************************/
 /* Start user code for pragma. Do not edit comment generated here */
-#define RECORD_COUNTDOWN_SEC                5
-#define BATTERY_COUNTDOWN_SEC               10
+#define RECORD_COUNTDOWN_SEC                10
+#define BATTERY_COUNTDOWN_SEC               RECORD_COUNTDOWN_SEC
 #define DSADC_COUNTDOWN_SEC                 RECORD_COUNTDOWN_SEC
 #define LORA_COUNTDOWN_SEC                  RECORD_COUNTDOWN_SEC
+
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
+typedef struct main_data_struct
+{
+    struct battery_struct battery_data;
+    struct dsadc_struct dsadc_data;
+} main_data_t;
+main_data_t main_data;
+
 uint16_t record_rtc_counter = RECORD_COUNTDOWN_SEC;
 uint16_t battery_rtc_counter = BATTERY_COUNTDOWN_SEC;
 uint16_t dsadc_rtc_counter = DSADC_COUNTDOWN_SEC;
-uint16_t lora_rtc_counter = LORA_COUNTDOWN_SEC;
+uint16_t lora_rtc_counter = LORA_COUNTDOWN_SEC-5;
 uint8_t c = 0;
-void processMode(void);
 extern uint8_t mode=0;
 extern uint8_t events=0;
 extern void goToSleep(void);
+// struct battery_struct battery_data;
+// struct dsadc_struct dsadc_data;
+uint8_t main_process_timer_working=0;
+uint8_t lora_process_rtc_timer_counter=LORA_SLEEP_WAIT_TIME;
+enum PT100_DATA_FETCH_RESULT_TYPE pt100_data_fetch_result_type=PT100_SUCCESS;
+void MAIN_PROCESS_TIMER_START(void);
+void MAIN_PROCESS_TIMER_STOP(void);
 extern float vbat;
-struct battery_struct battery_data;
-struct dsadc_struct dsadc_data;
 /* End user code. Do not edit comment generated here */
 
 static void R_MAIN_UserInit(void);
@@ -86,6 +100,15 @@ void main(void)
     {
         if(events)
         {
+            if(events & UART0_NOTIFICATION_EVENT)
+            {
+                events &= ~UART0_NOTIFICATION_EVENT;
+                LORA_PROCESS();
+            }
+            if(events & UART1_NOTIFICATION_EVENT)
+            {
+                events &= ~UART1_NOTIFICATION_EVENT;
+            }         
             if(events & DSADC_NOTIFICATION_EVENT)
             {
                 events &= ~DSADC_NOTIFICATION_EVENT;
@@ -99,27 +122,46 @@ void main(void)
             if(events & RTC_NOTIFICATION_EVENT)
             {
                 events &= ~RTC_NOTIFICATION_EVENT;
-                if (battery_rtc_counter>=BATTERY_COUNTDOWN_SEC)
+                if (lora_process_rtc_timer_counter)
+                {
+                    lora_process_rtc_timer_counter--;
+                }
+                if ((battery_rtc_counter>=BATTERY_COUNTDOWN_SEC)&&(lora_process!=LORA_PROCESS_END))
                 {
                     battery_rtc_counter = 0;
-                    battery_procedure_init(&battery_data);
-                    R_IT8Bit0_Channel0_Start();
+                    battery_procedure_init(&main_data.battery_data);
+                    MAIN_PROCESS_TIMER_START();
                 }
                 battery_rtc_counter++;
                 if (dsadc_rtc_counter>=DSADC_COUNTDOWN_SEC)
                 {
                     dsadc_rtc_counter = 0;
-                    dsadc_procedure_init(&dsadc_data);
-                    R_IT8Bit0_Channel0_Start();
+                    dsadc_procedure_init(&main_data.dsadc_data);
+                    MAIN_PROCESS_TIMER_START();
                 }
                 dsadc_rtc_counter++;
+                if (lora_rtc_counter>=LORA_COUNTDOWN_SEC)
+                {
+                    lora_rtc_counter = 0;
+                    lora_procedure_init(&main_data.battery_data.Vbat,&main_data.dsadc_data.pt100_temperature);
+                    MAIN_PROCESS_TIMER_START();
+                }
+                lora_rtc_counter++;
             }
             if(events&TIMER_PERIODIC_EVENT)
             {
                 events &= ~TIMER_PERIODIC_EVENT;           
                 battery_procedure();
                 dsadc_procedure();
-            }  
+                lora_procedure();
+            }
+        }
+        if((battery_process==BATTERY_PROCESS_END)&&(dsadc_process==DSADC_PROCESS_END)&&(lora_process==LORA_PROCESS_END))
+        {
+            MAIN_PROCESS_TIMER_STOP();
+            goToSleep();
+        }else{
+            //HALT();
         }
     }
     /* End user code. Do not edit comment generated here */
@@ -133,22 +175,52 @@ void main(void)
 static void R_MAIN_UserInit(void)
 {
     /* Start user code. Do not edit comment generated here */
+    L_LORA_STOP();
+    L_PT100_STOP();
+    L_BAT_STOP();
     EI();
     R_RTC_Start();
-    R_TAU0_Channel6_Start();
 
-
-    // R_DAC0_Start();
-    // R_AMP0_Start();
-    // R_AMP2_Start();
-    // R_AMP_Set_PowerOn();
-    // R_PGA_DSAD_Start();
-    // while(1){
-
-    // }
+    
     /* End user code. Do not edit comment generated here */
 }
 
 /* Start user code for adding. Do not edit comment generated here */
 
+void MAIN_PROCESS_TIMER_START(void){
+    if(!main_process_timer_working){
+        main_process_timer_working = 1;
+        R_IT8Bit0_Channel0_Start();
+    }
+}
+void MAIN_PROCESS_TIMER_STOP(void)
+{
+    R_IT8Bit0_Channel0_Stop();
+    main_process_timer_working = 0;
+}
+void goToSleep(void)
+{
+        R_ADC_Stop();
+        R_DAC0_Stop();
+        R_AMP0_Stop();
+        R_AMP2_Stop();
+        R_INTC0_Stop();
+        R_AMP_Set_PowerOff();
+        R_IT8Bit0_Channel0_Stop();
+        R_TAU0_Channel1_Stop();
+        R_TAU0_Channel6_Stop();
+        R_UART1_Stop();
+        R_UART0_Stop();
+        R_INTC0_Stop();
+        
+        //BUZ0 = !BUZ0;
+         BUZ0_MODE=PIN_MODE_AS_INPUT;
+        BAT_ADC_ON_MODE=PIN_MODE_AS_INPUT;
+        UART1_TXD_MODE = PIN_MODE_AS_INPUT;
+        BLE_CTS_MODE = PIN_MODE_AS_INPUT;
+        LORA_POW_CNT_MODE=PIN_MODE_AS_INPUT; 
+        BLE_POW_CNT_MODE = PIN_MODE_AS_INPUT;
+	STOP();
+        //HALT();
+}
 /* End user code. Do not edit comment generated here */

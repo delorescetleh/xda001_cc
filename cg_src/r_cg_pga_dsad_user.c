@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for PGIA module.
-* Creation Date: 2023/2/15
+* Creation Date: 2023/2/17
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -99,6 +99,10 @@ union
 static void __near r_pga_dsad_conversion_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
+    if (DSADMVC&0x00010000)
+    {
+        pt100_data_fetch_result_type = PT100_SENSE_ERROR;
+    }
     switch (DSADMVC)
     {
     case 0x20:
@@ -130,7 +134,6 @@ static void __near r_pga_dsad_scan_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
     R_PGA_DSAD_Stop();
-    BUZ0 = !BUZ0;
     events |= DSADC_NOTIFICATION_EVENT;
     vm0.whole =vm0.whole>>8; 
     vm2.whole =vm2.whole>>8;

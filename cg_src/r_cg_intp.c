@@ -14,16 +14,16 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2017, 2020 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2017, 2021 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name    : r_cg_intp.c
-* Version      : Code Generator for RL78/H1D V1.00.02.01 [25 Nov 2020]
+* Version      : Code Generator for RL78/H1D V1.00.03.02 [08 Nov 2021]
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for INTP module.
-* Creation Date: 2022/7/14
+* Creation Date: 2023/2/17
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -69,36 +69,36 @@ void R_INTC_Create(void)
     PIF5 = 0U;      /* clear INTP5 interrupt flag */
     PMK6 = 1U;      /* disable INTP6 interrupt */
     PIF6 = 0U;      /* clear INTP6 interrupt flag */
-    /* Set INTP1 low priority */
-    PPR11 = 1U;
-    PPR01 = 1U;
-    EGN0 = _02_INTP1_EDGE_FALLING_BOTH;
-    EGP0 = _00_INTP1_EDGE_FALLING_DISABLE;
-    /* Set INTP1 pin */
+    /* Set INTP0 low priority */
+    PPR10 = 1U;
+    PPR00 = 1U;
+    EGN0 = _01_INTP0_EDGE_FALLING_BOTH;
+    EGP0 = _00_INTP0_EDGE_FALLING_DISABLE;
+    /* Set INTP0 pin */
 
 }
 
 /***********************************************************************************************************************
-* Function Name: R_INTC1_Start
-* Description  : This function clears INTP1 interrupt flag and enables interrupt.
+* Function Name: R_INTC0_Start
+* Description  : This function clears INTP0 interrupt flag and enables interrupt.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_INTC1_Start(void)
+void R_INTC0_Start(void)
 {
-    PIF1 = 0U;      /* clear INTP1 interrupt flag */
-    PMK1 = 0U;      /* enable INTP1 interrupt */
+    PIF0 = 0U;      /* clear INTP0 interrupt flag */
+    PMK0 = 0U;      /* enable INTP0 interrupt */
 }
 /***********************************************************************************************************************
-* Function Name: R_INTC1_Stop
-* Description  : This function disables INTP1 interrupt and clears interrupt flag.
+* Function Name: R_INTC0_Stop
+* Description  : This function disables INTP0 interrupt and clears interrupt flag.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_INTC1_Stop(void)
+void R_INTC0_Stop(void)
 {
-    PMK1 = 1U;      /* disable INTP1 interrupt */
-    PIF1 = 0U;      /* clear INTP1 interrupt flag */
+    PMK0 = 1U;      /* disable INTP0 interrupt */
+    PIF0 = 0U;      /* clear INTP0 interrupt flag */
 }
 
 /* Start user code for adding. Do not edit comment generated here */

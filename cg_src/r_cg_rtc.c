@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for RTC module.
-* Creation Date: 2023/2/15
+* Creation Date: 2023/2/17
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -66,7 +66,6 @@ void R_RTC_Create(void)
     RTCC0 = _00_RTC_COUNTER_STOP | _00_RTC_RTC1HZ_DISABLE | _00_RTC_12HOUR_SYSTEM | _02_RTC_INTRTC_CLOCK_1;
     /* Set alarm function */
     WALE = 0U;      /* match operation is invalid */
-    WALIE = 1U;     /* generates interrupt on matching of alarm */
     /* Disenable input clock */
     RTCWEN = 0U;    /* stops input clock supply */
 }
@@ -254,7 +253,6 @@ void R_RTC_Set_AlarmOn(void)
     volatile uint16_t w_count;
 
     RTCWEN = 1U;    /* enables input clock supply */
-    RTCMK = 1U;     /* disable INTRTC interrupt */
     RTCC1 |= _80_RTC_ALARM_ENABLE;
 
     /* Change the waiting time according to the system */
@@ -262,10 +260,8 @@ void R_RTC_Set_AlarmOn(void)
     {
         NOP();
     }
- 
+
     RTCC1 &= (uint8_t)~_10_RTC_ALARM_MATCH;
-    RTCIF = 0U;     /* clear INTRTC interrupt flag */
-    RTCMK = 0U;     /* enable INTRTC interrupt */
     RTCWEN = 0U;    /* stops input clock supply */
 }
 /***********************************************************************************************************************
@@ -277,10 +273,8 @@ void R_RTC_Set_AlarmOn(void)
 void R_RTC_Set_AlarmOff(void)
 {
     RTCWEN = 1U;    /* enables input clock supply */
-    RTCMK = 1U;     /* disable INTRTC interrupt */
     RTCC1 &= (uint8_t)~_80_RTC_ALARM_ENABLE;
     RTCC1 &= (uint8_t)~_10_RTC_ALARM_MATCH;
-    RTCIF = 0U;     /* clear INTRTC interrupt flag */
     RTCWEN = 0U;    /* stops input clock supply */
 }
 /***********************************************************************************************************************

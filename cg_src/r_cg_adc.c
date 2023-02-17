@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for ADC module.
-* Creation Date: 2023/2/15
+* Creation Date: 2023/2/17
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -68,8 +68,8 @@ void R_ADC_Create(void)
     PMC0 |= 0x20U;
     PM0 |= 0x20U;
     /* Set ADC registers */
-    ADM0 = _10_AD_CONVERSION_CLOCK_16 | _04_AD_TIME_MODE_LOWVOLTAGE_1;
-    ADM1 = _C0_AD_TRIGGER_HARDWARE_WAIT | _20_AD_CONVMODE_ONESELECT | _00_AD_TRIGGER_INTTM01;
+    ADM0 = _08_AD_CONVERSION_CLOCK_32 | _04_AD_TIME_MODE_LOWVOLTAGE_1;
+    ADM1 = _80_AD_TRIGGER_HARDWARE_NOWAIT | _20_AD_CONVMODE_ONESELECT | _00_AD_TRIGGER_INTTM01;
     ADM2 = _80_AD_POSITIVE_INTERVOLT | _00_AD_AREA_MODE_1 | _01_AD_RESOLUTION_8BIT;
     ADUL = _FF_AD_ADUL_VALUE;
     ADLL = _00_AD_ADLL_VALUE;
@@ -93,6 +93,7 @@ void R_ADC_Start(void)
 {
     ADIF = 0U;      /* clear INTAD interrupt flag */
     ADMK = 0U;      /* enable INTAD interrupt */
+    ADCS = 1U;      /* enables conversion operation */
 }
 /***********************************************************************************************************************
 * Function Name: R_ADC_Stop
