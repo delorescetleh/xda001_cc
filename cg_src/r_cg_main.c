@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2023/2/17
+* Creation Date: 2023/2/18
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -48,11 +48,10 @@ Includes
 Pragma directive
 ***********************************************************************************************************************/
 /* Start user code for pragma. Do not edit comment generated here */
-#define RECORD_COUNTDOWN_SEC                60
+#define RECORD_COUNTDOWN_SEC                30
 #define BATTERY_COUNTDOWN_SEC               RECORD_COUNTDOWN_SEC
 #define DSADC_COUNTDOWN_SEC                 RECORD_COUNTDOWN_SEC
 #define LORA_COUNTDOWN_SEC                  RECORD_COUNTDOWN_SEC
-
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -154,22 +153,21 @@ void main(void)
             if(events&TIMER_PERIODIC_EVENT)
             {
                 events &= ~TIMER_PERIODIC_EVENT;           
+                H1D_LED = !H1D_LED;
                 battery_procedure();
                 dsadc_procedure();
                 lora_procedure();
             }
-        }else{
-	        if((battery_process==BATTERY_PROCESS_END)&&(dsadc_process==DSADC_PROCESS_END)&&(lora_process==LORA_PROCESS_END))
+        }
+	else{
+	    if((battery_process==BATTERY_PROCESS_END)&&(dsadc_process==DSADC_PROCESS_END)&&(lora_process==LORA_PROCESS_END))
             {
+                H1D_LED = PIN_LEVEL_AS_LOW;
                 MAIN_PROCESS_TIMER_STOP();
                 goToSleep();
                 //HALT();
-            }else{
-                //HALT();
-            }
+            } 
         }
-
-
     }
     /* End user code. Do not edit comment generated here */
 }
@@ -187,8 +185,7 @@ static void R_MAIN_UserInit(void)
     L_BAT_STOP();
     EI();
     R_RTC_Start();
-
-    
+    //goToSleep();
     /* End user code. Do not edit comment generated here */
 }
 
@@ -207,27 +204,14 @@ void MAIN_PROCESS_TIMER_STOP(void)
 }
 void goToSleep(void)
 {
-        // R_ADC_Stop();
-        // R_DAC0_Stop();
-        // R_AMP0_Stop();
-        // R_AMP2_Stop();
-        // R_INTC0_Stop();
-        // R_AMP_Set_PowerOff();
-        // R_IT8Bit0_Channel0_Stop();
-        // R_TAU0_Channel1_Stop();
-        // R_TAU0_Channel6_Stop();
-        // R_UART1_Stop();
-        // R_UART0_Stop();
-        // R_INTC0_Stop();
-        
-        BUZ0 = !BUZ0;
-        //  BUZ0_MODE=PIN_MODE_AS_INPUT;
-        BAT_ADC_ON_MODE=PIN_MODE_AS_INPUT;
+        H1D_LED = PIN_LEVEL_AS_LOW;
+        BUZ0_MODE=PIN_MODE_AS_INPUT;
+        BAT_ADC_ON=PIN_LEVEL_AS_HIGH;
         UART1_TXD_MODE = PIN_MODE_AS_INPUT;
         BLE_CTS_MODE = PIN_MODE_AS_INPUT;
         LORA_POW_CNT_MODE=PIN_MODE_AS_INPUT; 
         BLE_POW_CNT_MODE = PIN_MODE_AS_INPUT;
-	//STOP();
-        HALT();
+	    STOP();
+        //HALT();
 }
 /* End user code. Do not edit comment generated here */

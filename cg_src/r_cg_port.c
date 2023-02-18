@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for Port module.
-* Creation Date: 2023/2/17
+* Creation Date: 2023/2/18
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -58,10 +58,10 @@ void R_PORT_Create(void)
     PMC0 = _C7_PMC0_DEFAULT_VALUE | _20_PMCn5_DI_ON | _00_PMCn4_NOT_USE | _08_PMCn3_DI_ON;
     P0 = _00_Pn7_OUTPUT_0 | _00_Pn6_OUTPUT_0 | _00_Pn5_OUTPUT_0 | _10_Pn4_OUTPUT_1 | _00_Pn3_OUTPUT_0 | 
          _04_Pn2_OUTPUT_1 | _02_Pn1_OUTPUT_1;
-    P3 = _00_Pn7_OUTPUT_0 | _00_Pn6_OUTPUT_0 | _20_Pn5_OUTPUT_1 | _04_Pn2_OUTPUT_1 | _00_Pn0_OUTPUT_0;
+    P3 = _00_Pn7_OUTPUT_0 | _00_Pn6_OUTPUT_0 | _20_Pn5_OUTPUT_1 | _00_Pn2_OUTPUT_0 | _00_Pn0_OUTPUT_0;
     P7 = _00_Pn7_OUTPUT_0 | _00_Pn6_OUTPUT_0 | _00_Pn1_OUTPUT_0 | _00_Pn0_OUTPUT_0;
-    PU3 = _00_PUn7_PULLUP_OFF | _00_PUn6_PULLUP_OFF | _00_PUn5_PULLUP_OFF | _00_PUn2_PULLUP_OFF | _01_PUn0_PULLUP_ON;
-    PU7 = _00_PUn7_PULLUP_OFF | _00_PUn6_PULLUP_OFF | _00_PUn1_PULLUP_OFF | _01_PUn0_PULLUP_ON;
+    PU3 = _00_PUn7_PULLUP_OFF | _00_PUn6_PULLUP_OFF | _00_PUn5_PULLUP_OFF | _00_PUn2_PULLUP_OFF | _00_PUn0_PULLUP_OFF;
+    PU7 = _00_PUn7_PULLUP_OFF | _00_PUn6_PULLUP_OFF | _00_PUn1_PULLUP_OFF | _00_PUn0_PULLUP_OFF;
     PIM3 = _00_PIMn6_TTL_OFF | _00_PIMn5_TTL_OFF;
     POM0 = _00_POMn7_NCH_OFF | _00_POMn6_NCH_OFF | _00_POMn4_NCH_OFF | _00_POMn3_NCH_OFF | _00_POMn2_NCH_OFF;
     POM3 = _00_POMn7_NCH_OFF | _00_POMn6_NCH_OFF | _20_POMn5_NCH_ON;
@@ -69,7 +69,7 @@ void R_PORT_Create(void)
           _00_PMn4_MODE_OUTPUT | _08_PMn3_MODE_INPUT | _00_PMn2_MODE_OUTPUT | _00_PMn1_MODE_OUTPUT;
     PM3 = _1A_PM3_DEFAULT_VALUE | _80_PMn7_MODE_INPUT | _40_PMn6_MODE_INPUT | _00_PMn5_MODE_OUTPUT | 
           _00_PMn2_MODE_OUTPUT | _01_PMn0_MODE_INPUT;
-    PM7 = _3C_PM7_DEFAULT_VALUE | _80_PMn7_MODE_INPUT | _00_PMn6_MODE_OUTPUT | _00_PMn1_MODE_OUTPUT | 
+    PM7 = _3C_PM7_DEFAULT_VALUE | _00_PMn7_MODE_OUTPUT | _00_PMn6_MODE_OUTPUT | _00_PMn1_MODE_OUTPUT | 
           _01_PMn0_MODE_INPUT;
 }
 

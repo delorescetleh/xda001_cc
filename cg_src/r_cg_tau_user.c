@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for TAU module.
-* Creation Date: 2023/2/17
+* Creation Date: 2023/2/18
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -38,7 +38,8 @@ Includes
 /***********************************************************************************************************************
 Pragma directive
 ***********************************************************************************************************************/
-#pragma interrupt r_tau0_channel1_interrupt(vect=INTTM01)
+#pragma interrupt r_tau0_channel6_interrupt(vect=INTTM06)
+#pragma interrupt r_tau0_channel7_interrupt(vect=INTTM07)
 /* Start user code for pragma. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -49,15 +50,25 @@ Global variables and functions
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: r_tau0_channel1_interrupt
-* Description  : This function INTTM01 interrupt service routine.
+* Function Name: r_tau0_channel6_interrupt
+* Description  : This function INTTM06 interrupt service routine.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-static void __near r_tau0_channel1_interrupt(void)
+static void __near r_tau0_channel6_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
-
+    /* End user code. Do not edit comment generated here */
+}
+/***********************************************************************************************************************
+* Function Name: r_tau0_channel7_interrupt
+* Description  : This function INTTM07 interrupt service routine.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+static void __near r_tau0_channel7_interrupt(void)
+{
+    /* Start user code. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
 }
 

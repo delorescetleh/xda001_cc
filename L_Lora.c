@@ -86,7 +86,7 @@ if(!lora_process_timeout_counter)
         L_LORA_INIT();
         lora_process = LORA_INIT_CHECK;
         lora_process_rtc_timer_counter = 2;
-        lora_process_timeout_counter = LORA_PROCESS_TIMEOUT_COUNT;
+        
         BUZ0 = !BUZ0;
         break;
     case LORA_INIT_CHECK:
@@ -149,6 +149,8 @@ void lora_procedure_init(float *_battery,float *_pt100)
     lora_process = LORA_PROCESS_START;
     lora_battery = _battery;
     lora_pt100 = _pt100;
+    lora_process_timeout_counter=LORA_PROCESS_TIMEOUT_COUNT;
+
 }
 
 

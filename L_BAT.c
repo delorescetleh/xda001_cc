@@ -42,7 +42,7 @@ void BATTERY_VOLTAGE_FETCH_STOP(void)
 {
     adc_mode=ADC_STANDBY;
     BAT_ADC_ON = PIN_LEVEL_AS_HIGH;
-    BAT_ADC_ON_MODE = PIN_MODE_AS_INPUT;
+    // BAT_ADC_ON_MODE = PIN_MODE_AS_INPUT;
     R_ADC_Stop();
     R_ADC_Set_OperationOff();
     ADCEN = 0U; 

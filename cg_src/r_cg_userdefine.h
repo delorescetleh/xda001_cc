@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file includes user definition.
-* Creation Date: 2023/2/17
+* Creation Date: 2023/2/18
 ***********************************************************************************************************************/
 #ifndef _USER_DEF_H
 #define _USER_DEF_H
@@ -66,9 +66,9 @@ User definitions
 
 #define LORA_POW_CNT                  P7_bit.no1
 #define LORA_POW_CNT_MODE             PM7_bit.no1
-#define LORA_STA                      P7_bit.no0
+#define LORA_STA                      P7_bit.no0// Input , v7 only LORA_RTS
 #define LORA_STA_MODE                 PM7_bit.no0
-#define LORA_READY                    P3_bit.no2
+#define LORA_READY                    P3_bit.no2// Output ,v7 only LORA_CTS
 #define LORA_READY_MODE               PM3_bit.no2
 #define LORA_RESET                    P3_bit.no5
 #define LORA_RESET_MODE               PM3_bit.no5
@@ -96,6 +96,9 @@ User definitions
 #define LORA_CTS                        LORA_READY      // Output ,v7 only
 #define BLE_RTS                         P13_bit.no7    // Input , v7 only
 #define BLE_CTS                         P7_bit.no6      // Output ,v7 only
+
+
+#define H1D_LED                         P7_bit.no7      // Output ,v7 only
 /*BOARD SUPPORT AREA END*/
 
 #define LORA_SLEEP_WAIT_TIME      5
