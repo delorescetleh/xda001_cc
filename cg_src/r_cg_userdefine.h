@@ -307,5 +307,6 @@ extern uint8_t lora_process_timer_counter;
 extern uint8_t lora_countdown_sec;
 extern uint8_t ble_received_end;
 extern uint8_t semaphore;
+extern uint8_t sendToBle[160];
 /* End user code. Do not edit comment generated here */
 #endif

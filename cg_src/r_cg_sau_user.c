@@ -251,6 +251,7 @@ static void __near r_uart1_interrupt_send(void)
 static void r_uart1_callback_receiveend(void)
 {
     /* Start user code. Do not edit comment generated here */
+    ble_received_end = 1;
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************
@@ -274,7 +275,7 @@ static void r_uart1_callback_softwareoverrun(uint16_t rx_data)
 static void r_uart1_callback_sendend(void)
 {
     /* Start user code. Do not edit comment generated here */
-    ble_received_end = 1;
+    
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************

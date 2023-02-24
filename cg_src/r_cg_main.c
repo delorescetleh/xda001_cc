@@ -104,6 +104,13 @@ void main(void)
     {
         if(events)
         {
+            if(events & BLE_NOTIFICATION_EVENT)
+            {
+                events &= ~BLE_NOTIFICATION_EVENT;
+                R_INTC0_Stop();
+                ble_procedure_init();
+                MAIN_PROCESS_TIMER_START();
+            }
             if(events & UART0_NOTIFICATION_EVENT)
             {
                 events &= ~UART0_NOTIFICATION_EVENT;
@@ -192,6 +199,7 @@ static void R_MAIN_UserInit(void)
     L_BAT_STOP();
     EI();
     R_RTC_Start();
+    R_INTC0_Start();
     //goToSleep();
     /* End user code. Do not edit comment generated here */
 }
@@ -252,7 +260,7 @@ void goToSleep(void)
         UART1_TXD_MODE = PIN_MODE_AS_INPUT;
         BLE_CTS_MODE = PIN_MODE_AS_INPUT;
         LORA_POW_CNT_MODE=PIN_MODE_AS_INPUT; 
-        BLE_POW_CNT_MODE = PIN_MODE_AS_INPUT;
+        //BLE_POW_CNT_MODE = PIN_MODE_AS_INPUT;
 	    // STOP();
         HALT();
 }

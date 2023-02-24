@@ -7,36 +7,40 @@ enum ble_process_t ble_process = BLE_PROCESS_END;
 
 extern uint16_t lora_rtc_counter;
 enum ble_process_t ble_check_command(void);
+
 enum ble_process_t ble_check_command(void)
 {
     enum ble_process_t result;
-    uint8_t bleAck_a1[] = {0xa1, 0x01, 0x55};// lora change interval time
-    uint8_t bleAck_a2[] = {0xa2, 0x01, 0x55};// send data
-    uint8_t bleAck_a3[] = {0xa3, 0x01, 0x55};// ble go to sleep
-    uint8_t bleAck_a4[] = {0xa4, 0x01, 0x55};// temperature calibrartion
-    uint8_t bleAck_e1[] = {0xe1, 0x01, 0x55};// temperature calibrartion
-    receivedFromBle[159] = 0;
-    R_UART1_Send(receivedFromBle, strlen((char *)receivedFromBle));
+    const uint8_t bleAck_a1[] = {0xa1, 0x01, 0x55};// lora change interval time
+    const uint8_t bleAck_a2[] = {0xa2, 0x01, 0x55};// send data
+    const uint8_t bleAck_a3[] = {0xa3, 0x01, 0x55};// ble go to sleep
+    const uint8_t bleAck_a4[] = {0xa4, 0x01, 0x55};// temperature calibrartion
+    const uint8_t bleAck_e1[] = {0xe1, 0x01, 0x55};// error
     switch (receivedFromBle[0])
     {
     case 0xA1:
-        R_UART1_Send(bleAck_a1, 3);
+        memcpy(sendToBle,bleAck_a1,3);
+        R_UART1_Send(sendToBle, 3);
         result = BLE_CHANGE_LORA_FETCH_TIME;
         break;
     case 0xA2:
-        R_UART1_Send(bleAck_a2, 3);
+        memcpy(sendToBle,bleAck_a2,3);
+        R_UART1_Send(sendToBle, 3);
         result = BLE_SEND_DATA_TO_PHONE;
         break;
     case 0xA3:
-        R_UART1_Send(bleAck_a3, 3);
+        memcpy(sendToBle,bleAck_a3,3);
+        R_UART1_Send(sendToBle, 3);
         result = BLE_POWER_OFF;
         break;            
     case 0xA4:
-        R_UART1_Send(bleAck_a4, 3);
+        memcpy(sendToBle,bleAck_a4,3);
+        R_UART1_Send(sendToBle, 3);
         result = BLE_TEMPERATURE_OFFSET;
         break;
         default:
-        R_UART1_Send(bleAck_e1, 3);
+        memcpy(sendToBle,bleAck_e1,3);
+        R_UART1_Send(sendToBle, 3);
         result = BLE_BINARY_MODE_EXIT;
         break;
     }
@@ -57,16 +61,17 @@ void ble_procedure_init(void)
 
 void ble_procedure(void){
     if(!ble_process_timeout_counter)
-{
-	ble_process_timeout_counter=BLE_PROCESS_TIMEOUT_COUNT;
-    ble_process = BLE_BINARY_MODE_EXIT;
-}
+    {
+    	ble_process_timeout_counter=BLE_PROCESS_TIMEOUT_COUNT;
+        ble_process = BLE_BINARY_MODE_EXIT;
+    }
     switch (ble_process)
     {
         case BLE_PROCESS_START                       :
             if(BLE_RTS==PIN_LEVEL_AS_LOW)
             {
                 memset(receivedFromBle, 0, 159);
+		        ble_received_end=0;
                 R_UART1_Receive(receivedFromBle, 4);
                 R_UART1_Send((uint8_t *)"AT+BINREQACK\r", 14);
                 ble_process = BLE_CHECK_COMMAND;
@@ -79,12 +84,14 @@ void ble_procedure(void){
             {
                 ble_received_end = 0;
                 receivedFromBle[159] = 0;
-                R_UART1_Send(receivedFromBle, strlen((char *)receivedFromBle));
                 ble_process = ble_check_command();
             }
             break;
         case BLE_CHANGE_LORA_FETCH_TIME                :// A1020x00
             lora_rtc_counter = 0;
+            if(receivedFromBle[3]==0){
+                receivedFromBle[3] = 1;
+            }
             lora_countdown_sec = receivedFromBle[3]*LORA_CYCLE_TIME_BASE;
             board[LORA_INTV] = receivedFromBle[3];
             DataFlashWrite();
@@ -93,16 +100,36 @@ void ble_procedure(void){
             ble_process = BLE_CHECK_COMMAND;
             break;
         case BLE_SEND_DATA_TO_PHONE                    :// A2020000
+            memset(receivedFromBle, 0, 255);
+            R_UART1_Receive(receivedFromBle, 4);
+            ble_process = BLE_CHECK_COMMAND;
             break;
         case BLE_TEMPERATURE_OFFSET                    :// A402xxxx
+            memset(receivedFromBle, 0, 255);
+            R_UART1_Receive(receivedFromBle, 4);
+            ble_process = BLE_CHECK_COMMAND;
             break;
         case BLE_BINARY_MODE_EXIT                      :// A3020000
+            R_UART1_Send((uint8_t *)"+++", 3);
+            memset(receivedFromBle, 0, 255);
+            R_UART1_Receive(receivedFromBle, 4);
+            ble_process = BLE_GOTO_SLEEP;
             break;
         case BLE_POWER_OFF                             :
+            R_UART1_Stop();
+            UART1_TXD_MODE=PIN_MODE_AS_INPUT;
+            BLE_CTS_MODE = PIN_MODE_AS_INPUT;
+            BLE_POW_CNT = PIN_LEVEL_AS_LOW;
             semaphore = 0;
+            ble_process = BLE_PROCESS_END;
             break;    
-        case BLE_GOTO_SLEEP                             :
+        case BLE_GOTO_SLEEP                           :
+            R_UART1_Stop();
+            UART1_TXD_MODE=PIN_MODE_AS_INPUT;
+            BLE_CTS_MODE = PIN_MODE_AS_INPUT;
             semaphore = 0;
+            R_INTC0_Start();
+            ble_process = BLE_PROCESS_END;
             break;     
         case BLE_PROCESS_END                        :
             break;
