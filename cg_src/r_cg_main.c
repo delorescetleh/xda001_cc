@@ -140,7 +140,7 @@ void main(void)
                 }
                 if (lora_process_timer_counter)
                 {
-                    lora_process_timeout_counter--;
+                    lora_process_timer_counter--;
                 }
                 if ((battery_rtc_counter>=BATTERY_COUNTDOWN_SEC)&&(lora_process!=LORA_PROCESS_END)&&(!semaphore))
                 {
@@ -156,7 +156,7 @@ void main(void)
                     MAIN_PROCESS_TIMER_START();
                 }
                 dsadc_rtc_counter++;
-                if ((lora_rtc_counter>=LORA_COUNTDOWN_SEC)&&(!semaphore))
+                if ((lora_rtc_counter>=lora_countdown_sec)&&(!semaphore))
                 {
                     lora_rtc_counter = 0;
                     lora_procedure_init(&main_data.battery_data.Vbat,&main_data.dsadc_data.pt100_temperature);
@@ -175,7 +175,7 @@ void main(void)
             }
         }
 	else{
-	    if((battery_process==BATTERY_PROCESS_END)&&(dsadc_process==DSADC_PROCESS_END)&&(lora_process==LORA_PROCESS_END))
+	    if((battery_process==BATTERY_PROCESS_END)&&(dsadc_process==DSADC_PROCESS_END)&&(lora_process==LORA_PROCESS_END)&&(ble_process==BLE_PROCESS_END))
             {
                 H1D_LED = PIN_LEVEL_AS_LOW;
                 MAIN_PROCESS_TIMER_STOP();

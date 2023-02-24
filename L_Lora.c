@@ -137,7 +137,7 @@ if(!lora_process_timeout_counter)
             if(!lora_process_timer_counter)
             {
                 L_LORA_STOP();
-		lora_process_timeout_counter=LORA_PROCESS_TIMEOUT_COUNT;
+		        lora_process_timeout_counter=LORA_PROCESS_TIMEOUT_COUNT;
                 lora_process = LORA_PROCESS_END;
             }
         break;    
@@ -164,7 +164,6 @@ uint8_t checkLoraMessage(void){
     if (result!=NULL)
     {
         // R_UART0_Stop();
-        R_UART0_Receive(receivedFromLora+6, 1);
         memcpy(&setBleDeviceNameCommand[7], (result-4), 1);
         return 1;
     }
@@ -172,7 +171,6 @@ uint8_t checkLoraMessage(void){
     if (result!=NULL)
     {
         // R_UART0_Stop();
-        R_UART0_Receive(receivedFromLora+6, 1);
         memcpy(&setBleDeviceNameCommand[7], (result+1), 1);
         return 1;
     }

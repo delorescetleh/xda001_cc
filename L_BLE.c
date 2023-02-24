@@ -97,11 +97,11 @@ void ble_procedure(void){
             break;
         case BLE_CHANGE_LORA_FETCH_TIME                :// A1020x00
             lora_rtc_counter = 0;
-            if(receivedFromBle[3]==0){
-                receivedFromBle[3] = 1;
+            if(receivedFromBle[2]==0){
+                receivedFromBle[2] = 1;
             }
-            lora_countdown_sec = receivedFromBle[3]*LORA_CYCLE_TIME_BASE;
-            board[LORA_INTV] = receivedFromBle[3];
+            lora_countdown_sec = receivedFromBle[2]*LORA_CYCLE_TIME_BASE;
+            board[LORA_INTV] = receivedFromBle[2];
             DataFlashWrite();
             memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
             R_UART1_Receive(receivedFromBle, 4);
@@ -146,6 +146,7 @@ void ble_procedure(void){
             UART1_TXD_MODE=PIN_MODE_AS_INPUT;
             BLE_CTS_MODE = PIN_MODE_AS_INPUT;
             semaphore = 0;
+            R_INTC_Create();
             R_INTC0_Start();
             ble_process = BLE_PROCESS_END;
             break;     
