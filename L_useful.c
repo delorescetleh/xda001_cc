@@ -226,16 +226,7 @@ extern void dataFlashEnd(void){
     r_pfdl_samFdlEnd();
 }
 
-extern void memcpy(uint8_t *target, uint8_t *source, uint8_t length)
-{
-  while (length)
-  {
-    *(target) = *(source);
-    length--;
-    target++;
-    source++;
-  }
-}
+
 
 extern void delayInMs(uint32_t ms){
 	const int16_t ONE_MS_BASE = 3000;

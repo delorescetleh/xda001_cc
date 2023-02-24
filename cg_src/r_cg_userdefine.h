@@ -57,7 +57,9 @@ User definitions
 #include "L_Lora.h"
 #include "L_normal.h"
 #include "L_BAT.h"
-
+#include "stdlib.h"
+#include <stdio.h>
+#include <string.h>
 /*BOARD SUPPORT AREA START*/
 #define UART1_TXD                     P5_bit.no0
 #define UART1_TXD_MODE                PM5_bit.no0
@@ -102,7 +104,7 @@ User definitions
 /*BOARD SUPPORT AREA END*/
 
 #define LORA_SLEEP_WAIT_TIME      5
-
+#define LORA_CYCLE_TIME_BASE       30 // unit : second
 #define BLE_FACTORY_SETTING_FINISH 0xFF
 #define BLE_SHUT_DOWN 0xA5
 enum POWER_MODE
@@ -127,6 +129,23 @@ enum PT100_DATA_FETCH_RESULT_TYPE
 };
 extern enum PT100_DATA_FETCH_RESULT_TYPE pt100_data_fetch_result_type;
 extern enum ADC_MODE adc_mode;
+
+
+enum ble_process_t
+{
+    BLE_PROCESS_END                         ,
+    BLE_PROCESS_START                       ,
+    BLE_SET_NAME                            ,
+    BLE_CHECK_COMMAND                         ,
+    BLE_CHANGE_LORA_FETCH_TIME                ,// A1020x00
+    BLE_SEND_DATA_TO_PHONE                    ,// A2020000
+    BLE_BINARY_MODE_EXIT,
+    BLE_GOTO_SLEEP                              ,// A3020000
+    BLE_TEMPERATURE_OFFSET                    ,// A402
+    BLE_POWER_OFF                      ,
+} ;
+extern enum ble_process_t ble_process;
+
 
 enum lora_process_t
 {
@@ -233,24 +252,9 @@ extern uint32_t adc10_mean;
 /* Control macro for sample program */
 #define R_PFDL_SAM_WDT_RESET()  WDTE = 0xAC /* Watchdog timer reset                */
 
-#define MAX_SENSOR_FETCH_TIMES 10
 #define MAX_BLE_DATA_LENGTH 160
 #define BLE_CMD_LENGTH 2
-/*factory setting value*/
-#define F_READY           0x01 
-#define F_ADC_READY       0x02
-#define F_BLE_READY       0x04
-#define F_DSADC_READY     0x08
-#define F_EEPROM_READY    0x10
-#define F_LORA_READY      0x20
 
-
-/*hardwaresetting bytes define */
-#define F_NO_BLE          0x01 
-#define F_NO_EEPROM       0x02 
-#define F_NO_LORA         0x04 
-#define F_NO_PT100        0x08 
-#define F_NO_K_SENSOR     0x10 
 
 #define I2C_ERROR 0x01
 #define I2C_RECEIVED_END 0x02
@@ -263,24 +267,14 @@ extern uint32_t adc10_mean;
 #define MAX_LORA_SENDING_PROCESS_TIMES 3
 
 
-
-#define BLE_TOTAL_FACTORY_SETTING_COMMAND_NUMBER 7
-#define BLE_FACTORY_SETTING_FINISH 0xFF
-#define BLE_SHUT_DOWN 0xA5
-
-#define BLE_TEMPERATURE_OFFSET 100
-#define PT100_TEMPERATURE_OFFSET_BASE 0
-#define SENSOR_FETCH_TIMES 4
 #define eepromIndexStorageAddressinEEPROM 90000
 
 
-#define lora_programming_mode 1
-#define factory_test_mode 2
-#define factory_mode 3
-#define    normal_mode 4
+
 
 extern uint8_t sendToLora[20];
 extern uint8_t lora_process_timeout_counter;
+extern uint8_t ble_process_timeout_counter;
 extern uint8_t mode;
 extern float Rpt100;
 extern uint8_t events;
@@ -298,10 +292,7 @@ extern int32_t Vm0; // uV
 extern int32_t Vm1; // uV
 extern int32_t Vm2; // uV
 extern int32_t Vm3; // uV
-// extern double Vm0 ;
-// extern double Vm1 ;
-// extern double Vm2 ;
-// extern double Vm3 ;
+extern uint8_t receivedFromBle[160];
 extern uint8_t F_Done;
 extern uint8_t LORA_F_Done;
 extern uint8_t EEPROM_F_Done;
@@ -312,6 +303,9 @@ extern uint8_t setBleDeviceNameCommand[];
 extern uint16_t K;
 extern uint8_t ADC8;
 extern uint8_t ADC10;
-extern uint8_t lora_process_rtc_timer_counter;
+extern uint8_t lora_process_timer_counter;
+extern uint8_t lora_countdown_sec;
+extern uint8_t ble_received_end;
+extern uint8_t semaphore;
 /* End user code. Do not edit comment generated here */
 #endif

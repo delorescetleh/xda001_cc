@@ -66,10 +66,12 @@ typedef struct main_data_struct
 } main_data_t;
 main_data_t main_data;
 
+uint8_t lora_countdown_sec =LORA_COUNTDOWN_SEC;
+
 uint16_t record_rtc_counter = RECORD_COUNTDOWN_SEC;
 uint16_t battery_rtc_counter = BATTERY_COUNTDOWN_SEC;
 uint16_t dsadc_rtc_counter = DSADC_COUNTDOWN_SEC;
-uint16_t lora_rtc_counter = LORA_COUNTDOWN_SEC-5;
+uint16_t lora_rtc_counter = LORA_COUNTDOWN_SEC;
 uint8_t c = 0;
 extern uint8_t mode=0;
 extern uint8_t events=0;
@@ -77,11 +79,14 @@ extern void goToSleep(void);
 // struct battery_struct battery_data;
 // struct dsadc_struct dsadc_data;
 uint8_t main_process_timer_working=0;
-uint8_t lora_process_rtc_timer_counter=LORA_SLEEP_WAIT_TIME;
+uint8_t ble_process_cycle_counter=10;
+uint8_t semaphore=0;
 enum PT100_DATA_FETCH_RESULT_TYPE pt100_data_fetch_result_type=PT100_SUCCESS;
 void MAIN_PROCESS_TIMER_START(void);
 void MAIN_PROCESS_TIMER_STOP(void);
 extern float vbat;
+void battery_test_loop(void);
+void ble_test_loop(void);
 /* End user code. Do not edit comment generated here */
 
 static void R_MAIN_UserInit(void);
@@ -121,9 +126,9 @@ void main(void)
             if(events & RTC_NOTIFICATION_EVENT)
             {
                 events &= ~RTC_NOTIFICATION_EVENT;
-                if (lora_process_rtc_timer_counter)
+                if (lora_process_timer_counter)
                 {
-                    lora_process_rtc_timer_counter--;
+                    lora_process_timer_counter--;
                 }
                 if (lora_process_timeout_counter)
                 {
@@ -158,6 +163,7 @@ void main(void)
                 battery_procedure();
                 dsadc_procedure();
                 lora_procedure();
+                ble_procedure();
             }
         }
 	else{
@@ -191,7 +197,42 @@ static void R_MAIN_UserInit(void)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
+void battery_test_loop(void){
+R_ADC_Create();
 
+R_ADC_Set_OperationOn();
+R_ADC_Start();
+while(1)
+{
+// R_ADC_Start();
+// delayInMs(10);
+}
+}
+void ble_test_loop(void){
+    while (1)
+    {
+        R_UART1_Receive(receivedFromBle, 4);
+         delayInMs(1000);
+        if (ble_received_end)
+        {
+        //     //
+            ble_received_end = 0;
+            //     //R_DTCD10_Start();
+            //     // memset(receivedFromBle, 0, 255);
+            //     //memclr(receivedFromBle ,255);
+           
+            // R_UART1_Send((uint8_t *)"AT+BINREQACK\r", 14);
+            R_UART1_Send(receivedFromBle, 4);
+        //     //break;
+        }else{
+            R_UART1_Send("nop\r", 4);
+        }
+    }
+    while (1)
+    {
+        delayInMs(1);
+    }
+}
 void MAIN_PROCESS_TIMER_START(void){
     if(!main_process_timer_working){
         main_process_timer_working = 1;
