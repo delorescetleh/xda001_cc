@@ -60,8 +60,14 @@ void ble_procedure_init(void)
 }
 
 void ble_procedure(void){
+    union  {
+        int16_t whole;
+        struct 
+        {
+                uint8_t b0,b1;
+        }byte;
+    } offset_ble;
     int16_t user_Temperature = 0;
-    int16_t diff = 0;
     if(!ble_process_timeout_counter)
     {
     	ble_process_timeout_counter=BLE_PROCESS_TIMEOUT_COUNT;
@@ -108,14 +114,16 @@ void ble_procedure(void){
             ble_process = BLE_CHECK_COMMAND;
             break;
         case BLE_TEMPERATURE_OFFSET                    :// A402xxxx
-            memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
-            user_Temperature = receivedFromBle[3]*10 + receivedFromBle[4];
-            diff =  user_Temperature-pt100_temperature;
-            board[DSADC_TEMPERATURE_SENSOR_OFFSET + 1] = diff >> 8;
-            board[DSADC_TEMPERATURE_SENSOR_OFFSET] = diff;
+
+            user_Temperature = receivedFromBle[2]*10 + receivedFromBle[3];
+            offset_ble.whole =  user_Temperature-pt100_temperature*10;
+            board[DSADC_TEMPERATURE_SENSOR_OFFSET]=offset_ble.byte.b0 ;
+            board[DSADC_TEMPERATURE_SENSOR_OFFSET + 1]=offset_ble.byte.b1;
+
             DataFlashWrite();
 
             ble_process_timeout_counter=BLE_PROCESS_TIMEOUT_COUNT;
+            memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
             R_UART1_Receive(receivedFromBle, 4);
             ble_process = BLE_CHECK_COMMAND;
             break;

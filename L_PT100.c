@@ -92,6 +92,16 @@ void L_PT100_STOP(void){
 
 void DSADC_PROCESS(void)
 {
+    union  {
+        int16_t whole;
+        struct 
+        {
+                uint8_t b0,b1;
+        }byte;
+    } offset_pt100;
+    offset_pt100.byte.b0 = board[DSADC_TEMPERATURE_SENSOR_OFFSET];
+    offset_pt100.byte.b1 = board[DSADC_TEMPERATURE_SENSOR_OFFSET + 1];
+
     _convert_differential_value_as_uv(&Vm0,16);
     _convert_differential_value_as_uv(&Vm3,2);
     _convert_signal_end_value_as_uv(&Vm2);
@@ -107,7 +117,8 @@ void DSADC_PROCESS(void)
             dsadc_moving_average_times--;
             R_PGA_DSAD_Start();
     }else{
-            dsadc->pt100_temperature = dsadc->pt100_temperature - board[DSADC_TEMPERATURE_SENSOR_OFFSET];
+            
+            dsadc->pt100_temperature =(dsadc->pt100_temperature*10 + offset_pt100.whole)/10;
             pt100_temperature = dsadc->pt100_temperature;
             pcb_temperature = dsadc->pcb_temperature;
             dsadc_fetch_finish=1;
