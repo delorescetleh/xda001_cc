@@ -1,7 +1,9 @@
 #include "L_Lora.h"
 #define BAT_LEVEL_FULL 254
 #define BAT_LEVEL_EMPTY 1
-
+#define      LORA_PROCESS_TIMEOUT_COUNT 30
+uint8_t lora_process_timeout_counter = LORA_PROCESS_TIMEOUT_COUNT;
+uint8_t lora_process_timer_counter = 0;
 float *lora_battery;
 float *lora_pt100;
 union 
@@ -15,6 +17,7 @@ void GetPT100_DATA(void);
 uint8_t receivedFromLora[MAX_LORA_RECEIVE]={0};
 uint8_t sendToLora[20]={0};
 uint8_t lora_init_success=0;
+
 enum lora_process_t lora_process=LORA_PROCESS_END;
 
 void prepareDataToLora(void);
@@ -50,7 +53,7 @@ void L_LORA_INIT(void){
     SPS0 = _0030_SAU_CK01_FCLK_3 | _0003_SAU_CK00_FCLK_3;
     R_UART0_Create();
     R_UART0_Start();
-    memclr(receivedFromLora, MAX_LORA_RECEIVE);
+    memset(receivedFromLora, 0, MAX_LORA_RECEIVE);
     R_UART0_Receive(receivedFromLora, (uint16_t)MAX_LORA_RECEIVE);
 
     LORA_RESET = PIN_LEVEL_AS_LOW;
@@ -71,13 +74,12 @@ void L_LORA_INIT(void){
 
 
 
-#define      LORA_PROCESS_TIMEOUT_COUNT 30
-uint8_t lora_process_timeout_counter = LORA_PROCESS_TIMEOUT_COUNT;
+
 void lora_procedure(void){
 if(!lora_process_timeout_counter)
 {
 	lora_process_timeout_counter=LORA_PROCESS_TIMEOUT_COUNT;
-    lora_process_rtc_timer_counter = 5;
+    lora_process_timer_counter = 5;
     lora_process = LORA_POWER_OFF;
 }
     switch (lora_process)
@@ -85,7 +87,7 @@ if(!lora_process_timeout_counter)
     case LORA_PROCESS_START:
         L_LORA_INIT();
         lora_process = LORA_INIT_CHECK;
-        lora_process_rtc_timer_counter = 2;
+        lora_process_timer_counter = 2;
         
         BUZ0 = !BUZ0;
         break;
@@ -94,11 +96,11 @@ if(!lora_process_timeout_counter)
         {
             lora_init_success = 0;
             LORA_CTS = PIN_LEVEL_AS_HIGH;
-            lora_process_rtc_timer_counter = 2;
+            lora_process_timer_counter = 2;
             lora_process = LORA_SEND_MESSAGE;
              break;
         }
-            if(!lora_process_rtc_timer_counter)
+            if(!lora_process_timer_counter)
             {
                 lora_process = LORA_PROCESS_START;
 		        L_LORA_STOP();
@@ -110,29 +112,29 @@ if(!lora_process_timeout_counter)
         {
             prepareDataToLora();
             doSendLoraData();
-            lora_process_rtc_timer_counter = 2;
+            lora_process_timer_counter = 2;
             lora_process = LORA_SEND_MESSAGE2;
              break;
         }
-        if(!lora_process_rtc_timer_counter)
+        if(!lora_process_timer_counter)
             {
                 lora_process = LORA_INIT_CHECK;
             }
         break;
     case LORA_SEND_MESSAGE2:
-        if(!lora_process_rtc_timer_counter)
+        if(!lora_process_timer_counter)
         {
             lora_process = LORA_SEND_MESSAGE;
              break;
         }
         if(LORA_RTS)
         {
-            lora_process_rtc_timer_counter = 5;
+            lora_process_timer_counter = 5;
             lora_process = LORA_POWER_OFF;
         }
         break;     
     case LORA_POWER_OFF:
-            if(!lora_process_rtc_timer_counter)
+            if(!lora_process_timer_counter)
             {
                 L_LORA_STOP();
 		lora_process_timeout_counter=LORA_PROCESS_TIMEOUT_COUNT;

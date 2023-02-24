@@ -126,11 +126,11 @@ void main(void)
             if(events & RTC_NOTIFICATION_EVENT)
             {
                 events &= ~RTC_NOTIFICATION_EVENT;
-                if (lora_process_timer_counter)
-                {
-                    lora_process_timer_counter--;
-                }
                 if (lora_process_timeout_counter)
+                {
+                    lora_process_timeout_counter--;
+                }
+                if (lora_process_timer_counter)
                 {
                     lora_process_timeout_counter--;
                 }
