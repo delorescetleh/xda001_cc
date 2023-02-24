@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for INTP module.
-* Creation Date: 2023/2/17
+* Creation Date: 2023/2/24
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -57,6 +57,7 @@ Global variables and functions
 static void __near r_intc0_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
+    events |= BLE_NOTIFICATION_EVENT;
     /* End user code. Do not edit comment generated here */
 }
 

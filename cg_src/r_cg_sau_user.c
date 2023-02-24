@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for SAU module.
-* Creation Date: 2023/2/18
+* Creation Date: 2023/2/24
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -274,6 +274,7 @@ static void r_uart1_callback_softwareoverrun(uint16_t rx_data)
 static void r_uart1_callback_sendend(void)
 {
     /* Start user code. Do not edit comment generated here */
+    ble_received_end = 1;
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************

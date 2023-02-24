@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file includes user definition.
-* Creation Date: 2023/2/18
+* Creation Date: 2023/2/24
 ***********************************************************************************************************************/
 #ifndef _USER_DEF_H
 #define _USER_DEF_H
@@ -169,7 +169,7 @@ extern uint32_t adc10_mean;
 //########################################################################
 #define TIMER_PERIODIC_EVENT                        0x01 // should not use in V4 version , change to OVER_TIME_EVENT 
 #define DSADC_NOTIFICATION_EVENT                    0x02
-#define BLE_TIMER_PERIODIC_EVENT                    0x04
+#define BLE_NOTIFICATION_EVENT                      0x04
 #define ADC8_NOTIFICATION_EVENT                     0x08
 #define ADC10_NOTIFICATION_EVENT                    0x10
 #define UART0_NOTIFICATION_EVENT                    0x20

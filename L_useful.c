@@ -250,33 +250,14 @@ extern void delayInMs(uint32_t ms){
 		}
 }
 // Success : final compare offset , Fail: 0
-extern uint8_t memcmp(uint8_t *target,uint8_t *source,uint8_t length,uint8_t maxLength){
-    uint8_t i=0;
-    uint8_t j=0;
-    uint8_t result = 0;
-    for (i = 0; i < maxLength;i++){
-        if(*target==*source){
-            for (j = 1; j < length;j++){
-                if (*(target+j)!=*(source+j)){
-                    result = 0;
-                    break;
-                }else{
-                    result = i+j;
-                }
-            }
-            if (result){
-                return result;
-            }
-        }
-        target++;
-    }
-    return result;
-}
-
-extern void memclr(uint8_t *target,uint8_t clearLength){
-    while(clearLength--){
-        *(target+clearLength) = 0;
-    }
+void replace_0_as_1_in_buffer(uint8_t *buffer,int length)
+{
+		uint8_t i = 0;
+		for (i = 0; i < length; i++)
+		{
+		if(*(buffer+i)==0)
+			*(buffer+i) = 1;
+		}
 }
 extern void DataFlashWrite(void){
     dataFlashStart();

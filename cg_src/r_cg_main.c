@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2023/2/18
+* Creation Date: 2023/2/24
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -40,6 +40,7 @@ Includes
 #include "r_cg_dac.h"
 #include "r_cg_adc.h"
 #include "r_cg_sau.h"
+#include "r_cg_intp.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -211,7 +212,7 @@ void goToSleep(void)
         BLE_CTS_MODE = PIN_MODE_AS_INPUT;
         LORA_POW_CNT_MODE=PIN_MODE_AS_INPUT; 
         BLE_POW_CNT_MODE = PIN_MODE_AS_INPUT;
-	    STOP();
-        //HALT();
+	    // STOP();
+        HALT();
 }
 /* End user code. Do not edit comment generated here */

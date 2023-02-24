@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for IT8Bit module.
-* Creation Date: 2023/2/18
+* Creation Date: 2023/2/24
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -39,7 +39,6 @@ Includes
 Pragma directive
 ***********************************************************************************************************************/
 #pragma interrupt r_it8bit0_channel0_interrupt(vect=INTIT00)
-#pragma interrupt r_it8bit0_channel1_interrupt(vect=INTIT01)
 /* Start user code for pragma. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -59,26 +58,6 @@ static void __near r_it8bit0_channel0_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
     events |= TIMER_PERIODIC_EVENT;
-    /* End user code. Do not edit comment generated here */
-}
-/***********************************************************************************************************************
-* Function Name: r_it8bit0_channel1_interrupt
-* Description  : None
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-static void __near r_it8bit0_channel1_interrupt(void)
-{
-    /* Start user code. Do not edit comment generated here */
-    static int16_t counter = 500;
-    if (counter){
-        H1D_LED = !H1D_LED;
-        counter--;
-    }else{
-        H1D_LED = PIN_LEVEL_AS_LOW;
-        R_IT8Bit0_Channel1_Stop();
-        counter = 500;
-    }
     /* End user code. Do not edit comment generated here */
 }
 

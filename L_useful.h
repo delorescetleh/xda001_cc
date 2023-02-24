@@ -33,7 +33,7 @@ pfdl_status_t waitDataFlashProcess(pfdl_status_t dtyFdlResult);
 // void setTimeOut(uint32_t userSetTimeOutBase);
 extern void delayInMs(uint32_t ms);
 
-
-extern uint8_t memcmp(uint8_t *target, uint8_t *source, uint8_t length, uint8_t maxLength);
-extern void memclr(uint8_t *target, uint8_t clearlegnth);
-extern void memcpy(uint8_t *_target, uint8_t *_source, uint8_t length);
+void replace_0_as_1_in_buffer(uint8_t *buffer, int length);
+// extern uint8_t memcmp(uint8_t *target, uint8_t *source, uint8_t length, uint8_t maxLength);
+// extern void memclr(uint8_t *target, uint8_t clearlegnth);
+// extern void memcpy(uint8_t *_target, uint8_t *_source, uint8_t length);
