@@ -267,6 +267,9 @@ extern uint32_t adc10_mean;
 #define MAX_LORA_SENDING_PROCESS_TIMES 3
 
 
+#define BLE_BUFFER_SIZE 160
+#define LORA_BUFFER_SIZE 160
+
 #define eepromIndexStorageAddressinEEPROM 90000
 
 
@@ -308,5 +311,7 @@ extern uint8_t lora_countdown_sec;
 extern uint8_t ble_received_end;
 extern uint8_t semaphore;
 extern uint8_t sendToBle[160];
+extern double pt100_temperature ;
+extern double pcb_temperature ;
 /* End user code. Do not edit comment generated here */
 #endif

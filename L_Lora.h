@@ -1,6 +1,6 @@
 #include "r_cg_userdefine.h"
 
-#define MAX_LORA_RECEIVE 6
+#define MAX_LORA_RECEIVE 10
 
 // extern void L_Lora_procedure(void);
 // void L_Lora_procedure_init(void);

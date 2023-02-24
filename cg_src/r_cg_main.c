@@ -110,6 +110,7 @@ void main(void)
                 R_INTC0_Stop();
                 ble_procedure_init();
                 MAIN_PROCESS_TIMER_START();
+                semaphore = 1;
             }
             if(events & UART0_NOTIFICATION_EVENT)
             {
@@ -141,21 +142,21 @@ void main(void)
                 {
                     lora_process_timeout_counter--;
                 }
-                if ((battery_rtc_counter>=BATTERY_COUNTDOWN_SEC)&&(lora_process!=LORA_PROCESS_END))
+                if ((battery_rtc_counter>=BATTERY_COUNTDOWN_SEC)&&(lora_process!=LORA_PROCESS_END)&&(!semaphore))
                 {
                     battery_rtc_counter = 0;
                     battery_procedure_init(&main_data.battery_data);
                     MAIN_PROCESS_TIMER_START();
                 }
                 battery_rtc_counter++;
-                if (dsadc_rtc_counter>=DSADC_COUNTDOWN_SEC)
+                if ((dsadc_rtc_counter>=DSADC_COUNTDOWN_SEC)&&(!semaphore))
                 {
                     dsadc_rtc_counter = 0;
                     dsadc_procedure_init(&main_data.dsadc_data);
                     MAIN_PROCESS_TIMER_START();
                 }
                 dsadc_rtc_counter++;
-                if (lora_rtc_counter>=LORA_COUNTDOWN_SEC)
+                if ((lora_rtc_counter>=LORA_COUNTDOWN_SEC)&&(!semaphore))
                 {
                     lora_rtc_counter = 0;
                     lora_procedure_init(&main_data.battery_data.Vbat,&main_data.dsadc_data.pt100_temperature);
@@ -226,8 +227,7 @@ void ble_test_loop(void){
         //     //
             ble_received_end = 0;
             //     //R_DTCD10_Start();
-            //     // memset(receivedFromBle, 0, 255);
-            //     //memclr(receivedFromBle ,255);
+            //     // memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
            
             // R_UART1_Send((uint8_t *)"AT+BINREQACK\r", 14);
             R_UART1_Send(receivedFromBle, 4);

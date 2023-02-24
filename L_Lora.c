@@ -54,7 +54,7 @@ void L_LORA_INIT(void){
     R_UART0_Create();
     R_UART0_Start();
     memset(receivedFromLora, 0, MAX_LORA_RECEIVE);
-    R_UART0_Receive(receivedFromLora, (uint16_t)MAX_LORA_RECEIVE);
+    R_UART0_Receive(receivedFromLora, 6);
 
     LORA_RESET = PIN_LEVEL_AS_LOW;
     LORA_RESET_MODE = PIN_MODE_AS_OUTPUT;
@@ -157,9 +157,23 @@ void lora_procedure_init(float *_battery,float *_pt100)
 
 
 uint8_t checkLoraMessage(void){
-    if (receivedFromLora[MAX_LORA_RECEIVE-1]=='}')
+    char *result;
+    replace_0_as_1_in_buffer(receivedFromLora,MAX_LORA_RECEIVE-1);
+    receivedFromLora[MAX_LORA_RECEIVE - 1] = 0;
+    result=strstr((char *)receivedFromLora, "}");
+    if (result!=NULL)
     {
-        memcpy(&setBleDeviceNameCommand[7], &receivedFromLora[1], 4);
+        // R_UART0_Stop();
+        R_UART0_Receive(receivedFromLora+6, 1);
+        memcpy(&setBleDeviceNameCommand[7], (result-4), 1);
+        return 1;
+    }
+    result=strstr((char *)receivedFromLora, "{");
+    if (result!=NULL)
+    {
+        // R_UART0_Stop();
+        R_UART0_Receive(receivedFromLora+6, 1);
+        memcpy(&setBleDeviceNameCommand[7], (result+1), 1);
         return 1;
     }
     return 0;

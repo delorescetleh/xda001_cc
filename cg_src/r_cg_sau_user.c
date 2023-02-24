@@ -61,14 +61,15 @@ extern volatile uint8_t * gp_uart1_rx_address;         /* uart1 receive buffer a
 extern volatile uint16_t  g_uart1_rx_count;            /* uart1 receive data number */
 extern volatile uint16_t  g_uart1_rx_length;           /* uart1 receive data length */
 /* Start user code for global. Do not edit comment generated here */
+
 uint8_t portP3Status=0;
 uint8_t LoraReceivedEnd;
 uint8_t Uart0ReceivedEnd=0;
 // uint8_t maxLoraReceiveLength=6;
-uint8_t receivedFromUart0[160];
+uint8_t receivedFromUart0[LORA_BUFFER_SIZE];
 uint8_t LORA_ID[4];
-uint8_t receivedFromBle[160];
-uint8_t sendToBle[160] = {0};
+uint8_t receivedFromBle[BLE_BUFFER_SIZE];
+uint8_t sendToBle[BLE_BUFFER_SIZE] = {0};
 uint8_t BleReceivedEnd = 0;
 extern uint8_t setBleDeviceNameCommand[] = {'S','N',',','B','L','E','-','1','2','3','4','\r'};
 uint8_t APP_SET_LORA_INTERVAL[] = {0xA1,0x02};
@@ -147,7 +148,7 @@ static void r_uart0_callback_receiveend(void)
     /* Start user code. Do not edit comment generated here */
     events|=UART0_NOTIFICATION_EVENT;
     Uart0ReceivedEnd = 1;
-    R_UART0_Stop();
+
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************
@@ -295,17 +296,7 @@ static void r_uart1_callback_error(uint8_t err_type)
 
 
 
-// static void doBleTask_SetTemperatureOffset(void){
-//     uint8_t bleAck[3] = {0xa4, 0x01, 0x55};// ble ack to app
-//     int16_t user_Temperature = (*appParam)*10 + *(appParam+1);
-//     int16_t diff =  user_Temperature-dsadc_temperature;
-//     board[DSADC_TEMPERATURE_SENSOR_OFFSET + 1] = diff >> 8;
-//     board[DSADC_TEMPERATURE_SENSOR_OFFSET] = diff;
-//     DataFlashWrite();
-//     memcpy(sendToBle, bleAck, 3);
-//     R_UART1_Send(sendToBle,(uint8_t) 3);
-//     reset_ble_connect_process_timeout_counter();
-// }
+
 // static void doBleTask_AppGetEcho(void){
 //     uint8_t bleAck[4] = {0xa5, 0x02, 0x00, 0x00};// ble ack to app
 //     bleAck[2] = *appParam;

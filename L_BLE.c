@@ -60,6 +60,8 @@ void ble_procedure_init(void)
 }
 
 void ble_procedure(void){
+    int16_t user_Temperature = 0;
+    int16_t diff = 0;
     if(!ble_process_timeout_counter)
     {
     	ble_process_timeout_counter=BLE_PROCESS_TIMEOUT_COUNT;
@@ -70,7 +72,7 @@ void ble_procedure(void){
         case BLE_PROCESS_START                       :
             if(BLE_RTS==PIN_LEVEL_AS_LOW)
             {
-                memset(receivedFromBle, 0, 159);
+                memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
 		        ble_received_end=0;
                 R_UART1_Receive(receivedFromBle, 4);
                 R_UART1_Send((uint8_t *)"AT+BINREQACK\r", 14);
@@ -83,7 +85,7 @@ void ble_procedure(void){
             if(ble_received_end)
             {
                 ble_received_end = 0;
-                receivedFromBle[159] = 0;
+                receivedFromBle[BLE_BUFFER_SIZE-1] = 0;
                 ble_process = ble_check_command();
             }
             break;
@@ -95,23 +97,31 @@ void ble_procedure(void){
             lora_countdown_sec = receivedFromBle[3]*LORA_CYCLE_TIME_BASE;
             board[LORA_INTV] = receivedFromBle[3];
             DataFlashWrite();
-            memset(receivedFromBle, 0, 255);
+            memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
             R_UART1_Receive(receivedFromBle, 4);
             ble_process = BLE_CHECK_COMMAND;
             break;
         case BLE_SEND_DATA_TO_PHONE                    :// A2020000
-            memset(receivedFromBle, 0, 255);
+            ble_process_timeout_counter=BLE_PROCESS_TIMEOUT_COUNT;
+            memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
             R_UART1_Receive(receivedFromBle, 4);
             ble_process = BLE_CHECK_COMMAND;
             break;
         case BLE_TEMPERATURE_OFFSET                    :// A402xxxx
-            memset(receivedFromBle, 0, 255);
+            memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
+            user_Temperature = receivedFromBle[3]*10 + receivedFromBle[4];
+            diff =  user_Temperature-pt100_temperature;
+            board[DSADC_TEMPERATURE_SENSOR_OFFSET + 1] = diff >> 8;
+            board[DSADC_TEMPERATURE_SENSOR_OFFSET] = diff;
+            DataFlashWrite();
+
+            ble_process_timeout_counter=BLE_PROCESS_TIMEOUT_COUNT;
             R_UART1_Receive(receivedFromBle, 4);
             ble_process = BLE_CHECK_COMMAND;
             break;
         case BLE_BINARY_MODE_EXIT                      :// A3020000
             R_UART1_Send((uint8_t *)"+++", 3);
-            memset(receivedFromBle, 0, 255);
+            memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
             R_UART1_Receive(receivedFromBle, 4);
             ble_process = BLE_GOTO_SLEEP;
             break;
@@ -135,15 +145,7 @@ void ble_procedure(void){
             break;
         }
 }
-// void L_BLE_connect_procedure_init(void){
-//     ble_connect_process = BLE_CONNECT_START;
-//     ble_connect_process_timeout_counter = BLE_CONNECT_PROCESS_TIMEOUT;
-// }
 
-// void L_BLE_F_procedure_init(void){
-//     ble_F_process = BLE_F_PROCESS_START;
-//     ble_F_process_timeout_counter = BLE_F_PROCESS_TIMEOUT;
-// }
 
 // void L_BLE_shutdown_procedure_init(void){
 //     ble_shutdown_process = BLE_SHUTDOWN_START;

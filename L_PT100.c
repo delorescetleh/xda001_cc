@@ -107,6 +107,9 @@ void DSADC_PROCESS(void)
             dsadc_moving_average_times--;
             R_PGA_DSAD_Start();
     }else{
+            dsadc->pt100_temperature = dsadc->pt100_temperature - board[DSADC_TEMPERATURE_SENSOR_OFFSET];
+            pt100_temperature = dsadc->pt100_temperature;
+            pcb_temperature = dsadc->pcb_temperature;
             dsadc_fetch_finish=1;
     }
 
