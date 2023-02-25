@@ -66,7 +66,7 @@ typedef struct main_data_struct
 } main_data_t;
 main_data_t main_data;
 
-uint8_t lora_countdown_sec =LORA_COUNTDOWN_SEC;
+uint16_t lora_countdown_sec =LORA_COUNTDOWN_SEC;
 
 uint16_t record_rtc_counter = RECORD_COUNTDOWN_SEC;
 uint16_t battery_rtc_counter = BATTERY_COUNTDOWN_SEC;
@@ -142,14 +142,14 @@ void main(void)
                 {
                     lora_process_timer_counter--;
                 }
-                if ((battery_rtc_counter>=BATTERY_COUNTDOWN_SEC)&&(lora_process!=LORA_PROCESS_END)&&(!semaphore))
+                if ((battery_rtc_counter>=BATTERY_COUNTDOWN_SEC)&&(lora_process!=LORA_PROCESS_END)&&(dsadc_process==DSADC_PROCESS_END)&&(!semaphore))
                 {
                     battery_rtc_counter = 0;
                     battery_procedure_init(&main_data.battery_data);
                     MAIN_PROCESS_TIMER_START();
                 }
                 battery_rtc_counter++;
-                if ((dsadc_rtc_counter>=DSADC_COUNTDOWN_SEC)&&(!semaphore))
+                if ((dsadc_rtc_counter>=DSADC_COUNTDOWN_SEC)&&(battery_process==BATTERY_PROCESS_END)&&(!semaphore))
                 {
                     dsadc_rtc_counter = 0;
                     dsadc_procedure_init(&main_data.dsadc_data);

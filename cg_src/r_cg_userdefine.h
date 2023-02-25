@@ -307,7 +307,7 @@ extern uint16_t K;
 extern uint8_t ADC8;
 extern uint8_t ADC10;
 extern uint8_t lora_process_timer_counter;
-extern uint8_t lora_countdown_sec;
+extern uint16_t lora_countdown_sec;
 extern uint8_t ble_received_end;
 extern uint8_t semaphore;
 extern uint8_t sendToBle[160];
