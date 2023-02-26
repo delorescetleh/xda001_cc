@@ -2167,7 +2167,6 @@ cg_src
       <DebuggerProperty-HookProperty-HookTransaction-Broke-Length>0</DebuggerProperty-HookProperty-HookTransaction-Broke-Length>
       <DebuggerProperty-HookProperty-HookTransaction-Connected-Length>0</DebuggerProperty-HookProperty-HookTransaction-Connected-Length>
       <DebuggerProperty-HookProperty-HookTransaction-Disconnecting-Length>0</DebuggerProperty-HookProperty-HookTransaction-Disconnecting-Length>
-      <DebuggerProperty-EssentialProperty-EmulatorConnect-SerialNumber />
     </Instance>
   </Class>
   <Class Guid="ae6bc4a9-3063-4942-8876-1ad4be827a16">
@@ -2179,15 +2178,11 @@ cg_src
     <Instance Guid="18ae40a2-ced0-4b3c-8ee8-890cea9e5a20">
       <CodeGeneratorData0>&lt;DataSign&gt;&lt;SerializableData&gt;
   &lt;SerializableData name="39a9d609-9774-41fe-9e4e-5c50dfa1451e"&gt;
-    &lt;DataElement key="pior35_macroname" value=""&gt;
-    &lt;/DataElement&gt;
     &lt;DataElement key="pior14_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior34_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior16_macroname" value=""&gt;
-    &lt;/DataElement&gt;
-    &lt;DataElement key="pior25_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior22_macroname" value=""&gt;
     &lt;/DataElement&gt;
@@ -2203,15 +2198,17 @@ cg_src
     &lt;/DataElement&gt;
     &lt;DataElement key="pior10_macroname" value=""&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior27_macroname" value=""&gt;
-    &lt;/DataElement&gt;
     &lt;DataElement key="pior27" value="0"&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior30_macroname" value=""&gt;
     &lt;/DataElement&gt;
+    &lt;DataElement key="pior33" value="0"&gt;
+    &lt;/DataElement&gt;
     &lt;DataElement key="pior01_macroname" value=""&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior35" value="0"&gt;
+    &lt;DataElement key="pior01" value="0"&gt;
+    &lt;/DataElement&gt;
+    &lt;DataElement key="pior11_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior04_macroname" value=""&gt;
     &lt;/DataElement&gt;
@@ -2229,7 +2226,7 @@ cg_src
     &lt;/DataElement&gt;
     &lt;DataElement key="pior31" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior01" value="0"&gt;
+    &lt;DataElement key="pior25_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior11" value="0"&gt;
     &lt;/DataElement&gt;
@@ -2253,6 +2250,8 @@ cg_src
     &lt;/DataElement&gt;
     &lt;DataElement key="pior32_macroname" value=""&gt;
     &lt;/DataElement&gt;
+    &lt;DataElement key="pior03" value="0"&gt;
+    &lt;/DataElement&gt;
     &lt;DataElement key="pior22" value="0"&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior15_macroname" value=""&gt;
@@ -2261,9 +2260,9 @@ cg_src
     &lt;/DataElement&gt;
     &lt;DataElement key="pior23" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior33" value="0"&gt;
+    &lt;DataElement key="pior35_macroname" value=""&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior03" value="0"&gt;
+    &lt;DataElement key="pior27_macroname" value=""&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior24_macroname" value=""&gt;
     &lt;/DataElement&gt;
@@ -2275,7 +2274,7 @@ cg_src
     &lt;/DataElement&gt;
     &lt;DataElement key="pior25" value="0"&gt;
     &lt;/DataElement&gt;
-    &lt;DataElement key="pior11_macroname" value=""&gt;
+    &lt;DataElement key="pior35" value="0"&gt;
     &lt;/DataElement&gt;
     &lt;DataElement key="pior05" value="0"&gt;
     &lt;/DataElement&gt;
@@ -41254,11 +41253,11 @@ cg_src
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="TRIGGER_HARDWARE_NOWAIT"&gt;
-          &lt;DataElement key="Checked" value="True"&gt;
+          &lt;DataElement key="Checked" value="False"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="TRIGGER_HARDWARE_WAIT"&gt;
-          &lt;DataElement key="Checked" value="False"&gt;
+          &lt;DataElement key="Checked" value="True"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="TRIGGER_SOURCE"&gt;
@@ -41604,7 +41603,7 @@ cg_src
         &lt;SerializableData name="CONVERSION_TIME"&gt;
           &lt;DataElement key="ContentItemCount" value="56"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="SelectedContentItem" value="32,no-wait/3.6-5.5/Normal1/8bit,no-wait/2.7-3.6/Normal1/8bit,no-wait/3.6-5.5/Normal2/10bit,no-wait/2.7-3.6/Normal2/10bit,no-wait/3.6-5.5/Low-voltage1/8bit,no-wait/2.7-3.6/Low-voltage1/8bit,no-wait/2.4-2.7/Low-voltage1/8bit,no-wait/1.8-2.4/Low-voltage1/8bit,no-wait/1.6-1.8/Low-voltage1/8bit,no-wait/3.6-5.5/Low-voltage2/10bit,no-wait/2.7-3.6/Low-voltage2/10bit,no-wait/2.4-2.7/Low-voltage2/10bit,no-wait/1.8-2.4/Low-voltage2/10bit,no-wait/1.6-1.8/Low-voltage2/10bit,hardware wait/3.6-5.5/Low-voltage2/8bit,hardware wait/2.7-3.6/Low-voltage2/8bit,hardware wait/2.4-2.7/Low-voltage2/8bit,hardware wait/1.8-2.4/Low-voltage2/8bit,hardware wait/1.6-1.8/Low-voltage2/8bit"&gt;
+          &lt;DataElement key="SelectedContentItem" value="16,no-wait/3.6-5.5/Normal1/10bit,no-wait/2.7-3.6/Normal1/10bit,no-wait/3.6-5.5/Low-voltage1/10bit,no-wait/2.7-3.6/Low-voltage1/10bit,no-wait/2.4-2.7/Low-voltage1/10bit,no-wait/1.8-2.4/Low-voltage1/10bit,no-wait/1.6-1.8/Low-voltage1/10bit,hardware wait/3.6-5.5/Low-voltage1/8bit,hardware wait/2.7-3.6/Low-voltage1/8bit,hardware wait/2.4-2.7/Low-voltage1/8bit,hardware wait/1.8-2.4/Low-voltage1/8bit,hardware wait/1.6-1.8/Low-voltage1/8bit,hardware wait/3.6-5.5/Low-voltage2/10bit,hardware wait/2.7-3.6/Low-voltage2/10bit,hardware wait/2.4-2.7/Low-voltage2/10bit,hardware wait/1.8-2.4/Low-voltage2/10bit,hardware wait/1.6-1.8/Low-voltage2/10bit"&gt;
           &lt;/DataElement&gt;
           &lt;SerializableData name="ContentItem1"&gt;
             &lt;DataElement key="Pin" value=""&gt;
@@ -42349,7 +42348,7 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="False"&gt;
+            &lt;DataElement key="Visible" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -42371,7 +42370,7 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="False"&gt;
+            &lt;DataElement key="Visible" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -42525,7 +42524,7 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="True"&gt;
+            &lt;DataElement key="Visible" value="False"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -42547,7 +42546,7 @@ cg_src
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="True"&gt;
+            &lt;DataElement key="Visible" value="False"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -42840,7 +42839,7 @@ cg_src
           &lt;/SerializableData&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="CONVERSION_TIME_VALUE"&gt;
-          &lt;DataElement key="Text" value="34"&gt;
+          &lt;DataElement key="Text" value="19"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="INTERRUPT_GENERATE_CONDITION_1"&gt;
