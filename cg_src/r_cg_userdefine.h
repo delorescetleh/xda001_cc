@@ -323,5 +323,6 @@ extern double pcb_temperature ;
 extern uint8_t ble_process_timer_counter;
 extern uint16_t record_data[RECORD_DATA_SIZE] ;
 extern int16_t record_data_index ;
+extern uint16_t record_qty;
 /* End user code. Do not edit comment generated here */
 #endif

@@ -192,5 +192,6 @@ void R_DTCD10_Start(void);
 void R_DTCD10_Stop(void);
 /* Start user code for function. Do not edit comment generated here */
 uint8_t reset_DTC10(void);
+uint8_t howFarWeAlreadyGo(void);
 /* End user code. Do not edit comment generated here */
 #endif

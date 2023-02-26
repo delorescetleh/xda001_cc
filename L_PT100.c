@@ -8,6 +8,7 @@ uint8_t dsadc_moving_average_times = DSADC_MOVING_AVERAGE_TIMES;
 uint8_t dsadc_fetch_finish = 0;
 double pt100_temperature = 0;
 double pcb_temperature = 0;
+uint16_t record_qty = 0;
 void _convert_signal_end_value_as_uv(int32_t *value);
 void _convert_differential_value_as_uv(int32_t *value, uint8_t g);
 double ntc_convert(double Rntc);

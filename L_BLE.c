@@ -5,6 +5,7 @@ uint8_t ble_process_timeout_counter = BLE_PROCESS_TIMEOUT_COUNT;
 uint8_t ble_process_timer_counter=2;
 enum ble_process_t ble_process = BLE_PROCESS_END;
 
+
 extern uint16_t lora_rtc_counter;
 enum ble_process_t ble_check_command(void);
 
@@ -55,11 +56,13 @@ void ble_procedure_init(void)
     ble_process = BLE_PROCESS_START;
     ble_process_timeout_counter=BLE_PROCESS_TIMEOUT_COUNT;
     // memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
+    ble_process_timer_counter = 7;
     R_SAU0_Create();
     R_UART1_Create();
     R_UART1_Start();
 }
 uint8_t ble_process_timer_counter;
+st_dtc_data_t *dtc_information;
 void ble_procedure(void){
     union  {
         int16_t whole;
@@ -77,19 +80,23 @@ void ble_procedure(void){
     switch (ble_process)
     {
         case BLE_PROCESS_START                       :
-            R_DTCD10_Stop();
-            replace_0_as_1_in_buffer(receivedFromBle, BLE_BUFFER_SIZE-1);
-            receivedFromBle[BLE_BUFFER_SIZE-1] = 0;
-            if(strstr((char *)receivedFromBle,"+BINREQ\r"))
-            {
-                memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
-		        ble_received_end=0;
-                R_UART1_Receive(receivedFromBle, 19);
-                R_UART1_Send((uint8_t *)"AT+BINREQACK\r", 14);
-                ble_process = BLE_CHECK_ENTER_BINARY_MODE;
-                break;
+            if((!ble_process_timer_counter)){
+                R_DTCD10_Stop();
+                replace_0_as_1_in_buffer(receivedFromBle, BLE_BUFFER_SIZE-1);
+                receivedFromBle[BLE_BUFFER_SIZE-1] = 0;
+                if(strstr((char *)receivedFromBle,"+BINREQ\r"))
+                {
+                    memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
+		            ble_received_end=0;
+                    R_UART1_Receive(receivedFromBle, 19);
+                    R_UART1_Send((uint8_t *)"AT+BINREQACK\r", 14);
+                    ble_process_timeout_counter=BLE_PROCESS_TIMEOUT_COUNT;
+                    ble_process = BLE_CHECK_ENTER_BINARY_MODE;
+                    break;
+                }
+                R_DTCD10_Start();
+                ble_process_timer_counter = 1;
             }
-            R_DTCD10_Start();
             break;
         case BLE_SET_NAME                            :
             break;
@@ -129,13 +136,18 @@ void ble_procedure(void){
             ble_process = BLE_CHECK_COMMAND;
             break;
         case BLE_SEND_DATA_TO_PHONE                    :// A2020000
-            ble_process_timeout_counter=BLE_PROCESS_TIMEOUT_COUNT;
+            record_qty =RECORD_DATA_SIZE-record_data_index-1;
+            R_UART1_Send((uint8_t *)&record_qty,2);
+            delayInMs(10);
+            if(record_qty)
+            {
+                R_UART1_Send((uint8_t *)&record_data[record_data_index+1],record_qty*2);
+            }
             memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
             R_UART1_Receive(receivedFromBle, 4);
             ble_process = BLE_CHECK_COMMAND;
             break;
         case BLE_TEMPERATURE_OFFSET                    :// A402xxxx
-
             user_Temperature = receivedFromBle[2]*10 + receivedFromBle[3];
             offset_ble.whole =  user_Temperature-pt100_temperature*10;
             board[DSADC_TEMPERATURE_SENSOR_OFFSET]=offset_ble.byte.b0 ;

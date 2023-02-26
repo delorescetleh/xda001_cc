@@ -107,4 +107,8 @@ uint8_t reset_DTC10(void){
     dtc_controldata_10.dtbls = _01_DTCD10_TRANSFER_BLOCKSIZE;
     return howFarWeAlreadyGo;
 }
+uint8_t howFarWeAlreadyGo(void){
+    uint8_t howFarWeAlreadyGo = dtc_controldata_10.dtdar - _FC00_DTCD10_DEST_ADDRESS;
+    return howFarWeAlreadyGo;
+}
 /* End user code. Do not edit comment generated here */
