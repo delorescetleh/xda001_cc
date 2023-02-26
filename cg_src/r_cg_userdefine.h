@@ -60,6 +60,11 @@ User definitions
 #include "stdlib.h"
 #include <stdio.h>
 #include <string.h>
+
+
+#define RECORD_DATA_SIZE 1440
+
+
 /*BOARD SUPPORT AREA START*/
 #define UART1_TXD                     P5_bit.no0
 #define UART1_TXD_MODE                PM5_bit.no0
@@ -316,5 +321,7 @@ extern uint8_t sendToBle[160];
 extern double pt100_temperature ;
 extern double pcb_temperature ;
 extern uint8_t ble_process_timer_counter;
+extern uint16_t record_data[RECORD_DATA_SIZE] ;
+extern int16_t record_data_index ;
 /* End user code. Do not edit comment generated here */
 #endif

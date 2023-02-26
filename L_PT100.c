@@ -15,6 +15,9 @@ double pt100_convert(double Rpt);
 
 enum dsadc_process_t dsadc_process = DSADC_PROCESS_END;
 
+uint16_t record_data[RECORD_DATA_SIZE] = {0};
+int16_t record_data_index = RECORD_DATA_SIZE-1;
+
 void dsadc_procedure_init(struct dsadc_struct *_dsadc)
 {
     dsadc_process = DSADC_PROCESS_START;
@@ -46,16 +49,25 @@ void dsadc_procedure(void)
                 dsadc_fetch_finish = 0;
                 if((dsadc->pt100_temperature>450)||(dsadc->pt100_temperature<-50)){
                     pt100_data_fetch_result_type = PT100_SENSE_ERROR;
+                }else{
+                    pt100_temperature = dsadc->pt100_temperature;
                 }
                 if(Rline>10000){
                     pt100_data_fetch_result_type = PT100_LINE_ERROR;
+                    pt100_temperature = -49.5;
                 }
                 L_PT100_STOP();
                 dsadc_process = SAVE_DSADC_DATA;
             }
         break;
         case SAVE_DSADC_DATA:
-
+            record_data[record_data_index]  = (pt100_temperature+50) * 2;
+            if (record_data_index>0)
+            {
+                record_data_index--;
+            }else{
+                record_data_index = RECORD_DATA_SIZE - 1;
+            }
             dsadc_process = DSADC_PROCESS_END;
         break;                
         case DSADC_PROCESS_END:
