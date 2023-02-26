@@ -1,5 +1,5 @@
 #include "L_BLE.h"
-#define BLE_PROCESS_TIMEOUT_COUNT 30
+#define BLE_PROCESS_TIMEOUT_COUNT 90
 uint8_t ble_received_end = 0;
 uint8_t ble_process_timeout_counter = BLE_PROCESS_TIMEOUT_COUNT;
 uint8_t ble_process_timer_counter=2;
@@ -54,11 +54,12 @@ void ble_procedure_init(void)
 {
     ble_process = BLE_PROCESS_START;
     ble_process_timeout_counter=BLE_PROCESS_TIMEOUT_COUNT;
-    R_SAU0_Create();
-    R_UART1_Create();
-    R_UART1_Start();
+    memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
+    // R_SAU0_Create();
+    // R_UART1_Create();
+    // R_UART1_Start();
 }
-
+uint8_t ble_process_timer_counter;
 void ble_procedure(void){
     union  {
         int16_t whole;
@@ -68,7 +69,7 @@ void ble_procedure(void){
         }byte;
     } offset_ble;
     int16_t user_Temperature = 0;
-    if(!ble_process_timeout_counter)
+    if((!ble_process_timeout_counter)||(BLE_RTS==PIN_LEVEL_AS_LOW))
     {
     	ble_process_timeout_counter=BLE_PROCESS_TIMEOUT_COUNT;
         ble_process = BLE_BINARY_MODE_EXIT;
@@ -76,22 +77,38 @@ void ble_procedure(void){
     switch (ble_process)
     {
         case BLE_PROCESS_START                       :
-            if(BLE_RTS==PIN_LEVEL_AS_LOW)
+            if(strstr((char *)receivedFromBle,"AT+BINREQ\r"))
             {
+                R_DTCD10_Stop();
                 memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
 		        ble_received_end=0;
-                R_UART1_Receive(receivedFromBle, 4);
+                R_UART1_Receive(receivedFromBle, 19);
                 R_UART1_Send((uint8_t *)"AT+BINREQACK\r", 14);
-                ble_process = BLE_CHECK_COMMAND;
+                ble_process = BLE_CHECK_ENTER_BINARY_MODE;
             }
             break;
         case BLE_SET_NAME                            :
             break;
+        case BLE_CHECK_ENTER_BINARY_MODE                        :
+            if(ble_received_end)
+            {
+                ble_received_end = 0;
+                replace_0_as_1_in_buffer(receivedFromBle, BLE_BUFFER_SIZE);
+                receivedFromBle[BLE_BUFFER_SIZE-1] = 0;
+                if(strstr((char *)receivedFromBle,"AT+BINREQACK")!=NULL){
+                    if(strstr((char *)receivedFromBle,"OK")!=NULL){
+                        memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
+		                ble_received_end=0;
+                        R_UART1_Receive(receivedFromBle, 4);
+                        ble_process = BLE_CHECK_COMMAND;
+                    }
+                }
+            }
+            break;            
         case BLE_CHECK_COMMAND                        :
             if(ble_received_end)
             {
                 ble_received_end = 0;
-                receivedFromBle[BLE_BUFFER_SIZE-1] = 0;
                 ble_process = ble_check_command();
             }
             break;

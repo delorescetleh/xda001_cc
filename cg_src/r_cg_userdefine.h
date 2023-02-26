@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file includes user definition.
-* Creation Date: 2023/2/24
+* Creation Date: 2023/2/26
 ***********************************************************************************************************************/
 #ifndef _USER_DEF_H
 #define _USER_DEF_H
@@ -136,7 +136,9 @@ enum ble_process_t
     BLE_PROCESS_END                         ,
     BLE_PROCESS_START                       ,
     BLE_SET_NAME                            ,
+    BLE_CHECK_ENTER_BINARY_MODE,
     BLE_CHECK_COMMAND                         ,
+
     BLE_CHANGE_LORA_FETCH_TIME                ,// A1020x00
     BLE_SEND_DATA_TO_PHONE                    ,// A2020000
     BLE_BINARY_MODE_EXIT,
@@ -313,5 +315,6 @@ extern uint8_t semaphore;
 extern uint8_t sendToBle[160];
 extern double pt100_temperature ;
 extern double pcb_temperature ;
+extern uint8_t ble_process_timer_counter;
 /* End user code. Do not edit comment generated here */
 #endif

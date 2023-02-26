@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2023/2/24
+* Creation Date: 2023/2/26
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -40,6 +40,7 @@ Includes
 #include "r_cg_dac.h"
 #include "r_cg_adc.h"
 #include "r_cg_sau.h"
+#include "r_cg_dtc.h"
 #include "r_cg_intp.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
@@ -107,7 +108,6 @@ void main(void)
             if(events & BLE_NOTIFICATION_EVENT)
             {
                 events &= ~BLE_NOTIFICATION_EVENT;
-                R_INTC0_Stop();
                 ble_procedure_init();
                 MAIN_PROCESS_TIMER_START();
                 semaphore = 1;
@@ -134,13 +134,25 @@ void main(void)
             if(events & RTC_NOTIFICATION_EVENT)
             {
                 events &= ~RTC_NOTIFICATION_EVENT;
-                if (lora_process_timeout_counter)
-                {
-                    lora_process_timeout_counter--;
+                if(lora_process!=LORA_PROCESS_END){
+                    if (lora_process_timeout_counter)
+                    {
+                        lora_process_timeout_counter--;
+                    }
+                    if (lora_process_timer_counter)
+                    {
+                        lora_process_timer_counter--;
+                    }
                 }
-                if (lora_process_timer_counter)
+                if(ble_process!=BLE_PROCESS_END){
+                if (ble_process_timeout_counter)
                 {
-                    lora_process_timer_counter--;
+                    ble_process_timeout_counter--;
+                }
+                if (ble_process_timer_counter)
+                {
+                    ble_process_timer_counter--;
+                }
                 }
                 if ((battery_rtc_counter>=BATTERY_COUNTDOWN_SEC)&&(lora_process!=LORA_PROCESS_END)&&(dsadc_process==DSADC_PROCESS_END)&&(!semaphore))
                 {
@@ -201,6 +213,7 @@ static void R_MAIN_UserInit(void)
     EI();
     R_RTC_Start();
     R_INTC0_Start();
+    // ble_test_loop();
     //goToSleep();
     /* End user code. Do not edit comment generated here */
 }
@@ -218,23 +231,27 @@ while(1)
 }
 }
 void ble_test_loop(void){
-    while (1)
-    {
-        R_UART1_Receive(receivedFromBle, 4);
-         delayInMs(1000);
-        if (ble_received_end)
-        {
-        //     //
-            ble_received_end = 0;
-            //     //R_DTCD10_Start();
-            //     // memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
+    memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
+
+// R_UART1_Receive(receivedFromBle, 128);
+while (1)
+{
+         HALT();
+        // R_UART1_Receive(receivedFromBle, 3);
+        //  delayInMs(1000);
+        // if (ble_received_end)
+        // {
+        // //     //
+        //     ble_received_end = 0;
+        //     //     //R_DTCD10_Start();
+        //     //     // memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
            
-            // R_UART1_Send((uint8_t *)"AT+BINREQACK\r", 14);
-            R_UART1_Send(receivedFromBle, 4);
-        //     //break;
-        }else{
-            R_UART1_Send("nop\r", 4);
-        }
+        //     // R_UART1_Send((uint8_t *)"AT+BINREQACK\r", 14);
+        //     R_UART1_Send(receivedFromBle, 3);
+        // //     //break;
+        // }else{
+        //     R_UART1_Send("AT\r", 3);
+        // }
     }
     while (1)
     {

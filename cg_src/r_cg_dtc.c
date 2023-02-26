@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for DTC module.
-* Creation Date: 2023/2/16
+* Creation Date: 2023/2/26
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -50,8 +50,8 @@ Global variables and functions
 #pragma address dtc_vectortable = 0x0FFD00U
 uint8_t __near dtc_vectortable[40U];
 
-#pragma address dtc_controldata_8 = 0x0FFD80U
-st_dtc_data_t __near dtc_controldata_8;
+#pragma address dtc_controldata_10 = 0x0FFD90U
+st_dtc_data_t __near dtc_controldata_10;
 /***********************************************************************************************************************
 * Function Name: R_DTC_Create
 * Description  : This function initializes the DTC module.
@@ -69,35 +69,35 @@ void R_DTC_Create(void)
     DTCEN3 = 0x00U;
     /* Set base address */
     DTCBAR = 0xFDU;
-    /* Set DTCD8 */
-    dtc_vectortable[11U] = 0x80U;
-    dtc_controldata_8.dtccr = _00_DTC_DATA_SIZE_8BITS | _00_DTC_REPEAT_INT_DISABLE | _00_DTC_CHAIN_TRANSFER_DISABLE | 
-                              _00_DTC_SOURCE_ADDR_FIXED | _00_DTC_REPEAT_AREA_DEST | _01_DTC_TRANSFER_MODE_REPEAT;
-    dtc_controldata_8.dtbls = _01_DTCD8_TRANSFER_BLOCKSIZE;
-    dtc_controldata_8.dtcct = _FF_DTCD8_TRANSFER_BYTE;
-    dtc_controldata_8.dtrld = _FF_DTCD8_TRANSFER_BYTE;
-    dtc_controldata_8.dtsar = _FF12_DTCD8_SRC_ADDRESS;
-    dtc_controldata_8.dtdar = _FC00_DTCD8_DEST_ADDRESS;
+    /* Set DTCD10 */
+    dtc_vectortable[13U] = 0x90U;
+    dtc_controldata_10.dtccr = _00_DTC_DATA_SIZE_8BITS | _00_DTC_REPEAT_INT_DISABLE | _00_DTC_CHAIN_TRANSFER_DISABLE | 
+                               _00_DTC_SOURCE_ADDR_FIXED | _00_DTC_REPEAT_AREA_DEST | _01_DTC_TRANSFER_MODE_REPEAT;
+    dtc_controldata_10.dtbls = _01_DTCD10_TRANSFER_BLOCKSIZE;
+    dtc_controldata_10.dtcct = _A0_DTCD10_TRANSFER_BYTE;
+    dtc_controldata_10.dtrld = _A0_DTCD10_TRANSFER_BYTE;
+    dtc_controldata_10.dtsar = _FF46_DTCD10_SRC_ADDRESS;
+    dtc_controldata_10.dtdar = _FC00_DTCD10_DEST_ADDRESS;
 }
 /***********************************************************************************************************************
-* Function Name: R_DTCD8_Start
-* Description  : This function enables DTCD8 module operation.
+* Function Name: R_DTCD10_Start
+* Description  : This function enables DTCD10 module operation.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_DTCD8_Start(void)
+void R_DTCD10_Start(void)
 {
-     DTCEN1 |= _10_DTC_UART0R_ACTIVATION_ENABLE;
+     DTCEN1 |= _04_DTC_UART1R_ACTIVATION_ENABLE;
 }
 /***********************************************************************************************************************
-* Function Name: R_DTCD8_Stop
-* Description  : This function disables DTCD8 module operation.
+* Function Name: R_DTCD10_Stop
+* Description  : This function disables DTCD10 module operation.
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void R_DTCD8_Stop(void)
+void R_DTCD10_Stop(void)
 {
-    DTCEN1 &= (uint8_t)~_10_DTC_UART0R_ACTIVATION_ENABLE;
+    DTCEN1 &= (uint8_t)~_04_DTC_UART1R_ACTIVATION_ENABLE;
 }
 
 /* Start user code for adding. Do not edit comment generated here */

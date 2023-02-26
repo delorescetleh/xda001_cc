@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (W3.04.00 )             25-Feb-2023 14:08:11
+Renesas Optimizing Linker (W3.04.00 )             26-Feb-2023 20:34:27
 
 *** Options ***
 
@@ -34,6 +34,8 @@ Renesas Optimizing Linker (W3.04.00 )             25-Feb-2023 14:08:11
 -Input=DefaultBuild\r_cg_intp.obj
 -Input=DefaultBuild\r_cg_intp_user.obj
 -Input=DefaultBuild\L_BLE.obj
+-Input=DefaultBuild\r_cg_dtc.obj
+-Input=DefaultBuild\r_cg_dtc_user.obj
 -LIBrary=FDL\CCRL_100\lib\pfdl.lib
 -SECURITY_ID=00000000000000000000
 -DEVICE=C:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F11NGG.DVF
@@ -76,17 +78,17 @@ SECTION                            START      END         SIZE   ALIGN
 .data
                                   000000d8  00000217       140   2
 .text
-                                  00000218  000004bf       2a8   1
+                                  00000218  000004e7       2d0   1
 PFDL_COD
-                                  000004c0  0000054d        8e   2
+                                  000004e8  00000575        8e   2
 .textf
-                                  0000054e  00001bb7      166a   1
+                                  00000576  00001c92      171d   1
 .SLIB
-                                  00001bb8  00001bd6        1f   1
+                                  00001c93  00001cb1        1f   1
 .const
-                                  00002000  00002b22       b23   2
+                                  00002000  00002b37       b38   2
 .RLIB
-                                  00002b23  000030bf       59d   1
+                                  00002b38  000030d4       59d   1
 .monitor2
                                   0001fe00  0001ffff       200   1
 .bss
@@ -95,6 +97,10 @@ PFDL_COD
                                   000fe9e6  000feb25       140   2
 .bss_ATFFC00
                                   000ffc00  000ffc9f        a0   1
+.bss_ATFFD00
+                                  000ffd00  000ffd27        28   1
+.bss_ATFFD90
+                                  000ffd90  000ffd97         8   1
 .sbss
                                   000ffe20  000ffe20         0   2
 .sdataR
