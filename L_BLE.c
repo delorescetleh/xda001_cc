@@ -54,10 +54,10 @@ void ble_procedure_init(void)
 {
     ble_process = BLE_PROCESS_START;
     ble_process_timeout_counter=BLE_PROCESS_TIMEOUT_COUNT;
-    memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
-    // R_SAU0_Create();
-    // R_UART1_Create();
-    // R_UART1_Start();
+    // memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
+    R_SAU0_Create();
+    R_UART1_Create();
+    R_UART1_Start();
 }
 uint8_t ble_process_timer_counter;
 void ble_procedure(void){
@@ -80,7 +80,7 @@ void ble_procedure(void){
             R_DTCD10_Stop();
             replace_0_as_1_in_buffer(receivedFromBle, BLE_BUFFER_SIZE-1);
             receivedFromBle[BLE_BUFFER_SIZE-1] = 0;
-            if(strstr((char *)receivedFromBle,"AT+BINREQ\r"))
+            if(strstr((char *)receivedFromBle,"+BINREQ\r"))
             {
                 memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
 		        ble_received_end=0;

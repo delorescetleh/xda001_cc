@@ -212,10 +212,15 @@ static void R_MAIN_UserInit(void)
     L_BAT_STOP();
     EI();
     R_RTC_Start();
+
+    // init ble setting 
     R_INTC0_Start();
     R_DTCD10_Stop();
     R_UART1_Stop();
+    memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
+    // init ble setting 
 
+    
     // ble_test_loop();
     //goToSleep();
     /* End user code. Do not edit comment generated here */
