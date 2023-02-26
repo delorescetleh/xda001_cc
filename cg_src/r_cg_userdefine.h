@@ -253,8 +253,8 @@ extern uint32_t adc10_mean;
 #define DATA_FLASH_DREAD_OFSET  0x1000  /* Direct reading offset address           */
 
 /* PFDL initial settings */
-#define R_PFDL_SAM_FDL_FRQ      32      /* Sets the frequency (32 MHz)             */
-#define R_PFDL_SAM_FDL_VOL      0x00    /* Sets the voltage mode (full-speed mode) */
+#define R_PFDL_SAM_FDL_FRQ      16      /* Sets the frequency (16 MHz)             */
+#define R_PFDL_SAM_FDL_VOL      0x01    /* Sets the voltage mode (full-speed mode) */
 
 /* Control macro for sample program */
 #define R_PFDL_SAM_WDT_RESET()  WDTE = 0xAC /* Watchdog timer reset                */
