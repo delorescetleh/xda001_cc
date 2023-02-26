@@ -213,6 +213,9 @@ static void R_MAIN_UserInit(void)
     EI();
     R_RTC_Start();
     R_INTC0_Start();
+    R_DTCD10_Stop();
+    R_UART1_Stop();
+
     // ble_test_loop();
     //goToSleep();
     /* End user code. Do not edit comment generated here */
