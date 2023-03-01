@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (W3.04.00 )             01-Mar-2023 08:30:22
+Renesas Optimizing Linker (W3.04.00 )             01-Mar-2023 08:55:03
 
 *** Options ***
 
@@ -88,7 +88,7 @@ PFDL_COD
 .const
                                   00002000  00002b35       b36   2
 .textf
-                                  00002b36  0000444a      1915   1
+                                  00002b36  00004458      1923   1
 .monitor2
                                   0001fe00  0001ffff       200   1
 .bss

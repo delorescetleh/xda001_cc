@@ -182,7 +182,7 @@ double ntc_convert(double Rntc)
     {
         if (ntc_lookup_table[Rntc_index]<Rntc)
         {
-            Rntc =(Rntc-ntc_lookup_table[Rntc_index]) / (ntc_lookup_table[Rntc_index + 1] - ntc_lookup_table[Rntc_index])+Rntc_index-50;
+            Rntc =(Rntc-ntc_lookup_table[Rntc_index]) / (ntc_lookup_table[Rntc_index + 1] - ntc_lookup_table[Rntc_index])+Rntc_index-50+1;
             break;
         }
     }
