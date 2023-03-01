@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file includes user definition.
-* Creation Date: 2023/2/27
+* Creation Date: 2023/3/1
 ***********************************************************************************************************************/
 #ifndef _USER_DEF_H
 #define _USER_DEF_H
@@ -324,5 +324,6 @@ extern uint8_t ble_process_timer_counter;
 extern uint16_t record_data[RECORD_DATA_SIZE] ;
 extern int16_t record_data_index ;
 extern uint16_t record_qty;
+extern uint8_t dsadc_fetch_finish;
 /* End user code. Do not edit comment generated here */
 #endif

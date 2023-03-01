@@ -1,4 +1,7 @@
 #include "L_PT100.h"
+# define TYPICAL_IPT100_AT_DAC0_IS_10 1532 // uA
+# define TYPICAL_IPT100_AT_DAC0_IS_7 1103 // uA
+# define TYPICAL_IPT100_AT_DAC0  TYPICAL_IPT100_AT_DAC0_IS_7// uA
 #define DSADC_MOVING_AVERAGE_TIMES 8
 dsadc_data_t *dsadc;
 const int32_t ntc_lookup_table[];
@@ -48,10 +51,9 @@ void dsadc_procedure(void)
             if (dsadc_fetch_finish)
             {
                 dsadc_fetch_finish = 0;
-                if((dsadc->pt100_temperature>450)||(dsadc->pt100_temperature<-50)){
+                if((pt100_temperature>450)||(pt100_temperature<-50)){
                     pt100_data_fetch_result_type = PT100_SENSE_ERROR;
-                }else{
-                    pt100_temperature = dsadc->pt100_temperature;
+                    pt100_temperature = -50;
                 }
                 if(Rline>10000){
                     pt100_data_fetch_result_type = PT100_LINE_ERROR;
@@ -62,6 +64,7 @@ void dsadc_procedure(void)
             }
         break;
         case SAVE_DSADC_DATA:
+            dsadc->pt100_temperature=pt100_temperature ;
             record_data[record_data_index]  = (pt100_temperature+50) * 2;
             if (record_data_index>0)
             {
@@ -103,8 +106,31 @@ void L_PT100_STOP(void){
 
 
 
-void DSADC_PROCESS(void)
+
+
+void DSADC_PROCESS_TEST(void)
 {
+                Vm0 += Vm0;
+                Vm0 = Vm0 / 2;
+                Vm3 += Vm3;
+                Vm3 = Vm3 / 2;
+                Vm2 += Vm2;
+                Vm2 = Vm2 / 2;
+                if (dsadc_moving_average_times)
+                {
+                    dsadc_moving_average_times--;
+                    R_PGA_DSAD_Start();
+                }else{
+                    dsadc_fetch_finish=1;
+                    _convert_differential_value_as_uv(&Vm0,16);
+                    _convert_differential_value_as_uv(&Vm3,2);
+                    _convert_signal_end_value_as_uv(&Vm2);
+                    Rline = Vm0 / TYPICAL_IPT100_AT_DAC0;
+                    Rpt100=(float)(Vm3 - Vm0 * 2) / TYPICAL_IPT100_AT_DAC0*10000;
+                    pt100_temperature = pt100_convert(Rpt100);
+                    pcb_temperature = ntc_convert(Vm2);
+                }
+}
     union  {
         int16_t whole;
         struct 
@@ -112,31 +138,32 @@ void DSADC_PROCESS(void)
                 uint8_t b0,b1;
         }byte;
     } offset_pt100;
+void DSADC_PROCESS(void)
+{
+
     offset_pt100.byte.b0 = board[DSADC_TEMPERATURE_SENSOR_OFFSET];
     offset_pt100.byte.b1 = board[DSADC_TEMPERATURE_SENSOR_OFFSET + 1];
 
-    _convert_differential_value_as_uv(&Vm0,16);
-    _convert_differential_value_as_uv(&Vm3,2);
-    _convert_signal_end_value_as_uv(&Vm2);
-    Rline = Vm0 / 2000;
-    Rpt100=(float)(Vm3 - Vm0 * 2) / 2000*10000;
-
-    dsadc->pt100_temperature = dsadc->pt100_temperature +pt100_convert(Rpt100);
-    dsadc->pt100_temperature = dsadc->pt100_temperature / 2;
-    dsadc->pcb_temperature = dsadc->pcb_temperature +ntc_convert(Vm2);
-    dsadc->pcb_temperature = dsadc->pcb_temperature / 2;
-    if(dsadc_moving_average_times)
+    Vm0 += Vm0;
+    Vm0 = Vm0 / 2;
+    Vm3 += Vm3;
+    Vm3 = Vm3 / 2;
+    Vm2 += Vm2;
+    Vm2 = Vm2 / 2;
+    if (dsadc_moving_average_times)
     {
-            dsadc_moving_average_times--;
-            R_PGA_DSAD_Start();
+        dsadc_moving_average_times--;
+        R_PGA_DSAD_Start();
     }else{
-            
-            dsadc->pt100_temperature =(dsadc->pt100_temperature*10 + offset_pt100.whole)/10;
-            pt100_temperature = dsadc->pt100_temperature;
-            pcb_temperature = dsadc->pcb_temperature;
-            dsadc_fetch_finish=1;
+        dsadc_fetch_finish=1;
+        _convert_differential_value_as_uv(&Vm0,16);
+        _convert_differential_value_as_uv(&Vm3,2);
+        _convert_signal_end_value_as_uv(&Vm2);
+        Rline = Vm0 / TYPICAL_IPT100_AT_DAC0;
+        Rpt100=(float)(Vm3 - Vm0 * 2) / TYPICAL_IPT100_AT_DAC0*10000;
+        pt100_temperature = pt100_convert(Rpt100)+offset_pt100.whole;
+        pcb_temperature = ntc_convert(Vm2);
     }
-
 }
 void _convert_differential_value_as_uv(int32_t *value,uint8_t g)
 {
@@ -165,15 +192,19 @@ const int32_t pt100_lookup_table[];
 double pt100_convert(double Rpt)
 {
     int index = 0;
-    for (index = 0; index < 500;index++)
+    float result = 0;
+    if(Rpt>1000000){
+        index = 50;
+    }
+    for (; index < 500;index++)
     {
-        if (ntc_lookup_table[index]<Rpt)
+        if (pt100_lookup_table[index]>Rpt)
         {
-            Rpt =(Rpt-pt100_lookup_table[index]) / (pt100_lookup_table[index + 1] - pt100_lookup_table[index])+index-50;
+            result =(pt100_lookup_table[index]-Rpt) / (pt100_lookup_table[index] - pt100_lookup_table[index-1])+index-51;
             break;
         }
     }
-    return Rpt;
+    return result;
 }
 
 

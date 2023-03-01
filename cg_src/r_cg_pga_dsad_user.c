@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for PGIA module.
-* Creation Date: 2023/2/27
+* Creation Date: 2023/3/1
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -47,16 +47,15 @@ Pragma directive
 # define DSADC_RESULT_BUF_SIZE 1
 # define PT100_TEMPERATURE_RATE (double) 385
 # define PT100_BASE (double) 100000 // mOhm 
-# define TYPICAL_IPT100 1263 // uA
-# define TYPICAL_R_LINE_PT100 1000 // mohm
+
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
-uint16_t RL = TYPICAL_R_LINE_PT100;// k ohm 
-int32_t Ipt100=TYPICAL_IPT100; // uA
+uint16_t RL = 0;// k ohm 
+
 int32_t Vpt100 = 0; // uV
 int16_t temperatureOffset=0; // degC
 
@@ -88,6 +87,7 @@ union
 // void getRL(void);
 // void getRPT100(void);
 // void getR_Line_Base_On(int32_t target_temperature);
+
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************

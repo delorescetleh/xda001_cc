@@ -14,4 +14,5 @@ void DSADC_PROCESS(void);
 void dsadc_procedure_init(struct dsadc_struct *_dsadc);
 void dsadc_procedure(void);
 void L_PT100_STOP(void);
+void DSADC_PROCESS_TEST(void);
 #endif

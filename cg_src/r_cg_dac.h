@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for DAC module.
-* Creation Date: 2023/2/27
+* Creation Date: 2023/3/1
 ***********************************************************************************************************************/
 #ifndef DAC_H
 #define DAC_H
@@ -56,7 +56,7 @@ Macro definitions (Register bit)
 Macro definitions
 ***********************************************************************************************************************/
 #define DA0_WAITTIME                        (0x0CU) /* set the waiting time */
-#define _0D_DA0_COUVERSION_VALUE            (0x0DU) /* set the analog voltage value */
+#define _07_DA0_COUVERSION_VALUE            (0x07U) /* set the analog voltage value */
 
 /***********************************************************************************************************************
 Typedef definitions

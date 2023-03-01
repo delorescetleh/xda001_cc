@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements device driver for DAC module.
-* Creation Date: 2023/2/27
+* Creation Date: 2023/3/1
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -65,7 +65,7 @@ void R_DAC_Create(void)
 
     DACEN = 1U;     /* enables input clock supply */
     DACM0 |= _00_DA0_NORMAL_MODE;
-    DAC0DR = _0D_DA0_COUVERSION_VALUE;
+    DAC0DR = _07_DA0_COUVERSION_VALUE;
 
 }
 /***********************************************************************************************************************

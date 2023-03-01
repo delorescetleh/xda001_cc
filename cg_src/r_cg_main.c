@@ -23,7 +23,7 @@
 * Device(s)    : R5F11NGG
 * Tool-Chain   : CCRL
 * Description  : This file implements main function.
-* Creation Date: 2023/2/27
+* Creation Date: 2023/3/1
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -88,6 +88,7 @@ void MAIN_PROCESS_TIMER_STOP(void);
 extern float vbat;
 void battery_test_loop(void);
 void ble_test_loop(void);
+void pt100_test_loop(void);
 /* End user code. Do not edit comment generated here */
 
 static void R_MAIN_UserInit(void);
@@ -220,13 +221,39 @@ static void R_MAIN_UserInit(void)
     memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
     // init ble setting 
 
-    
+     //pt100_test_loop();
     // ble_test_loop();
     //goToSleep();
     /* End user code. Do not edit comment generated here */
 }
 
 /* Start user code for adding. Do not edit comment generated here */
+void pt100_test_loop(void){
+            R_PGA_DSAD_Create();
+            
+            R_AMP_Create();
+            R_AMP_Set_PowerOn();
+            R_DAC_Create();
+            R_DAC0_Start();
+            R_AMP0_Start();
+            R_AMP2_Start();
+            R_PGA_DSAD_Start();
+    while (1)
+    {
+            if(events & DSADC_NOTIFICATION_EVENT)
+            {
+                events &= ~DSADC_NOTIFICATION_EVENT;
+                DSADC_PROCESS_TEST();
+            }
+            if(dsadc_fetch_finish){
+                dsadc_fetch_finish = 0;
+
+                delayInMs(1000);
+                R_PGA_DSAD_Start();
+            }
+            HALT();
+    }
+}
 void battery_test_loop(void){
 R_ADC_Create();
 
