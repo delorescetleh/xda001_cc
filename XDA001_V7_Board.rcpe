@@ -615,7 +615,7 @@
         &lt;/DataElement&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="PinNumber_3"&gt;
-        &lt;DataElement key="InusedAs" value="DAC0##AVDD,ADC##AVDD"&gt;
+        &lt;DataElement key="InusedAs" value="ADC##AVDD,DAC0##AVDD"&gt;
         &lt;/DataElement&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="PinNumber_4"&gt;
@@ -35742,7 +35742,7 @@
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="INPUT_VALUE"&gt;
-          &lt;DataElement key="Text" value="1"&gt;
+          &lt;DataElement key="Text" value="10"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="INPUT_VALUE_SCALE"&gt;
@@ -39356,11 +39356,11 @@
           &lt;/SerializableData&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="rdoConSelect"&gt;
-          &lt;DataElement key="Checked" value="True"&gt;
+          &lt;DataElement key="Checked" value="False"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="rdoOneSelect"&gt;
-          &lt;DataElement key="Checked" value="False"&gt;
+          &lt;DataElement key="Checked" value="True"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="chkANI8"&gt;
@@ -39510,7 +39510,7 @@
         &lt;SerializableData name="CONVERSION_MODE"&gt;
           &lt;DataElement key="ContentItemCount" value="4"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="SelectedContentItem" value="Low-voltage1"&gt;
+          &lt;DataElement key="SelectedContentItem" value="Low-voltage2"&gt;
           &lt;/DataElement&gt;
           &lt;SerializableData name="ContentItem1"&gt;
             &lt;DataElement key="Pin" value=""&gt;
@@ -39604,7 +39604,7 @@
         &lt;SerializableData name="CONVERSION_TIME"&gt;
           &lt;DataElement key="ContentItemCount" value="56"&gt;
           &lt;/DataElement&gt;
-          &lt;DataElement key="SelectedContentItem" value="32,no-wait/3.6-5.5/Normal1/10bit,no-wait/2.7-3.6/Normal1/10bit,no-wait/3.6-5.5/Low-voltage1/10bit,no-wait/2.7-3.6/Low-voltage1/10bit,no-wait/2.4-2.7/Low-voltage1/10bit,no-wait/1.8-2.4/Low-voltage1/10bit,no-wait/1.6-1.8/Low-voltage1/10bit,hardware wait/3.6-5.5/Low-voltage1/8bit,hardware wait/2.7-3.6/Low-voltage1/8bit,hardware wait/2.4-2.7/Low-voltage1/8bit,hardware wait/1.8-2.4/Low-voltage1/8bit,hardware wait/1.6-1.8/Low-voltage1/8bit,hardware wait/3.6-5.5/Low-voltage2/10bit,hardware wait/2.7-3.6/Low-voltage2/10bit,hardware wait/2.4-2.7/Low-voltage2/10bit,hardware wait/1.8-2.4/Low-voltage2/10bit,hardware wait/1.6-1.8/Low-voltage2/10bit"&gt;
+          &lt;DataElement key="SelectedContentItem" value="32,no-wait/3.6-5.5/Normal1/8bit,no-wait/2.7-3.6/Normal1/8bit,no-wait/3.6-5.5/Normal2/10bit,no-wait/2.7-3.6/Normal2/10bit,no-wait/3.6-5.5/Low-voltage1/8bit,no-wait/2.7-3.6/Low-voltage1/8bit,no-wait/2.4-2.7/Low-voltage1/8bit,no-wait/1.8-2.4/Low-voltage1/8bit,no-wait/1.6-1.8/Low-voltage1/8bit,no-wait/3.6-5.5/Low-voltage2/10bit,no-wait/2.7-3.6/Low-voltage2/10bit,no-wait/2.4-2.7/Low-voltage2/10bit,no-wait/1.8-2.4/Low-voltage2/10bit,no-wait/1.6-1.8/Low-voltage2/10bit,hardware wait/3.6-5.5/Low-voltage2/8bit,hardware wait/2.7-3.6/Low-voltage2/8bit,hardware wait/2.4-2.7/Low-voltage2/8bit,hardware wait/1.8-2.4/Low-voltage2/8bit,hardware wait/1.6-1.8/Low-voltage2/8bit"&gt;
           &lt;/DataElement&gt;
           &lt;SerializableData name="ContentItem1"&gt;
             &lt;DataElement key="Pin" value=""&gt;
@@ -40349,7 +40349,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="True"&gt;
+            &lt;DataElement key="Visible" value="False"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -40371,7 +40371,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="True"&gt;
+            &lt;DataElement key="Visible" value="False"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -40525,7 +40525,7 @@
             &lt;/DataElement&gt;
             &lt;DataElement key="MutexType" value="NoMutex"&gt;
             &lt;/DataElement&gt;
-            &lt;DataElement key="Visible" value="False"&gt;
+            &lt;DataElement key="Visible" value="True"&gt;
             &lt;/DataElement&gt;
             &lt;DataElement key="CustomValid" value="Valid"&gt;
             &lt;/DataElement&gt;
@@ -40840,7 +40840,7 @@
           &lt;/SerializableData&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="CONVERSION_TIME_VALUE"&gt;
-          &lt;DataElement key="Text" value="38"&gt;
+          &lt;DataElement key="Text" value="34"&gt;
           &lt;/DataElement&gt;
         &lt;/SerializableData&gt;
         &lt;SerializableData name="INTERRUPT_GENERATE_CONDITION_1"&gt;

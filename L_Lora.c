@@ -96,7 +96,7 @@ if(!lora_process_timeout_counter)
         {
             lora_init_success = 0;
             LORA_CTS = PIN_LEVEL_AS_HIGH;
-            lora_process_timer_counter = 2;
+            lora_process_timer_counter = 5;
             lora_process = LORA_SEND_MESSAGE;
              break;
         }
@@ -112,7 +112,7 @@ if(!lora_process_timeout_counter)
         {
             prepareDataToLora();
             doSendLoraData();
-            lora_process_timer_counter = 2;
+            lora_process_timer_counter = 5;
             lora_process = LORA_SEND_MESSAGE2;
              break;
         }
@@ -129,7 +129,7 @@ if(!lora_process_timeout_counter)
         }
         if(LORA_RTS)
         {
-            lora_process_timer_counter = 5;
+            lora_process_timer_counter = 9;
             lora_process = LORA_POWER_OFF;
         }
         break;     
@@ -215,16 +215,17 @@ uint8_t GetBatteryLevel(void)
 
 void GetPT100_DATA(void)
 {
-    switch (pt100_data_fetch_result_type)
-    {
-        case PT100_SUCCESS:
-            lora_pt100_send_data.whole = (*lora_pt100+50) * 2;
-            break;
-        case PT100_LINE_ERROR:
-            lora_pt100_send_data.whole = 1;
-            break;
-        case PT100_SENSE_ERROR:
-            lora_pt100_send_data.whole = 0;
-            break;
+  static uint8_t t = 0;
+  switch (pt100_data_fetch_result_type)
+  {
+  case PT100_SUCCESS:
+    lora_pt100_send_data.whole =(((uint16_t)(pt100_temperature + 50)) * 2);
+    break;
+  case PT100_LINE_ERROR:
+    lora_pt100_send_data.whole = 1;
+    break;
+  case PT100_SENSE_ERROR:
+    lora_pt100_send_data.whole = 0;
+    break;
     }
 }

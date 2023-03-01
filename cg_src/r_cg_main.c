@@ -155,21 +155,21 @@ void main(void)
                     ble_process_timer_counter--;
                 }
                 }
-                if ((battery_rtc_counter>=BATTERY_COUNTDOWN_SEC)&&(lora_process!=LORA_PROCESS_END)&&(dsadc_process==DSADC_PROCESS_END)&&(!semaphore))
+                if ((battery_rtc_counter>=BATTERY_COUNTDOWN_SEC)&&(ble_process==BLE_PROCESS_END)&&(lora_process==LORA_PROCESS_END)&&(dsadc_process==DSADC_PROCESS_END)&&(battery_process==BATTERY_PROCESS_END))
                 {
                     battery_rtc_counter = 0;
                     battery_procedure_init(&main_data.battery_data);
                     MAIN_PROCESS_TIMER_START();
                 }
                 battery_rtc_counter++;
-                if ((dsadc_rtc_counter>=DSADC_COUNTDOWN_SEC)&&(battery_process==BATTERY_PROCESS_END)&&(!semaphore))
+                if ((dsadc_rtc_counter>=DSADC_COUNTDOWN_SEC)&&(ble_process==BLE_PROCESS_END)&&(lora_process==LORA_PROCESS_END)&&(dsadc_process==DSADC_PROCESS_END)&&(battery_process==BATTERY_PROCESS_END))
                 {
                     dsadc_rtc_counter = 0;
                     dsadc_procedure_init(&main_data.dsadc_data);
                     MAIN_PROCESS_TIMER_START();
                 }
                 dsadc_rtc_counter++;
-                if ((lora_rtc_counter>=lora_countdown_sec)&&(!semaphore))
+                if ((lora_rtc_counter>=lora_countdown_sec)&&(ble_process==BLE_PROCESS_END)&&(lora_process==LORA_PROCESS_END)&&(dsadc_process==DSADC_PROCESS_END)&&(battery_process==BATTERY_PROCESS_END))
                 {
                     lora_rtc_counter = 0;
                     lora_procedure_init(&main_data.battery_data.Vbat,&main_data.dsadc_data.pt100_temperature);
@@ -219,9 +219,10 @@ static void R_MAIN_UserInit(void)
     R_DTCD10_Stop();
     R_UART1_Stop();
     memset(receivedFromBle, 0, BLE_BUFFER_SIZE);
-    // init ble setting 
-
-     //pt100_test_loop();
+    // init ble setting
+    
+    // battery_test_loop();
+    // pt100_test_loop();
     // ble_test_loop();
     //goToSleep();
     /* End user code. Do not edit comment generated here */
@@ -256,13 +257,16 @@ void pt100_test_loop(void){
 }
 void battery_test_loop(void){
 R_ADC_Create();
-
+     BAT_ADC_ON_MODE = PIN_MODE_AS_OUTPUT;
+    BAT_ADC_ON = PIN_LEVEL_AS_LOW;
 R_ADC_Set_OperationOn();
 R_ADC_Start();
 while(1)
 {
-// R_ADC_Start();
-// delayInMs(10);
+
+            HALT();
+            // R_ADC_Start();
+            // delayInMs(10);
 }
 }
 void ble_test_loop(void){
@@ -313,7 +317,7 @@ void goToSleep(void)
         BLE_CTS_MODE = PIN_MODE_AS_INPUT;
         LORA_POW_CNT_MODE=PIN_MODE_AS_INPUT; 
         //BLE_POW_CNT_MODE = PIN_MODE_AS_INPUT;
-	    // STOP();
-        HALT();
+	     STOP();
+        //HALT();
 }
 /* End user code. Do not edit comment generated here */

@@ -49,8 +49,7 @@ Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
 uint8_t ADC10 = 0;
-uint8_t ADC8 = 0;
-uint32_t adc10_mean = 0;
+
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -62,18 +61,18 @@ uint32_t adc10_mean = 0;
 static void __near r_adc_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
-    switch (ADS)
-    {
-    case _08_AD_INPUT_CHANNEL_8:
-        events |= ADC8_NOTIFICATION_EVENT;
-        R_ADC_Get_Result_8bit(&ADC8);
-        break;
-    case _0A_AD_INPUT_CHANNEL_10:
+    // switch (ADS)
+    // {
+    // case _08_AD_INPUT_CHANNEL_8:
+    //     events |= ADC8_NOTIFICATION_EVENT;
+    //     R_ADC_Get_Result_8bit(&ADC8);
+    //     break;
+    // case _0A_AD_INPUT_CHANNEL_10:
         events |= ADC10_NOTIFICATION_EVENT;
         R_ADC_Get_Result_8bit(&ADC10);
-        break;
-    }
-    // R_ADC_Start();
+    //     break;
+    // }
+    R_ADC_Start();
     /* End user code. Do not edit comment generated here */
 }
 

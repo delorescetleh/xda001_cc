@@ -65,7 +65,7 @@ void dsadc_procedure(void)
         break;
         case SAVE_DSADC_DATA:
             dsadc->pt100_temperature=pt100_temperature ;
-            record_data[record_data_index]  = (pt100_temperature+50) * 2;
+            record_data[record_data_index]  = (((uint16_t)(pt100_temperature + 50)) * 2);
             if (record_data_index>0)
             {
                 record_data_index--;
