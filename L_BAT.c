@@ -61,8 +61,8 @@ void battery_procedure_init(struct battery_struct *_battery)
     battery_fetch_finish = 0;
     BAT_ADC_ON_MODE = PIN_MODE_AS_OUTPUT;
     BAT_ADC_ON = PIN_LEVEL_AS_LOW;
-    LORA_POW_CNT_MODE = PIN_MODE_AS_OUTPUT;
-    LORA_POW_CNT = PIN_LEVEL_AS_HIGH;
+    // LORA_POW_CNT_MODE = PIN_MODE_AS_OUTPUT;
+    // LORA_POW_CNT = PIN_LEVEL_AS_HIGH;
 }
 
 void battery_procedure(void)
@@ -93,8 +93,8 @@ void battery_procedure(void)
         battery->Vbat=vbat;
         battery->fetch_finish = 1;
         BATTERY_VOLTAGE_FETCH_STOP();
-        LORA_POW_CNT_MODE = PIN_MODE_AS_OUTPUT;
-        LORA_POW_CNT = PIN_LEVEL_AS_LOW;
+        // LORA_POW_CNT_MODE = PIN_MODE_AS_OUTPUT;
+        // LORA_POW_CNT = PIN_LEVEL_AS_LOW;
         battery_process = BATTERY_PROCESS_END;
     break;
     case BATTERY_PROCESS_END:
