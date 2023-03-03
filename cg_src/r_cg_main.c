@@ -317,7 +317,7 @@ void goToSleep(void)
         BLE_CTS_MODE = PIN_MODE_AS_INPUT;
         LORA_POW_CNT_MODE=PIN_MODE_AS_INPUT; 
         //BLE_POW_CNT_MODE = PIN_MODE_AS_INPUT;
-	    // STOP();
-        HALT();
+	    STOP();
+        //HALT();
 }
 /* End user code. Do not edit comment generated here */

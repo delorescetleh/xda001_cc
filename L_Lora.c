@@ -77,7 +77,7 @@ void L_LORA_INIT(void){
 
 
 void lora_procedure(void){
-if(0)//(!lora_process_timeout_counter)
+if(!lora_process_timeout_counter)
 {
 	lora_process_timeout_counter=LORA_PROCESS_TIMEOUT_COUNT;
     lora_process_timer_counter = 5;

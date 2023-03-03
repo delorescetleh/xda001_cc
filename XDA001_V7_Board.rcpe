@@ -615,7 +615,7 @@
         &lt;/DataElement&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="PinNumber_3"&gt;
-        &lt;DataElement key="InusedAs" value="ADC##AVDD,DAC0##AVDD"&gt;
+        &lt;DataElement key="InusedAs" value="DAC0##AVDD,ADC##AVDD"&gt;
         &lt;/DataElement&gt;
       &lt;/SerializableData&gt;
       &lt;SerializableData name="PinNumber_4"&gt;

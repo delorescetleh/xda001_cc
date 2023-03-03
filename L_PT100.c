@@ -1,7 +1,8 @@
 #include "L_PT100.h"
 # define TYPICAL_IPT100_AT_DAC0_IS_10 1532 // uA
 # define TYPICAL_IPT100_AT_DAC0_IS_7 1103 // uA
-# define TYPICAL_IPT100_AT_DAC0  TYPICAL_IPT100_AT_DAC0_IS_7// uA
+# define TYPICAL_IPT100_AT_DAC0_IS_7_es2 1115 // uA
+# define TYPICAL_IPT100_AT_DAC0  TYPICAL_IPT100_AT_DAC0_IS_7_es2// uA
 #define DSADC_MOVING_AVERAGE_TIMES 8
 dsadc_data_t *dsadc;
 const int32_t ntc_lookup_table[];
