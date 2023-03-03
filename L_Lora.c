@@ -17,7 +17,8 @@ void GetPT100_DATA(void);
 uint8_t receivedFromLora[MAX_LORA_RECEIVE]={0};
 uint8_t sendToLora[20]={0};
 uint8_t lora_init_success=0;
-
+uint8_t lora_sent_success = 0;
+void doSendLoraData(void);
 enum lora_process_t lora_process=LORA_PROCESS_END;
 
 void prepareDataToLora(void);
@@ -38,7 +39,7 @@ void prepareDataToLora(void)
 
 void LORA_PROCESS(void)
 {
-    lora_init_success=checkLoraMessage();
+    checkLoraMessage();
 }
 
 
@@ -76,7 +77,7 @@ void L_LORA_INIT(void){
 
 
 void lora_procedure(void){
-if(!lora_process_timeout_counter)
+if(0)//(!lora_process_timeout_counter)
 {
 	lora_process_timeout_counter=LORA_PROCESS_TIMEOUT_COUNT;
     lora_process_timer_counter = 5;
@@ -88,7 +89,8 @@ if(!lora_process_timeout_counter)
         L_LORA_INIT();
         lora_process = LORA_INIT_CHECK;
         lora_process_timer_counter = 2;
-        
+        lora_init_success = 0;
+        lora_sent_success = 0;
         BUZ0 = !BUZ0;
         break;
     case LORA_INIT_CHECK:
@@ -96,50 +98,42 @@ if(!lora_process_timeout_counter)
         {
             lora_init_success = 0;
             LORA_CTS = PIN_LEVEL_AS_HIGH;
-            lora_process_timer_counter = 5;
             lora_process = LORA_SEND_MESSAGE;
              break;
         }
-            if(!lora_process_timer_counter)
-            {
-                lora_process = LORA_PROCESS_START;
-		        L_LORA_STOP();
-            }
-        
         break;     
     case LORA_SEND_MESSAGE:
         if((!LORA_RTS))
         {
+            R_UART0_Start();
             prepareDataToLora();
-            doSendLoraData();
-            lora_process_timer_counter = 5;
+            R_UART0_Send(sendToLora, 17);
+            LORA_CTS = PIN_LEVEL_AS_LOW;
+            memset(receivedFromLora, 0, MAX_LORA_RECEIVE);
+            R_UART0_Receive(receivedFromLora, 6);
+            lora_sent_success = 0;
             lora_process = LORA_SEND_MESSAGE2;
-             break;
+            break;
         }
-        if(!lora_process_timer_counter)
-            {
-                lora_process = LORA_INIT_CHECK;
-            }
+
         break;
     case LORA_SEND_MESSAGE2:
-        if(!lora_process_timer_counter)
+        if((lora_sent_success)&&(LORA_RTS))
         {
-            lora_process = LORA_SEND_MESSAGE;
-             break;
-        }
-        if(LORA_RTS)
-        {
-            lora_process_timer_counter = 9;
+            lora_process_timer_counter = 5;
+            memset(receivedFromLora, 0, MAX_LORA_RECEIVE);
+            R_UART0_Start();
+            R_UART0_Receive(receivedFromLora, 6);
             lora_process = LORA_POWER_OFF;
         }
         break;     
     case LORA_POWER_OFF:
-            if(!lora_process_timer_counter)
-            {
-                L_LORA_STOP();
-		        lora_process_timeout_counter=LORA_PROCESS_TIMEOUT_COUNT;
-                lora_process = LORA_PROCESS_END;
-            }
+        if(!lora_process_timer_counter)
+        {
+            L_LORA_STOP();
+		    lora_process_timeout_counter=LORA_PROCESS_TIMEOUT_COUNT;
+            lora_process = LORA_PROCESS_END;
+        }
         break;    
     case LORA_PROCESS_END:
         /* code */
@@ -163,24 +157,40 @@ uint8_t checkLoraMessage(void){
     result=strstr((char *)receivedFromLora, "}");
     if (result!=NULL)
     {
-        // R_UART0_Stop();
-        memcpy(&setBleDeviceNameCommand[7], (result-4), 1);
+        if(lora_process==LORA_INIT_CHECK){
+        lora_init_success = 1;
+        memcpy(&setBleDeviceNameCommand[7], (result-4), 4);
         return 1;
+        }
+        if(lora_process==LORA_SEND_MESSAGE2){
+        if(strstr((char *)receivedFromLora, "sent")!=NULL)
+        {
+            lora_sent_success = 1;
+            return 1;
+        }
+        }
     }
     result=strstr((char *)receivedFromLora, "{");
     if (result!=NULL)
     {
-        // R_UART0_Stop();
-        memcpy(&setBleDeviceNameCommand[7], (result+1), 1);
+        if(lora_process==LORA_INIT_CHECK){
+        lora_init_success = 1;
+        memcpy(&setBleDeviceNameCommand[7], (result+1), 4);
         return 1;
+        }
+        if(lora_process==LORA_SEND_MESSAGE2){
+        if(strstr((char *)receivedFromLora, "sent")!=NULL)
+        {
+            lora_sent_success = 1;
+            return 1;
+        }
+        }
     }
     return 0;
 }
-uint8_t doSendLoraData(void)
+void doSendLoraData(void)
 {
-    R_UART0_Start();
     R_UART0_Send(sendToLora, 17);
-    return 1;
 }
 void L_LORA_STOP(void){
     R_UART0_Stop();
